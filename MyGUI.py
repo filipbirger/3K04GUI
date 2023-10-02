@@ -50,8 +50,8 @@ class MyGUI:
         inputName = self.userNameTextField.get().strip()
         inputPassword = self.userPasswordTextField.get().strip()
         if inputName and inputPassword:
-            MyGUI.userlist.append(userClass.User(inputName,inputPassword))
-            print([userClass.User.getUsername for user in MyGUI.userlist])
+            MyGUI.userlist.append(userClass.userClass(inputName,inputPassword))
+            print([userClass.userClass.getUsername for user in MyGUI.userlist])
             self.newUserWindow.destroy()
     
     def createLoginWindow(self):
