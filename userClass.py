@@ -5,19 +5,19 @@ class userClass:
                  VRP = 0, Hysteresis = 0, rateSmoothing = 0, atrialAmplitude = 0, atrialPulseWidth = 0, atrialSensitivity = 0, ARP = 0, PVARP = 0):
         self.username = username
         self.password = password
-        self.lowerRateLimit = lowerRateLimit
-        self.upperRateLimit = upperRateLimit
-        self.atrialAmplitude = atrialAmplitude
-        self.atrialPulseWidth = atrialPulseWidth
-        self.atrialSensitivity = atrialSensitivity
-        self.ARP = ARP
-        self.PVARP = PVARP
-        self.Hysteresis = Hysteresis
-        self.rateSmoothing = rateSmoothing
-        self.ventricularAmplitude = ventricularAmplitude
-        self.ventricularPulseWidth = ventricularPulseWidth
-        self.ventricularSensitivity = ventricularSensitivity
-        self.VRP = VRP
+        self._lowerRateLimit = lowerRateLimit
+        self._upperRateLimit = upperRateLimit
+        self._atrialAmplitude = atrialAmplitude
+        self._atrialPulseWidth = atrialPulseWidth
+        self._atrialSensitivity = atrialSensitivity
+        self._ARP = ARP
+        self._PVARP = PVARP
+        self._Hysteresis = Hysteresis
+        self._rateSmoothing = rateSmoothing
+        self._ventricularAmplitude = ventricularAmplitude
+        self._ventricularPulseWidth = ventricularPulseWidth
+        self._ventricularSensitivity = ventricularSensitivity
+        self._VRP = VRP
     
     def getUsername(self):
         return self.username
