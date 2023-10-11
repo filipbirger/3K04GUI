@@ -1,12 +1,16 @@
 import tkinter as tk
 import userClass 
-
+import sqlite3
+from DataBase import DataBase
 
 class MyGUI:
 
     userlist = []
 
     def __init__(self):
+        
+        self.db = DataBase()
+
         self.startWindow = tk.Tk()
         self.startWindow.geometry("800x800")
         self.startWindow.title("3K04 Pacemaker")
@@ -47,9 +51,12 @@ class MyGUI:
         inputName = self.userNameTextField.get().strip()
         inputPassword = self.userPasswordTextField.get().strip()
         if inputName and inputPassword:
-            MyGUI.userlist.append(userClass.userClass(inputName, inputPassword))
-            print([user.username for user in MyGUI.userlist])
+            self.newUser = userClass.userClass(username=inputName, password=inputPassword)
             self.newUserWindow.destroy()
+            self.db.insertUser(self.newUser)
+
+
+    
 
     def createLoginWindow(self):
         self.loginWindow = tk.Toplevel(self.startWindow)
@@ -76,12 +83,17 @@ class MyGUI:
         inputName = self.loginNameTextField.get().strip()
         inputPassword = self.loginPasswordTextField.get().strip()
 
-        for user in MyGUI.userlist:
-            if user.username == inputName and user.password == inputPassword:
-                self.loginWindow.destroy()
-                self.createMainSettingWindow()
-                return
-        self.errorLabel.config(text="Invalid username or password")
+        user = self.db.getUserByUsername(inputName)
+        
+        print(user)
+
+
+        if user and user[1] == inputPassword:  
+            self.loginWindow.destroy()
+            self.createMainSettingWindow()
+        else:
+            self.errorLabel.config(text="Invalid username or password")
+
 
     def createMainSettingWindow(self):
         for widget in self.startWindow.winfo_children():
@@ -151,7 +163,7 @@ class MyGUI:
         self.fix2= tk.Label(self.configModeWindow, text="IN PROGRESS",font=('Arial', 18))
         self.fix2.pack()
 
-        self.VOOButton = tk.Button(self.configModeWindow, text = "Set VOO Option")
+        self.VOOButton = tk.Button(self.configModeWindow, text = "Set VOO Option", command=self.VOOWindow)
         self.VOOButton.pack()
         self.VOOButton.place(relx=0.2, rely=0.2, relwidth=0.3, relheight=0.05)
 
@@ -169,6 +181,49 @@ class MyGUI:
         self.VVIButton.pack()
         self.VVIButton.place(relx=0.6, rely=0.4, relwidth=0.3, relheight=0.05)
 
+    def VOOWindow(self):
+        self.vooWindow=tk.Toplevel(self.configModeWindow)
+        self.vooWindow.geometry("800x800")
+
+        self.lowerRateLimit = tk.Entry(self.vooWindow, width = 30)
+        self.lowerRateLimit.grid(row=0, column=1, padx = 20)
+
+        self.upperRateLimit = tk.Entry(self.vooWindow, width = 30)
+        self.upperRateLimit.grid(row=1, column=1)
+        
+        self.ventricularAmplitude = tk.Entry(self.vooWindow, width = 30)
+        self.ventricularAmplitude.grid(row=2, column=1)
+        
+        self.atrialPulseWidth = tk.Entry(self.vooWindow, width = 30)
+        self.atrialPulseWidth.grid(row=3, column=1)
+        
+
+
+        self.lowerRateLimitLabel = tk.Label(self.vooWindow,text="Lower Rate Limit:")
+        self.lowerRateLimitLabel.grid(row=0,column=0)
+
+        self.upperRateLimitLabel = tk.Label(self.vooWindow,text="Upper Rate Limit:")
+        self.upperRateLimitLabel.grid(row=1,column=0)
+
+        self.ventricularAmplitudeLabel = tk.Label(self.vooWindow,text="Ventricular Amplitude:")
+        self.ventricularAmplitudeLabel.grid(row=2,column=0)
+
+        self.atrialPulseWidthLabel = tk.Label(self.vooWindow, text = "Atrial Pulse Width:")
+        self.atrialPulseWidthLabel.grid(row=3,column=0)
+
+
+
+        self.submitButton = tk.Button(self.vooWindow, text="Submit", command= self.submit)
+        self.submitButton.grid(row=4, column=0 ,columnspan=2,padx=10,pady=10,ipadx=100)
+
+    #def submit(self):
+        
+    def __del__(self):
+        self.db.close()
+
+
+
+    
 
 
 MyGUI()
