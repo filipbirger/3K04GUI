@@ -54,6 +54,45 @@ class DataBase():
                 )
             """, user_data)
 
+    def updateUser(self, user):
+        with self.conn:
+            user_data = {
+                "username": user.username,
+                "password": user.password,
+                "lowerRateLimit": float(user.lowerRateLimit) if user.lowerRateLimit else None,
+                "upperRateLimit": float(user.upperRateLimit) if user.upperRateLimit else None,
+                "ventricularAmplitude": float(user.ventricularAmplitude) if user.ventricularAmplitude else None,
+                "ventricularPulseWidth": float(user.ventricularPulseWidth) if user.ventricularPulseWidth else None,
+                "ventricularSensitivity": float(user.ventricularSensitivity) if user.ventricularSensitivity else None,
+                "VRP": float(user.VRP) if user.VRP else None,
+                "Hysteresis": float(user.Hysteresis) if user.Hysteresis else None,
+                "rateSmoothing": float(user.rateSmoothing) if user.rateSmoothing else None,
+                "atrialAmplitude": float(user.atrialAmplitude) if user.atrialAmplitude else None,
+                "atrialPulseWidth": float(user.atrialPulseWidth) if user.atrialPulseWidth else None,
+                "atrialSensitivity": float(user.atrialSensitivity) if user.atrialSensitivity else None,
+                "ARP":float(user.ARP) if user.ARP else None,
+                "PVARP": float(user.PVARP) if user.PVARP else None,
+            }
+            self.c.execute("""
+                UPDATE Users SET
+                    password = :password,
+                    lowerRateLimit = :lowerRateLimit,
+                    upperRateLimit = :upperRateLimit,
+                    ventricularAmplitude = :ventricularAmplitude,
+                    ventricularPulseWidth = :ventricularPulseWidth,
+                    ventricularSensitivity = :ventricularSensitivity,
+                    VRP = :VRP,
+                    Hysteresis = :Hysteresis,
+                    rateSmoothing = :rateSmoothing,
+                    atrialAmplitude = :atrialAmplitude,
+                    atrialPulseWidth = :atrialPulseWidth,
+                    atrialSensitivity = :atrialSensitivity,
+                    ARP = :ARP,
+                    PVARP = :PVARP
+                WHERE username = :username
+            """, user_data)
+
+
 
     def getUserByUsername(self, username):
         self.c.execute("SELECT * FROM Users WHERE username = ?", (username,))
@@ -65,3 +104,10 @@ class DataBase():
 
     def close(self):
         self.conn.close()
+
+    # Additional method for the DataBase class to get all users
+
+    def getAllUsers(self):
+        self.c.execute("SELECT * FROM Users")
+        return self.c.fetchall()
+

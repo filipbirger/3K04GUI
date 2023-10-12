@@ -3,7 +3,7 @@
 class userClass:
     def __init__(self, username, password,lowerRateLimit = None,upperRateLimit = None, ventricularAmplitude = None, ventricularPulseWidth = None, ventricularSensitivity = None, 
                  VRP = None, Hysteresis = None, rateSmoothing = None, atrialAmplitude = None, atrialPulseWidth = None, atrialSensitivity = None, ARP = None, PVARP = None):
-        self._username = username
+        self.username = username
         self._password = password
         self._lowerRateLimit = lowerRateLimit
         self._upperRateLimit = upperRateLimit
@@ -142,51 +142,51 @@ class userClass:
 
 
     def AOO(self,lowerRateLimit, upperRateLimit, atrialAmplitude, atrialPulseWidth):
-        userClass._lowerRateLimit = lowerRateLimit
-        userClass._upperRateLimit = upperRateLimit
-        userClass._atrialAmplitude = atrialAmplitude
-        userClass._atrialPulseWidth = atrialPulseWidth
+        self._lowerRateLimit = lowerRateLimit
+        self._upperRateLimit = upperRateLimit
+        self._atrialAmplitude = atrialAmplitude
+        self._atrialPulseWidth = atrialPulseWidth
 
     def VOO(self,lowerRateLimit, upperRateLimit, ventricularAmplitude, ventricularPulseWidth):
-        userClass._lowerRateLimit = lowerRateLimit
-        userClass._upperRateLimit = upperRateLimit
-        userClass._ventricularAmplitude = ventricularAmplitude
-        userClass._atrialPulseWidth = ventricularPulseWidth
+        self._lowerRateLimit = lowerRateLimit
+        self._upperRateLimit = upperRateLimit
+        self._ventricularAmplitude = ventricularAmplitude
+        self._atrialPulseWidth = ventricularPulseWidth
 
     def AAI(self,lowerRateLimit, upperRateLimit, atrialAmplitude, atrialPulseWidth, atrialSensitivity, ARP, PVARP, Hysteresis, rateSmoothing ):
-        userClass._lowerRateLimit = lowerRateLimit
-        userClass._upperRateLimit = upperRateLimit
-        userClass._atrialAmplitude = atrialAmplitude
-        userClass._atrialPulseWidth = atrialPulseWidth
-        userClass._atrialSensitivity = atrialSensitivity
-        userClass._ARP = ARP
-        userClass._PVARP = PVARP
-        userClass._Hysteresis = Hysteresis
-        userClass._rateSmoothing = rateSmoothing
+        self._lowerRateLimit = lowerRateLimit
+        self._upperRateLimit = upperRateLimit
+        self._atrialAmplitude = atrialAmplitude
+        self._atrialPulseWidth = atrialPulseWidth
+        self._atrialSensitivity = atrialSensitivity
+        self._ARP = ARP
+        self._PVARP = PVARP
+        self._Hysteresis = Hysteresis
+        self._rateSmoothing = rateSmoothing
     
     def VVI(self,lowerRateLimit, upperRateLimit, ventricularAmplitude, ventricularPulseWidth, ventricularSensitivity, VRP, Hysteresis, rateSmoothing):
-        userClass._lowerRateLimit = lowerRateLimit
-        userClass._upperRateLimit = upperRateLimit
-        userClass._ventricularAmplitude = ventricularAmplitude
-        userClass._ventricularPulseWidth = ventricularPulseWidth
-        userClass._ventricularSensitivity = ventricularSensitivity
-        userClass._VRP = VRP
-        userClass._Hysteresis = Hysteresis
-        userClass._rateSmoothing = rateSmoothing
+        self._lowerRateLimit = lowerRateLimit
+        self._upperRateLimit = upperRateLimit
+        self._ventricularAmplitude = ventricularAmplitude
+        self._ventricularPulseWidth = ventricularPulseWidth
+        self._ventricularSensitivity = ventricularSensitivity
+        self._VRP = VRP
+        self._Hysteresis = Hysteresis
+        self._rateSmoothing = rateSmoothing
 
     def delete(self):
-        del userClass._username
-        del userClass._password 
-        del userClass._lowerRateLimit 
-        del userClass._upperRateLimit 
-        del userClass._atrialAmplitude 
-        del userClass._atrialPulseWidth 
-        del userClass._atrialSensitivity 
-        del userClass._ARP 
-        del userClass._PVARP 
-        del userClass._Hysteresis 
-        del userClass._rateSmoothing 
-        del userClass._ventricularAmplitude 
-        del userClass._ventricularPulseWidth
-        del userClass._ventricularSensitivity 
-        del userClass._VRP 
+        del self._username
+        del self._password 
+        del self._lowerRateLimit 
+        del self._upperRateLimit 
+        del self._atrialAmplitude 
+        del self._atrialPulseWidth 
+        del self._atrialSensitivity 
+        del self._ARP 
+        del self._PVARP 
+        del self._Hysteresis 
+        del self._rateSmoothing 
+        del self._ventricularAmplitude 
+        del self._ventricularPulseWidth
+        del self._ventricularSensitivity 
+        del self._VRP 
