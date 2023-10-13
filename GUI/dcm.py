@@ -233,26 +233,25 @@ class MyGUI:
         self.VOOURLimit= self.URLimitTextField.get().strip()
         self.VOOVentricularAmplitude= self.VentricularAmplitudeTextField.get().strip()
         self.VOOVentricularPulseWidth= self.VentricularPulseWidthTextField.get().strip()
-
         self.VOOLRLimit = float(self.VOOLRLimit)
         self.VOOURLimit = float(self.VOOURLimit)
         self.VOOVentricularAmplitude = float(self.VOOVentricularAmplitude)
         self.VOOVentricularPulseWidth = float(self.VOOVentricularPulseWidth)
 
-        self.currentUser.VOO(self.VOOLRLimit, self.VOOURLimit, self.VOOVentricularAmplitude, self.VOOVentricularPulseWidth)
-        self.db.updateUser(self.currentUser)   
-    
-    """  
-        if (30<= self.VOOLRLimit<=50 and self.VOOLRLimit % 5 == 0) or (50<= self.VOOLRLimit<=90) or  (90 <= self.VOOLRLimit <= 175 and self.VOOLRLimit % 5 == 0):
+        if ((30<= self.VOOLRLimit<=50 and self.VOOLRLimit % 5 == 0) or (50<= self.VOOLRLimit<=90) or  (90 <= self.VOOLRLimit <= 175 and self.VOOLRLimit % 5 == 0)):
             pass
-        elif (50<= self.VOOLRLimit<=175 and self.VOOLRLimit % 5 == 0):
+        elif ((50<= self.VOOLRLimit<=175 and self.VOOLRLimit % 5 == 0)):
             pass
-        elif     
+        elif (0.36 <= self.VOOVentricularAmplitude <= 2.3 and self.VOOVentricularAmplitude%0.1==0) or (2.5 <= self.VOOVentricularAmplitude <= 5 and self.VOOVentricularAmplitude%0.5==0): 
+            pass
+        elif((self.VOOVentricularPulseWidth == 0.05 )or (0.1<= self.VOOVentricularPulseWidth <= 1.9 and self.VOOVentricularPulseWidth %0.1==0)):
+            pass    
         else:
             MyGUI.errorWindow(self)
-    
-    """
-           
+        
+        self.currentUser.VOO(self.VOOLRLimit, self.VOOURLimit, self.VOOVentricularAmplitude, self.VOOVentricularPulseWidth)
+        self.db.updateUser(self.currentUser)
+        
 
 
     def AOOConfig(self):

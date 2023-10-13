@@ -161,8 +161,8 @@ class userClass:
         self._upperRateLimit = upperRateLimit
         self._ventricularAmplitude = ventricularAmplitude
         self._ventricularPulseWidth = ventricularPulseWidth
-        self._ventricularAmplitude = 0
-        self._ventricularPulseWidth = 0
+        self._atrialAmplitude = 0
+        self._atrialPulseWidth = 0
         self._ventricularSensitivity = 0
         self._atrialSensitivity = 0
         self._ARP = 0
