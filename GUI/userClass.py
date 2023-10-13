@@ -1,7 +1,7 @@
 
 
 class userClass:
-    def __init__(self, username, password,lowerRateLimit = None,upperRateLimit = None, ventricularAmplitude = None, ventricularPulseWidth = None, ventricularSensitivity = None, 
+    def __init__(self, username, password,lowerRateLimit = 0,upperRateLimit = 0, ventricularAmplitude = 0, ventricularPulseWidth = 0, ventricularSensitivity = 0, 
                  VRP = None, Hysteresis = None, rateSmoothing = None, atrialAmplitude = None, atrialPulseWidth = None, atrialSensitivity = None, ARP = None, PVARP = None):
         self.username = username
         self._password = password
@@ -146,12 +146,30 @@ class userClass:
         self._upperRateLimit = upperRateLimit
         self._atrialAmplitude = atrialAmplitude
         self._atrialPulseWidth = atrialPulseWidth
+        self._ventricularAmplitude = 0
+        self._ventricularPulseWidth = 0
+        self._ventricularSensitivity = 0
+        self._atrialSensitivity = 0
+        self._ARP = 0
+        self._VRP = 0
+        self._PVARP = 0
+        self._Hysteresis = 0
+        self._rateSmoothing = 0
 
     def VOO(self,lowerRateLimit, upperRateLimit, ventricularAmplitude, ventricularPulseWidth):
         self._lowerRateLimit = lowerRateLimit
         self._upperRateLimit = upperRateLimit
         self._ventricularAmplitude = ventricularAmplitude
         self._ventricularPulseWidth = ventricularPulseWidth
+        self._ventricularAmplitude = 0
+        self._ventricularPulseWidth = 0
+        self._ventricularSensitivity = 0
+        self._atrialSensitivity = 0
+        self._ARP = 0
+        self._VRP = 0
+        self._PVARP = 0
+        self._Hysteresis = 0
+        self._rateSmoothing = 0
 
     def AAI(self,lowerRateLimit, upperRateLimit, atrialAmplitude, atrialPulseWidth, atrialSensitivity, ARP, PVARP, Hysteresis, rateSmoothing ):
         self._lowerRateLimit = lowerRateLimit
@@ -163,6 +181,12 @@ class userClass:
         self._PVARP = PVARP
         self._Hysteresis = Hysteresis
         self._rateSmoothing = rateSmoothing
+        self._ventricularAmplitude = 0
+        self._ventricularPulseWidth = 0
+        self._ventricularSensitivity = 0
+        self._VRP = 0
+
+
     
     def VVI(self,lowerRateLimit, upperRateLimit, ventricularAmplitude, ventricularPulseWidth, ventricularSensitivity, VRP, Hysteresis, rateSmoothing):
         self._lowerRateLimit = lowerRateLimit
@@ -173,6 +197,12 @@ class userClass:
         self._VRP = VRP
         self._Hysteresis = Hysteresis
         self._rateSmoothing = rateSmoothing
+        self._atrialSensitivity = 0
+        self._ARP = 0
+        self._atrialAmplitude = 0
+        self._atrialPulseWidth = 0
+        self._PVARP = 0
+
 
     def delete(self):
         del self._username
