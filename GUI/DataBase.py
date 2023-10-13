@@ -10,7 +10,7 @@ class DataBase():
             CREATE TABLE IF NOT EXISTS Users(
                 username TEXT PRIMARY KEY,
                 password TEXT,
-                DeviceId Integer
+                DeviceId INTEGER,
                 lowerRateLimit REAL,
                 upperRateLimit REAL,
                 ventricularAmplitude REAL, 
@@ -79,7 +79,7 @@ class DataBase():
             self.c.execute("""
                 UPDATE Users SET
                     password = :password,
-                    DeviceId = :user.DeviceId,
+                    DeviceId = :DeviceId,
                     lowerRateLimit = :lowerRateLimit,
                     upperRateLimit = :upperRateLimit,
                     ventricularAmplitude = :ventricularAmplitude,
@@ -98,24 +98,19 @@ class DataBase():
 
 
 
-    def getUserByUsername(self, username):
-        self.c.execute("SELECT * FROM Users WHERE username = ?", (username,))
-        return self.c.fetchone()
-
+    
     def delete_user(self, username):
         with self.conn:
             self.c.execute("DELETE FROM Users WHERE username = ?", (username,))
 
-    def close(self):
-        self.conn.close()
-
+    
     # Additional method for the DataBase class to get all users
 
     def getAllUsers(self):
         self.c.execute("SELECT * FROM Users")
         return self.c.fetchall()
 
-    def getUser(self, username):
+    def getUserByUsername(self, username):
         self.c.execute("SELECT * FROM Users WHERE username = ?", (username,))
         data = self.c.fetchone()
         
@@ -126,6 +121,10 @@ class DataBase():
         user_data_dict = dict(zip(columns, data))
         
         return user_data_dict
+   
+   
+    def close(self):
+        self.conn.close()
 
-    # This will return the user data as a dictionary, making it easier to display in the getPrevMode function.
+# This will return the user data as a dictionary, making it easier to display in the getPrevMode function.
 
