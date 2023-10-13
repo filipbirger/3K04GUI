@@ -213,6 +213,10 @@ class MyGUI:
         self.URLimitTextField = tk.Entry(self.VOOConfigWindow)
         self.URLimitTextField.pack()
         self.URLimitTextField.place(relx=0.3, rely=0.4)
+        
+        self.URLimitWarningLabel= tk.Label(self.VOOConfigWindow, text="Valid inputs are: values between 50-175 ppm incremented by 5 ppm",font=('Arial', 6) )
+        self.URLimitWarningLabel.pack()
+        self.URLimitWarningLabel.place(relx=0.1, rely=0.45)
 
         self.VentricularAmplitudeLabel= tk.Label(self.VOOConfigWindow, text="Ventricular Amplitude: ")
         self.VentricularAmplitudeLabel.pack()
@@ -221,12 +225,20 @@ class MyGUI:
         self.VentricularAmplitudeTextField.pack()
         self.VentricularAmplitudeTextField.place(relx=0.3, rely=0.6)
 
+        self.VentricularAmplitudeWarningLabel= tk.Label(self.VOOConfigWindow, text="Valid inputs are: values between 0.5-3.2 V with 0.1 V increment (if device is OFF)\n values between 3.5-7 V with 0.5 V increment (if device is ON)",font=('Arial', 6) )
+        self.VentricularAmplitudeWarningLabel.pack()
+        self.VentricularAmplitudeWarningLabel.place(relx=0.1, rely=0.65)
+
         self.VentricularPulseWidthLabel= tk.Label(self.VOOConfigWindow, text="Ventricular Pulse Width: ")
         self.VentricularPulseWidthLabel.pack()
         self.VentricularPulseWidthLabel.place(relx=0.1,rely=0.8)
         self.VentricularPulseWidthTextField = tk.Entry(self.VOOConfigWindow)
         self.VentricularPulseWidthTextField.pack()
         self.VentricularPulseWidthTextField.place(relx=0.3, rely=0.8)
+
+        self.VentricularPulseWidthWarningLabel= tk.Label(self.VOOConfigWindow, text="Valid inputs are: 0.05 ms\n values between 0.1-1.9 ms with 0.1 ms increment (if device is ON)",font=('Arial', 6) )
+        self.VentricularPulseWidthWarningLabel.pack()
+        self.VentricularPulseWidthWarningLabel.place(relx=0.1, rely=0.85)
 
         self.VOOButton = tk.Button(self.VOOConfigWindow, text = "submit", command=self.submitVOO)
         self.VOOButton.pack()
