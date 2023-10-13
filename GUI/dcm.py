@@ -145,7 +145,6 @@ class MyGUI:
         self.deleteUserButton.place(relx=0.35, rely=0.7, relwidth=0.3, relheight=0.05)
 
 
-
     def getPrevMode(self):
         self.prevInfoWindow = tk.Toplevel(self.startWindow)
         self.prevInfoWindow.geometry("800x800")
@@ -157,9 +156,6 @@ class MyGUI:
             label = tk.Label(self.prevInfoWindow, text=f"{attribute}: {value}", font=('Arial', 18))
             label.place(relx=0.1, rely=y_position)
             y_position += 0.05
-
-        self.prevPaceMode= tk.Label(self.prevInfoWindow, text="IN PROGRESS",font=('Arial', 18))
-        self.prevPaceMode.pack()
 
     def configPaceMode(self):
         self.defaultWindow=tk.Toplevel(self.startWindow)
@@ -181,14 +177,136 @@ class MyGUI:
     def useDefault(self):
         self.defaultModeWindow=tk.Toplevel(self.defaultWindow)
         self.defaultModeWindow.geometry("800x800")
-        self.fix1= tk.Label(self.defaultModeWindow, text="IN PROGRESS",font=('Arial', 18))
-        self.fix1.pack()
+
+        self.VOOButton = tk.Button(self.defaultModeWindow, text = "Default VOO", command=self.defaultVOO)
+        self.VOOButton.pack()
+        self.VOOButton.place(relx=0.2, rely=0.2, relwidth=0.3, relheight=0.05)
+
+        self.AOOButton = tk.Button(self.defaultModeWindow, text = "Default AOO", command=self.defaultAOO)
+        self.AOOButton.pack()
+        self.AOOButton.place(relx=0.6, rely=0.2, relwidth=0.3, relheight=0.05)
+
+        self.AAIButton = tk.Button(self.defaultModeWindow, text = "Default AAI", command=self.defaultAAI)
+        self.AAIButton.pack()
+        self.AAIButton.place(relx=0.2, rely=0.4, relwidth=0.3, relheight=0.05)
+
+        self.VVIButton = tk.Button(self.defaultModeWindow, text = "Default VVI", command=self.defaultVVI)
+        self.VVIButton.pack()
+        self.VVIButton.place(relx=0.6, rely=0.4, relwidth=0.3, relheight=0.05)
+
+    
+    def defaultVOO(self):
+        self.defVOOWindow=tk.Toplevel(self.defaultModeWindow)
+        self.defVOOWindow.geometry("800x800")
+
+        self.LRLimitLabel= tk.Label(self.defVOOWindow, text="Lower Rate Limit: 60 ppm", font=('Arial', 18))
+        self.LRLimitLabel.pack()
+        self.LRLimitLabel.place(relx=0.1, rely=0.1)
+
+        self.URLimitLabel= tk.Label(self.defVOOWindow, text="Upper Rate Limit: 120 ppm", font=('Arial', 18))
+        self.URLimitLabel.pack()
+        self.URLimitLabel.place(relx=0.1, rely=0.3)
+
+        self.VentricularAmplitudeLabel= tk.Label(self.defVOOWindow, text="Ventricular Amplitude: 3.5 V", font=('Arial', 18))
+        self.VentricularAmplitudeLabel.pack()
+        self.VentricularAmplitudeLabel.place(relx=0.1, rely=0.5)
+
+        self.VentricularPulseWidthLabel= tk.Label(self.defVOOWindow, text="Ventricular Pulse Width: 0.4 ms", font=('Arial', 18))
+        self.VentricularPulseWidthLabel.pack()
+        self.VentricularPulseWidthLabel.place(relx=0.1, rely=0.7)
+ 
+        self.VOOButton = tk.Button(self.defVOOWindow, text = "submit", command=self.submitDefVOO)
+        self.VOOButton.pack()
+        self.VOOButton.place(relx=0.8, rely=0.8, relwidth=0.1, relheight=0.1)
+
+    def submitDefVOO(self):
+        self.VOOLRLimit=60.0
+        self.VOOURLimit=120.0
+        self.VOOVentricularAmplitude=3.5
+        self.VOOVentricularPulseWidth=0.4
+
+        self.currentUser.VOO(self.VOOLRLimit, self.VOOURLimit, self.VOOVentricularAmplitude, self.VOOVentricularPulseWidth)
+        self.db.updateUser(self.currentUser)
+    
+    def defaultAOO(self):
+        self.defAOOWindow=tk.Toplevel(self.defaultModeWindow)
+        self.defAOOWindow.geometry("800x800")
+
+        self.LRLimitLabel= tk.Label(self.defAOOWindow, text="Lower Rate Limit: 60 ppm", font=('Arial', 18))
+        self.LRLimitLabel.pack()
+        self.LRLimitLabel.place(relx=0.1, rely=0.1)
+
+        self.URLimitLabel= tk.Label(self.defAOOWindow, text="Upper Rate Limit: 120 ppm", font=('Arial', 18))
+        self.URLimitLabel.pack()
+        self.URLimitLabel.place(relx=0.1, rely=0.3)
+
+        self.AtrialAmplitudeLabel= tk.Label(self.defAOOWindow, text="Atrial Amplitude: 3.5 V", font=('Arial', 18))
+        self.AtrialAmplitudeLabel.pack()
+        self.AtrialAmplitudeLabel.place(relx=0.1, rely=0.5)
+
+        self.AtrialPulseWidthLabel= tk.Label(self.defAOOWindow, text="Atrial Pulse Width: 0.4 ms", font=('Arial', 18))
+        self.AtrialPulseWidthLabel.pack()
+        self.AtrialPulseWidthLabel.place(relx=0.1, rely=0.7)
+ 
+        self.AOOButton = tk.Button(self.defAOOWindow, text = "submit", command=self.submitDefAOO)
+        self.AOOButton.pack()
+        self.AOOButton.place(relx=0.8, rely=0.8, relwidth=0.1, relheight=0.1)
+    
+    def submitDefAOO(self):
+        self.AOOLRLimit=60.0
+        self.AOOURLimit=120.0
+        self.AOOVentricularAmplitude=3.5
+        self.AOOVentricularPulseWidth=0.4
+
+        self.currentUser.AOO(self.AOOLRLimit, self.AOOURLimit, self.AOOAtrialAmplitude, self.AOOAtrialPulseWidth)
+        self.db.updateUser(self.currentUser)
+
+    def defaultAAI(self):
+        self.defAAIWindow=tk.Toplevel(self.defaultModeWindow)
+        self.defAAIWindow.geometry("800x800")
+
+        self.LRLimitLabel= tk.Label(self.defAAIWindow, text="Lower Rate Limit: 60 ppm", font=('Arial', 18))
+        self.LRLimitLabel.pack()
+        self.LRLimitLabel.place(relx=0.1, rely=0.1)
+
+        self.URLimitLabel= tk.Label(self.defAAIWindow, text="Upper Rate Limit: 120 ppm", font=('Arial', 18))
+        self.URLimitLabel.pack()
+        self.URLimitLabel.place(relx=0.1, rely=0.3)
+
+        self.AtrialAmplitudeLabel= tk.Label(self.defAAIWindow, text="Atrial Amplitude: 3.5 V", font=('Arial', 18))
+        self.AtrialAmplitudeLabel.pack()
+        self.AtrialAmplitudeLabel.place(relx=0.1, rely=0.5)
+
+        self.AtrialPulseWidthLabel= tk.Label(self.defAAIWindow, text="Atrial Pulse Width: 0.4 ms", font=('Arial', 18))
+        self.AtrialPulseWidthLabel.pack()
+        self.AtrialPulseWidthLabel.place(relx=0.1, rely=0.7)
+
+        self.AtrialSensitivityLabel= tk.Label(self.defAAIWindow, text="Atrial Sensitivity: 0.75 mV", font=('Arial', 18))
+        self.AtrialSensitivityLabel.pack()
+        self.AtrialSensitivityLabel.place(relx=0.525, rely=0.1)
+
+        self.ARPLabel= tk.Label(self.defAAIWindow, text="ARP: 250 ms", font=('Arial', 18))
+        self.ARPLabel.pack()
+        self.ARPLabel.place(relx=0.525, rely=0.3)
+
+        self.PVARPLabel= tk.Label(self.defAAIWindow, text="PVARP: 250 ms", font=('Arial', 18))
+        self.PVARPLabel.pack()
+        self.PVARPLabel.place(relx=0.525, rely=0.5)
+
+        self.HysteresisLabel= tk.Label(self.defAAIWindow, text="Hysteresis: 0 ppm", font=('Arial', 18))
+        self.HysteresisLabel.pack()
+        self.HysteresisLabel.place(relx=0.525, rely=0.7)
+
+        self.RateSmoothingLabel= tk.Label(self.defAAIWindow, text="Rate Smoothing: 0%", font=('Arial', 18))
+        self.RateSmoothingLabel.pack()
+        self.RateSmoothingLabel.place(relx=0.1, rely=0.8)
+
+
+
 
     def useConfigure(self):
         self.configModeWindow = tk.Toplevel(self.defaultWindow)
         self.configModeWindow.geometry("800x800")
-        self.fix2= tk.Label(self.configModeWindow, text="IN PROGRESS",font=('Arial', 18))
-        self.fix2.pack()
 
         self.VOOButton = tk.Button(self.configModeWindow, text = "Set VOO Option", command=self.VOOConfig)
         self.VOOButton.pack()
@@ -201,7 +319,6 @@ class MyGUI:
         self.AAIButton = tk.Button(self.configModeWindow, text = "Set AAI Option", command=self.AAIConfig)
         self.AAIButton.pack()
         self.AAIButton.place(relx=0.2, rely=0.4, relwidth=0.3, relheight=0.05)
-
 
         self.VVIButton = tk.Button(self.configModeWindow, text = "Set VVI Option", command=self.VVIConfig)
         self.VVIButton.pack()
