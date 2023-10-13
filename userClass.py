@@ -151,7 +151,7 @@ class userClass:
         self._lowerRateLimit = lowerRateLimit
         self._upperRateLimit = upperRateLimit
         self._ventricularAmplitude = ventricularAmplitude
-        self._atrialPulseWidth = ventricularPulseWidth
+        self._ventricularPulseWidth = ventricularPulseWidth
 
     def AAI(self,lowerRateLimit, upperRateLimit, atrialAmplitude, atrialPulseWidth, atrialSensitivity, ARP, PVARP, Hysteresis, rateSmoothing ):
         self._lowerRateLimit = lowerRateLimit

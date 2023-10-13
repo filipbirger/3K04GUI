@@ -22,6 +22,7 @@ class MyGUI:
         self.signInButton = tk.Button(self.startWindow, text="Sign In", command=self.createLoginWindow)
         self.signInButton.place(relx=0.2, rely=0.2, relheight=0.1, relwidth=0.2)
 
+
         self.startWindow.mainloop()
 
     def createNewUser(self):
@@ -124,7 +125,10 @@ class MyGUI:
         self.warningNo.pack()
         self.warningNo.place(relx=0.625, rely=0.55)
 
-    #def userLimitReached(self):
+        self.deleteUserButton = tk.Button(self.startWindow, text = "Delete User", command=self.deleteUser)
+        self.deleteUserButton.place(relx=0.3, rely=0.1)
+
+
 
     def getPrevMode(self):
         #ADD CONDITION IF NEW USER PRESSES THE YES BUTTON SAYING ERROR
@@ -259,7 +263,7 @@ class MyGUI:
         self.AtrialPulseWidthTextField.pack()
         self.AtrialPulseWidthTextField.place(relx=0.3, rely=0.8)
 
-        self.AAOButton = tk.Button(self.VOOConfigWindow, text = "submit", command=self.submitAOO)
+        self.AAOButton = tk.Button(self.AOOConfigWindow, text = "submit", command=self.submitAOO)
         self.AAOButton.pack()
         self.AAOButton.place(relx=0.6, rely=0.4, relwidth=0.3, relheight=0.3)
 
@@ -340,7 +344,7 @@ class MyGUI:
         self.RateSmoothingTextField.pack()
         self.RateSmoothingTextField.place(relx=0.5, rely=0.825)
 
-        self.AAIButton = tk.Button(self.VOOConfigWindow, text = "submit", command=self.submitAAI)
+        self.AAIButton = tk.Button(self.AAIConfigWindow, text = "submit", command=self.submitAAI)
         self.AAIButton.pack()
         self.AAIButton.place(relx=0.6, rely=0.4, relwidth=0.3, relheight=0.3)
 
@@ -417,6 +421,10 @@ class MyGUI:
         self.HysteresisTextField = tk.Entry(self.VVIConfigWindow)
         self.HysteresisTextField.pack()
         self.HysteresisTextField.place(relx=0.8, rely=0.8)
+
+        self.VVIButton = tk.Button(self.VVIConfigWindow, text = "submit", command=self.submitVVI)
+        self.VVIButton.pack()
+        self.VVIButton.place(relx=0.6, rely=0.4, relwidth=0.3, relheight=0.3)
 
     def submitVVI(self):
         self.VVILRLimit= self.LRLimitTextField.get().strip()
