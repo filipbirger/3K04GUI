@@ -194,7 +194,11 @@ class MyGUI:
         self.LRLimitTextField = tk.Entry(self.VOOConfigWindow)
         self.LRLimitTextField.pack()
         self.LRLimitTextField.place(relx=0.3, rely=0.2)
-
+        
+        self.LRLimitWarningLabel= tk.Label(self.VOOConfigWindow, text="Valid inputs are: values between 30-50 ppm incremented by 5 ppm\n values between 50-90 ppm incremented by 1 ppm\n values between 90-175 ppm incremented by 5 ppm",font=('Arial', 6) )
+        self.LRLimitWarningLabel.pack()
+        self.LRLimitWarningLabel.place(relx=0.1, rely=0.25)
+        
         self.URLimitLabel= tk.Label(self.VOOConfigWindow, text="Upper Rate Limit: ")
         self.URLimitLabel.pack()
         self.URLimitLabel.place(relx=0.1,rely=0.4)
