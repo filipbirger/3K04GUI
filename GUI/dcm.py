@@ -14,6 +14,7 @@ class MyGUI:
         self.startWindow.title("3K04 Pacemaker")
 
         self.connceted = True
+        self.deviceId = 1
 
         self.startTitle = tk.Label(self.startWindow, text="Welcome To 3K04 Pacemaker", font=('Arial', 24))
         self.startTitle.place(relx=0.3, rely=0.1)
@@ -59,7 +60,7 @@ class MyGUI:
             inputName = self.userNameTextField.get().strip()
             inputPassword = self.userPasswordTextField.get().strip()
             if inputName and inputPassword:
-                self.newUser = userClass.userClass(username=inputName, password=inputPassword)
+                self.newUser = userClass.userClass(username=inputName, password=inputPassword, DeviceId=self.deviceId)
                 self.newUserWindow.destroy()
                 self.db.insertUser(self.newUser)
 
@@ -72,7 +73,7 @@ class MyGUI:
         self.applicationModelNumberLabel.pack(padx=0.1)
         self.revisionNumberLabel = tk.Label(self.aboutWindow, text="Revision Number:", font=('Arial', 12))
         self.revisionNumberLabel.pack(padx=0.1)
-        self.DCMNumberLabel = tk.Label(self.aboutWindow, text="DCM serial number:", font=('Arial', 12))
+        self.DCMNumberLabel = tk.Label(self.aboutWindow, text="DCM serial number:1", font=('Arial', 12))
         self.DCMNumberLabel.pack(padx=0.1)
         self.instituteNameLabel = tk.Label(self.aboutWindow, text="Institution name:", font=('Arial', 12))
         self.instituteNameLabel.pack(padx=0.1)
@@ -104,9 +105,9 @@ class MyGUI:
 
         user = self.db.getUserByUsername(inputName)
 
-        if user and user[1] == inputPassword:  
+        if user and user['password'] == inputPassword:
             self.loginWindow.destroy()
-            self.currentUser = userClass.userClass(username=user[0], password=user[1])
+            self.currentUser = userClass.userClass(username=user['username'], password=user['password'])
             self.createMainSettingWindow()
         else:
             self.errorLabel.config(text="Invalid username or password")
@@ -150,7 +151,7 @@ class MyGUI:
         self.prevInfoWindow = tk.Toplevel(self.startWindow)
         self.prevInfoWindow.geometry("800x800")
 
-        user_data = self.db.getUser(self.currentUser.username)
+        user_data = self.db.getUserByUsername(self.currentUser.username)
 
         y_position = 0.1
         for attribute, value in user_data.items():
