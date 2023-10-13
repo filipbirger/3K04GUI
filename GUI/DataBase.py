@@ -111,3 +111,17 @@ class DataBase():
         self.c.execute("SELECT * FROM Users")
         return self.c.fetchall()
 
+    def getUser(self, username):
+        self.c.execute("SELECT * FROM Users WHERE username = ?", (username,))
+        data = self.c.fetchone()
+        
+        # Fetching column names from the cursor description
+        columns = [column[0] for column in self.c.description]
+        
+        # Creating a dictionary with column names as keys
+        user_data_dict = dict(zip(columns, data))
+        
+        return user_data_dict
+
+    # This will return the user data as a dictionary, making it easier to display in the getPrevMode function.
+

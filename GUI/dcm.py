@@ -47,7 +47,8 @@ class MyGUI:
         allUsersSize = self.db.getAllUsers()
         
         if len(allUsersSize)>=10:
-            print("Error: Maximum number of users reached!")
+            self.maxUserReachedText = tk.Label(self.startWindow, text="Error: Maximum number of users reached!", command=self.createLoginWindow)
+            print("")
             return
 
         else:
@@ -126,14 +127,21 @@ class MyGUI:
         self.warningNo.place(relx=0.625, rely=0.55)
 
         self.deleteUserButton = tk.Button(self.startWindow, text = "Delete User", command=self.deleteUser)
-        self.deleteUserButton.place(relx=0.3, rely=0.1)
+        self.deleteUserButton.place(relx=0.35, rely=0.7, relwidth=0.3, relheight=0.05)
 
 
 
     def getPrevMode(self):
-        #ADD CONDITION IF NEW USER PRESSES THE YES BUTTON SAYING ERROR
         self.prevInfoWindow = tk.Toplevel(self.startWindow)
         self.prevInfoWindow.geometry("800x800")
+
+        user_data = self.db.getUser(self.currentUser.username)
+
+        y_position = 0.1
+        for attribute, value in user_data.items():
+            label = tk.Label(self.prevInfoWindow, text=f"{attribute}: {value}", font=('Arial', 18))
+            label.place(relx=0.1, rely=y_position)
+            y_position += 0.05
 
         self.prevPaceMode= tk.Label(self.prevInfoWindow, text="IN PROGRESS",font=('Arial', 18))
         self.prevPaceMode.pack()
@@ -216,19 +224,35 @@ class MyGUI:
         self.VentricularPulseWidthTextField.pack()
         self.VentricularPulseWidthTextField.place(relx=0.3, rely=0.8)
 
-        self.VVOButton = tk.Button(self.VOOConfigWindow, text = "submit", command=self.submitVVO)
-        self.VVOButton.pack()
-        self.VVOButton.place(relx=0.6, rely=0.4, relwidth=0.3, relheight=0.3)
+        self.VOOButton = tk.Button(self.VOOConfigWindow, text = "submit", command=self.submitVOO)
+        self.VOOButton.pack()
+        self.VOOButton.place(relx=0.6, rely=0.4, relwidth=0.3, relheight=0.3)
 
-    def submitVVO(self):
+    def submitVOO(self):
         self.VOOLRLimit= self.LRLimitTextField.get().strip()
         self.VOOURLimit= self.URLimitTextField.get().strip()
         self.VOOVentricularAmplitude= self.VentricularAmplitudeTextField.get().strip()
         self.VOOVentricularPulseWidth= self.VentricularPulseWidthTextField.get().strip()
 
+        self.VOOLRLimit = float(self.VOOLRLimit)
+        self.VOOURLimit = float(self.VOOURLimit)
+        self.VOOVentricularAmplitude = float(self.VOOVentricularAmplitude)
+        self.VOOVentricularPulseWidth = float(self.VOOVentricularPulseWidth)
+
         self.currentUser.VOO(self.VOOLRLimit, self.VOOURLimit, self.VOOVentricularAmplitude, self.VOOVentricularPulseWidth)
-        self.db.updateUser(self.currentUser)
-        
+        self.db.updateUser(self.currentUser)   
+    
+    """  
+        if (30<= self.VOOLRLimit<=50 and self.VOOLRLimit % 5 == 0) or (50<= self.VOOLRLimit<=90) or  (90 <= self.VOOLRLimit <= 175 and self.VOOLRLimit % 5 == 0):
+            pass
+        elif (50<= self.VOOLRLimit<=175 and self.VOOLRLimit % 5 == 0):
+            pass
+        elif     
+        else:
+            MyGUI.errorWindow(self)
+    
+    """
+           
 
 
     def AOOConfig(self):
@@ -263,9 +287,9 @@ class MyGUI:
         self.AtrialPulseWidthTextField.pack()
         self.AtrialPulseWidthTextField.place(relx=0.3, rely=0.8)
 
-        self.AAOButton = tk.Button(self.AOOConfigWindow, text = "submit", command=self.submitAOO)
-        self.AAOButton.pack()
-        self.AAOButton.place(relx=0.6, rely=0.4, relwidth=0.3, relheight=0.3)
+        self.AOOButton = tk.Button(self.AOOConfigWindow, text = "submit", command=self.submitAOO)
+        self.AOOButton.pack()
+        self.AOOButton.place(relx=0.6, rely=0.4, relwidth=0.3, relheight=0.3)
 
     def submitAOO(self):
         self.AOOLRLimit= self.LRLimitTextField.get().strip()
@@ -450,5 +474,11 @@ class MyGUI:
     
     def __del__(self):
         self.db.close()
+
+    def errorWindow(self):
+        self.errorScreen = tk.Toplevel(self.configModeWindow)
+        self.errorScreen.geometry("200x100")
+        self.errorScreenLabel = tk.Label(self.errorScreen, text = "Values Entered Are Not in Range", fg="red")
+        self.errorScreenLabel.pack()
 
 MyGUI()
