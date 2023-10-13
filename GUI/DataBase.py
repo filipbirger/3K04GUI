@@ -10,6 +10,7 @@ class DataBase():
             CREATE TABLE IF NOT EXISTS Users(
                 username TEXT PRIMARY KEY,
                 password TEXT,
+                DeviceId Integer
                 lowerRateLimit REAL,
                 upperRateLimit REAL,
                 ventricularAmplitude REAL, 
@@ -32,6 +33,7 @@ class DataBase():
             user_data = {
                 "username": user.username,
                 "password": user.password,
+                "DeviceId": user.DeviceId,
                 "lowerRateLimit": user.lowerRateLimit,
                 "upperRateLimit": user.upperRateLimit,
                 "ventricularAmplitude": user.ventricularAmplitude,
@@ -48,7 +50,7 @@ class DataBase():
             }
             self.c.execute("""
                 INSERT INTO Users VALUES (
-                    :username, :password, :lowerRateLimit, :upperRateLimit, :ventricularAmplitude, 
+                    :username, :password, :DeviceId, :lowerRateLimit, :upperRateLimit, :ventricularAmplitude, 
                     :ventricularPulseWidth, :ventricularSensitivity, :VRP, :Hysteresis, :rateSmoothing,
                     :atrialAmplitude, :atrialPulseWidth, :atrialSensitivity, :ARP, :PVARP
                 )
@@ -59,6 +61,7 @@ class DataBase():
             user_data = {
                 "username": user.username,
                 "password": user.password,
+                "DeviceId": user.DeviceId,
                 "lowerRateLimit": float(user.lowerRateLimit) if user.lowerRateLimit else None,
                 "upperRateLimit": float(user.upperRateLimit) if user.upperRateLimit else None,
                 "ventricularAmplitude": float(user.ventricularAmplitude) if user.ventricularAmplitude else None,
@@ -76,6 +79,7 @@ class DataBase():
             self.c.execute("""
                 UPDATE Users SET
                     password = :password,
+                    DeviceId = :user.DeviceId,
                     lowerRateLimit = :lowerRateLimit,
                     upperRateLimit = :upperRateLimit,
                     ventricularAmplitude = :ventricularAmplitude,

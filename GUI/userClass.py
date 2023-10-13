@@ -1,10 +1,11 @@
 
 
 class userClass:
-    def __init__(self, username, password,lowerRateLimit = 0,upperRateLimit = 0, ventricularAmplitude = 0, ventricularPulseWidth = 0, ventricularSensitivity = 0, 
+    def __init__(self, username, password,DeviceId = None,lowerRateLimit = None,upperRateLimit = None, ventricularAmplitude = None, ventricularPulseWidth = None, ventricularSensitivity = None, 
                  VRP = None, Hysteresis = None, rateSmoothing = None, atrialAmplitude = None, atrialPulseWidth = None, atrialSensitivity = None, ARP = None, PVARP = None):
         self.username = username
         self._password = password
+        self.DeviceId = DeviceId
         self._lowerRateLimit = lowerRateLimit
         self._upperRateLimit = upperRateLimit
         self._atrialAmplitude = atrialAmplitude

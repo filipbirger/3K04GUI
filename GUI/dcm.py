@@ -13,16 +13,22 @@ class MyGUI:
         self.startWindow.geometry("800x800")
         self.startWindow.title("3K04 Pacemaker")
 
+        self.connceted = True
+
         self.startTitle = tk.Label(self.startWindow, text="Welcome To 3K04 Pacemaker", font=('Arial', 24))
         self.startTitle.place(relx=0.3, rely=0.1)
+        if (self.connceted == True):
+            self.newUserButton = tk.Button(self.startWindow, text="New User", command=self.createNewUser)
+            self.newUserButton.place(relx=0.6, rely=0.2, relheight=0.1, relwidth=0.2)
 
-        self.newUserButton = tk.Button(self.startWindow, text="New User", command=self.createNewUser)
-        self.newUserButton.place(relx=0.6, rely=0.2, relheight=0.1, relwidth=0.2)
+            self.signInButton = tk.Button(self.startWindow, text="Sign In", command=self.createLoginWindow)
+            self.signInButton.place(relx=0.2, rely=0.2, relheight=0.1, relwidth=0.2)
 
-        self.signInButton = tk.Button(self.startWindow, text="Sign In", command=self.createLoginWindow)
-        self.signInButton.place(relx=0.2, rely=0.2, relheight=0.1, relwidth=0.2)
-
-
+            self.aboutButton = tk.Button (self.startWindow, text="About", command=self.aboutDevice)
+            self.aboutButton.place(relx=0.4, rely=0.6, relheight=0.1, relwidth=0.2)
+        else:
+            self.notConnectedLabel = tk.Label(self.startWindow, text="Not Connceted To Device", font=('Arial', 24))
+            self.notConnectedLabel.pack()
         self.startWindow.mainloop()
 
     def createNewUser(self):
@@ -45,12 +51,10 @@ class MyGUI:
         
     def populateUserInfo(self):
         allUsersSize = self.db.getAllUsers()
-        
         if len(allUsersSize)>=10:
             self.maxUserReachedText = tk.Label(self.startWindow, text="Error: Maximum number of users reached!", command=self.createLoginWindow)
             print("")
             return
-
         else:
             inputName = self.userNameTextField.get().strip()
             inputPassword = self.userPasswordTextField.get().strip()
@@ -60,7 +64,18 @@ class MyGUI:
                 self.db.insertUser(self.newUser)
 
 
-    
+    def aboutDevice(self):
+        self.aboutWindow = tk.Toplevel(self.startWindow)
+        self.aboutWindow.geometry("300x200")
+        self.aboutWindow.title("About")
+        self.applicationModelNumberLabel = tk.Label(self.aboutWindow, text="Application model number:", font=('Arial', 12))
+        self.applicationModelNumberLabel.pack(padx=0.1)
+        self.revisionNumberLabel = tk.Label(self.aboutWindow, text="Revision Number:", font=('Arial', 12))
+        self.revisionNumberLabel.pack(padx=0.1)
+        self.DCMNumberLabel = tk.Label(self.aboutWindow, text="DCM serial number:", font=('Arial', 12))
+        self.DCMNumberLabel.pack(padx=0.1)
+        self.instituteNameLabel = tk.Label(self.aboutWindow, text="Institution name:", font=('Arial', 12))
+        self.instituteNameLabel.pack(padx=0.1)
 
     def createLoginWindow(self):
         self.loginWindow = tk.Toplevel(self.startWindow)
@@ -311,6 +326,21 @@ class MyGUI:
         self.AOOURLimit= self.URLimitTextField.get().strip()
         self.AOOAtrialAmplitude= self.AtrialAmplitudeTextField.get().strip()
         self.AOOAtrialPulseWidth= self.AtrialPulseWidthTextField.get().strip()
+        self.AOOLRLimit= float(self.AOOLRLimit)
+        self.AOOURLimit= float(self.AOOURLimit)
+        self.AOOAtrialAmplitude= float(self.AOOAtrialAmplitude)
+        self.AOOAtrialPulseWidth= float(self.AOOAtrialPulseWidth)
+
+        if ((30<= self.AOOLRLimit<=50 and self.AOOLRLimit % 5 == 0) or (50<= self.AOOLRLimit<=90) or  (90 <= self.AOOLRLimit <= 175 and self.AOOLRLimit % 5 == 0)):
+            pass
+        elif ((50<= self.AOOLRLimit<=175 and self.AOOLRLimit % 5 == 0)):
+            pass
+        elif (0.36 <= self.AOOAtrialAmplitude <= 2.3 and self.AOOAtrialAmplitude%0.1==0) or (2.5 <= self.VOOVentricularAmplitude <= 5 and self.VOOVentricularAmplitude%0.5==0): 
+            pass
+        elif((self.AOOAtrialPulseWidth == 0.05 )or (0.1<= self.AOOAtrialPulseWidth <= 1.9 and self.VOOVentricularPulseWidth %0.1==0)):
+            pass    
+        else:
+            MyGUI.errorWindow(self)
 
         self.currentUser.AOO(self.AOOLRLimit, self.AOOURLimit, self.AOOAtrialAmplitude, self.AOOAtrialPulseWidth)
         self.db.updateUser(self.currentUser)
@@ -398,6 +428,37 @@ class MyGUI:
         self.AAIHysteresis= self.HysteresisTextField.get().strip()
         self.AAIRateSmoothing= self.RateSmoothingTextField.get().strip()
 
+        self.AAILRLimit= float(self.AAILRLimit)
+        self.AAIURLimit= float(self.AAIURLimit)
+        self.AAIAtrialAmplitude= float(self.AAIAtrialAmplitude)
+        self.AAIAtrialPulseWidth= float(self.AAIAtrialPulseWidth)
+        self.AAIAtrialSensitivity= float(self.AAIAtrialSensitivity)
+        self.AAIARP= float(self.AAIARP)
+        self.AAIPVARP= float(self.AAIPVARP)
+        self.AAIHysteresis= float(self.AAIHysteresis)
+        self.AAIRateSmoothing= float(self.AAIRateSmoothing)
+
+        if ((30<= self.AAILRLimit<=50 and self.AAILRLimit % 5 == 0) or (50<= self.AAILRLimit<=90) or  (90 <= self.AAILRLimit <= 175 and self.AAILRLimit % 5 == 0)):
+            pass
+        elif ((50<= self.AAIURLimit<=175 and self.AAIURLimit % 5 == 0)):
+            pass
+        elif (0.36 <= self.AAIAtrialAmplitude <= 2.3 and self.AAIAtrialAmplitude%0.1==0) or (2.5 <= self.AAIAtrialAmplitude <= 5 and self.AAIAtrialAmplitude%0.5==0): 
+            pass
+        elif((self.AAIAtrialPulseWidth == 0.05 )or (0.1<= self.AAIAtrialPulseWidth <= 1.9 and self.AAIAtrialPulseWidth %0.1==0)):
+            pass 
+        elif((self.AAIAtrialSensitivity==0.178 or self.AAIAtrialSensitivity==0.357 or self.AAIAtrialSensitivity==0.54)or (0.07<=self.AAIAtrialSensitivity<=0.72 and self.AAIAtrialSensitivity%0.5==0)):   
+            pass
+        elif ((150<= self.AAIARP<=500 and self.AAIARP % 10 == 0)):
+            pass
+        elif ((150<= self.AAIPVARP<=500 and self.AAIPVARP % 10 == 0)):
+            pass
+        elif ((30<= self.AAIHysteresis<=50 and self.AAIHysteresis % 5 == 0) or (50<= self.AAIHysteresis<=90) or  (90 <= self.AAIHysteresis <= 175 and self.AAIHysteresis % 5 == 0)):
+            pass
+        elif((self.AAIRateSmoothing == 3) or (self.AAIRateSmoothing == 6) or (self.AAIRateSmoothing == 9) or (self.AAIRateSmoothing == 12) or (self.AAIRateSmoothing == 15) or (self.AAIRateSmoothing == 18) or (self.AAIRateSmoothing == 21) or (self.AAIRateSmoothing == 25)):
+            pass
+        else:
+            MyGUI.errorWindow(self)
+
         self.currentUser.AAI(self.AAILRLimit, self.AAIURLimit, self.AAIAtrialAmplitude, self.AAIAtrialPulseWidth, self.AAIAtrialSensitivity, self.AAIARP, self.AAIPVARP, self.AAIHysteresis, self.AAIRateSmoothing)
         self.db.updateUser(self.currentUser)
 
@@ -474,6 +535,34 @@ class MyGUI:
         self.VVIVRP= self.VRPTextField.get().strip()
         self.VVIHysteresis= self.HysteresisTextField.get().strip()
         self.VVIRateSmoothing= self.RateSmoothingTextField.get().strip()
+
+        self.VVILRLimit= float(self.VVILRLimit)
+        self.VVIURLimit= float(self.VVIURLimit)
+        self.VVIVentricularAmplitude= float(self.VVIVentricularAmplitude)
+        self.VVIVentricularPulseWidth= float(self.VVIVentricularPulseWidth)
+        self.VVIVentricularSensitivity= float(self.VVIVentricularSensitivity)
+        self.VVIVRP= float(self.VVIVRP)
+        self.VVIHysteresis= float(self.VVIHysteresis)
+        self.VVIRateSmoothing= float(self.VVIRateSmoothing)
+
+        if ((30<= self.VVILRLimit<=50 and self.VVILRLimit % 5 == 0) or (50<= self.VVILRLimit<=90) or  (90 <= self.VVILRLimit <= 175 and self.VVILRLimit % 5 == 0)):
+            pass
+        elif ((50<= self.VVIURLimit<=175 and self.VVIURLimit % 5 == 0)):
+            pass
+        elif (0.36 <= self.VVIVentricularAmplitude <= 2.3 and self.VVIVentricularAmplitude%0.1==0) or (2.5 <= self.VVIVentricularAmplitude <= 5 and self.VVIVentricularAmplitude%0.5==0): 
+            pass
+        elif((self.VVIVentricularPulseWidth == 0.05 )or (0.1<= self.VVIVentricularPulseWidth <= 1.9 and self.VVIVentricularPulseWidth %0.1==0)):
+            pass 
+        elif((self.VVIVentricularSensitivity==0.178 or self.VVIVentricularSensitivity==0.357 or self.VVIVentricularSensitivity==0.54)or (0.07<=self.VVIVentricularSensitivity<=0.72 and self.VVIVentricularSensitivity%0.5==0)):   
+            pass
+        elif ((150<= self.VVIVRP<=500 and self.VVIVRP % 10 == 0)):
+            pass
+        elif ((30<= self.VVIHysteresis<=50 and self.VVIHysteresis % 5 == 0) or (50<= self.VVIHysteresis<=90) or  (90 <= self.VVIHysteresis <= 175 and self.VVIHysteresis % 5 == 0)):
+            pass
+        elif((self.VVIRateSmoothing == 3) or (self.VVIRateSmoothing == 6) or (self.VVIRateSmoothing == 9) or (self.VVIRateSmoothing == 12) or (self.VVIRateSmoothing == 15) or (self.VVIRateSmoothing == 18) or (self.VVIRateSmoothing == 21) or (self.VVIRateSmoothing == 25)):
+            pass
+        else:
+            MyGUI.errorWindow(self)
 
 
         self.currentUser.VVI(self.VVILRLimit, self.VVIURLimit, self.VVIVentricularAmplitude, self.VVIVentricularPulseWidth, self.VVIVentricularSensitivity, self.VVIVRP, self.VVIHysteresis, self.VVIRateSmoothing)
