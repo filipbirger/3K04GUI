@@ -256,8 +256,8 @@ class MyGUI:
     def submitDefAOO(self):
         self.AOOLRLimit=60.0
         self.AOOURLimit=120.0
-        self.AOOVentricularAmplitude=3.5
-        self.AOOVentricularPulseWidth=0.4
+        self.AOOAtrialAmplitude=3.5
+        self.AOOAtrialPulseWidth=0.4
 
         self.currentUser.AOO(self.AOOLRLimit, self.AOOURLimit, self.AOOAtrialAmplitude, self.AOOAtrialPulseWidth)
         self.db.updateUser(self.currentUser)
@@ -302,7 +302,77 @@ class MyGUI:
         self.RateSmoothingLabel.pack()
         self.RateSmoothingLabel.place(relx=0.1, rely=0.8)
 
+        self.AAIButton = tk.Button(self.defAAIWindow, text = "submit", command=self.submitDefAAI)
+        self.AAIButton.pack()
+        self.AAIButton.place(relx=0.8, rely=0.8, relwidth=0.1, relheight=0.1)
 
+    def submitDefAAI(self):
+        self.AAILRLimit=60.0
+        self.AAIURLimit=120.0
+        self.AAIAtrialAmplitude=3.5
+        self.AAIAtrialPulseWidth=0.4
+        self.AAIAtrialSensitivity=0.75
+        self.AAIARP=250.0
+        self.AAIPVARP=250.0
+        self.AAIHysteresis=0.0
+        self.AAIRateSmoothing=0.0
+
+        self.currentUser.AAI(self.AAILRLimit, self.AAIURLimit, self.AAIAtrialAmplitude, self.AAIAtrialPulseWidth, self.AAIAtrialSensitivity, self.AAIARP, self.AAIPVARP, self.AAIHysteresis, self.AAIRateSmoothing)
+        self.db.updateUser(self.currentUser)
+
+
+    def defaultVVI(self):
+        self.defVVIWindow=tk.Toplevel(self.defaultModeWindow)
+        self.defVVIWindow.geometry("800x800")
+
+        self.LRLimitLabel= tk.Label(self.defVVIWindow, text="Lower Rate Limit: 60 ppm", font=('Arial', 18))
+        self.LRLimitLabel.pack()
+        self.LRLimitLabel.place(relx=0.1, rely=0.1)
+
+        self.URLimitLabel= tk.Label(self.defVVIWindow, text="Upper Rate Limit: 120 ppm", font=('Arial', 18))
+        self.URLimitLabel.pack()
+        self.URLimitLabel.place(relx=0.1, rely=0.3)
+
+        self.VentricularAmplitudeLabel= tk.Label(self.defVVIWindow, text="Ventricular Amplitude: 3.5 V", font=('Arial', 18))
+        self.VentricularAmplitudeLabel.pack()
+        self.VentricularAmplitudeLabel.place(relx=0.1, rely=0.5)
+
+        self.VentricularPulseWidthLabel= tk.Label(self.defVVIWindow, text="Ventricular Pulse Width: 0.4 ms", font=('Arial', 18))
+        self.VentricularPulseWidthLabel.pack()
+        self.VentricularPulseWidthLabel.place(relx=0.1, rely=0.7)
+
+        self.VentricularSensitivityLabel= tk.Label(self.defVVIWindow, text="Ventricular Sensitivity: 2.5 mV", font=('Arial', 18))
+        self.VentricularSensitivityLabel.pack()
+        self.VentricularSensitivityLabel.place(relx=0.525, rely=0.1)
+
+        self.VRPLabel= tk.Label(self.defVVIWindow, text="VRP: 320 ms", font=('Arial', 18))
+        self.VRPLabel.pack()
+        self.VRPLabel.place(relx=0.525, rely=0.3)
+
+        self.HysteresisLabel= tk.Label(self.defVVIWindow, text="Hysteresis: 0 ppm", font=('Arial', 18))
+        self.HysteresisLabel.pack()
+        self.HysteresisLabel.place(relx=0.525, rely=0.5)
+
+        self.RateSmoothingLabel= tk.Label(self.defVVIWindow, text="Rate Smoothing: 0%", font=('Arial', 18))
+        self.RateSmoothingLabel.pack()
+        self.RateSmoothingLabel.place(relx=0.55, rely=0.7)
+
+        self.VVIButton = tk.Button(self.defVVIWindow, text = "submit", command=self.submitDefVVI)
+        self.VVIButton.pack()
+        self.VVIButton.place(relx=0.8, rely=0.8, relwidth=0.1, relheight=0.1)
+
+    def submitDefVVI(self):
+        self.VVILRLimit=60.0
+        self.VVIURLimit=120.0
+        self.VVIVentricularAmplitude=3.5
+        self.VVIVentricularPulseWidth=0.4
+        self.VVIVentricularSensitivity=2.5
+        self.VVIVRP=320.0
+        self.VVIHysteresis=0.0
+        self.VVIRateSmoothing=0.0
+
+        self.currentUser.VVI(self.VVILRLimit, self.VVIURLimit, self.VVIVentricularAmplitude, self.VVIVentricularPulseWidth, self.VVIVentricularSensitivity, self.VVIVRP, self.VVIHysteresis, self.VVIRateSmoothing )
+        self.db.updateUser(self.currentUser)
 
 
     def useConfigure(self):
