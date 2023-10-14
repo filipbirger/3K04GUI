@@ -180,11 +180,16 @@ class MyGUI:
         self.useDefaultButtonYes= tk.Button(self.defaultWindow, text="Default", command= self.useDefault)
         self.useDefaultButtonYes.pack()
         self.useDefaultButtonYes.place(relx=0.1, rely=0.5, relwidth=0.3, relheight=0.05)
+        self.useDefaultLabel=tk.Label(self.defaultWindow, text="By clicking 'Default', you will get the option\n to choose your pacing mode with it's\n corresponding default values", font=('Arial',8))
+        self.useDefaultLabel.pack()
+        self.useDefaultLabel.place(relx=0.125,rely=0.55)
 
         self.useConfigButtonNo= tk.Button(self.defaultWindow, text="Configure", command= self.useConfigure)
         self.useConfigButtonNo.pack()
         self.useConfigButtonNo.place(relx=0.6, rely=0.5, relwidth=0.3, relheight=0.05)
-
+        self.useConfigLabel=tk.Label(self.defaultWindow,text="By clicking 'Configure', you will\n select your desired pacing mode\n and input your own parameters", font=('Arial',8))
+        self.useConfigLabel.pack()
+        self.useConfigLabel.place(relx=0.65,rely=0.55)
 
     def useDefault(self):
         self.defaultModeWindow=tk.Toplevel(self.defaultWindow)
