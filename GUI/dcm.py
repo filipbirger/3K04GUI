@@ -21,12 +21,21 @@ class MyGUI:
         if (self.connceted == True):
             self.newUserButton = tk.Button(self.startWindow, text="New User", command=self.createNewUser)
             self.newUserButton.place(relx=0.6, rely=0.2, relheight=0.1, relwidth=0.2)
+            self.newUserLabel=tk.Label(self.startWindow, text="Click 'New User' to set up your\n profile and start\n configuring your pacemaker", font=("Arial",8))
+            self.newUserLabel.pack()
+            self.newUserLabel.place(relx=0.6, rely=0.3)
 
             self.signInButton = tk.Button(self.startWindow, text="Sign In", command=self.createLoginWindow)
             self.signInButton.place(relx=0.2, rely=0.2, relheight=0.1, relwidth=0.2)
+            self.signInLabel=tk.Label(self.startWindow, text="Click 'Sign in' if you are\n an existing user", font=("Arial",8))
+            self.signInLabel.pack()
+            self.signInLabel.place(relx=0.22, rely=0.3)
 
             self.aboutButton = tk.Button (self.startWindow, text="About", command=self.aboutDevice)
             self.aboutButton.place(relx=0.4, rely=0.6, relheight=0.1, relwidth=0.2)
+            self.aboutLabel=tk.Label(self.startWindow, text="Click 'About' for more\n information about your pacemaker", font=("Arial",8))
+            self.aboutLabel.pack()
+            self.aboutLabel.place(relx=0.385,rely=0.7)
         else:
             self.notConnectedLabel = tk.Label(self.startWindow, text="Not Connceted To Device", font=('Arial', 24))
             self.notConnectedLabel.pack()
@@ -75,7 +84,7 @@ class MyGUI:
         self.revisionNumberLabel.pack(padx=0.1)
         self.DCMNumberLabel = tk.Label(self.aboutWindow, text="DCM serial number:1", font=('Arial', 12))
         self.DCMNumberLabel.pack(padx=0.1)
-        self.instituteNameLabel = tk.Label(self.aboutWindow, text="Institution name:", font=('Arial', 12))
+        self.instituteNameLabel = tk.Label(self.aboutWindow, text="Institution name: McMaster U", font=('Arial', 12))
         self.instituteNameLabel.pack(padx=0.1)
 
     def createLoginWindow(self):
@@ -144,7 +153,9 @@ class MyGUI:
 
         self.deleteUserButton = tk.Button(self.startWindow, text = "Delete User", command=self.deleteUser)
         self.deleteUserButton.place(relx=0.35, rely=0.7, relwidth=0.3, relheight=0.05)
-
+        self.deleteUserLabel= tk.Label(self.startWindow, text="By clicking 'Delete User', you are choosing to\n permanently delete your profile and pacing\n history from our database", font=("Arial",8))
+        self.deleteUserLabel.pack()
+        self.deleteUserLabel.place(relx=0.355,rely=0.75)
 
     def getPrevMode(self):
         self.prevInfoWindow = tk.Toplevel(self.startWindow)
