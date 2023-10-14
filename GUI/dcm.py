@@ -356,7 +356,6 @@ class MyGUI:
         self.currentUser.AAI(self.AAILRLimit, self.AAIURLimit, self.AAIAtrialAmplitude, self.AAIAtrialPulseWidth, self.AAIAtrialSensitivity, self.AAIARP, self.AAIPVARP, self.AAIHysteresis, self.AAIRateSmoothing)
         self.db.updateUser(self.currentUser)
 
-
     def defaultVVI(self):
         self.defVVIWindow=tk.Toplevel(self.defaultModeWindow)
         self.defVVIWindow.geometry("800x800")
@@ -413,7 +412,6 @@ class MyGUI:
 
         self.currentUser.VVI(self.VVILRLimit, self.VVIURLimit, self.VVIVentricularAmplitude, self.VVIVentricularPulseWidth, self.VVIVentricularSensitivity, self.VVIVRP, self.VVIHysteresis, self.VVIRateSmoothing )
         self.db.updateUser(self.currentUser)
-
 
     def useConfigure(self):
         self.configModeWindow = tk.Toplevel(self.defaultWindow)
@@ -519,8 +517,6 @@ class MyGUI:
         self.currentUser.VOO(self.VOOLRLimit, self.VOOURLimit, self.VOOVentricularAmplitude, self.VOOVentricularPulseWidth)
         self.db.updateUser(self.currentUser)
         
-
-
     def AOOConfig(self):
         self.AOOConfigWindow= tk.Toplevel(self.configModeWindow)
         self.AOOConfigWindow.geometry("800x800")
@@ -600,7 +596,6 @@ class MyGUI:
 
         self.currentUser.AOO(self.AOOLRLimit, self.AOOURLimit, self.AOOAtrialAmplitude, self.AOOAtrialPulseWidth)
         self.db.updateUser(self.currentUser)
-
 
     def AAIConfig(self):
         self.AAIConfigWindow= tk.Toplevel(self.configModeWindow)
@@ -899,7 +894,7 @@ class MyGUI:
 
         self.currentUser.VVI(self.VVILRLimit, self.VVIURLimit, self.VVIVentricularAmplitude, self.VVIVentricularPulseWidth, self.VVIVentricularSensitivity, self.VVIVRP, self.VVIHysteresis, self.VVIRateSmoothing)
         self.db.updateUser(self.currentUser)
-    
+  
     def deleteUser(self):
         self.db.delete_user(self.currentUser.username)
         
