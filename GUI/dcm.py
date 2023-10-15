@@ -736,21 +736,33 @@ class MyGUI:
         self.AAIHysteresis= self.HysteresisTextField.get().strip()
         self.AAIRateSmoothing= self.RateSmoothingTextField.get().strip()
 
+        if  self.AAIAtrialAmplitude== "0":
+            self.AAIAtrialAmplitude = 0
+        else:
+            self.AAIAtrialAmplitude= float(self.AAIAtrialAmplitude)
+
+        if  self.AAIHysteresis== "0":
+            self.AAIHysteresis = 0
+        else:
+            self.AAIHysteresis= float(self.AAIHysteresis)
+
+        if  self.AAIRateSmoothing== "0":
+            self.AAIRateSmoothing = 0
+        else:
+            self.AAIRateSmoothing= float(self.AAIRateSmoothing)
+            
         self.AAILRLimit= float(self.AAILRLimit)
         self.AAIURLimit= float(self.AAIURLimit)
-        self.AAIAtrialAmplitude= float(self.AAIAtrialAmplitude)
         self.AAIAtrialPulseWidth= float(self.AAIAtrialPulseWidth)
         self.AAIAtrialSensitivity= float(self.AAIAtrialSensitivity)
         self.AAIARP= float(self.AAIARP)
         self.AAIPVARP= float(self.AAIPVARP)
-        self.AAIHysteresis= float(self.AAIHysteresis)
-        self.AAIRateSmoothing= float(self.AAIRateSmoothing)
 
         if not ((30<= self.AAILRLimit<=50 and self.AAILRLimit % 5 == 0) or (50<= self.AAILRLimit<=90) or  (90 <= self.AAILRLimit <= 175 and self.AAILRLimit % 5 == 0)):
             MyGUI.errorWindow(self)
         elif not ((50<= self.AAIURLimit<=175 and self.AAIURLimit % 5 == 0)):
             MyGUI.errorWindow(self)
-        elif not ((0.36 <= self.AAIAtrialAmplitude <= 2.3 and self.AAIAtrialAmplitude*10 %1==0) or (2.5 <= self.AAIAtrialAmplitude <= 5 and self.AAIAtrialAmplitude * 10 %5==0)): 
+        elif not ((self.AAIAtrialAmplitude==0) or (0.36 <= self.AAIAtrialAmplitude <= 2.3 and self.AAIAtrialAmplitude*10 %1==0) or (2.5 <= self.AAIAtrialAmplitude <= 5 and self.AAIAtrialAmplitude * 10 %5==0)): 
             MyGUI.errorWindow(self)
         elif not ((self.AAIAtrialPulseWidth == 0.05 )or (0.1<= self.AAIAtrialPulseWidth <= 1.9 and self.AAIAtrialPulseWidth*10 % 1==0)):
             MyGUI.errorWindow(self)
@@ -760,9 +772,9 @@ class MyGUI:
             MyGUI.errorWindow(self)
         elif not ((150<= self.AAIPVARP<=500 and self.AAIPVARP % 10 == 0)):
             MyGUI.errorWindow(self)
-        elif not ((30<= self.AAIHysteresis<=50 and self.AAIHysteresis % 5 == 0) or (50<= self.AAIHysteresis<=90) or  (90 <= self.AAIHysteresis <= 175 and self.AAIHysteresis % 5 == 0)):
+        elif not ((self.AAIHysteresis==0 ) or (30<= self.AAIHysteresis<=50 and self.AAIHysteresis % 5 == 0) or (50<= self.AAIHysteresis<=90) or  (90 <= self.AAIHysteresis <= 175 and self.AAIHysteresis % 5 == 0)):
             pass
-        elif not ((self.AAIRateSmoothing == 3) or (self.AAIRateSmoothing == 6) or (self.AAIRateSmoothing == 9) or (self.AAIRateSmoothing == 12) or (self.AAIRateSmoothing == 15) or (self.AAIRateSmoothing == 18) or (self.AAIRateSmoothing == 21) or (self.AAIRateSmoothing == 25)):
+        elif not (((self.AAIRateSmoothing == 0)) or (self.AAIRateSmoothing == 3) or (self.AAIRateSmoothing == 6) or (self.AAIRateSmoothing == 9) or (self.AAIRateSmoothing == 12) or (self.AAIRateSmoothing == 15) or (self.AAIRateSmoothing == 18) or (self.AAIRateSmoothing == 21) or (self.AAIRateSmoothing == 25)):
             MyGUI.errorWindow(self)
         else:
             self.currentUser.AAI(self.AAILRLimit, self.AAIURLimit, self.AAIAtrialAmplitude, self.AAIAtrialPulseWidth, self.AAIAtrialSensitivity, self.AAIARP, self.AAIPVARP, self.AAIHysteresis, self.AAIRateSmoothing)
@@ -900,23 +912,24 @@ class MyGUI:
         self.VVIVentricularPulseWidth= float(self.VVIVentricularPulseWidth)
         self.VVIVentricularSensitivity= float(self.VVIVentricularSensitivity)
         self.VVIVRP= float(self.VVIVRP)
-        
+        self.VVIHysteresis= float(self.VVIHysteresis)
+        self.VVIRateSmoothing= float(self.VVIRateSmoothing)
 
-        if ((30<= self.VVILRLimit<=50 and self.VVILRLimit % 5 == 0) or (50<= self.VVILRLimit<=90) or  (90 <= self.VVILRLimit <= 175 and self.VVILRLimit % 5 == 0)):
+        if not ((30<= self.VVILRLimit<=50 and self.VVILRLimit % 5 == 0) or (50<= self.VVILRLimit<=90) or  (90 <= self.VVILRLimit <= 175 and self.VVILRLimit % 5 == 0)):
             MyGUI.errorWindow(self)
-        elif ((50<= self.VVIURLimit<=175 and self.VVIURLimit % 5 == 0)):
+        elif not ((50<= self.VVIURLimit<=175 and self.VVIURLimit % 5 == 0)):
             MyGUI.errorWindow(self)
-        elif (0.36 <= self.VVIVentricularAmplitude <= 2.3 and self.VVIVentricularAmplitude*10 %1==0) or (2.5 <= self.VVIVentricularAmplitude <= 5 and self.VVIVentricularAmplitude*10 %5==0) or (self.VVIVentricularAmplitude ==0): 
+        elif not  ((0.36 <= self.VVIVentricularAmplitude <= 2.3 and self.VVIVentricularAmplitude*10 %1==0) or (2.5 <= self.VVIVentricularAmplitude <= 5 and self.VVIVentricularAmplitude*10 %5==0) or (self.VVIVentricularAmplitude ==0)): 
             MyGUI.errorWindow(self)
-        elif((self.VVIVentricularPulseWidth == 0.05 )or (0.1<= self.VVIVentricularPulseWidth <= 1.9 and self.VVIVentricularPulseWidth*10 %1==0)):
+        elif not ((self.VVIVentricularPulseWidth == 0.05 )or (0.1<= self.VVIVentricularPulseWidth <= 1.9 and self.VVIVentricularPulseWidth*10 %1==0)):
             MyGUI.errorWindow(self)
-        elif((self.VVIVentricularSensitivity==0.178 or self.VVIVentricularSensitivity==0.357 or self.VVIVentricularSensitivity==0.54)or (0.07<=self.VVIVentricularSensitivity<=0.72 and self.VVIVentricularSensitivity*10 %5==0)):   
+        elif not ((self.VVIVentricularSensitivity==0.178 or self.VVIVentricularSensitivity==0.357 or self.VVIVentricularSensitivity==0.54)or (0.07<=self.VVIVentricularSensitivity<=0.72 and self.VVIVentricularSensitivity*10 %5==0)):   
             MyGUI.errorWindow(self)
-        elif ((150<= self.VVIVRP<=500 and self.VVIVRP % 10 == 0)):
+        elif not ((150<= self.VVIVRP<=500 and self.VVIVRP % 10 == 0)):
             MyGUI.errorWindow(self)
-        elif ((self.VVIHysteresis ==0) or (30<= self.VVIHysteresis<=50 and self.VVIHysteresis % 5 == 0) or (50<= self.VVIHysteresis<=90) or  (90 <= self.VVIHysteresis <= 175 and self.VVIHysteresis % 5 == 0)):
+        elif not ((self.VVIHysteresis ==0) or (30<= self.VVIHysteresis<=50 and self.VVIHysteresis % 5 == 0) or (50<= self.VVIHysteresis<=90) or  (90 <= self.VVIHysteresis <= 175 and self.VVIHysteresis % 5 == 0)):
             MyGUI.errorWindow(self)
-        elif((self.VVIRateSmoothing==0) or (self.VVIRateSmoothing == 3) or (self.VVIRateSmoothing == 6) or (self.VVIRateSmoothing == 9) or (self.VVIRateSmoothing == 12) or (self.VVIRateSmoothing == 15) or (self.VVIRateSmoothing == 18) or (self.VVIRateSmoothing == 21) or (self.VVIRateSmoothing == 25)):
+        elif not ((self.VVIRateSmoothing==0) or (self.VVIRateSmoothing == 3) or (self.VVIRateSmoothing == 6) or (self.VVIRateSmoothing == 9) or (self.VVIRateSmoothing == 12) or (self.VVIRateSmoothing == 15) or (self.VVIRateSmoothing == 18) or (self.VVIRateSmoothing == 21) or (self.VVIRateSmoothing == 25)):
             MyGUI.errorWindow(self)
         else:
             self.currentUser.VVI(self.VVILRLimit, self.VVIURLimit, self.VVIVentricularAmplitude, self.VVIVentricularPulseWidth, self.VVIVentricularSensitivity, self.VVIVRP, self.VVIHysteresis, self.VVIRateSmoothing)
