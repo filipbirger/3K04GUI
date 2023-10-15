@@ -504,16 +504,19 @@ class MyGUI:
         self.VOOURLimit= self.URLimitTextField.get().strip()
         self.VOOVentricularAmplitude= self.VentricularAmplitudeTextField.get().strip()
         self.VOOVentricularPulseWidth= self.VentricularPulseWidthTextField.get().strip()
+        if  self.VOOVentricularAmplitude == "0":
+            self.VOOVentricularAmplitude = 0
+        else:
+            self.VOOVentricularAmplitude = float(self.VOOVentricularAmplitude)
         self.VOOLRLimit = float(self.VOOLRLimit)
         self.VOOURLimit = float(self.VOOURLimit)
-        self.VOOVentricularAmplitude = float(self.VOOVentricularAmplitude)
         self.VOOVentricularPulseWidth = int(self.VOOVentricularPulseWidth)
 
         if not ((30<= self.VOOLRLimit<=50 and self.VOOLRLimit % 5 == 0) or (50<= self.VOOLRLimit<=90) or  (90 <= self.VOOLRLimit <= 175 and self.VOOLRLimit % 5 == 0)):
             MyGUI.errorWindow(self)
         elif not ((50<= self.VOOURLimit<=175 and self.VOOURLimit % 5 == 0)):
             MyGUI.errorWindow(self)
-        elif not ((0.36 <= self.VOOVentricularAmplitude <= 2.3 and self.VOOVentricularAmplitude%0.1==0) or (2.5 <= self.VOOVentricularAmplitude <= 5 and self.VOOVentricularAmplitude%0.5==0)): 
+        elif not ((self.VOOVentricularAmplitude == 0) or (0.36 <= self.VOOVentricularAmplitude <= 2.3 and self.VOOVentricularAmplitude*10%1==0) or (2.5 <= self.VOOVentricularAmplitude <= 5 and self.VOOVentricularAmplitude*10%5==0)): 
             MyGUI.errorWindow(self)
         elif not((self.VOOVentricularPulseWidth == 0.05 )or (0.1<= self.VOOVentricularPulseWidth <= 1.9 and self.VOOVentricularPulseWidth*10 % 1==0)):
             MyGUI.errorWindow(self)  
