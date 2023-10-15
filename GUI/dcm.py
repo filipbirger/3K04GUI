@@ -588,16 +588,23 @@ class MyGUI:
         self.AOOURLimit= self.URLimitTextField.get().strip()
         self.AOOAtrialAmplitude= self.AtrialAmplitudeTextField.get().strip()
         self.AOOAtrialPulseWidth= self.AtrialPulseWidthTextField.get().strip()
-        self.AOOLRLimit= float(self.AOOLRLimit)
+        
+
+        if self.AOOAtrialAmplitude == "0":
+            self.AOOAtrialAmplitde =0
+        else:
+            self.AOOLRLimit= float(self.AOOLRLimit)
         self.AOOURLimit= float(self.AOOURLimit)
         self.AOOAtrialAmplitude= float(self.AOOAtrialAmplitude)
         self.AOOAtrialPulseWidth= float(self.AOOAtrialPulseWidth)
+
+
 
         if not ((30<= self.AOOLRLimit<=50 and self.AOOLRLimit % 5 == 0) or (50<= self.AOOLRLimit<=90) or  (90 <= self.AOOLRLimit <= 175 and self.AOOLRLimit % 5 == 0)):
             MyGUI.errorWindow(self)
         elif not ((50<= self.AOOLRLimit<=175 and self.AOOLRLimit % 5 == 0)):
             MyGUI.errorWindow(self)
-        elif not ((0.36 <= self.AOOAtrialAmplitude <= 2.3 and self.AOOAtrialAmplitude*10 %1==0) or (2.5 <= self.VOOVentricularAmplitude <= 5 and self.VOOVentricularAmplitude*10 %5==0)): 
+        elif not ((self.AOOAtrialAmplitude == 0) or (0.36 <= self.AOOAtrialAmplitude <= 2.3 and self.AOOAtrialAmplitude*10 %1==0) or (2.5 <= self.VOOVentricularAmplitude <= 5 and self.VOOVentricularAmplitude*10 %5==0)): 
             MyGUI.errorWindow(self)
         elif not ((self.AOOAtrialPulseWidth == 0.05 )or (0.1<= self.AOOAtrialPulseWidth <= 1.9 and self.VOOVentricularPulseWidth*10 % 1 ==0)):
             MyGUI.errorWindow(self)    
@@ -822,7 +829,7 @@ class MyGUI:
         self.VentricularSensitivityTextField.pack()
         self.VentricularSensitivityTextField.place(relx=0.8, rely=0.15)
 
-        self.VentricularSensitivityWarningLabel= tk.Label(self.VVIConfigWindow, text="Valid inputs are: 0.178, 0.375, 0.54 mV\n values between 1.0-10 mV with 0.5 mV increment",font=('Arial', 7) )
+        self.VentricularSensitivityWarningLabel= tk.Label(self.VVIConfigWindow, text="Valid inputs are: 0.178, 0.375, 0.54 mV\n values between 0.07-0.72 mV with 0.5 mV increment",font=('Arial', 7) )
         self.VentricularSensitivityWarningLabel.pack()
         self.VentricularSensitivityWarningLabel.place(relx=0.6, rely=0.2)
 
@@ -873,20 +880,33 @@ class MyGUI:
         self.VVIHysteresis= self.HysteresisTextField.get().strip()
         self.VVIRateSmoothing= self.RateSmoothingTextField.get().strip()
 
+        if self.VVIVentricularAmplitude == "0":
+            self.VVIVentricularAmplitude =0
+        else:
+            self.VVIVentricularAmplitude= float(self.VVIVentricularAmplitude)
+        
+        if self.VVIHysteresis == "0":
+            self.VVIHysteresis=0
+        else: 
+            self.VVIHysteresis= float(self.VVIHysteresis)
+
+        if self.VVIRateSmoothing == "0":
+            self.VVIRateSmoothing=0
+        else: 
+            self.VVIRateSmoothing= float(self.VVIRateSmoothing)
+                
         self.VVILRLimit= float(self.VVILRLimit)
         self.VVIURLimit= float(self.VVIURLimit)
-        self.VVIVentricularAmplitude= float(self.VVIVentricularAmplitude)
         self.VVIVentricularPulseWidth= float(self.VVIVentricularPulseWidth)
         self.VVIVentricularSensitivity= float(self.VVIVentricularSensitivity)
         self.VVIVRP= float(self.VVIVRP)
-        self.VVIHysteresis= float(self.VVIHysteresis)
-        self.VVIRateSmoothing= float(self.VVIRateSmoothing)
+        
 
         if ((30<= self.VVILRLimit<=50 and self.VVILRLimit % 5 == 0) or (50<= self.VVILRLimit<=90) or  (90 <= self.VVILRLimit <= 175 and self.VVILRLimit % 5 == 0)):
             MyGUI.errorWindow(self)
         elif ((50<= self.VVIURLimit<=175 and self.VVIURLimit % 5 == 0)):
             MyGUI.errorWindow(self)
-        elif (0.36 <= self.VVIVentricularAmplitude <= 2.3 and self.VVIVentricularAmplitude*10 %1==0) or (2.5 <= self.VVIVentricularAmplitude <= 5 and self.VVIVentricularAmplitude*10 %5==0): 
+        elif (0.36 <= self.VVIVentricularAmplitude <= 2.3 and self.VVIVentricularAmplitude*10 %1==0) or (2.5 <= self.VVIVentricularAmplitude <= 5 and self.VVIVentricularAmplitude*10 %5==0) or (self.VVIVentricularAmplitude ==0): 
             MyGUI.errorWindow(self)
         elif((self.VVIVentricularPulseWidth == 0.05 )or (0.1<= self.VVIVentricularPulseWidth <= 1.9 and self.VVIVentricularPulseWidth*10 %1==0)):
             MyGUI.errorWindow(self)
@@ -894,9 +914,9 @@ class MyGUI:
             MyGUI.errorWindow(self)
         elif ((150<= self.VVIVRP<=500 and self.VVIVRP % 10 == 0)):
             MyGUI.errorWindow(self)
-        elif ((30<= self.VVIHysteresis<=50 and self.VVIHysteresis % 5 == 0) or (50<= self.VVIHysteresis<=90) or  (90 <= self.VVIHysteresis <= 175 and self.VVIHysteresis % 5 == 0)):
+        elif ((self.VVIHysteresis ==0) or (30<= self.VVIHysteresis<=50 and self.VVIHysteresis % 5 == 0) or (50<= self.VVIHysteresis<=90) or  (90 <= self.VVIHysteresis <= 175 and self.VVIHysteresis % 5 == 0)):
             MyGUI.errorWindow(self)
-        elif((self.VVIRateSmoothing == 3) or (self.VVIRateSmoothing == 6) or (self.VVIRateSmoothing == 9) or (self.VVIRateSmoothing == 12) or (self.VVIRateSmoothing == 15) or (self.VVIRateSmoothing == 18) or (self.VVIRateSmoothing == 21) or (self.VVIRateSmoothing == 25)):
+        elif((self.VVIRateSmoothing==0) or (self.VVIRateSmoothing == 3) or (self.VVIRateSmoothing == 6) or (self.VVIRateSmoothing == 9) or (self.VVIRateSmoothing == 12) or (self.VVIRateSmoothing == 15) or (self.VVIRateSmoothing == 18) or (self.VVIRateSmoothing == 21) or (self.VVIRateSmoothing == 25)):
             MyGUI.errorWindow(self)
         else:
             self.currentUser.VVI(self.VVILRLimit, self.VVIURLimit, self.VVIVentricularAmplitude, self.VVIVentricularPulseWidth, self.VVIVentricularSensitivity, self.VVIVRP, self.VVIHysteresis, self.VVIRateSmoothing)
