@@ -237,7 +237,7 @@ class MyGUI:
         self.URLimitLabel.pack()
         self.URLimitLabel.place(relx=0.1, rely=0.3)
 
-        self.VentricularAmplitudeLabel= tk.Label(self.defVOOWindow, text="Ventricular Amplitude: 3.5 V", font=('Arial', 12))
+        self.VentricularAmplitudeLabel= tk.Label(self.defVOOWindow, text="Ventricular Amplitude: 4.9 V", font=('Arial', 12))
         self.VentricularAmplitudeLabel.pack()
         self.VentricularAmplitudeLabel.place(relx=0.1, rely=0.5)
 
@@ -276,7 +276,7 @@ class MyGUI:
         self.URLimitLabel.pack()
         self.URLimitLabel.place(relx=0.1, rely=0.3)
 
-        self.AtrialAmplitudeLabel= tk.Label(self.defAOOWindow, text="Atrial Amplitude: 3.5 V", font=('Arial', 12))
+        self.AtrialAmplitudeLabel= tk.Label(self.defAOOWindow, text="Atrial Amplitude: 4.9 V", font=('Arial', 12))
         self.AtrialAmplitudeLabel.pack()
         self.AtrialAmplitudeLabel.place(relx=0.1, rely=0.5)
 
@@ -314,7 +314,7 @@ class MyGUI:
         self.URLimitLabel.pack()
         self.URLimitLabel.place(relx=0.1, rely=0.3)
 
-        self.AtrialAmplitudeLabel= tk.Label(self.defAAIWindow, text="Atrial Amplitude: 3.5 V", font=('Arial', 12))
+        self.AtrialAmplitudeLabel= tk.Label(self.defAAIWindow, text="Atrial Amplitude: 4.9 V", font=('Arial', 12))
         self.AtrialAmplitudeLabel.pack()
         self.AtrialAmplitudeLabel.place(relx=0.1, rely=0.5)
 
@@ -322,7 +322,7 @@ class MyGUI:
         self.AtrialPulseWidthLabel.pack()
         self.AtrialPulseWidthLabel.place(relx=0.1, rely=0.7)
 
-        self.AtrialSensitivityLabel= tk.Label(self.defAAIWindow, text="Atrial Sensitivity: 0.75 mV", font=('Arial', 12))
+        self.AtrialSensitivityLabel= tk.Label(self.defAAIWindow, text="Atrial Sensitivity: 1.05 mV", font=('Arial', 12))
         self.AtrialSensitivityLabel.pack()
         self.AtrialSensitivityLabel.place(relx=0.525, rely=0.15)
 
@@ -377,7 +377,7 @@ class MyGUI:
         self.URLimitLabel.pack()
         self.URLimitLabel.place(relx=0.1, rely=0.3)
 
-        self.VentricularAmplitudeLabel= tk.Label(self.defVVIWindow, text="Ventricular Amplitude: 3.5 V", font=('Arial', 12))
+        self.VentricularAmplitudeLabel= tk.Label(self.defVVIWindow, text="Ventricular Amplitude: 4.9 V", font=('Arial', 12))
         self.VentricularAmplitudeLabel.pack()
         self.VentricularAmplitudeLabel.place(relx=0.1, rely=0.5)
 
@@ -385,7 +385,7 @@ class MyGUI:
         self.VentricularPulseWidthLabel.pack()
         self.VentricularPulseWidthLabel.place(relx=0.1, rely=0.7)
 
-        self.VentricularSensitivityLabel= tk.Label(self.defVVIWindow, text="Ventricular Sensitivity: 2.5 mV", font=('Arial', 12))
+        self.VentricularSensitivityLabel= tk.Label(self.defVVIWindow, text="Ventricular Sensitivity: 3.5 mV", font=('Arial', 12))
         self.VentricularSensitivityLabel.pack()
         self.VentricularSensitivityLabel.place(relx=0.525, rely=0.15)
 
@@ -480,7 +480,7 @@ class MyGUI:
         self.VentricularAmplitudeTextField.pack()
         self.VentricularAmplitudeTextField.place(relx=0.3, rely=0.6)
 
-        self.VentricularAmplitudeWarningLabel= tk.Label(self.VOOConfigWindow, text="Valid inputs are: values between 0, 0.5-3.2 V with 0.1 V increment\n values between 3.5-7 V with 0.5 V increment",font=('Arial', 7) )
+        self.VentricularAmplitudeWarningLabel= tk.Label(self.VOOConfigWindow, text="Valid inputs are: values between 0, 0.36-2.3 V with 0.1 V increment\n values between 2.5-5.0 V with 0.5 V increment",font=('Arial', 7) )
         self.VentricularAmplitudeWarningLabel.pack()
         self.VentricularAmplitudeWarningLabel.place(relx=0.1, rely=0.65)
 
@@ -561,7 +561,7 @@ class MyGUI:
         self.AtrialAmplitudeTextField.pack()
         self.AtrialAmplitudeTextField.place(relx=0.3, rely=0.6)
 
-        self.AtrialAmplitudeWarningLabel= tk.Label(self.AOOConfigWindow, text="Valid inputs are: values between 0,0.5-3.2 V with 0.1 V increment\n values between 3.5-7 V with 0.5 V increment",font=('Arial', 7) )
+        self.AtrialAmplitudeWarningLabel= tk.Label(self.AOOConfigWindow, text="Valid inputs are: values between 0,0.36-2.3 V with 0.1 V increment\n values between 2.5-5 V with 0.5 V increment",font=('Arial', 7) )
         self.AtrialAmplitudeWarningLabel.pack()
         self.AtrialAmplitudeWarningLabel.place(relx=0.1, rely=0.65)
 
@@ -641,7 +641,7 @@ class MyGUI:
         self.AtrialAmplitudeTextField.pack()
         self.AtrialAmplitudeTextField.place(relx=0.3, rely=0.45)
 
-        self.AtrialAmplitudeWarningLabel= tk.Label(self.AAIConfigWindow, text="Valid inputs are: values between 0, 0.5-3.2 V with 0.1 V increment\n values between 3.5-7 V with 0.5 V increment",font=('Arial', 7) )
+        self.AtrialAmplitudeWarningLabel= tk.Label(self.AAIConfigWindow, text="Valid inputs are: values between 0, 0.36-2.3 V with 0.1 V increment\n values between 2.5-5 V with 0.5 V increment",font=('Arial', 7) )
         self.AtrialAmplitudeWarningLabel.pack()
         self.AtrialAmplitudeWarningLabel.place(relx=0.1, rely=0.5)
 
@@ -663,7 +663,7 @@ class MyGUI:
         self.AtrialSensitivityTextField.pack()
         self.AtrialSensitivityTextField.place(relx=0.8, rely=0.15)
 
-        self.AtrialSensitivityWarningLabel= tk.Label(self.AAIConfigWindow, text="Valid inputs are: 0.25, 0.5, 0.75 mV\n values between 1.0-10 mV with 0.5 mV increment",font=('Arial', 7) )
+        self.AtrialSensitivityWarningLabel= tk.Label(self.AAIConfigWindow, text="Valid inputs are: 0.178, 0.375, 0.54 mV\n values between 0.07-0.72 mV with 0.5 mV increment",font=('Arial', 7) )
         self.AtrialSensitivityWarningLabel.pack()
         self.AtrialSensitivityWarningLabel.place(relx=0.6, rely=0.2)
 
@@ -797,7 +797,7 @@ class MyGUI:
         self.VentricularAmplitudeTextField.pack()
         self.VentricularAmplitudeTextField.place(relx=0.3, rely=0.45)
 
-        self.VentricularAmplitudeWarningLabel= tk.Label(self.VVIConfigWindow, text="Valid inputs are: values between 0, 0.5-3.2 V with 0.1 V increment\n values between 3.5-7 V with 0.5 V increment",font=('Arial', 7) )
+        self.VentricularAmplitudeWarningLabel= tk.Label(self.VVIConfigWindow, text="Valid inputs are: values between 0, 0.36-2.3 V with 0.1 V increment\n values between 2.5-5 V with 0.5 V increment",font=('Arial', 7) )
         self.VentricularAmplitudeWarningLabel.pack()
         self.VentricularAmplitudeWarningLabel.place(relx=0.1, rely=0.5)
 
@@ -819,7 +819,7 @@ class MyGUI:
         self.VentricularSensitivityTextField.pack()
         self.VentricularSensitivityTextField.place(relx=0.8, rely=0.15)
 
-        self.VentricularSensitivityWarningLabel= tk.Label(self.VVIConfigWindow, text="Valid inputs are: 0.25, 0.5, 0.75 mV\n values between 1.0-10 mV with 0.5 mV increment",font=('Arial', 7) )
+        self.VentricularSensitivityWarningLabel= tk.Label(self.VVIConfigWindow, text="Valid inputs are: 0.178, 0.375, 0.54 mV\n values between 1.0-10 mV with 0.5 mV increment",font=('Arial', 7) )
         self.VentricularSensitivityWarningLabel.pack()
         self.VentricularSensitivityWarningLabel.place(relx=0.6, rely=0.2)
 
