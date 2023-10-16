@@ -1,6 +1,8 @@
 
 
 class userClass:
+#Gets called upon the creation of a new object/user. 
+# The user is created with a username, password, and device ID, all other protected parameters are set to 0 until changed
     def __init__(self, username, password,DeviceId = None,lowerRateLimit = None,upperRateLimit = None, ventricularAmplitude = None, ventricularPulseWidth = None, ventricularSensitivity = None, 
                  VRP = None, Hysteresis = None, rateSmoothing = None, atrialAmplitude = None, atrialPulseWidth = None, atrialSensitivity = None, ARP = None, PVARP = None):
         self.username = username

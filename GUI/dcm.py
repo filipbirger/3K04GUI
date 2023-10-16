@@ -46,17 +46,17 @@ class MyGUI:
         self.newUserWindow.geometry("300x200")
         self.newUserWindow.title("Create New User")
 
-        self.userNameLabel = tk.Label(self.newUserWindow, text="Username:")#Gathers Username and Password from the New User
+        self.userNameLabel = tk.Label(self.newUserWindow, text="Username:")#Gathers Username from the New User
         self.userNameLabel.pack()
         self.userNameTextField = tk.Entry(self.newUserWindow)
         self.userNameTextField.pack()
 
-        self.userPasswordLabel = tk.Label(self.newUserWindow, text="Password:")
+        self.userPasswordLabel = tk.Label(self.newUserWindow, text="Password:")#Gathers Password from the New User
         self.userPasswordLabel.pack()
-        self.userPasswordTextField = tk.Entry(self.newUserWindow, show="*")
+        self.userPasswordTextField = tk.Entry(self.newUserWindow, show="*") #Hides password characters
         self.userPasswordTextField.pack()
 
-        self.enterButton = tk.Button(self.newUserWindow, text="Submit", command=self.populateUserInfo)
+        self.enterButton = tk.Button(self.newUserWindow, text="Submit", command=self.populateUserInfo) 
         self.enterButton.pack()
         
     def populateUserInfo(self):
@@ -79,11 +79,11 @@ class MyGUI:
         self.aboutWindow = tk.Toplevel(self.startWindow) #Generates when ‘About’ button is clicked
         self.aboutWindow.geometry("300x200")
         self.aboutWindow.title("About")
-        self.applicationModelNumberLabel = tk.Label(self.aboutWindow, text="Application model number: ", font=('Arial', 12)) #Displays the device’s information
+        self.applicationModelNumberLabel = tk.Label(self.aboutWindow, text="Application model number: 7", font=('Arial', 12)) #Displays the device’s information
         self.applicationModelNumberLabel.pack(padx=0.1)
         self.revisionNumberLabel = tk.Label(self.aboutWindow, text="Revision Number: 1.3", font=('Arial', 12))
         self.revisionNumberLabel.pack(padx=0.1)
-        self.DCMNumberLabel = tk.Label(self.aboutWindow, text="DCM serial number:1", font=('Arial', 12))
+        self.DCMNumberLabel = tk.Label(self.aboutWindow, text="DCM serial number: 1", font=('Arial', 12))
         self.DCMNumberLabel.pack(padx=0.1)
         self.instituteNameLabel = tk.Label(self.aboutWindow, text="Institution name: McMaster U", font=('Arial', 12))
         self.instituteNameLabel.pack(padx=0.1)
@@ -93,14 +93,14 @@ class MyGUI:
         self.loginWindow.geometry("300x200")
         self.loginWindow.title("Login")
 
-        self.loginNameLabel = tk.Label(self.loginWindow, text="Username:")#Prompts user to sign in with their Username and Password
+        self.loginNameLabel = tk.Label(self.loginWindow, text="Username:")#Prompts user to sign in with their Username 
         self.loginNameLabel.pack()
         self.loginNameTextField = tk.Entry(self.loginWindow)
         self.loginNameTextField.pack()
 
-        self.loginPasswordLabel = tk.Label(self.loginWindow, text="Password:")
+        self.loginPasswordLabel = tk.Label(self.loginWindow, text="Password:")#Prompts user to sign in with their password
         self.loginPasswordLabel.pack()
-        self.loginPasswordTextField = tk.Entry(self.loginWindow, show="*")
+        self.loginPasswordTextField = tk.Entry(self.loginWindow, show="*")#Hides password characters
         self.loginPasswordTextField.pack()
 
         self.loginButton = tk.Button(self.loginWindow, text="Login", command=self.verifyLogin)
@@ -110,7 +110,7 @@ class MyGUI:
         self.errorLabel.pack()
 
     def verifyLogin(self):
-        inputName = self.loginNameTextField.get().strip()
+        inputName = self.loginNameTextField.get().strip() #strips unnecessary characters from username and password
         inputPassword = self.loginPasswordTextField.get().strip()
 
         user = self.db.getUserByUsername(inputName)
@@ -136,7 +136,7 @@ class MyGUI:
         self.prevInfoLabel.pack()
         self.prevInfoLabel.place(relx=0.5, rely=0.3, anchor='center')
 
-        self.prevInfoButtonYes= tk.Button(self.startWindow, text="Yes", command= self.getPrevMode)
+        self.prevInfoButtonYes= tk.Button(self.startWindow, text="Yes", command= self.getPrevMode) #Allows user to select their previous pacing mode
         self.prevInfoButtonYes.pack()
         self.prevInfoButtonYes.place(relx=0.1, rely=0.5, relwidth=0.3, relheight=0.05)
 
@@ -144,7 +144,7 @@ class MyGUI:
         self.warningYes.pack()
         self.warningYes.place(relx=0.1, rely=0.55)
 
-        self.prevInfoButtonNo= tk.Button(self.startWindow, text="No", command= self.configPaceMode)
+        self.prevInfoButtonNo= tk.Button(self.startWindow, text="No", command= self.configPaceMode) #Allows user to select to not use their previous mode
         self.prevInfoButtonNo.pack()
         self.prevInfoButtonNo.place(relx=0.6, rely=0.5, relwidth=0.3, relheight=0.05)
 
@@ -182,14 +182,14 @@ class MyGUI:
         self.pickDefault.pack()
         self.pickDefault.place(relx=0.5, rely=0.3, anchor='center')
 
-        self.useDefaultButtonYes= tk.Button(self.defaultWindow, text="Default", command= self.useDefault)
+        self.useDefaultButtonYes= tk.Button(self.defaultWindow, text="Default", command= self.useDefault) #Allows user to select to configure using default parameters
         self.useDefaultButtonYes.pack()
         self.useDefaultButtonYes.place(relx=0.1, rely=0.5, relwidth=0.3, relheight=0.05)
         self.useDefaultLabel=tk.Label(self.defaultWindow, text="By clicking 'Default', you will get the option\n to choose your pacing mode with it's\n corresponding default values", font=('Arial',8))
         self.useDefaultLabel.pack()
         self.useDefaultLabel.place(relx=0.125,rely=0.55)
 
-        self.useConfigButtonNo= tk.Button(self.defaultWindow, text="Configure", command= self.useConfigure)
+        self.useConfigButtonNo= tk.Button(self.defaultWindow, text="Configure", command= self.useConfigure) #Allow user to select to configure manually
         self.useConfigButtonNo.pack()
         self.useConfigButtonNo.place(relx=0.6, rely=0.5, relwidth=0.3, relheight=0.05)
         self.useConfigLabel=tk.Label(self.defaultWindow,text="By clicking 'Configure', you will\n select your desired pacing mode\n and input your own parameters", font=('Arial',8))
@@ -495,7 +495,7 @@ class MyGUI:
         self.VentricularPulseWidthWarningLabel.pack()
         self.VentricularPulseWidthWarningLabel.place(relx=0.1, rely=0.85)
 
-        self.VOOButton = tk.Button(self.VOOConfigWindow, text = "submit", command=self.submitVOO)
+        self.VOOButton = tk.Button(self.VOOConfigWindow, text = "submit", command=self.submitVOO) #Submit parameters to the device
         self.VOOButton.pack()
         self.VOOButton.place(relx=0.8, rely=0.8, relwidth=0.1, relheight=0.1)
 
@@ -579,7 +579,7 @@ class MyGUI:
         self.AtrialPulseWidthWarningLabel.pack()
         self.AtrialPulseWidthWarningLabel.place(relx=0.1, rely=0.85)
 
-        self.AOOButton = tk.Button(self.AOOConfigWindow, text = "submit", command=self.submitAOO)
+        self.AOOButton = tk.Button(self.AOOConfigWindow, text = "submit", command=self.submitAOO) #Submits parameters to the device
         self.AOOButton.pack()
         self.AOOButton.place(relx=0.8, rely=0.8, relwidth=0.1, relheight=0.1)
 
@@ -719,7 +719,7 @@ class MyGUI:
         self.RateSmoothingWarningLabel.pack()
         self.RateSmoothingWarningLabel.place(relx=0.3, rely=0.775)
 
-        self.AAIButton = tk.Button(self.AAIConfigWindow, text = "submit", command=self.submitAAI)
+        self.AAIButton = tk.Button(self.AAIConfigWindow, text = "submit", command=self.submitAAI) #Submits parameters to the device
         self.AAIButton.pack()
         self.AAIButton.place(relx=0.8, rely=0.8, relwidth=0.1, relheight=0.1)
 
@@ -876,7 +876,7 @@ class MyGUI:
         self.HysteresisWarningLabel.pack()
         self.HysteresisWarningLabel.place(relx=0.6, rely=0.65)
 
-        self.VVIButton = tk.Button(self.VVIConfigWindow, text = "submit", command=self.submitVVI)
+        self.VVIButton = tk.Button(self.VVIConfigWindow, text = "submit", command=self.submitVVI) #Submits parameters to the device
         self.VVIButton.pack()
         self.VVIButton.place(relx=0.8, rely=0.8, relwidth=0.1, relheight=0.1)
 
