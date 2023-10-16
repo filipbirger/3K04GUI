@@ -4,8 +4,8 @@ class userClass:
 #Gets called upon the creation of a new object/user. 
 # The user is created with a username, password, and device ID, all other protected parameters are set to 0 until changed
     def __init__(self, username, password,DeviceId = None,lowerRateLimit = None,upperRateLimit = None, ventricularAmplitude = None, ventricularPulseWidth = None, ventricularSensitivity = None, 
-                 VRP = None, Hysteresis = None, rateSmoothing = None, atrialAmplitude = None, atrialPulseWidth = None, atrialSensitivity = None, ARP = None, PVARP = None):
-        self.username = username
+                 VRP = None, Hysteresis = None, rateSmoothing = None, atrialAmplitude = None, atrialPulseWidth = None, atrialSensitivity = None, ARP = None, PVARP = None): #initializes user attributes to NULL
+        self.username = username 
         self._password = password
         self.DeviceId = DeviceId
         self._lowerRateLimit = lowerRateLimit
@@ -23,128 +23,128 @@ class userClass:
         self._VRP = VRP
 
     @property
-    def username(self):
+    def username(self): #get username from database
         return self._username
 
     @username.setter
-    def username(self, value):
+    def username(self, value): #sets username to database
         self._username = value
 
     @property
-    def password(self):
+    def password(self): #gets password from database
         return self._password
 
     @password.setter
-    def password(self, value):
+    def password(self, value): #sets password to database
         self._password = value
 
     @property
-    def lowerRateLimit(self):
+    def lowerRateLimit(self): #gets lower rate limit from database
         return self._lowerRateLimit
 
     @lowerRateLimit.setter
-    def lowerRateLimit(self, value):
+    def lowerRateLimit(self, value): #sets lower rate limit to database
         self._lowerRateLimit = value
 
     @property
-    def upperRateLimit(self):
+    def upperRateLimit(self): #gets upper rate limit from database
         return self._upperRateLimit
 
     @upperRateLimit.setter
-    def upperRateLimit(self, value):
+    def upperRateLimit(self, value): #sets upper rate limit to database
         self._upperRateLimit = value
 
     @property
-    def atrialAmplitude(self):
+    def atrialAmplitude(self): #gets atrial amplitude from database
         return self._atrialAmplitude
 
     @atrialAmplitude.setter
-    def atrialAmplitude(self, value):
+    def atrialAmplitude(self, value): #sets atrial amplitude to database
         self._atrialAmplitude = value
 
     @property
-    def atrialPulseWidth(self):
+    def atrialPulseWidth(self): #gets atrial pulse width from database
         return self._atrialPulseWidth
 
     @atrialPulseWidth.setter
-    def atrialPulseWidth(self, value):
+    def atrialPulseWidth(self, value): #sets atrial pulse width to database
         self._atrialPulseWidth = value
 
     @property
-    def atrialSensitivity(self):
+    def atrialSensitivity(self): #gets atrial sensitivity from database
         return self._atrialSensitivity
 
     @atrialSensitivity.setter
-    def atrialSensitivity(self, value):
+    def atrialSensitivity(self, value): #sets atrial sensitivity to database
         self._atrialSensitivity = value
 
     @property
-    def ARP(self):
+    def ARP(self): #gets ARP from database
         return self._ARP
 
     @ARP.setter
-    def ARP(self, value):
+    def ARP(self, value): #sets ARP to database
         self._ARP = value
 
     @property
-    def PVARP(self):
+    def PVARP(self): #gets PVARP from database
         return self._PVARP
 
     @PVARP.setter
-    def PVARP(self, value):
+    def PVARP(self, value): #sets PVARP to database
         self._PVARP = value
 
     @property
-    def Hysteresis(self):
+    def Hysteresis(self): #gets Hysteresis from database
         return self._Hysteresis
 
     @Hysteresis.setter
-    def Hysteresis(self, value):
+    def Hysteresis(self, value): #sets Hysteresis to database
         self._Hysteresis = value
 
     @property
-    def rateSmoothing(self):
+    def rateSmoothing(self): #gets Rate Smoothing from database
         return self._rateSmoothing
 
     @rateSmoothing.setter
-    def rateSmoothing(self, value):
+    def rateSmoothing(self, value): #sets Rate Smoothing to database
         self._rateSmoothing = value
 
     @property
-    def ventricularAmplitude(self):
+    def ventricularAmplitude(self): #gets Ventricular amplitude from database
         return self._ventricularAmplitude
 
     @ventricularAmplitude.setter
-    def ventricularAmplitude(self, value):
+    def ventricularAmplitude(self, value): #sets ventricular amplitude to database
         self._ventricularAmplitude = value
 
     @property
-    def ventricularPulseWidth(self):
+    def ventricularPulseWidth(self): #gets ventricular pulse width from database
         return self._ventricularPulseWidth
 
     @ventricularPulseWidth.setter
-    def ventricularPulseWidth(self, value):
+    def ventricularPulseWidth(self, value): #sets ventricular pulse width to database
         self._ventricularPulseWidth = value
 
     @property
-    def ventricularSensitivity(self):
+    def ventricularSensitivity(self): #gets ventricular sensitivity from database
         return self._ventricularSensitivity
 
     @ventricularSensitivity.setter
-    def ventricularSensitivity(self, value):
+    def ventricularSensitivity(self, value): #sets ventricular sensitivity to database
         self._ventricularSensitivity = value
 
     @property
-    def VRP(self):
+    def VRP(self): #gets VRP from database
         return self._VRP
 
     @VRP.setter
-    def VRP(self, value):
+    def VRP(self, value): #sets VRP to database
         self._VRP = value
 
 
 
-    def AOO(self,lowerRateLimit, upperRateLimit, atrialAmplitude, atrialPulseWidth):
+    def AOO(self,lowerRateLimit, upperRateLimit, atrialAmplitude, atrialPulseWidth): #initializes all AOO parameters to zero
         self._lowerRateLimit = lowerRateLimit
         self._upperRateLimit = upperRateLimit
         self._atrialAmplitude = atrialAmplitude
@@ -159,7 +159,7 @@ class userClass:
         self._Hysteresis = 0
         self._rateSmoothing = 0
 
-    def VOO(self,lowerRateLimit, upperRateLimit, ventricularAmplitude, ventricularPulseWidth):
+    def VOO(self,lowerRateLimit, upperRateLimit, ventricularAmplitude, ventricularPulseWidth): #initializes all VOO parameters to zero
         self._lowerRateLimit = lowerRateLimit
         self._upperRateLimit = upperRateLimit
         self._ventricularAmplitude = ventricularAmplitude
@@ -174,7 +174,7 @@ class userClass:
         self._Hysteresis = 0
         self._rateSmoothing = 0
 
-    def AAI(self,lowerRateLimit, upperRateLimit, atrialAmplitude, atrialPulseWidth, atrialSensitivity, ARP, PVARP, Hysteresis, rateSmoothing ):
+    def AAI(self,lowerRateLimit, upperRateLimit, atrialAmplitude, atrialPulseWidth, atrialSensitivity, ARP, PVARP, Hysteresis, rateSmoothing ): #initializes all AAI parameters to zero
         self._lowerRateLimit = lowerRateLimit
         self._upperRateLimit = upperRateLimit
         self._atrialAmplitude = atrialAmplitude
@@ -191,7 +191,7 @@ class userClass:
 
 
     
-    def VVI(self,lowerRateLimit, upperRateLimit, ventricularAmplitude, ventricularPulseWidth, ventricularSensitivity, VRP, Hysteresis, rateSmoothing):
+    def VVI(self,lowerRateLimit, upperRateLimit, ventricularAmplitude, ventricularPulseWidth, ventricularSensitivity, VRP, Hysteresis, rateSmoothing): #initializes all VVI parameters to zero
         self._lowerRateLimit = lowerRateLimit
         self._upperRateLimit = upperRateLimit
         self._ventricularAmplitude = ventricularAmplitude
@@ -207,7 +207,7 @@ class userClass:
         self._PVARP = 0
 
 
-    def delete(self):
+    def delete(self): #destructor
         del self._username
         del self._password 
         del self._lowerRateLimit 
