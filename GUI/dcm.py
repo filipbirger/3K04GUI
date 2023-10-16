@@ -5,48 +5,48 @@ from DataBase import DataBase
 
 class MyGUI:
 
-    def __init__(self):
+    def __init__(self): #constructor
         
         self.db = DataBase()
 
-        self.startWindow = tk.Tk()
+        self.startWindow = tk.Tk() #Generates initial login screen
         self.startWindow.geometry("800x800")
         self.startWindow.title("3K04 Pacemaker")
 
-        self.connceted = True
-        self.deviceId = 2
+        self.connceted = True #verifies device is connected
+        self.deviceId = 2 #gives device an identification number
 
         self.startTitle = tk.Label(self.startWindow, text="Welcome To 3K04 Pacemaker", font=('Arial', 24))
         self.startTitle.place(relx=0.3, rely=0.1)
         if (self.connceted == True):
-            self.newUserButton = tk.Button(self.startWindow, text="New User", command=self.createNewUser)
+            self.newUserButton = tk.Button(self.startWindow, text="New User", command=self.createNewUser) #Functionality to create New User
             self.newUserButton.place(relx=0.6, rely=0.2, relheight=0.1, relwidth=0.2)
             self.newUserLabel=tk.Label(self.startWindow, text="Click 'New User' to set up your\n profile and start\n configuring your pacemaker", font=("Arial",8))
             self.newUserLabel.pack()
             self.newUserLabel.place(relx=0.6, rely=0.3)
 
-            self.signInButton = tk.Button(self.startWindow, text="Sign In", command=self.createLoginWindow)
+            self.signInButton = tk.Button(self.startWindow, text="Sign In", command=self.createLoginWindow) #Functionality to Sign In
             self.signInButton.place(relx=0.2, rely=0.2, relheight=0.1, relwidth=0.2)
             self.signInLabel=tk.Label(self.startWindow, text="Click 'Sign in' if you are\n an existing user", font=("Arial",8))
             self.signInLabel.pack()
             self.signInLabel.place(relx=0.22, rely=0.3)
 
-            self.aboutButton = tk.Button (self.startWindow, text="About", command=self.aboutDevice)
+            self.aboutButton = tk.Button (self.startWindow, text="About", command=self.aboutDevice) #Provides ‘About’ information 
             self.aboutButton.place(relx=0.4, rely=0.6, relheight=0.1, relwidth=0.2)
             self.aboutLabel=tk.Label(self.startWindow, text="Click 'About' for more\n information about your pacemaker", font=("Arial",8))
             self.aboutLabel.pack()
             self.aboutLabel.place(relx=0.385,rely=0.7)
         else:
-            self.notConnectedLabel = tk.Label(self.startWindow, text="No Device In Range", font=('Arial', 24))
+            self.notConnectedLabel = tk.Label(self.startWindow, text="No Device In Range", font=('Arial', 24)) #Checks if device is not connected
             self.notConnectedLabel.pack()
         self.startWindow.mainloop()
 
     def createNewUser(self):
-        self.newUserWindow = tk.Toplevel(self.startWindow)
+        self.newUserWindow = tk.Toplevel(self.startWindow)#Called when New User button is clicked
         self.newUserWindow.geometry("300x200")
         self.newUserWindow.title("Create New User")
 
-        self.userNameLabel = tk.Label(self.newUserWindow, text="Username:")
+        self.userNameLabel = tk.Label(self.newUserWindow, text="Username:")#Gathers Username and Password from the New User
         self.userNameLabel.pack()
         self.userNameTextField = tk.Entry(self.newUserWindow)
         self.userNameTextField.pack()
@@ -60,13 +60,13 @@ class MyGUI:
         self.enterButton.pack()
         
     def populateUserInfo(self):
-        allUsersSize = self.db.getAllUsers()
-        if len(allUsersSize)>=10:
+        allUsersSize = self.db.getAllUsers()#Gathers number of current users from the database and checks if there are less than 10
+        if len(allUsersSize)>=10: #If there are currently more than 10 users, it prohibits the new user from signing up
             self.maxUserReachedText = tk.Label(self.newUserWindow, text="Error: Maximum number of users reached!", fg="red")
             self.maxUserReachedText.pack()
             print("")
             return
-        else:
+        else: #If there are less than 10 users, it inserts the new user’s information to the database
             inputName = self.userNameTextField.get().strip()
             inputPassword = self.userPasswordTextField.get().strip()
             if inputName and inputPassword:
@@ -76,12 +76,12 @@ class MyGUI:
 
 
     def aboutDevice(self):
-        self.aboutWindow = tk.Toplevel(self.startWindow)
+        self.aboutWindow = tk.Toplevel(self.startWindow) #Generates when ‘About’ button is clicked
         self.aboutWindow.geometry("300x200")
         self.aboutWindow.title("About")
-        self.applicationModelNumberLabel = tk.Label(self.aboutWindow, text="Application model number:", font=('Arial', 12))
+        self.applicationModelNumberLabel = tk.Label(self.aboutWindow, text="Application model number: ", font=('Arial', 12)) #Displays the device’s information
         self.applicationModelNumberLabel.pack(padx=0.1)
-        self.revisionNumberLabel = tk.Label(self.aboutWindow, text="Revision Number:", font=('Arial', 12))
+        self.revisionNumberLabel = tk.Label(self.aboutWindow, text="Revision Number: 1.3", font=('Arial', 12))
         self.revisionNumberLabel.pack(padx=0.1)
         self.DCMNumberLabel = tk.Label(self.aboutWindow, text="DCM serial number:1", font=('Arial', 12))
         self.DCMNumberLabel.pack(padx=0.1)
@@ -89,11 +89,11 @@ class MyGUI:
         self.instituteNameLabel.pack(padx=0.1)
 
     def createLoginWindow(self):
-        self.loginWindow = tk.Toplevel(self.startWindow)
+        self.loginWindow = tk.Toplevel(self.startWindow)#Generates when ‘Sign In’ is clicked
         self.loginWindow.geometry("300x200")
         self.loginWindow.title("Login")
 
-        self.loginNameLabel = tk.Label(self.loginWindow, text="Username:")
+        self.loginNameLabel = tk.Label(self.loginWindow, text="Username:")#Prompts user to sign in with their Username and Password
         self.loginNameLabel.pack()
         self.loginNameTextField = tk.Entry(self.loginWindow)
         self.loginNameTextField.pack()
@@ -115,7 +115,7 @@ class MyGUI:
 
         user = self.db.getUserByUsername(inputName)
 
-        if user and user['password'] == inputPassword:
+        if user and user['password'] == inputPassword: #Checks to make sure that the user signing in already exists in the database
             self.loginWindow.destroy()
             self.currentUser = userClass.userClass(username=user['username'], password=user['password'])
             self.createMainSettingWindow()
@@ -129,10 +129,10 @@ class MyGUI:
 
         self.startWindow.title("Main Settings")
 
-        self.settingLabel = tk.Label(self.startWindow, text="Welcome to Main Settings", font=('Arial', 18))
+        self.settingLabel = tk.Label(self.startWindow, text="Welcome to Main Settings", font=('Arial', 18)) #Generates after the user has signed in
         self.settingLabel.pack()
 
-        self.prevInfoLabel = tk.Label(self.startWindow,text="Would you like to use your previous pacing mode?", font=('Arial', 12))
+        self.prevInfoLabel = tk.Label(self.startWindow,text="Would you like to use your previous pacing mode?", font=('Arial', 12)) #Asks user to choose between using their previous pacing mode or configuring their pacing mode
         self.prevInfoLabel.pack()
         self.prevInfoLabel.place(relx=0.5, rely=0.3, anchor='center')
 
@@ -152,7 +152,7 @@ class MyGUI:
         self.warningNo.pack()
         self.warningNo.place(relx=0.625, rely=0.55)
 
-        self.deleteUserButton = tk.Button(self.startWindow, text = "Delete User", command=self.deleteUser)
+        self.deleteUserButton = tk.Button(self.startWindow, text = "Delete User", command=self.deleteUser) #Gives the user the option to delete their profile from the database
         self.deleteUserButton.place(relx=0.35, rely=0.7, relwidth=0.3, relheight=0.05)
         self.deleteUserLabel= tk.Label(self.startWindow, text="By clicking 'Delete User', you are choosing to\n permanently delete your profile and pacing\n history from our database", font=("Arial",8))
         self.deleteUserLabel.pack()
@@ -162,14 +162,14 @@ class MyGUI:
         self.prevInfoWindow = tk.Toplevel(self.startWindow)
         self.prevInfoWindow.geometry("800x800")
         
-        self.prevInfoLabel=tk.Label(self.prevInfoWindow, text="Previous Pacing Mode", font=('Arial',18))
+        self.prevInfoLabel=tk.Label(self.prevInfoWindow, text="Previous Pacing Mode", font=('Arial',18)) #Accesses user’s previous pacing parameters from the database
         self.prevInfoLabel.pack()
         self.prevInfoLabel.place(relx=0.4, rely=0.05)
 
         user_data = self.db.getUserByUsername(self.currentUser.username)
 
         y_position = 0.1
-        for attribute, value in user_data.items():
+        for attribute, value in user_data.items(): #Displays the information for the user to view and submit
             label = tk.Label(self.prevInfoWindow, text=f"{attribute}: {value}", font=('Arial', 12))
             label.place(relx=0.1, rely=y_position)
             y_position += 0.05
@@ -178,7 +178,7 @@ class MyGUI:
         self.defaultWindow=tk.Toplevel(self.startWindow)
         self.defaultWindow.geometry("800x800")
 
-        self.pickDefault= tk.Label(self.defaultWindow, text="Would you like to configure the pacing mode or use a default pacing mode?", font=('Arial', 12))
+        self.pickDefault= tk.Label(self.defaultWindow, text="Would you like to configure the pacing mode or use a default pacing mode?", font=('Arial', 12)) #Gives the user the option to either configure the pacing mode manually or use default parameters
         self.pickDefault.pack()
         self.pickDefault.place(relx=0.5, rely=0.3, anchor='center')
 
@@ -197,10 +197,10 @@ class MyGUI:
         self.useConfigLabel.place(relx=0.65,rely=0.55)
 
     def useDefault(self):
-        self.defaultModeWindow=tk.Toplevel(self.defaultWindow)
+        self.defaultModeWindow=tk.Toplevel(self.defaultWindow) #Generates when the user picks to use default parameters
         self.defaultModeWindow.geometry("800x800")
         
-        self.defaultModeLabel=tk.Label(self.defaultModeWindow, text="Please Select Your Pacing Mode", font=("Arial",18))
+        self.defaultModeLabel=tk.Label(self.defaultModeWindow, text="Please Select Your Pacing Mode", font=("Arial",18)) #Prompts user to pick which pacing mode they want to use (VOO, AOO, AAI, VVI)
         self.defaultModeLabel.pack()
         self.defaultModeLabel.place(relx=0.3, rely=0.05)
 
@@ -225,7 +225,7 @@ class MyGUI:
         self.defVOOWindow=tk.Toplevel(self.defaultModeWindow)
         self.defVOOWindow.geometry("800x800")
 
-        self.defVOOLabel=tk.Label(self.defVOOWindow, text="Default VOO Parameters", font=("Arial",18))
+        self.defVOOLabel=tk.Label(self.defVOOWindow, text="Default VOO Parameters", font=("Arial",18)) #Displays default VOO parameters
         self.defVOOLabel.pack()
         self.defVOOLabel.place(relx=0.35, rely=0.05)
 
@@ -245,7 +245,7 @@ class MyGUI:
         self.VentricularPulseWidthLabel.pack()
         self.VentricularPulseWidthLabel.place(relx=0.1, rely=0.7)
  
-        self.VOOButton = tk.Button(self.defVOOWindow, text = "submit", command=self.submitDefVOO)
+        self.VOOButton = tk.Button(self.defVOOWindow, text = "submit", command=self.submitDefVOO) #Allows the user to submit the parameters to their device
         self.VOOButton.pack()
         self.VOOButton.place(relx=0.8, rely=0.8, relwidth=0.1, relheight=0.1)
 
@@ -257,11 +257,11 @@ class MyGUI:
         MyGUI.successfulSubmitted(self,self.defVOOWindow)
 
 
-        self.currentUser.VOO(self.VOOLRLimit, self.VOOURLimit, self.VOOVentricularAmplitude, self.VOOVentricularPulseWidth)
+        self.currentUser.VOO(self.VOOLRLimit, self.VOOURLimit, self.VOOVentricularAmplitude, self.VOOVentricularPulseWidth) #Updates the user’s chosen parameters to the database
         self.db.updateUser(self.currentUser)
     
     def defaultAOO(self):
-        self.defAOOWindow=tk.Toplevel(self.defaultModeWindow)
+        self.defAOOWindow=tk.Toplevel(self.defaultModeWindow) #Displays default AOO parameters
         self.defAOOWindow.geometry("800x800")
 
         self.defAOOLabel=tk.Label(self.defAOOWindow, text="Default AOO Parameters", font=("Arial",18))
@@ -284,7 +284,7 @@ class MyGUI:
         self.AtrialPulseWidthLabel.pack()
         self.AtrialPulseWidthLabel.place(relx=0.1, rely=0.7)
  
-        self.AOOButton = tk.Button(self.defAOOWindow, text = "submit", command=self.submitDefAOO)
+        self.AOOButton = tk.Button(self.defAOOWindow, text = "submit", command=self.submitDefAOO)#Allows the user to submit the parameters to their device
         self.AOOButton.pack()
         self.AOOButton.place(relx=0.8, rely=0.8, relwidth=0.1, relheight=0.1)
     
@@ -294,7 +294,7 @@ class MyGUI:
         self.AOOAtrialAmplitude=3.5
         self.AOOAtrialPulseWidth=0.4
 
-        self.currentUser.AOO(self.AOOLRLimit, self.AOOURLimit, self.AOOAtrialAmplitude, self.AOOAtrialPulseWidth)
+        self.currentUser.AOO(self.AOOLRLimit, self.AOOURLimit, self.AOOAtrialAmplitude, self.AOOAtrialPulseWidth)#Updates the user’s chosen parameters to the database
         self.db.updateUser(self.currentUser)
         MyGUI.successfulSubmitted(self,self.defAOOWindow)
 
@@ -302,7 +302,7 @@ class MyGUI:
         self.defAAIWindow=tk.Toplevel(self.defaultModeWindow)
         self.defAAIWindow.geometry("800x800")
 
-        self.defAAILabel=tk.Label(self.defAAIWindow, text="Default AAI Parameters", font=("Arial",18))
+        self.defAAILabel=tk.Label(self.defAAIWindow, text="Default AAI Parameters", font=("Arial",18))#Displays default AAI parameters
         self.defAAILabel.pack()
         self.defAAILabel.place(relx=0.35, rely=0.05)
 
@@ -342,7 +342,7 @@ class MyGUI:
         self.RateSmoothingLabel.pack()
         self.RateSmoothingLabel.place(relx=0.1, rely=0.8)
 
-        self.AAIButton = tk.Button(self.defAAIWindow, text = "submit", command=self.submitDefAAI)
+        self.AAIButton = tk.Button(self.defAAIWindow, text = "submit", command=self.submitDefAAI)#Allows the user to submit the parameters to their device
         self.AAIButton.pack()
         self.AAIButton.place(relx=0.8, rely=0.8, relwidth=0.1, relheight=0.1)
 
@@ -357,7 +357,7 @@ class MyGUI:
         self.AAIHysteresis=0.0
         self.AAIRateSmoothing=0.0
 
-        self.currentUser.AAI(self.AAILRLimit, self.AAIURLimit, self.AAIAtrialAmplitude, self.AAIAtrialPulseWidth, self.AAIAtrialSensitivity, self.AAIARP, self.AAIPVARP, self.AAIHysteresis, self.AAIRateSmoothing)
+        self.currentUser.AAI(self.AAILRLimit, self.AAIURLimit, self.AAIAtrialAmplitude, self.AAIAtrialPulseWidth, self.AAIAtrialSensitivity, self.AAIARP, self.AAIPVARP, self.AAIHysteresis, self.AAIRateSmoothing)#Updates the user’s chosen parameters to the database
         self.db.updateUser(self.currentUser)
         MyGUI.successfulSubmitted(self, self.defAAIWindow)
 
@@ -365,7 +365,7 @@ class MyGUI:
         self.defVVIWindow=tk.Toplevel(self.defaultModeWindow)
         self.defVVIWindow.geometry("800x800")
 
-        self.defVVILabel=tk.Label(self.defVVIWindow, text="Default VVI Parameters", font=("Arial",18))
+        self.defVVILabel=tk.Label(self.defVVIWindow, text="Default VVI Parameters", font=("Arial",18)) #Displays default VVI parameters
         self.defVVILabel.pack()
         self.defVVILabel.place(relx=0.35, rely=0.05)
 
@@ -401,7 +401,7 @@ class MyGUI:
         self.RateSmoothingLabel.pack()
         self.RateSmoothingLabel.place(relx=0.55, rely=0.7)
 
-        self.VVIButton = tk.Button(self.defVVIWindow, text = "submit", command=self.submitDefVVI)
+        self.VVIButton = tk.Button(self.defVVIWindow, text = "submit", command=self.submitDefVVI)#Allows the user to submit the parameters to their device
         self.VVIButton.pack()
         self.VVIButton.place(relx=0.8, rely=0.8, relwidth=0.1, relheight=0.1)
 
@@ -415,15 +415,15 @@ class MyGUI:
         self.VVIHysteresis=0.0
         self.VVIRateSmoothing=0.0
 
-        self.currentUser.VVI(self.VVILRLimit, self.VVIURLimit, self.VVIVentricularAmplitude, self.VVIVentricularPulseWidth, self.VVIVentricularSensitivity, self.VVIVRP, self.VVIHysteresis, self.VVIRateSmoothing )
+        self.currentUser.VVI(self.VVILRLimit, self.VVIURLimit, self.VVIVentricularAmplitude, self.VVIVentricularPulseWidth, self.VVIVentricularSensitivity, self.VVIVRP, self.VVIHysteresis, self.VVIRateSmoothing )#Updates the user’s chosen parameters to the database
         self.db.updateUser(self.currentUser)
         MyGUI.successfulSubmitted(self, self.defVVIWindow)
 
     def useConfigure(self):
-        self.configModeWindow = tk.Toplevel(self.defaultWindow)
+        self.configModeWindow = tk.Toplevel(self.defaultWindow)#Generates when the user picks to configure the parameters manually
         self.configModeWindow.geometry("800x800")
 
-        self.configModeLabel=tk.Label(self.configModeWindow, text="Please Select Your Pacing Mode", font=("Arial",18))
+        self.configModeLabel=tk.Label(self.configModeWindow, text="Please Select Your Pacing Mode", font=("Arial",18)) #Asks user to pick between the four pacing modes (VOO, AOO, AAI, VVI)
         self.configModeLabel.pack()
         self.configModeLabel.place(relx=0.3, rely=0.05)
 
@@ -447,7 +447,7 @@ class MyGUI:
         self.VOOConfigWindow= tk.Toplevel(self.configModeWindow)
         self.VOOConfigWindow.geometry("800x800")
 
-        self.VOOConfigLabel=tk.Label(self.VOOConfigWindow, text="Configure Your VOO Parameters", font=("Arial",18))
+        self.VOOConfigLabel=tk.Label(self.VOOConfigWindow, text="Configure Your VOO Parameters", font=("Arial",18)) #Gathers the necessary parameters to configure VOO from the user
         self.VOOConfigLabel.pack()
         self.VOOConfigLabel.place(relx=0.3,rely=0.05)
 
@@ -511,7 +511,7 @@ class MyGUI:
         self.VOOLRLimit = float(self.VOOLRLimit)
         self.VOOURLimit = float(self.VOOURLimit)
         self.VOOVentricularPulseWidth = int(self.VOOVentricularPulseWidth)
-
+        #Checks to make sure the values inputted are valid
         if not ((30<= self.VOOLRLimit<=50 and self.VOOLRLimit % 5 == 0) or (50<= self.VOOLRLimit<=90) or  (90 <= self.VOOLRLimit <= 175 and self.VOOLRLimit % 5 == 0)):
             MyGUI.errorWindow(self)
         elif not ((50<= self.VOOURLimit<=175 and self.VOOURLimit % 5 == 0)):
@@ -523,7 +523,7 @@ class MyGUI:
         else:
             MyGUI.successfulSubmitted(self, self.VOOConfigWindow)
             self.currentUser.VOO(self.VOOLRLimit, self.VOOURLimit, self.VOOVentricularAmplitude, self.VOOVentricularPulseWidth)
-            self.db.updateUser(self.currentUser)
+            self.db.updateUser(self.currentUser)#Updates the user’s chosen parameters to the database
         
 
         
@@ -531,7 +531,7 @@ class MyGUI:
         self.AOOConfigWindow= tk.Toplevel(self.configModeWindow)
         self.AOOConfigWindow.geometry("800x800")
 
-        self.AOOConfigLabel=tk.Label(self.AOOConfigWindow, text="Configure Your AOO Parameters", font=("Arial",18))
+        self.AOOConfigLabel=tk.Label(self.AOOConfigWindow, text="Configure Your AOO Parameters", font=("Arial",18))#Gathers the necessary parameters to configure AOO from the user
         self.AOOConfigLabel.pack()
         self.AOOConfigLabel.place(relx=0.3,rely=0.05)
 
@@ -597,9 +597,7 @@ class MyGUI:
         self.AOOURLimit= float(self.AOOURLimit)
         self.AOOAtrialAmplitude= float(self.AOOAtrialAmplitude)
         self.AOOAtrialPulseWidth= float(self.AOOAtrialPulseWidth)
-
-
-
+        #Checks to make sure the values inputted are valid
         if not ((30<= self.AOOLRLimit<=50 and self.AOOLRLimit % 5 == 0) or (50<= self.AOOLRLimit<=90) or  (90 <= self.AOOLRLimit <= 175 and self.AOOLRLimit % 5 == 0)):
             MyGUI.errorWindow(self)
         elif not ((50<= self.AOOLRLimit<=175 and self.AOOLRLimit % 5 == 0)):
@@ -611,14 +609,14 @@ class MyGUI:
         else:
             self.currentUser.AOO(self.AOOLRLimit, self.AOOURLimit, self.AOOAtrialAmplitude, self.AOOAtrialPulseWidth)
             self.db.updateUser(self.currentUser)
-            MyGUI.successfulSubmitted(self,self.AOOConfigWindow)
+            MyGUI.successfulSubmitted(self,self.AOOConfigWindow)#Updates the user’s chosen parameters to the database
 
 
     def AAIConfig(self):
         self.AAIConfigWindow= tk.Toplevel(self.configModeWindow)
         self.AAIConfigWindow.geometry("800x800")
 
-        self.AAIConfigLabel=tk.Label(self.AAIConfigWindow, text="Configure Your AAI Parameters", font=("Arial",18))
+        self.AAIConfigLabel=tk.Label(self.AAIConfigWindow, text="Configure Your AAI Parameters", font=("Arial",18))#Gathers the necessary parameters to configure AAI from the user
         self.AAIConfigLabel.pack()
         self.AAIConfigLabel.place(relx=0.3,rely=0.05)
 
@@ -757,7 +755,7 @@ class MyGUI:
         self.AAIAtrialSensitivity= float(self.AAIAtrialSensitivity)
         self.AAIARP= float(self.AAIARP)
         self.AAIPVARP= float(self.AAIPVARP)
-
+        #Checks to make sure the values inputted are valid
         if not ((30<= self.AAILRLimit<=50 and self.AAILRLimit % 5 == 0) or (50<= self.AAILRLimit<=90) or  (90 <= self.AAILRLimit <= 175 and self.AAILRLimit % 5 == 0)):
             MyGUI.errorWindow(self)
         elif not ((50<= self.AAIURLimit<=175 and self.AAIURLimit % 5 == 0)):
@@ -778,7 +776,7 @@ class MyGUI:
             MyGUI.errorWindow(self)
         else:
             self.currentUser.AAI(self.AAILRLimit, self.AAIURLimit, self.AAIAtrialAmplitude, self.AAIAtrialPulseWidth, self.AAIAtrialSensitivity, self.AAIARP, self.AAIPVARP, self.AAIHysteresis, self.AAIRateSmoothing)
-            self.db.updateUser(self.currentUser)
+            self.db.updateUser(self.currentUser)#Updates the user’s chosen parameters to the database
             MyGUI.successfulSubmitted(self,self.AAIConfigWindow)
 
 
@@ -786,7 +784,7 @@ class MyGUI:
         self.VVIConfigWindow= tk.Toplevel(self.configModeWindow)
         self.VVIConfigWindow.geometry("800x800")
 
-        self.VVIConfigLabel=tk.Label(self.VVIConfigWindow, text="Configure Your VVI Parameters", font=("Arial",18))
+        self.VVIConfigLabel=tk.Label(self.VVIConfigWindow, text="Configure Your VVI Parameters", font=("Arial",18))#Gathers the necessary parameters to configure VVI from the user
         self.VVIConfigLabel.pack()
         self.VVIConfigLabel.place(relx=0.3,rely=0.05)
 
@@ -891,7 +889,7 @@ class MyGUI:
         self.VVIVRP= self.VRPTextField.get().strip()
         self.VVIHysteresis= self.HysteresisTextField.get().strip()
         self.VVIRateSmoothing= self.RateSmoothingTextField.get().strip()
-
+        #Checks to make sure the values inputted are valid
         if self.VVIVentricularAmplitude == "0":
             self.VVIVentricularAmplitude =0
         else:
@@ -933,7 +931,7 @@ class MyGUI:
             MyGUI.errorWindow(self)
         else:
             self.currentUser.VVI(self.VVILRLimit, self.VVIURLimit, self.VVIVentricularAmplitude, self.VVIVentricularPulseWidth, self.VVIVentricularSensitivity, self.VVIVRP, self.VVIHysteresis, self.VVIRateSmoothing)
-            self.db.updateUser(self.currentUser)
+            self.db.updateUser(self.currentUser)#Updates the user’s chosen parameters to the database
             MyGUI.successfulSubmitted(self,self.VVIConfigWindow)
 
 
@@ -941,24 +939,24 @@ class MyGUI:
         self.db.updateUser(self.currentUser)
   
     def deleteUser(self):
-        self.db.delete_user(self.currentUser.username)
+        self.db.delete_user(self.currentUser.username)#Deletes user that is currently signed in from the database
         
         print("User successfully deleted!")  
         
         self.startWindow.destroy()
-        self.__init__() 
+        self.__init__() #Calls the constructor
     
-    def __del__(self):
-        self.db.close()
+    def __del__(self):#Destructor
+        self.db.close()#Closes the database
 
     def errorWindow(self):
-        self.errorScreen = tk.Toplevel(self.configModeWindow)
+        self.errorScreen = tk.Toplevel(self.configModeWindow)#Displays when the values inputted by the user are invalid
         self.errorScreen.geometry("200x100")
         self.errorScreenLabel = tk.Label(self.errorScreen, text = "Values Entered Are Not in Range", fg="red")
         self.errorScreenLabel.pack()
 
     def successfulSubmitted(self,window):
-        self.errorScreen = tk.Toplevel(window)
+        self.errorScreen = tk.Toplevel(window)#Generates when the user successfully submits their pacing mode to their device
         self.errorScreen.geometry("200x100")
         self.errorScreenLabel = tk.Label(self.errorScreen, text = "Submitted", fg="red")
         self.errorScreenLabel.pack()

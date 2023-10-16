@@ -1,6 +1,6 @@
 import sqlite3
 
-class DataBase():
+class DataBase():#Gets called upon the creation of a new object/user
     def __init__(self):
         self.conn = sqlite3.connect('User_Database.db')
         self.c = self.conn.cursor()
@@ -29,6 +29,7 @@ class DataBase():
         self.conn.commit()
 
     def insertUser(self, user):
+        #pushes the newly created user to the table while mapping the parameters to the appropriate column
         with self.conn:
             user_data = {
                 "username": user.username,
@@ -57,6 +58,7 @@ class DataBase():
             """, user_data)
 
     def updateUser(self, user):
+        #updates users already found in the table given username is the input 
         with self.conn:
             user_data = {
                 "username": user.username,
@@ -100,6 +102,7 @@ class DataBase():
 
     
     def delete_user(self, username):
+        #responsible for deleting a user from the database 
         with self.conn:
             self.c.execute("DELETE FROM Users WHERE username = ?", (username,))
 
@@ -107,10 +110,12 @@ class DataBase():
     # Additional method for the DataBase class to get all users
 
     def getAllUsers(self):
+        #returns all users and is utilized by my Gui class to determine if there are fewer than 10 users present when creating a new user 
         self.c.execute("SELECT * FROM Users")
         return self.c.fetchall()
 
     def getUserByUsername(self, username):
+        #Allows us to fetch a specific user, it provides us the ability to return any user from the list 
         self.c.execute("SELECT * FROM Users WHERE username = ?", (username,))
         data = self.c.fetchone()
         
@@ -124,6 +129,7 @@ class DataBase():
    
    
     def close(self):
+        #closes the connection to the database
         self.conn.close()
 
 # This will return the user data as a dictionary, making it easier to display in the getPrevMode function.
