@@ -252,7 +252,7 @@ class MyGUI:
     def submitDefVOO(self):
         self.VOOLRLimit=60.0
         self.VOOURLimit=120.0
-        self.VOOVentricularAmplitude=3.5
+        self.VOOVentricularAmplitude=4.9
         self.VOOVentricularPulseWidth=0.4
         MyGUI.successfulSubmitted(self,self.defVOOWindow)
 
@@ -291,7 +291,7 @@ class MyGUI:
     def submitDefAOO(self):
         self.AOOLRLimit=60.0
         self.AOOURLimit=120.0
-        self.AOOAtrialAmplitude=3.5
+        self.AOOAtrialAmplitude=4.9
         self.AOOAtrialPulseWidth=0.4
 
         self.currentUser.AOO(self.AOOLRLimit, self.AOOURLimit, self.AOOAtrialAmplitude, self.AOOAtrialPulseWidth)#Updates the user’s chosen parameters to the database
@@ -349,9 +349,9 @@ class MyGUI:
     def submitDefAAI(self):
         self.AAILRLimit=60.0
         self.AAIURLimit=120.0
-        self.AAIAtrialAmplitude=3.5
+        self.AAIAtrialAmplitude=4.9
         self.AAIAtrialPulseWidth=0.4
-        self.AAIAtrialSensitivity=0.75
+        self.AAIAtrialSensitivity=1.05
         self.AAIARP=250.0
         self.AAIPVARP=250.0
         self.AAIHysteresis=0.0
@@ -408,9 +408,9 @@ class MyGUI:
     def submitDefVVI(self):
         self.VVILRLimit=60.0
         self.VVIURLimit=120.0
-        self.VVIVentricularAmplitude=3.5
+        self.VVIVentricularAmplitude=4.9
         self.VVIVentricularPulseWidth=0.4
-        self.VVIVentricularSensitivity=2.5
+        self.VVIVentricularSensitivity=3.5
         self.VVIVRP=320.0
         self.VVIHysteresis=0.0
         self.VVIRateSmoothing=0.0
