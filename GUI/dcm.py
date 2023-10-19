@@ -16,8 +16,8 @@ class MyGUI:
         self.connceted = True #verifies device is connected
         self.deviceId = 2 #gives device an identification number
 
-        self.startTitle = tk.Label(self.startWindow, text="Welcome To 3K04 Pacemaker", font=('Arial', 24))
-        self.startTitle.place(relx=0.3, rely=0.1)
+        self.startTitle = tk.Label(self.startWindow, text="Pacemaker", font=('Arial', 24))
+        self.startTitle.place(relx=0.4, rely=0.1)
         if (self.connceted == True):
             self.newUserButton = tk.Button(self.startWindow, text="New User", command=self.createNewUser) #Functionality to create New User
             self.newUserButton.place(relx=0.6, rely=0.2, relheight=0.1, relwidth=0.2)
