@@ -600,16 +600,17 @@ class MyGUI:
         #Checks to make sure the values inputted are valid
         if not ((30<= self.AOOLRLimit<=50 and self.AOOLRLimit % 5 == 0) or (50<= self.AOOLRLimit<=90) or  (90 <= self.AOOLRLimit <= 175 and self.AOOLRLimit % 5 == 0)):
             MyGUI.errorWindow(self)
-        elif not ((50<= self.AOOLRLimit<=175 and self.AOOLRLimit % 5 == 0)):
+        elif not ((50<= self.AOOURLimit<=175 and self.AOOURLimit % 5 == 0)):
             MyGUI.errorWindow(self)
-        elif not ((self.AOOAtrialAmplitude == 0) or (0.36 <= self.AOOAtrialAmplitude <= 2.3 and self.AOOAtrialAmplitude*10 %1==0) or (2.5 <= self.VOOVentricularAmplitude <= 5 and self.VOOVentricularAmplitude*10 %5==0)): 
+        elif not ((self.AOOAtrialAmplitude == 0) or (0.36 <= self.AOOAtrialAmplitude <= 2.3 and self.AOOAtrialAmplitude*10 %1==0) or (2.5 <= self.AOOAtrialAmplitude <= 5 and self.AOOAtrialAmplitude*10 %5==0)): 
             MyGUI.errorWindow(self)
-        elif not ((self.AOOAtrialPulseWidth == 0.05 )or (0.1<= self.AOOAtrialPulseWidth <= 1.9 and self.VOOVentricularPulseWidth*10 % 1 ==0)):
+        elif not ((self.AOOAtrialPulseWidth == 0.05 )or (0.1<= self.AOOAtrialPulseWidth <= 1.9 and self.AOOAtrialPulseWidth*10 % 1 ==0)):
             MyGUI.errorWindow(self)    
         else:
+            MyGUI.successfulSubmitted(self,self.AOOConfigWindow)#Updates the user’s chosen parameters to the database
             self.currentUser.AOO(self.AOOLRLimit, self.AOOURLimit, self.AOOAtrialAmplitude, self.AOOAtrialPulseWidth)
             self.db.updateUser(self.currentUser)
-            MyGUI.successfulSubmitted(self,self.AOOConfigWindow)#Updates the user’s chosen parameters to the database
+           
 
 
     def AAIConfig(self):
