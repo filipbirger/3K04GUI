@@ -13,7 +13,7 @@ class MyGUI:
         self.startWindow.geometry("800x800")
         self.startWindow.title("3K04 Pacemaker")
 
-        self.connceted = True #verifies device is connected
+        self.connceted = True#verifies device is connected
         self.deviceId = 2 #gives device an identification number
 
         self.startTitle = tk.Label(self.startWindow, text="Pacemaker", font=('Arial', 24))
@@ -498,6 +498,10 @@ class MyGUI:
         self.VOOButton = tk.Button(self.VOOConfigWindow, text = "submit", command=self.submitVOO) #Submit parameters to the device
         self.VOOButton.pack()
         self.VOOButton.place(relx=0.8, rely=0.8, relwidth=0.1, relheight=0.1)
+
+
+        self.egramButton = tk.Button(self.VOOConfigWindow, text = "Egram")
+        self.egramButton.pack()
 
     def submitVOO(self):
         self.VOOLRLimit= self.LRLimitTextField.get().strip()
