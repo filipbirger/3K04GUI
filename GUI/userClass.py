@@ -223,3 +223,16 @@ class userClass:
         del self._ventricularPulseWidth
         del self._ventricularSensitivity 
         del self._VRP 
+
+    def AOOR(self):
+        return
+    
+    def VOOR(self):
+        return
+    
+    def AAIR(self):
+        return
+    
+    def VVIR(self):
+        return 
+
