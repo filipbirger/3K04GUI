@@ -205,20 +205,35 @@ class MyGUI:
 
         self.VOOButton = tk.Button(self.defaultModeWindow, text = "Default VOO", command=self.defaultVOO)
         self.VOOButton.pack()
-        self.VOOButton.place(relx=0.15, rely=0.25, relwidth=0.3, relheight=0.05)
+        self.VOOButton.place(relx=0.15, rely=0.15, relwidth=0.3, relheight=0.05)
 
         self.AOOButton = tk.Button(self.defaultModeWindow, text = "Default AOO", command=self.defaultAOO)
         self.AOOButton.pack()
-        self.AOOButton.place(relx=0.6, rely=0.25, relwidth=0.3, relheight=0.05)
+        self.AOOButton.place(relx=0.6, rely=0.15, relwidth=0.3, relheight=0.05)
 
         self.AAIButton = tk.Button(self.defaultModeWindow, text = "Default AAI", command=self.defaultAAI)
         self.AAIButton.pack()
-        self.AAIButton.place(relx=0.15, rely=0.45, relwidth=0.3, relheight=0.05)
+        self.AAIButton.place(relx=0.15, rely=0.35, relwidth=0.3, relheight=0.05)
 
         self.VVIButton = tk.Button(self.defaultModeWindow, text = "Default VVI", command=self.defaultVVI)
         self.VVIButton.pack()
-        self.VVIButton.place(relx=0.6, rely=0.45, relwidth=0.3, relheight=0.05)
+        self.VVIButton.place(relx=0.6, rely=0.35, relwidth=0.3, relheight=0.05)
 
+        self.VOORButton=tk.Button(self.defaultModeWindow, text= "Default VOOR", command=self.defaultVOOR)
+        self.VOORButton.pack()
+        self.VOORButton.place(relx=0.15, rely=0.55, relwidth=0.3, relheight=0.05)
+        
+        self.AOORButton=tk.Button(self.defaultModeWindow, text= "Default AOOR", command=self.defaultAOOR)
+        self.AOORButton.pack()
+        self.AOORButton.place(relx=0.6, rely=0.55, relwidth=0.3, relheight=0.05)
+
+        self.AAIRButton=tk.Button(self.defaultModeWindow, text= "Default AAIR", command=self.defaultAAIR)
+        self.AAIRButton.pack()
+        self.AAIRButton.place(relx=0.15, rely=0.75, relwidth=0.3, relheight=0.05)
+        
+        self.VVIRButton=tk.Button(self.defaultModeWindow, text= "Default VVIR", command=self.defaultVVIR)
+        self.VVIRButton.pack()
+        self.VVIRButton.place(relx=0.6, rely=0.75, relwidth=0.3, relheight=0.05)
     
     def defaultVOO(self):
         self.defVOOWindow=tk.Toplevel(self.defaultModeWindow)
@@ -417,6 +432,79 @@ class MyGUI:
         self.currentUser.VVI(self.VVILRLimit, self.VVIURLimit, self.VVIVentricularAmplitude, self.VVIVentricularPulseWidth, self.VVIVentricularSensitivity, self.VVIVRP, self.VVIHysteresis, self.VVIRateSmoothing )#Updates the user’s chosen parameters to the database
         self.db.updateUser(self.currentUser)
         MyGUI.successfulSubmitted(self, self.defVVIWindow)
+    
+    def defaultVOOR(self):
+        self.defVOORWindow=tk.Toplevel(self.defaultModeWindow)
+        self.defVOORWindow.geometry("800x800")
+
+        self.defVOORLabel=tk.Label(self.defVOORWindow, text="Default VOOR Parameters", font=("Arial",18)) #Displays default VOO parameters
+        self.defVOORLabel.pack()
+        self.defVOORLabel.place(relx=0.35, rely=0.05)
+
+        self.LRLimitLabel= tk.Label(self.defVOORWindow, text="Lower Rate Limit: 60 ppm", font=('Arial', 12))
+        self.LRLimitLabel.pack()
+        self.LRLimitLabel.place(relx=0.1, rely=0.15)
+
+        self.URLimitLabel= tk.Label(self.defVOORWindow, text="Upper Rate Limit: 120 ppm", font=('Arial', 12))
+        self.URLimitLabel.pack()
+        self.URLimitLabel.place(relx=0.1, rely=0.3)
+
+        self.VentricularAmplitudeLabel= tk.Label(self.defVOORWindow, text="Ventricular Amplitude: 4.9 V", font=('Arial', 12))
+        self.VentricularAmplitudeLabel.pack()
+        self.VentricularAmplitudeLabel.place(relx=0.1, rely=0.5)
+
+        self.VentricularPulseWidthLabel= tk.Label(self.defVOORWindow, text="Ventricular Pulse Width: 0.4 ms", font=('Arial', 12))
+        self.VentricularPulseWidthLabel.pack()
+        self.VentricularPulseWidthLabel.place(relx=0.1, rely=0.7)
+
+        self.MaxSensorRateLabel=tk.Label(self.defVOORWindow, text="Maximum Sensor Rate: 120 ppm", font=('Arial', 12))
+        self.MaxSensorRateLabel.pack()
+        self.MaxSensorRateLabel.place(relx=0.525, rely=0.15)
+
+        self.ActivityThreshLabel=tk.Label(self.defVOORWindow, text="Activity Threshold: Medium", font=('Arial',12))
+        self.ActivityThreshLabel.pack()
+        self.ActivityThreshLabel.place(relx=0.525, rely=0.3)
+
+        self.ReactionTimeLabel=tk.Label(self.defVOORWindow, text="Reaction Time: 30 sec", font=('Arial',12))
+        self.ReactionTimeLabel.pack()
+        self.ReactionTimeLabel.place(relx=0.525, rely=0.5)
+
+        self.ResponseFactorLabel=tk.Label(self.defVOORWindow, text="Response Factor: 8", font=('Arial',12))
+        self.ResponseFactorLabel.pack()
+        self.ResponseFactorLabel.place(relx=0.525, rely=0.7)
+
+        self.RecoveryTimeLabel=tk.Label(self.defVOORWindow, text="Recovery Time: 5 min", font=('Arial',12))
+        self.RecoveryTimeLabel.pack()
+        self.RecoveryTimeLabel.place(relx=0.1, rely=0.8)
+
+
+        self.VOORButton = tk.Button(self.defVOORWindow, text = "submit", command=self.submitDefVOOR) #Allows the user to submit the parameters to their device
+        self.VOORButton.pack()
+        self.VOORButton.place(relx=0.8, rely=0.8, relwidth=0.1, relheight=0.1)
+    
+    def submitDefVOOR(self):
+        self.VOORLRLimit=60.0
+        self.VOORURLimit=120.0
+        self.VOORVentricularAmplitude=4.9
+        self.VOORVentricularPulseWidth=0.4
+        MyGUI.successfulSubmitted(self,self.defVOORWindow)
+
+
+        self.currentUser.VOOR(self.VOORLRLimit, self.VOORURLimit, self.VOORVentricularAmplitude, self.VOORVentricularPulseWidth) #Updates the user’s chosen parameters to the database
+        self.db.updateUser(self.currentUser)
+
+
+    def defaultAOOR(self):
+        self.defAOORWindow=tk.Toplevel(self.defaultModeWindow)
+        self.defAOORWindow.geometry("800x800")
+    
+    def defaultAAIR(self):
+        self.defAAIRWindow=tk.Toplevel(self.defaultModeWindow)
+        self.defAAIRWindow.geometry("800x800")
+    
+    def defaultVVIR(self):
+        self.defVVIRWindow=tk.Toplevel(self.defaultModeWindow)
+        self.defVVIRWindow.geometry("800x800")
 
     def useConfigure(self):
         self.configModeWindow = tk.Toplevel(self.defaultWindow)#Generates when the user picks to configure the parameters manually
@@ -964,10 +1052,9 @@ class MyGUI:
         self.errorScreen.geometry("200x100")
         self.errorScreenLabel = tk.Label(self.errorScreen, text = "Submitted", fg="red")
         self.errorScreenLabel.pack()
-    '''
+
     def clearScreen(self,window):
         for widget in window.winfo_children():
             widget.destroy()
-    '''
 
 MyGUI()
