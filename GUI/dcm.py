@@ -126,6 +126,7 @@ class MyGUI:
         for widget in self.startWindow.winfo_children():
             widget.destroy()  # Destroy all widgets in the startWindow
 
+        
         self.startWindow.title("Main Settings")
 
         self.settingLabel = tk.Label(self.startWindow, text="Welcome to Main Settings", font=('Arial', 18)) #Generates after the user has signed in
@@ -158,8 +159,16 @@ class MyGUI:
         self.deleteUserLabel.place(relx=0.355,rely=0.75)
 
     def getPrevMode(self):
-        self.prevInfoWindow = tk.Toplevel(self.startWindow)
-        self.prevInfoWindow.geometry("800x800")
+        for widget in self.startWindow.winfo_children():
+            widget.destroy()
+
+        self.backButton = tk.Button(self.startWindow, text = "Back", command=self.createMainSettingWindow)
+        self.backButton.pack()
+        self.backButton.place(relx=0.7, rely=0.8, relwidth=0.3, relheight=0.05)
+
+
+        self.prevInfoWindow = self.startWindow
+        #self.prevInfoWindow.geometry("800x800")
         
         self.prevInfoLabel=tk.Label(self.prevInfoWindow, text="Previous Pacing Mode", font=('Arial',18)) #Accesses user’s previous pacing parameters from the database
         self.prevInfoLabel.pack()
@@ -174,8 +183,14 @@ class MyGUI:
             y_position += 0.05
 
     def configPaceMode(self):
-        self.defaultWindow=tk.Toplevel(self.startWindow)
-        self.defaultWindow.geometry("800x800")
+        for widget in self.startWindow.winfo_children():
+            widget.destroy()
+
+        self.backButton = tk.Button(self.startWindow, text = "Back", command=self.createMainSettingWindow)
+        self.backButton.pack()
+        self.backButton.place(relx=0.7, rely=0.8, relwidth=0.3, relheight=0.05)
+
+        self.defaultWindow = self.startWindow
 
         self.pickDefault= tk.Label(self.defaultWindow, text="Would you like to configure the pacing mode or use a default pacing mode?", font=('Arial', 12)) #Gives the user the option to either configure the pacing mode manually or use default parameters
         self.pickDefault.pack()
@@ -196,8 +211,14 @@ class MyGUI:
         self.useConfigLabel.place(relx=0.65,rely=0.55)
 
     def useDefault(self):
-        self.defaultModeWindow=tk.Toplevel(self.defaultWindow) #Generates when the user picks to use default parameters
-        self.defaultModeWindow.geometry("800x800")
+        for widget in self.startWindow.winfo_children():
+            widget.destroy()
+        
+        self.backButton = tk.Button(self.startWindow, text = "Back", command=self.configPaceMode)
+        self.backButton.pack()
+        self.backButton.place(relx=0.7, rely=0.8, relwidth=0.3, relheight=0.05)
+
+        self.defaultModeWindow = self.startWindow
         
         self.defaultModeLabel=tk.Label(self.defaultModeWindow, text="Please Select Your Pacing Mode", font=("Arial",18)) #Prompts user to pick which pacing mode they want to use (VOO, AOO, AAI, VVI)
         self.defaultModeLabel.pack()
@@ -236,8 +257,15 @@ class MyGUI:
         self.VVIRButton.place(relx=0.6, rely=0.75, relwidth=0.3, relheight=0.05)
     
     def defaultVOO(self):
-        self.defVOOWindow=tk.Toplevel(self.defaultModeWindow)
-        self.defVOOWindow.geometry("800x800")
+        for widget in self.startWindow.winfo_children():
+            widget.destroy()
+
+        self.backButton = tk.Button(self.startWindow, text = "Back", command=self.useDefault)
+        self.backButton.pack()
+        self.backButton.place(relx=0.5, rely=0.8, relwidth=0.3, relheight=0.05)
+
+
+        self.defVOOWindow = self.startWindow
 
         self.defVOOLabel=tk.Label(self.defVOOWindow, text="Default VOO Parameters", font=("Arial",18)) #Displays default VOO parameters
         self.defVOOLabel.pack()
@@ -275,8 +303,14 @@ class MyGUI:
         self.db.updateUser(self.currentUser)
     
     def defaultAOO(self):
-        self.defAOOWindow=tk.Toplevel(self.defaultModeWindow) #Displays default AOO parameters
-        self.defAOOWindow.geometry("800x800")
+        for widget in self.startWindow.winfo_children():
+            widget.destroy()
+
+        self.backButton = tk.Button(self.startWindow, text = "Back", command=self.useDefault)
+        self.backButton.pack()
+        self.backButton.place(relx=0.5, rely=0.8, relwidth=0.3, relheight=0.05)
+
+        self.defAOOWindow = self.startWindow
 
         self.defAOOLabel=tk.Label(self.defAOOWindow, text="Default AOO Parameters", font=("Arial",18))
         self.defAOOLabel.pack()
@@ -313,8 +347,14 @@ class MyGUI:
         MyGUI.successfulSubmitted(self,self.defAOOWindow)
 
     def defaultAAI(self):
-        self.defAAIWindow=tk.Toplevel(self.defaultModeWindow)
-        self.defAAIWindow.geometry("800x800")
+        for widget in self.startWindow.winfo_children():
+            widget.destroy()
+
+        self.backButton = tk.Button(self.startWindow, text = "Back", command=self.useDefault)
+        self.backButton.pack()
+        self.backButton.place(relx=0.5, rely=0.8, relwidth=0.3, relheight=0.05)
+
+        self.defAAIWindow = self.startWindow
 
         self.defAAILabel=tk.Label(self.defAAIWindow, text="Default AAI Parameters", font=("Arial",18))#Displays default AAI parameters
         self.defAAILabel.pack()
@@ -376,8 +416,14 @@ class MyGUI:
         MyGUI.successfulSubmitted(self, self.defAAIWindow)
 
     def defaultVVI(self):
-        self.defVVIWindow=tk.Toplevel(self.defaultModeWindow)
-        self.defVVIWindow.geometry("800x800")
+        for widget in self.startWindow.winfo_children():
+            widget.destroy()
+
+        self.backButton = tk.Button(self.startWindow, text = "Back", command=self.useDefault)
+        self.backButton.pack()
+        self.backButton.place(relx=0.5, rely=0.8, relwidth=0.3, relheight=0.05)
+
+        self.defVVIWindow = self.startWindow
 
         self.defVVILabel=tk.Label(self.defVVIWindow, text="Default VVI Parameters", font=("Arial",18)) #Displays default VVI parameters
         self.defVVILabel.pack()
@@ -507,8 +553,14 @@ class MyGUI:
         self.defVVIRWindow.geometry("800x800")
 
     def useConfigure(self):
-        self.configModeWindow = tk.Toplevel(self.defaultWindow)#Generates when the user picks to configure the parameters manually
-        self.configModeWindow.geometry("800x800")
+        for widget in self.startWindow.winfo_children():
+            widget.destroy()
+        
+        self.backButton = tk.Button(self.startWindow, text = "Back", command=self.configPaceMode)
+        self.backButton.pack()
+        self.backButton.place(relx=0.7, rely=0.8, relwidth=0.3, relheight=0.05)
+
+        self.configModeWindow = self.startWindow
 
         self.configModeLabel=tk.Label(self.configModeWindow, text="Please Select Your Pacing Mode", font=("Arial",18)) #Asks user to pick between the four pacing modes (VOO, AOO, AAI, VVI)
         self.configModeLabel.pack()
@@ -531,8 +583,14 @@ class MyGUI:
         self.VVIButton.place(relx=0.6, rely=0.45, relwidth=0.3, relheight=0.05)
     
     def VOOConfig(self):
-        self.VOOConfigWindow= tk.Toplevel(self.configModeWindow)
-        self.VOOConfigWindow.geometry("800x800")
+        for widget in self.startWindow.winfo_children():
+            widget.destroy()
+        
+        self.backButton = tk.Button(self.startWindow, text = "Back", command=self.useConfigure)
+        self.backButton.pack()
+        self.backButton.place(relx=0.5, rely=0.8, relwidth=0.3, relheight=0.05)
+
+        self.VOOConfigWindow = self.startWindow
 
         self.VOOConfigLabel=tk.Label(self.VOOConfigWindow, text="Configure Your VOO Parameters", font=("Arial",18)) #Gathers the necessary parameters to configure VOO from the user
         self.VOOConfigLabel.pack()
@@ -587,8 +645,7 @@ class MyGUI:
         self.VOOButton.place(relx=0.8, rely=0.8, relwidth=0.1, relheight=0.1)
 
 
-        self.egramButton = tk.Button(self.VOOConfigWindow, text = "Egram")
-        self.egramButton.pack()
+        
 
     def submitVOO(self):
         self.VOOLRLimit= self.LRLimitTextField.get().strip()
@@ -619,8 +676,14 @@ class MyGUI:
 
         
     def AOOConfig(self):
-        self.AOOConfigWindow= tk.Toplevel(self.configModeWindow)
-        self.AOOConfigWindow.geometry("800x800")
+        for widget in self.startWindow.winfo_children():
+            widget.destroy()
+
+        self.backButton = tk.Button(self.startWindow, text = "Back", command=self.useConfigure)
+        self.backButton.pack()
+        self.backButton.place(relx=0.5, rely=0.8, relwidth=0.3, relheight=0.05)
+
+        self.AOOConfigWindow = self.startWindow
 
         self.AOOConfigLabel=tk.Label(self.AOOConfigWindow, text="Configure Your AOO Parameters", font=("Arial",18))#Gathers the necessary parameters to configure AOO from the user
         self.AOOConfigLabel.pack()
@@ -698,15 +761,20 @@ class MyGUI:
         elif not ((self.AOOAtrialPulseWidth == 0.05 )or (0.1<= self.AOOAtrialPulseWidth <= 1.9 and self.AOOAtrialPulseWidth*10 % 1 ==0)):
             MyGUI.errorWindow(self)    
         else:
-            MyGUI.successfulSubmitted(self,self.AOOConfigWindow)#Updates the user’s chosen parameters to the database
             self.currentUser.AOO(self.AOOLRLimit, self.AOOURLimit, self.AOOAtrialAmplitude, self.AOOAtrialPulseWidth)
             self.db.updateUser(self.currentUser)
-           
+            MyGUI.successfulSubmitted(self,self.AOOConfigWindow)#Updates the user’s chosen parameters to the database
 
 
     def AAIConfig(self):
-        self.AAIConfigWindow= tk.Toplevel(self.configModeWindow)
-        self.AAIConfigWindow.geometry("800x800")
+        for widget in self.startWindow.winfo_children():
+            widget.destroy()
+
+        self.backButton = tk.Button(self.startWindow, text = "Back", command=self.useConfigure)
+        self.backButton.pack()
+        self.backButton.place(relx=0.5, rely=0.8, relwidth=0.3, relheight=0.05)
+
+        self.AAIConfigWindow = self.startWindow
 
         self.AAIConfigLabel=tk.Label(self.AAIConfigWindow, text="Configure Your AAI Parameters", font=("Arial",18))#Gathers the necessary parameters to configure AAI from the user
         self.AAIConfigLabel.pack()
@@ -873,8 +941,15 @@ class MyGUI:
 
 
     def VVIConfig(self):
-        self.VVIConfigWindow= tk.Toplevel(self.configModeWindow)
-        self.VVIConfigWindow.geometry("800x800")
+        for widget in self.startWindow.winfo_children():
+            widget.destroy()
+
+        self.backButton = tk.Button(self.startWindow, text = "Back", command=self.useConfigure)
+        self.backButton.pack()
+        self.backButton.place(relx=0.5, rely=0.8, relwidth=0.3, relheight=0.05)
+
+        self.VVIConfigWindow = self.startWindow
+
 
         self.VVIConfigLabel=tk.Label(self.VVIConfigWindow, text="Configure Your VVI Parameters", font=("Arial",18))#Gathers the necessary parameters to configure VVI from the user
         self.VVIConfigLabel.pack()
@@ -1056,5 +1131,7 @@ class MyGUI:
     def clearScreen(self,window):
         for widget in window.winfo_children():
             widget.destroy()
+
+        
 
 MyGUI()
