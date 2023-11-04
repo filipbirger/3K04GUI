@@ -1,5 +1,5 @@
 import tkinter as tk
-import userClass 
+import userClass
 import sqlite3
 from DataBase import DataBase
 
@@ -24,7 +24,6 @@ class MyGUI:
             self.newUserLabel=tk.Label(self.startWindow, text="Click 'New User' to set up your\n profile and start\n configuring your pacemaker", font=("Arial",8))
             self.newUserLabel.pack()
             self.newUserLabel.place(relx=0.6, rely=0.3)
-
             self.signInButton = tk.Button(self.startWindow, text="Sign In", command=self.createLoginWindow) #Functionality to Sign In
             self.signInButton.place(relx=0.2, rely=0.2, relheight=0.1, relwidth=0.2)
             self.signInLabel=tk.Label(self.startWindow, text="Click 'Sign in' if you are\n an existing user", font=("Arial",8))
@@ -137,7 +136,7 @@ class MyGUI:
         self.prevInfoLabel.pack()
         self.prevInfoLabel.place(relx=0.5, rely=0.3, anchor='center')
 
-        self.prevInfoButtonYes= tk.Button(self.startWindow, text="Yes", command= self.getPrevMode) #Allows user to select their previous pacing mode
+        self.prevInfoButtonYes= tk.Button(self.startWindow, text="Yes", command=self.getPrevMode) #Allows user to select their previous pacing mode
         self.prevInfoButtonYes.pack()
         self.prevInfoButtonYes.place(relx=0.1, rely=0.5, relwidth=0.3, relheight=0.05)
 
@@ -1040,6 +1039,12 @@ class MyGUI:
         self.errorScreen.geometry("200x100")
         self.errorScreenLabel = tk.Label(self.errorScreen, text = "Submitted", fg="red")
         self.errorScreenLabel.pack()
+    '''
+    def clearScreen(self,window):
+        for widget in window.winfo_children():
+            widget.destroy()
+    '''
 
+        
 
 MyGUI()
