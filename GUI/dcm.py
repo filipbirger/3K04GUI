@@ -164,7 +164,7 @@ class MyGUI:
 
         self.backButton = tk.Button(self.startWindow, text = "Back", command=self.createMainSettingWindow)
         self.backButton.pack()
-        self.backButton.place(relx=0.7, rely=0.8, relwidth=0.3, relheight=0.05)
+        self.backButton.place(relx=0.075, rely=0.85, relwidth=0.1, relheight=0.05)
 
 
         self.prevInfoWindow = self.startWindow
@@ -188,7 +188,7 @@ class MyGUI:
 
         self.backButton = tk.Button(self.startWindow, text = "Back", command=self.createMainSettingWindow)
         self.backButton.pack()
-        self.backButton.place(relx=0.7, rely=0.8, relwidth=0.3, relheight=0.05)
+        self.backButton.place(relx=0.075, rely=0.85, relwidth=0.1, relheight=0.05)
 
         self.defaultWindow = self.startWindow
 
@@ -216,7 +216,7 @@ class MyGUI:
         
         self.backButton = tk.Button(self.startWindow, text = "Back", command=self.configPaceMode)
         self.backButton.pack()
-        self.backButton.place(relx=0.7, rely=0.8, relwidth=0.3, relheight=0.05)
+        self.backButton.place(relx=0.075, rely=0.85, relwidth=0.1, relheight=0.05)
 
         self.defaultModeWindow = self.startWindow
         
@@ -262,8 +262,7 @@ class MyGUI:
 
         self.backButton = tk.Button(self.startWindow, text = "Back", command=self.useDefault)
         self.backButton.pack()
-        self.backButton.place(relx=0.5, rely=0.8, relwidth=0.3, relheight=0.05)
-
+        self.backButton.place(relx=0.075, rely=0.85, relwidth=0.1, relheight=0.05)
 
         self.defVOOWindow = self.startWindow
 
@@ -308,7 +307,7 @@ class MyGUI:
 
         self.backButton = tk.Button(self.startWindow, text = "Back", command=self.useDefault)
         self.backButton.pack()
-        self.backButton.place(relx=0.5, rely=0.8, relwidth=0.3, relheight=0.05)
+        self.backButton.place(relx=0.075, rely=0.85, relwidth=0.1, relheight=0.05)
 
         self.defAOOWindow = self.startWindow
 
@@ -352,7 +351,7 @@ class MyGUI:
 
         self.backButton = tk.Button(self.startWindow, text = "Back", command=self.useDefault)
         self.backButton.pack()
-        self.backButton.place(relx=0.5, rely=0.8, relwidth=0.3, relheight=0.05)
+        self.backButton.place(relx=0.075, rely=0.85, relwidth=0.1, relheight=0.05)
 
         self.defAAIWindow = self.startWindow
 
@@ -421,7 +420,7 @@ class MyGUI:
 
         self.backButton = tk.Button(self.startWindow, text = "Back", command=self.useDefault)
         self.backButton.pack()
-        self.backButton.place(relx=0.5, rely=0.8, relwidth=0.3, relheight=0.05)
+        self.backButton.place(relx=0.075, rely=0.85, relwidth=0.1, relheight=0.05)
 
         self.defVVIWindow = self.startWindow
 
@@ -480,8 +479,14 @@ class MyGUI:
         MyGUI.successfulSubmitted(self, self.defVVIWindow)
     
     def defaultVOOR(self):
-        self.defVOORWindow=tk.Toplevel(self.defaultModeWindow)
-        self.defVOORWindow.geometry("800x800")
+        for widget in self.startWindow.winfo_children():
+            widget.destroy()
+
+        self.backButton = tk.Button(self.startWindow, text = "Back", command=self.useDefault)
+        self.backButton.pack()
+        self.backButton.place(relx=0.075, rely=0.85, relwidth=0.1, relheight=0.05)
+
+        self.defVOORWindow = self.startWindow
 
         self.defVOORLabel=tk.Label(self.defVOORWindow, text="Default VOOR Parameters", font=("Arial",18)) #Displays default VOO parameters
         self.defVOORLabel.pack()
@@ -523,7 +528,6 @@ class MyGUI:
         self.RecoveryTimeLabel.pack()
         self.RecoveryTimeLabel.place(relx=0.1, rely=0.8)
 
-
         self.VOORButton = tk.Button(self.defVOORWindow, text = "submit", command=self.submitDefVOOR) #Allows the user to submit the parameters to their device
         self.VOORButton.pack()
         self.VOORButton.place(relx=0.8, rely=0.8, relwidth=0.1, relheight=0.1)
@@ -533,21 +537,137 @@ class MyGUI:
         self.VOORURLimit=120.0
         self.VOORVentricularAmplitude=4.9
         self.VOORVentricularPulseWidth=0.4
+        self.VOORMaxSensorRate=120
+        self.VOORActivityThresh=2
+        self.VOORReactionTime=30
+        self.VOORResponseFactor=8
+        self.VOORRecoveryTime=5
         MyGUI.successfulSubmitted(self,self.defVOORWindow)
 
-
-        self.currentUser.VOOR(self.VOORLRLimit, self.VOORURLimit, self.VOORVentricularAmplitude, self.VOORVentricularPulseWidth) #Updates the user’s chosen parameters to the database
+        self.currentUser.VOOR(self.VOORLRLimit, self.VOORURLimit, self.VOORVentricularAmplitude, self.VOORVentricularPulseWidth, self.VOORMaxSensorRate, self.VOORActivityThresh,self.VOORReactionTime,self.VOORResponseFactor, self.VOORRecoveryTime) #Updates the user’s chosen parameters to the database
         self.db.updateUser(self.currentUser)
 
 
     def defaultAOOR(self):
-        self.defAOORWindow=tk.Toplevel(self.defaultModeWindow)
-        self.defAOORWindow.geometry("800x800")
+        for widget in self.startWindow.winfo_children():
+            widget.destroy()
+
+        self.backButton = tk.Button(self.startWindow, text = "Back", command=self.useDefault)
+        self.backButton.pack()
+        self.backButton.place(relx=0.075, rely=0.85, relwidth=0.1, relheight=0.05)
+        
+        self.defAOORWindow=self.startWindow
+
+        self.defAOORLabel=tk.Label(self.defAOORWindow, text="Default AOOR Parameters", font=("Arial",18)) #Displays default VOO parameters
+        self.defAOORLabel.pack()
+        self.defAOORLabel.place(relx=0.35, rely=0.05)
+
+        self.LRLimitLabel= tk.Label(self.defAOORWindow, text="Lower Rate Limit: 60 ppm", font=('Arial', 12))
+        self.LRLimitLabel.pack()
+        self.LRLimitLabel.place(relx=0.1, rely=0.15)
+
+        self.URLimitLabel= tk.Label(self.defAOORWindow, text="Upper Rate Limit: 120 ppm", font=('Arial', 12))
+        self.URLimitLabel.pack()
+        self.URLimitLabel.place(relx=0.1, rely=0.3)
+
+        self.AtrialAmplitudeLabel= tk.Label(self.defAOORWindow, text="Atrial Amplitude: 4.9 V", font=('Arial', 12))
+        self.AtrialAmplitudeLabel.pack()
+        self.AtrialAmplitudeLabel.place(relx=0.1, rely=0.5)
+
+        self.AtrialPulseWidthLabel= tk.Label(self.defAOORWindow, text="Atrial Pulse Width: 0.4 ms", font=('Arial', 12))
+        self.AtrialPulseWidthLabel.pack()
+        self.AtrialPulseWidthLabel.place(relx=0.1, rely=0.7)
+
+        self.MaxSensorRateLabel=tk.Label(self.defAOORWindow, text="Maximum Sensor Rate: 120 ppm", font=('Arial', 12))
+        self.MaxSensorRateLabel.pack()
+        self.MaxSensorRateLabel.place(relx=0.525, rely=0.15)
+
+        self.ActivityThreshLabel=tk.Label(self.defAOORWindow, text="Activity Threshold: Medium", font=('Arial',12))
+        self.ActivityThreshLabel.pack()
+        self.ActivityThreshLabel.place(relx=0.525, rely=0.3)
+
+        self.ReactionTimeLabel=tk.Label(self.defAOORWindow, text="Reaction Time: 30 sec", font=('Arial',12))
+        self.ReactionTimeLabel.pack()
+        self.ReactionTimeLabel.place(relx=0.525, rely=0.5)
+
+        self.ResponseFactorLabel=tk.Label(self.defAOORWindow, text="Response Factor: 8", font=('Arial',12))
+        self.ResponseFactorLabel.pack()
+        self.ResponseFactorLabel.place(relx=0.525, rely=0.7)
+
+        self.RecoveryTimeLabel=tk.Label(self.defAOORWindow, text="Recovery Time: 5 min", font=('Arial',12))
+        self.RecoveryTimeLabel.pack()
+        self.RecoveryTimeLabel.place(relx=0.1, rely=0.8)
+
+        self.AOORButton = tk.Button(self.defAOORWindow, text = "submit", command=self.submitDefAOOR) #Allows the user to submit the parameters to their device
+        self.AOORButton.pack()
+        self.AOORButton.place(relx=0.8, rely=0.8, relwidth=0.1, relheight=0.1)
+    
+    def submitDefAOOR(self):
+        self.AOORLRLimit=60.0
+        self.AOORURLimit=120.0
+        self.AOORAtrialAmplitude=4.9
+        self.AOORAtrialPulseWidth=0.4
+        self.AOORMaxSensorRate=120
+        self.AOORActivityThresh=2
+        self.AOORReactionTime=30
+        self.AOORResponseFactor=8
+        self.AOORRecoveryTime=5
+        MyGUI.successfulSubmitted(self,self.defAOORWindow)
+
+        self.currentUser.AOOR(self.AOORLRLimit, self.AOORURLimit, self.AOORAtrialAmplitude, self.AOORAtrialPulseWidth, self.AOORMaxSensorRate, self.AOORActivityThresh,self.AOORReactionTime,self.AOORResponseFactor, self.AOORRecoveryTime) #Updates the user’s chosen parameters to the database
+        self.db.updateUser(self.currentUser)
+
     
     def defaultAAIR(self):
-        self.defAAIRWindow=tk.Toplevel(self.defaultModeWindow)
-        self.defAAIRWindow.geometry("800x800")
-    
+        for widget in self.startWindow.winfo_children():
+            widget.destroy()
+
+        self.backButton = tk.Button(self.startWindow, text = "Back", command=self.useDefault)
+        self.backButton.pack()
+        self.backButton.place(relx=0.075, rely=0.85, relwidth=0.1, relheight=0.05)
+
+        self.defAAIRWindow=self.startWindow
+
+        self.LRLimitLabel= tk.Label(self.defAAIRWindow, text="Lower Rate Limit: 60 ppm", font=('Arial', 12))
+        self.LRLimitLabel.pack()
+        self.LRLimitLabel.place(relx=0.1, rely=0.15)
+
+        self.URLimitLabel= tk.Label(self.defAAIRWindow, text="Upper Rate Limit: 120 ppm", font=('Arial', 12))
+        self.URLimitLabel.pack()
+        self.URLimitLabel.place(relx=0.1, rely=0.3)
+
+        self.AtrialAmplitudeLabel= tk.Label(self.defAAIRWindow, text="Atrial Amplitude: 4.9 V", font=('Arial', 12))
+        self.AtrialAmplitudeLabel.pack()
+        self.AtrialAmplitudeLabel.place(relx=0.1, rely=0.5)
+
+        self.AtrialPulseWidthLabel= tk.Label(self.defAAIRWindow, text="Atrial Pulse Width: 0.4 ms", font=('Arial', 12))
+        self.AtrialPulseWidthLabel.pack()
+        self.AtrialPulseWidthLabel.place(relx=0.1, rely=0.7)
+
+        self.MaxSensorRateLabel=tk.Label(self.defAAIRWindow, text="Maximum Sensor Rate: 120 ppm", font=('Arial', 12))
+        self.MaxSensorRateLabel.pack()
+        self.MaxSensorRateLabel.place(relx=0.525, rely=0.15)
+
+        self.ActivityThreshLabel=tk.Label(self.defAAIRWindow, text="Activity Threshold: Medium", font=('Arial',12))
+        self.ActivityThreshLabel.pack()
+        self.ActivityThreshLabel.place(relx=0.525, rely=0.3)
+
+        self.ReactionTimeLabel=tk.Label(self.defAAIRWindow, text="Reaction Time: 30 sec", font=('Arial',12))
+        self.ReactionTimeLabel.pack()
+        self.ReactionTimeLabel.place(relx=0.525, rely=0.5)
+
+        self.ResponseFactorLabel=tk.Label(self.defAAIRWindow, text="Response Factor: 8", font=('Arial',12))
+        self.ResponseFactorLabel.pack()
+        self.ResponseFactorLabel.place(relx=0.525, rely=0.7)
+
+        self.RecoveryTimeLabel=tk.Label(self.defAAIRWindow, text="Recovery Time: 5 min", font=('Arial',12))
+        self.RecoveryTimeLabel.pack()
+        self.RecoveryTimeLabel.place(relx=0.1, rely=0.8)
+
+        self.AtrialSensitivity=tk.Label(self.defAAIRWindow, text="Atrial Sensitivity: 1.05 mv", font=('Arial', 12))
+        self.AtrialSensitivity.pack()
+        
+
     def defaultVVIR(self):
         self.defVVIRWindow=tk.Toplevel(self.defaultModeWindow)
         self.defVVIRWindow.geometry("800x800")
@@ -558,7 +678,7 @@ class MyGUI:
         
         self.backButton = tk.Button(self.startWindow, text = "Back", command=self.configPaceMode)
         self.backButton.pack()
-        self.backButton.place(relx=0.7, rely=0.8, relwidth=0.3, relheight=0.05)
+        self.backButton.place(relx=0.075, rely=0.85, relwidth=0.1, relheight=0.05)
 
         self.configModeWindow = self.startWindow
 
@@ -588,7 +708,7 @@ class MyGUI:
         
         self.backButton = tk.Button(self.startWindow, text = "Back", command=self.useConfigure)
         self.backButton.pack()
-        self.backButton.place(relx=0.5, rely=0.8, relwidth=0.3, relheight=0.05)
+        self.backButton.place(relx=0.075, rely=0.85, relwidth=0.1, relheight=0.05)
 
         self.VOOConfigWindow = self.startWindow
 
@@ -644,9 +764,6 @@ class MyGUI:
         self.VOOButton.pack()
         self.VOOButton.place(relx=0.8, rely=0.8, relwidth=0.1, relheight=0.1)
 
-
-        
-
     def submitVOO(self):
         self.VOOLRLimit= self.LRLimitTextField.get().strip()
         self.VOOURLimit= self.URLimitTextField.get().strip()
@@ -673,15 +790,13 @@ class MyGUI:
             self.currentUser.VOO(self.VOOLRLimit, self.VOOURLimit, self.VOOVentricularAmplitude, self.VOOVentricularPulseWidth)
             self.db.updateUser(self.currentUser)#Updates the user’s chosen parameters to the database
         
-
-        
     def AOOConfig(self):
         for widget in self.startWindow.winfo_children():
             widget.destroy()
 
         self.backButton = tk.Button(self.startWindow, text = "Back", command=self.useConfigure)
         self.backButton.pack()
-        self.backButton.place(relx=0.5, rely=0.8, relwidth=0.3, relheight=0.05)
+        self.backButton.place(relx=0.075, rely=0.85, relwidth=0.1, relheight=0.05)
 
         self.AOOConfigWindow = self.startWindow
 
@@ -772,7 +887,7 @@ class MyGUI:
 
         self.backButton = tk.Button(self.startWindow, text = "Back", command=self.useConfigure)
         self.backButton.pack()
-        self.backButton.place(relx=0.5, rely=0.8, relwidth=0.3, relheight=0.05)
+        self.backButton.place(relx=0.075, rely=0.85, relwidth=0.1, relheight=0.05)
 
         self.AAIConfigWindow = self.startWindow
 
@@ -946,7 +1061,7 @@ class MyGUI:
 
         self.backButton = tk.Button(self.startWindow, text = "Back", command=self.useConfigure)
         self.backButton.pack()
-        self.backButton.place(relx=0.5, rely=0.8, relwidth=0.3, relheight=0.05)
+        self.backButton.place(relx=0.075, rely=0.85, relwidth=0.1, relheight=0.05)
 
         self.VVIConfigWindow = self.startWindow
 
