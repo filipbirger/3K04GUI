@@ -816,21 +816,38 @@ class MyGUI:
         self.configModeLabel.pack()
         self.configModeLabel.place(relx=0.3, rely=0.05)
 
-        self.VOOButton = tk.Button(self.configModeWindow, text = "Set VOO Option", command=self.VOOConfig)
+        self.VOOButton = tk.Button(self.configModeWindow, text = "Configure VOO", command=self.VOOConfig)
         self.VOOButton.pack()
-        self.VOOButton.place(relx=0.15, rely=0.25, relwidth=0.3, relheight=0.05)
+        self.VOOButton.place(relx=0.15, rely=0.15, relwidth=0.3, relheight=0.05)
 
-        self.AOOButton = tk.Button(self.configModeWindow, text = "Set AOO Option", command=self.AOOConfig)
+        self.AOOButton = tk.Button(self.configModeWindow, text = "Configure AOO", command=self.AOOConfig)
         self.AOOButton.pack()
-        self.AOOButton.place(relx=0.6, rely=0.25, relwidth=0.3, relheight=0.05)
+        self.AOOButton.place(relx=0.6, rely=0.15, relwidth=0.3, relheight=0.05)
 
-        self.AAIButton = tk.Button(self.configModeWindow, text = "Set AAI Option", command=self.AAIConfig)
+        self.AAIButton = tk.Button(self.configModeWindow, text = "Configure AAI", command=self.AAIConfig)
         self.AAIButton.pack()
-        self.AAIButton.place(relx=0.15, rely=0.45, relwidth=0.3, relheight=0.05)
+        self.AAIButton.place(relx=0.15, rely=0.35, relwidth=0.3, relheight=0.05)
 
-        self.VVIButton = tk.Button(self.configModeWindow, text = "Set VVI Option", command=self.VVIConfig)
+        self.VVIButton = tk.Button(self.configModeWindow, text = "Configure VVI", command=self.VVIConfig)
         self.VVIButton.pack()
-        self.VVIButton.place(relx=0.6, rely=0.45, relwidth=0.3, relheight=0.05)
+        self.VVIButton.place(relx=0.6, rely=0.35, relwidth=0.3, relheight=0.05)
+        '''
+        self.VOORButton=tk.Button(self.configModeWindow, text= "Configure VOOR", command=self.VOORConfig)
+        self.VOORButton.pack()
+        self.VOORButton.place(relx=0.15, rely=0.55, relwidth=0.3, relheight=0.05)
+        
+        self.AOORButton=tk.Button(self.configModeWindow, text= "Configure AOOR", command=self.AOORConfig)
+        self.AOORButton.pack()
+        self.AOORButton.place(relx=0.6, rely=0.55, relwidth=0.3, relheight=0.05)
+
+        self.AAIRButton=tk.Button(self.configModeWindow, text= "Configure AAIR", command=self.AAIRConfig)
+        self.AAIRButton.pack()
+        self.AAIRButton.place(relx=0.15, rely=0.75, relwidth=0.3, relheight=0.05)
+        
+        self.VVIRButton=tk.Button(self.configModeWindow, text= "Configure VVIR", command=self.VVIRConfig)
+        self.VVIRButton.pack()
+        self.VVIRButton.place(relx=0.6, rely=0.75, relwidth=0.3, relheight=0.05)
+        '''
     
     def VOOConfig(self):
         for widget in self.startWindow.winfo_children():
@@ -1184,7 +1201,6 @@ class MyGUI:
             self.db.updateUser(self.currentUser)#Updates the user’s chosen parameters to the database
             MyGUI.successfulSubmitted(self,self.AAIConfigWindow)
 
-
     def VVIConfig(self):
         for widget in self.startWindow.winfo_children():
             widget.destroy()
@@ -1349,7 +1365,8 @@ class MyGUI:
 
         self.currentUser.VVI(self.VVILRLimit, self.VVIURLimit, self.VVIVentricularAmplitude, self.VVIVentricularPulseWidth, self.VVIVentricularSensitivity, self.VVIVRP, self.VVIHysteresis, self.VVIRateSmoothing)
         self.db.updateUser(self.currentUser)
-  
+    
+    
     def deleteUser(self):
         self.db.delete_user(self.currentUser.username)#Deletes user that is currently signed in from the database
         
