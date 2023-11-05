@@ -77,6 +77,11 @@ class DataBase():#Gets called upon the creation of a new object/user
                 "atrialSensitivity": float(user.atrialSensitivity) if user.atrialSensitivity else None,
                 "ARP":float(user.ARP) if user.ARP else None,
                 "PVARP": float(user.PVARP) if user.PVARP else None,
+                "maximumSensorRate": float(user.maximumSensorRate) if user.maximumSensorRate else None,
+                "activityThreshold": float(user.activityThreshold) if user.activityThreshold else None,
+                "reactionTime": float(user.reactionTime) if user.reactionTime else None,
+                "responseFactor": float(user.responseFactor) if user.responseFactor else None,
+                "recoveryTime": float(user.recoveryTime) if user.recoveryTime else None
             }
             self.c.execute("""
                 UPDATE Users SET
@@ -95,6 +100,11 @@ class DataBase():#Gets called upon the creation of a new object/user
                     atrialSensitivity = :atrialSensitivity,
                     ARP = :ARP,
                     PVARP = :PVARP
+                    maximumSensorRate = :maximumSensorRate
+                    activityThreshold = :activityThreshold
+                    reactionTime = :reactionTime
+                    responseFactor = :responseFactor
+                    recoveryTime = :recoveryTime
                 WHERE username = :username
             """, user_data)
 

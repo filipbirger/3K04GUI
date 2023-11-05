@@ -627,6 +627,10 @@ class MyGUI:
         self.backButton.place(relx=0.075, rely=0.85, relwidth=0.1, relheight=0.05)
 
         self.defAAIRWindow=self.startWindow
+        
+        self.defAAIRLabel=tk.Label(self.defAAIRWindow, text="Default AAIR Parameters", font=("Arial",18)) #Displays default VOO parameters
+        self.defAAIRLabel.pack()
+        self.defAAIRLabel.place(relx=0.35, rely=0.05)
 
         self.LRLimitLabel= tk.Label(self.defAAIRWindow, text="Lower Rate Limit: 60 ppm", font=('Arial', 12))
         self.LRLimitLabel.pack()
@@ -634,15 +638,19 @@ class MyGUI:
 
         self.URLimitLabel= tk.Label(self.defAAIRWindow, text="Upper Rate Limit: 120 ppm", font=('Arial', 12))
         self.URLimitLabel.pack()
-        self.URLimitLabel.place(relx=0.1, rely=0.3)
+        self.URLimitLabel.place(relx=0.1, rely=0.25)
 
         self.AtrialAmplitudeLabel= tk.Label(self.defAAIRWindow, text="Atrial Amplitude: 4.9 V", font=('Arial', 12))
         self.AtrialAmplitudeLabel.pack()
-        self.AtrialAmplitudeLabel.place(relx=0.1, rely=0.5)
+        self.AtrialAmplitudeLabel.place(relx=0.1, rely=0.35)
 
         self.AtrialPulseWidthLabel= tk.Label(self.defAAIRWindow, text="Atrial Pulse Width: 0.4 ms", font=('Arial', 12))
         self.AtrialPulseWidthLabel.pack()
-        self.AtrialPulseWidthLabel.place(relx=0.1, rely=0.7)
+        self.AtrialPulseWidthLabel.place(relx=0.1, rely=0.45)
+
+        self.RecoveryTimeLabel=tk.Label(self.defAAIRWindow, text="Recovery Time: 5 min", font=('Arial',12))
+        self.RecoveryTimeLabel.pack()
+        self.RecoveryTimeLabel.place(relx=0.1, rely=0.55)
 
         self.MaxSensorRateLabel=tk.Label(self.defAAIRWindow, text="Maximum Sensor Rate: 120 ppm", font=('Arial', 12))
         self.MaxSensorRateLabel.pack()
@@ -650,27 +658,149 @@ class MyGUI:
 
         self.ActivityThreshLabel=tk.Label(self.defAAIRWindow, text="Activity Threshold: Medium", font=('Arial',12))
         self.ActivityThreshLabel.pack()
-        self.ActivityThreshLabel.place(relx=0.525, rely=0.3)
+        self.ActivityThreshLabel.place(relx=0.525, rely=0.25)
 
         self.ReactionTimeLabel=tk.Label(self.defAAIRWindow, text="Reaction Time: 30 sec", font=('Arial',12))
         self.ReactionTimeLabel.pack()
-        self.ReactionTimeLabel.place(relx=0.525, rely=0.5)
+        self.ReactionTimeLabel.place(relx=0.525, rely=0.35)
 
         self.ResponseFactorLabel=tk.Label(self.defAAIRWindow, text="Response Factor: 8", font=('Arial',12))
         self.ResponseFactorLabel.pack()
-        self.ResponseFactorLabel.place(relx=0.525, rely=0.7)
-
-        self.RecoveryTimeLabel=tk.Label(self.defAAIRWindow, text="Recovery Time: 5 min", font=('Arial',12))
-        self.RecoveryTimeLabel.pack()
-        self.RecoveryTimeLabel.place(relx=0.1, rely=0.8)
+        self.ResponseFactorLabel.place(relx=0.525, rely=0.45)
 
         self.AtrialSensitivity=tk.Label(self.defAAIRWindow, text="Atrial Sensitivity: 1.05 mv", font=('Arial', 12))
         self.AtrialSensitivity.pack()
-        
+        self.AtrialSensitivity.place(relx=0.525, rely=0.55)
+
+        self.ARPLabel=tk.Label(self.defAAIRWindow, text=' ARP: 250 ms', font=('Arial', 12))
+        self.ARPLabel.pack()
+        self.ARPLabel.place(relx=0.1 ,rely=0.65)
+
+        self.PVARPLabel=tk.Label(self.defAAIRWindow, text="PVARP: 250 ms", font=("Arial",12))
+        self.PVARPLabel.pack()
+        self.PVARPLabel.place(relx=0.525,rely=0.65)
+
+        self.HysteresisLabel=tk.Label(self.defAAIRWindow, text="Hysteresis: 0 ppm", font=("Arial",12))
+        self.HysteresisLabel.pack()
+        self.HysteresisLabel.place(relx=0.1,rely=0.75)
+
+        self.RateSmoothingLabel=tk.Label(self.defAAIRWindow, text="Rate Smoothing: 0%", font=("Arial",12))
+        self.RateSmoothingLabel.pack()
+        self.RateSmoothingLabel.place(relx=0.525,rely=0.75)  
+
+        self.AAIRButton = tk.Button(self.defAAIRWindow, text = "submit", command=self.submitDefAAIR) #Allows the user to submit the parameters to their device
+        self.AAIRButton.pack()
+        self.AAIRButton.place(relx=0.8, rely=0.8, relwidth=0.1, relheight=0.1)
+
+    def submitDefAAIR(self):
+        self.AAIRLRLimit=60.0
+        self.AAIRURLimit=120.0
+        self.AAIRAtrialAmplitude=4.9
+        self.AAIRAtrialPulseWidth=0.4
+        self.AAIRMaxSensorRate=120
+        self.AAIRActivityThresh=2
+        self.AAIRReactionTime=30
+        self.AAIRResponseFactor=8
+        self.AAIRRecoveryTime=5
+        self.AAIRAtrialSensitivity=1.05
+        self.AAIRARP=250
+        self.AAIRPVARP=250
+        self.AAIRHysteresis=0
+        self.AAIRRateSmoothing=0
+        MyGUI.successfulSubmitted(self,self.defAAIRWindow)
+
+        self.currentUser.AAIR(self.AAIRLRLimit, self.AAIRURLimit, self.AAIRAtrialAmplitude, self.AAIRAtrialPulseWidth, self.AAIRMaxSensorRate, self.AAIRActivityThresh,self.AAIRReactionTime,self.AAIRResponseFactor, self.AAIRRecoveryTime,self.AAIRAtrialSensitivity,self.AAIRARP,self.AAIRPVARP,self.AAIRHysteresis,self.AAIRRateSmoothing) #Updates the user’s chosen parameters to the database
+        self.db.updateUser(self.currentUser)      
 
     def defaultVVIR(self):
-        self.defVVIRWindow=tk.Toplevel(self.defaultModeWindow)
-        self.defVVIRWindow.geometry("800x800")
+        for widget in self.startWindow.winfo_children():
+            widget.destroy()
+
+        self.backButton = tk.Button(self.startWindow, text = "Back", command=self.useDefault)
+        self.backButton.pack()
+        self.backButton.place(relx=0.075, rely=0.85, relwidth=0.1, relheight=0.05)
+
+        self.defVVIRWindow=self.startWindow
+        
+        self.defVVIRLabel=tk.Label(self.defVVIRWindow, text="Default VVIR Parameters", font=("Arial",18)) #Displays default VOO parameters
+        self.defVVIRLabel.pack()
+        self.defVVIRLabel.place(relx=0.35, rely=0.05)
+
+        self.LRLimitLabel= tk.Label(self.defVVIRWindow, text="Lower Rate Limit: 60 ppm", font=('Arial', 12))
+        self.LRLimitLabel.pack()
+        self.LRLimitLabel.place(relx=0.1, rely=0.15)
+
+        self.URLimitLabel= tk.Label(self.defVVIRWindow, text="Upper Rate Limit: 120 ppm", font=('Arial', 12))
+        self.URLimitLabel.pack()
+        self.URLimitLabel.place(relx=0.1, rely=0.25)
+
+        self.VentricularAmplitudeLabel= tk.Label(self.defVVIRWindow, text="Ventricular Amplitude: 4.9 V", font=('Arial', 12))
+        self.VentricularAmplitudeLabel.pack()
+        self.VentricularAmplitudeLabel.place(relx=0.1, rely=0.35)
+
+        self.VentricularPulseWidthLabel= tk.Label(self.defVVIRWindow, text="Ventricular Pulse Width: 0.4 ms", font=('Arial', 12))
+        self.VentricularPulseWidthLabel.pack()
+        self.VentricularPulseWidthLabel.place(relx=0.1, rely=0.45)
+
+        self.RecoveryTimeLabel=tk.Label(self.defVVIRWindow, text="Recovery Time: 5 min", font=('Arial',12))
+        self.RecoveryTimeLabel.pack()
+        self.RecoveryTimeLabel.place(relx=0.1, rely=0.55)
+
+        self.MaxSensorRateLabel=tk.Label(self.defVVIRWindow, text="Maximum Sensor Rate: 120 ppm", font=('Arial', 12))
+        self.MaxSensorRateLabel.pack()
+        self.MaxSensorRateLabel.place(relx=0.525, rely=0.15)
+
+        self.ActivityThreshLabel=tk.Label(self.defVVIRWindow, text="Activity Threshold: Medium", font=('Arial',12))
+        self.ActivityThreshLabel.pack()
+        self.ActivityThreshLabel.place(relx=0.525, rely=0.25)
+
+        self.ReactionTimeLabel=tk.Label(self.defVVIRWindow, text="Reaction Time: 30 sec", font=('Arial',12))
+        self.ReactionTimeLabel.pack()
+        self.ReactionTimeLabel.place(relx=0.525, rely=0.35)
+
+        self.ResponseFactorLabel=tk.Label(self.defVVIRWindow, text="Response Factor: 8", font=('Arial',12))
+        self.ResponseFactorLabel.pack()
+        self.ResponseFactorLabel.place(relx=0.525, rely=0.45)
+
+        self.VentricularSensitivity=tk.Label(self.defVVIRWindow, text="Ventricular Sensitivity: 3.5 mv", font=('Arial', 12))
+        self.VentricularSensitivity.pack()
+        self.VentricularSensitivity.place(relx=0.525, rely=0.55)
+
+        self.VRPLabel=tk.Label(self.defVVIRWindow, text=' ARP: 320 ms', font=('Arial', 12))
+        self.VRPLabel.pack()
+        self.VRPLabel.place(relx=0.1 ,rely=0.65)
+
+        self.HysteresisLabel=tk.Label(self.defVVIRWindow, text="Hysteresis: 0 ppm", font=("Arial",12))
+        self.HysteresisLabel.pack()
+        self.HysteresisLabel.place(relx=0.1,rely=0.75)
+
+        self.RateSmoothingLabel=tk.Label(self.defVVIRWindow, text="Rate Smoothing: 0%", font=("Arial",12))
+        self.RateSmoothingLabel.pack()
+        self.RateSmoothingLabel.place(relx=0.525,rely=0.65)
+
+        self.VVIRButton = tk.Button(self.defVVIRWindow, text = "submit", command=self.submitDefVVIR) #Allows the user to submit the parameters to their device
+        self.VVIRButton.pack()
+        self.VVIRButton.place(relx=0.8, rely=0.8, relwidth=0.1, relheight=0.1)
+    
+    def submitDefVVIR(self):
+        self.VVIRLRLimit=60.0
+        self.VVIRURLimit=120.0
+        self.VVIRVentricularAmplitude=4.9
+        self.VVIRVentricularPulseWidth=0.4
+        self.VVIRMaxSensorRate=120
+        self.VVIRActivityThresh=2
+        self.VVIRReactionTime=30
+        self.VVIRResponseFactor=8
+        self.VVIRRecoveryTime=5
+        self.VVIRVentricularSensitivity=3.5
+        self.VVIRVRP=320
+        self.VVIRHysteresis=0
+        self.VVIRRateSmoothing=0
+        MyGUI.successfulSubmitted(self,self.defVVIRWindow)
+
+        self.currentUser.AAIR(self.VVIRLRLimit, self.VVIRURLimit, self.VVIRVentricularAmplitude, self.VVIRVentricularPulseWidth, self.VVIRMaxSensorRate, self.VVIRActivityThresh,self.VVIRReactionTime,self.VVIRResponseFactor, self.VVIRRecoveryTime,self.VVIRVentricularSensitivity,self.VVIRVRP,self.VVIRHysteresis,self.VVIRRateSmoothing) #Updates the user’s chosen parameters to the database
+        self.db.updateUser(self.currentUser)  
+
 
     def useConfigure(self):
         for widget in self.startWindow.winfo_children():
