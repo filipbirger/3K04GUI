@@ -110,11 +110,11 @@ class DataBase():#Gets called upon the creation of a new object/user
                     atrialPulseWidth = :atrialPulseWidth,
                     atrialSensitivity = :atrialSensitivity,
                     ARP = :ARP,
-                    PVARP = :PVARP
-                    maximumSensorRate = :maximumSensorRate
-                    activityThreshold = :activityThreshold
-                    reactionTime = :reactionTime
-                    responseFactor = :responseFactor
+                    PVARP = :PVARP,
+                    maximumSensorRate = :maximumSensorRate,
+                    activityThreshold = :activityThreshold,
+                    reactionTime = :reactionTime,
+                    responseFactor = :responseFactor,
                     recoveryTime = :recoveryTime
                 WHERE username = :username
             """, user_data)
