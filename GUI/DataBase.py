@@ -23,7 +23,12 @@ class DataBase():#Gets called upon the creation of a new object/user
                 atrialPulseWidth REAL,
                 atrialSensitivity REAL,
                 ARP REAL,
-                PVARP REAL
+                PVARP REAL,
+                maximumSensorRate REAL,
+                activityThreshold REAL,
+                reactionTime REAL,
+                responseFactor REAL,
+                recoveryTime REAL
             )
         """)
         self.conn.commit()
@@ -47,13 +52,19 @@ class DataBase():#Gets called upon the creation of a new object/user
                 "atrialPulseWidth": user.atrialPulseWidth,
                 "atrialSensitivity": user.atrialSensitivity,
                 "ARP": user.ARP,
-                "PVARP": user.PVARP
+                "PVARP": user.PVARP,
+                "maximumSensorRate" : user.maximumSensorRate,
+                "activityThreshold" : user.activityThreshold,
+                "reactionTime" : user.reactionTime,
+                "responseFactor" : user.responseFactor,
+                "recoveryTime" : user.recoveryTime
             }
             self.c.execute("""
                 INSERT INTO Users VALUES (
                     :username, :password, :DeviceId, :lowerRateLimit, :upperRateLimit, :ventricularAmplitude, 
                     :ventricularPulseWidth, :ventricularSensitivity, :VRP, :Hysteresis, :rateSmoothing,
-                    :atrialAmplitude, :atrialPulseWidth, :atrialSensitivity, :ARP, :PVARP
+                    :atrialAmplitude, :atrialPulseWidth, :atrialSensitivity, :ARP, :PVARP, :maximumSensorRate,
+                    :activityThreshold,:reactionTime,:responseFactor,:recoveryTime
                 )
             """, user_data)
 
