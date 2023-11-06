@@ -1,4 +1,9 @@
 import sqlite3
+from Crypto.Cipher import AES
+from Crypto.Util.Padding import pad, unpad
+from Crypto.Random import get_random_bytes
+import base64
+
 
 class DataBase():#Gets called upon the creation of a new object/user
     def __init__(self):
@@ -10,6 +15,7 @@ class DataBase():#Gets called upon the creation of a new object/user
             CREATE TABLE IF NOT EXISTS Users(
                 username TEXT PRIMARY KEY,
                 password TEXT,
+                iv TEXT,
                 DeviceId INTEGER,
                 lowerRateLimit REAL,
                 upperRateLimit REAL,
@@ -33,12 +39,16 @@ class DataBase():#Gets called upon the creation of a new object/user
         """)
         self.conn.commit()
 
+        self.key = get_random_bytes(16)
+
     def insertUser(self, user):
         #pushes the newly created user to the table while mapping the parameters to the appropriate column
         with self.conn:
+            iv, encrypted_password = self.encrypt(user.password)
             user_data = {
                 "username": user.username,
-                "password": user.password,
+                "password": encrypted_password,
+                "iv": iv,
                 "DeviceId": user.DeviceId,
                 "lowerRateLimit": user.lowerRateLimit,
                 "upperRateLimit": user.upperRateLimit,
@@ -61,7 +71,7 @@ class DataBase():#Gets called upon the creation of a new object/user
             }
             self.c.execute("""
                 INSERT INTO Users VALUES (
-                    :username, :password, :DeviceId, :lowerRateLimit, :upperRateLimit, :ventricularAmplitude, 
+                    :username, :password,:iv, :DeviceId, :lowerRateLimit, :upperRateLimit, :ventricularAmplitude, 
                     :ventricularPulseWidth, :ventricularSensitivity, :VRP, :Hysteresis, :rateSmoothing,
                     :atrialAmplitude, :atrialPulseWidth, :atrialSensitivity, :ARP, :PVARP, :maximumSensorRate,
                     :activityThreshold,:reactionTime,:responseFactor,:recoveryTime
@@ -73,7 +83,6 @@ class DataBase():#Gets called upon the creation of a new object/user
         with self.conn:
             user_data = {
                 "username": user.username,
-                "password": user.password,
                 "DeviceId": user.DeviceId,
                 "lowerRateLimit": float(user.lowerRateLimit) if user.lowerRateLimit else None,
                 "upperRateLimit": float(user.upperRateLimit) if user.upperRateLimit else None,
@@ -96,7 +105,6 @@ class DataBase():#Gets called upon the creation of a new object/user
             }
             self.c.execute("""
                 UPDATE Users SET
-                    password = :password,
                     DeviceId = :DeviceId,
                     lowerRateLimit = :lowerRateLimit,
                     upperRateLimit = :upperRateLimit,
@@ -136,22 +144,40 @@ class DataBase():#Gets called upon the creation of a new object/user
         return self.c.fetchall()
 
     def getUserByUsername(self, username):
-        #Allows us to fetch a specific user, it provides us the ability to return any user from the list 
         self.c.execute("SELECT * FROM Users WHERE username = ?", (username,))
         data = self.c.fetchone()
         
-        # Fetching column names from the cursor description
-        columns = [column[0] for column in self.c.description]
-        
-        # Creating a dictionary with column names as keys
-        user_data_dict = dict(zip(columns, data))
-        
-        return user_data_dict
+        if data:
+            columns = [column[0] for column in self.c.description]
+            user_data_dict = dict(zip(columns, data))
+            
+            # Decrypt the password before returning
+            iv = user_data_dict['iv']
+            user_data_dict['password'] = self.decrypt(iv, user_data_dict['password'])
+            
+            return user_data_dict
+        else:
+            return None
+
+    
+    def encrypt(self, plaintext):
+        cipher = AES.new(self.key, AES.MODE_CBC)
+        ct_bytes = cipher.encrypt(pad(plaintext.encode('utf-8'), AES.block_size))
+        iv = base64.b64encode(cipher.iv).decode('utf-8')
+        ct = base64.b64encode(ct_bytes).decode('utf-8')
+        return iv, ct
+
+    def decrypt(self, iv, ciphertext):
+        iv = base64.b64decode(iv)
+        ct = base64.b64decode(ciphertext)
+        cipher = AES.new(self.key, AES.MODE_CBC, iv=iv)
+        pt = unpad(cipher.decrypt(ct), AES.block_size).decode('utf-8')
+        return pt
    
    
     def close(self):
         #closes the connection to the database
         self.conn.close()
 
-# This will return the user data as a dictionary, making it easier to display in the getPrevMode function.
+
 

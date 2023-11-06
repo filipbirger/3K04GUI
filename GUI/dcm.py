@@ -1,4 +1,6 @@
 import tkinter as tk
+from tkinter import ttk
+from ttkthemes import ThemedTk
 import userClass
 import sqlite3
 from DataBase import DataBase
@@ -9,7 +11,7 @@ class MyGUI:
         
         self.db = DataBase()
 
-        self.startWindow = tk.Tk() #Generates initial login screen
+        self.startWindow = ThemedTk(theme="yaru") #Generates initial login screen
         self.startWindow.geometry("800x800")
         self.startWindow.title("3K04 Pacemaker")
 
