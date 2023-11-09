@@ -1,5 +1,4 @@
 import tkinter as tk
-from tkinter import ttk
 from ttkthemes import ThemedTk
 import userClass
 import sqlite3
@@ -1464,8 +1463,7 @@ class MyGUI:
         self.startWindow.destroy()
         self.__init__() #Calls the constructor
     
-    def __del__(self):#Destructor
-        self.db.close()#Closes the database
+    
 
     def errorWindow(self):
         self.errorScreen = tk.Toplevel(self.configModeWindow)#Displays when the values inputted by the user are invalid
