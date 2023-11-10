@@ -20,18 +20,12 @@ class DataBase():#Gets called upon the creation of a new object/user
                 lowerRateLimit REAL,
                 upperRateLimit REAL,
                 ventricularAmplitude REAL, 
-                ventricularPulseWidth REAL,
-                ventricularSensitivity REAL, 
+                ventricularPulseWidth REAL, 
                 VRP REAL, 
-                Hysteresis REAL,
-                rateSmoothing REAL,
                 atrialAmplitude REAL, 
                 atrialPulseWidth REAL,
-                atrialSensitivity REAL,
                 ARP REAL,
-                PVARP REAL,
                 maximumSensorRate REAL,
-                activityThreshold REAL,
                 reactionTime REAL,
                 responseFactor REAL,
                 recoveryTime REAL
@@ -54,17 +48,11 @@ class DataBase():#Gets called upon the creation of a new object/user
                 "upperRateLimit": user.upperRateLimit,
                 "ventricularAmplitude": user.ventricularAmplitude,
                 "ventricularPulseWidth": user.ventricularPulseWidth,
-                "ventricularSensitivity": user.ventricularSensitivity,
                 "VRP": user.VRP,
-                "Hysteresis": user.Hysteresis,
-                "rateSmoothing": user.rateSmoothing,
                 "atrialAmplitude": user.atrialAmplitude,
                 "atrialPulseWidth": user.atrialPulseWidth,
-                "atrialSensitivity": user.atrialSensitivity,
                 "ARP": user.ARP,
-                "PVARP": user.PVARP,
                 "maximumSensorRate" : user.maximumSensorRate,
-                "activityThreshold" : user.activityThreshold,
                 "reactionTime" : user.reactionTime,
                 "responseFactor" : user.responseFactor,
                 "recoveryTime" : user.recoveryTime
@@ -72,9 +60,9 @@ class DataBase():#Gets called upon the creation of a new object/user
             self.c.execute("""
                 INSERT INTO Users VALUES (
                     :username, :password,:iv, :DeviceId, :lowerRateLimit, :upperRateLimit, :ventricularAmplitude, 
-                    :ventricularPulseWidth, :ventricularSensitivity, :VRP, :Hysteresis, :rateSmoothing,
-                    :atrialAmplitude, :atrialPulseWidth, :atrialSensitivity, :ARP, :PVARP, :maximumSensorRate,
-                    :activityThreshold,:reactionTime,:responseFactor,:recoveryTime
+                    :ventricularPulseWidth, :VRP,
+                    :atrialAmplitude, :atrialPulseWidth, :ARP,:maximumSensorRate,
+                    :reactionTime,:responseFactor,:recoveryTime
                 )
             """, user_data)
 
@@ -88,17 +76,11 @@ class DataBase():#Gets called upon the creation of a new object/user
                 "upperRateLimit": float(user.upperRateLimit) if user.upperRateLimit else None,
                 "ventricularAmplitude": float(user.ventricularAmplitude) if user.ventricularAmplitude else None,
                 "ventricularPulseWidth": float(user.ventricularPulseWidth) if user.ventricularPulseWidth else None,
-                "ventricularSensitivity": float(user.ventricularSensitivity) if user.ventricularSensitivity else None,
                 "VRP": float(user.VRP) if user.VRP else None,
-                "Hysteresis": float(user.Hysteresis) if user.Hysteresis else None,
-                "rateSmoothing": float(user.rateSmoothing) if user.rateSmoothing else None,
                 "atrialAmplitude": float(user.atrialAmplitude) if user.atrialAmplitude else None,
                 "atrialPulseWidth": float(user.atrialPulseWidth) if user.atrialPulseWidth else None,
-                "atrialSensitivity": float(user.atrialSensitivity) if user.atrialSensitivity else None,
                 "ARP":float(user.ARP) if user.ARP else None,
-                "PVARP": float(user.PVARP) if user.PVARP else None,
                 "maximumSensorRate": float(user.maximumSensorRate) if user.maximumSensorRate else None,
-                "activityThreshold": float(user.activityThreshold) if user.activityThreshold else None,
                 "reactionTime": float(user.reactionTime) if user.reactionTime else None,
                 "responseFactor": float(user.responseFactor) if user.responseFactor else None,
                 "recoveryTime": float(user.recoveryTime) if user.recoveryTime else None
@@ -110,17 +92,11 @@ class DataBase():#Gets called upon the creation of a new object/user
                     upperRateLimit = :upperRateLimit,
                     ventricularAmplitude = :ventricularAmplitude,
                     ventricularPulseWidth = :ventricularPulseWidth,
-                    ventricularSensitivity = :ventricularSensitivity,
                     VRP = :VRP,
-                    Hysteresis = :Hysteresis,
-                    rateSmoothing = :rateSmoothing,
                     atrialAmplitude = :atrialAmplitude,
                     atrialPulseWidth = :atrialPulseWidth,
-                    atrialSensitivity = :atrialSensitivity,
                     ARP = :ARP,
-                    PVARP = :PVARP,
                     maximumSensorRate = :maximumSensorRate,
-                    activityThreshold = :activityThreshold,
                     reactionTime = :reactionTime,
                     responseFactor = :responseFactor,
                     recoveryTime = :recoveryTime
@@ -128,8 +104,6 @@ class DataBase():#Gets called upon the creation of a new object/user
             """, user_data)
 
 
-
-    
     def delete_user(self, username):
         #responsible for deleting a user from the database 
         with self.conn:
@@ -173,6 +147,7 @@ class DataBase():#Gets called upon the creation of a new object/user
         cipher = AES.new(self.key, AES.MODE_CBC, iv=iv)
         pt = unpad(cipher.decrypt(ct), AES.block_size).decode('utf-8')
         return pt
+    
    
    
     def close(self):

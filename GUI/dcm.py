@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
-from ttkthemes import ThemedTk
+#from ttkthemes import ThemedTk
 import userClass
 import sqlite3
 from DataBase import DataBase
@@ -11,7 +11,8 @@ class MyGUI:
         
         self.db = DataBase()
 
-        self.startWindow = ThemedTk(theme="yaru") #Generates initial login screen
+        #self.startWindow = ThemedTk(theme="yaru") #Generates initial login screen
+        self.startWindow=tk.Tk()
         self.startWindow.geometry("800x800")
         self.startWindow.title("3K04 Pacemaker")
 
@@ -1398,7 +1399,7 @@ class MyGUI:
         self.URLimitTextField.pack()
         self.URLimitTextField.place(relx=0.25, rely=0.3)
         
-        self.URLimitWarningLabel= tk.Label(self.VOORConfigWindow, text="Valid inputs are: values between 50-175 ppm incremented by 5 ppm",font=('Arial', 10), fg="blue" )
+        self.URLimitWarningLabel= tk.Label(self.VOORConfigWindow, text="Valid inputs are: values between 50-175 ppm\n incremented by 5 ppm",font=('Arial', 10), fg="blue" )
         self.URLimitWarningLabel.pack()
         self.URLimitWarningLabel.place(relx=0.045, rely=0.35)
 
@@ -1431,7 +1432,7 @@ class MyGUI:
         self.MaximumSensorRateTextField.pack()
         self.MaximumSensorRateTextField.place(relx=0.275,rely=0.65)
 
-        self.MaximumSensorRateWarningLabel= tk.Label(self.VOORConfigWindow, text="Valid inputs are: values between 50-175 ppm, ", font=("Arial",10), fg="blue")
+        self.MaximumSensorRateWarningLabel= tk.Label(self.VOORConfigWindow, text="Valid inputs are: values between 50-175 ppm\n with 5 ppm increment ", font=("Arial",10), fg="blue")
         self.MaximumSensorRateWarningLabel.pack()
         self.MaximumSensorRateWarningLabel.place(relx=0.045,rely=0.7)
 
@@ -1449,7 +1450,79 @@ class MyGUI:
         self.ReactionTimeLabel=tk.Label(self.VOORConfigWindow, text="Reaction Time: ", font=("Arial",12))
         self.ReactionTimeLabel.pack()
         self.ReactionTimeLabel.place(relx=0.55,rely=0.3)
+        self.ReactionTimeTextField=tk.Entry(self.VOORConfigWindow)
+        self.ReactionTimeTextField.pack()
+        self.ReactionTimeTextField.place(relx=0.75,rely=0.3)
+
+        self.ReactionTimeWarningLabel=tk.Label(self.VOORConfigWindow,text="Valid inputs are: values between 10-50 sec\n with a 10 sec increment", font=("Arial",10), fg="blue")
+        self.ReactionTimeWarningLabel.pack()
+        self.ReactionTimeWarningLabel.place(relx=0.55,rely=0.35)
+
+        self.ResponseFactorLabel=tk.Label(self.VOORConfigWindow, text="Response Factor: ", font=("Arial",12))
+        self.ResponseFactorLabel.pack()
+        self.ResponseFactorLabel.place(relx=0.55,rely=0.45)
+        self.ResponseFactorTextField=tk.Entry(self.VOORConfigWindow)
+        self.ResponseFactorTextField.pack()
+        self.ResponseFactorTextField.place(relx=0.75,rely=0.45)
+
+        self.ResponseFactorWarningLabel=tk.Label(self.VOORConfigWindow,text="Valid inputs are: values between 1-16\n incremented by 1", font=("Arial",10), fg="blue")
+        self.ResponseFactorWarningLabel.pack()
+        self.ResponseFactorWarningLabel.place(relx=0.55,rely=0.5)
+
+        self.RecoveryTimeLabel=tk.Label(self.VOORConfigWindow,text="Recovery Time: ",font=("Arial",12))
+        self.RecoveryTimeLabel.pack()
+        self.RecoveryTimeLabel.place(relx=0.55,rely=0.6)
+        self.RecoveryTimeTextField=tk.Entry(self.VOORConfigWindow)
+        self.RecoveryTimeTextField.pack()
+        self.RecoveryTimeTextField.place(relx=0.75,rely=0.6)
+
+        self.RecoveryTimeWarningLabel=tk.Label(self.VOORConfigWindow,text="Valid inputs are: values between 2-16 min\n incremented by 1 min", font=("Arial",10), fg="blue")
+        self.RecoveryTimeWarningLabel.pack()
+        self.RecoveryTimeWarningLabel.place(relx=0.55,rely=0.65)
+
+        self.VOORButton = tk.Button(self.VOORConfigWindow, text = "submit", command=self.submitVOOR) #Submit parameters to the device
+        self.VOORButton.pack()
+        self.VOORButton.place(relx=0.8, rely=0.8, relwidth=0.1, relheight=0.1)
+
+    def submitVOOR(self):
+        self.VOORLRLimit= self.LRLimitTextField.get().strip()
+        self.VOORURLimit= self.URLimitTextField.get().strip()
+        self.VOORVentricularAmplitude= self.VentricularAmplitudeTextField.get().strip()
+        self.VOORVentricularPulseWidth= self.VentricularPulseWidthTextField.get().strip()
+        self.VOORMaxSensorRate=self.MaximumSensorRateTextField.get().strip()
+        self.VOORReactionTime=self.ReactionTimeTextField.get().strip()
+        self.VOORResponseFactor=self.ResponseFactorTextField.get().strip()
+        self.VOORRecoveryTime=self.RecoveryTime.get().strip()
+
+        if  self.VOORVentricularAmplitude == "0":
+            self.VOORVentricularAmplitude = 0
+        else:
+            self.VOORVentricularAmplitude = float(self.VOORVentricularAmplitude)
+
         
+        self.VOORLRLimit = float(self.VOORLRLimit)
+        self.VOORURLimit = float(self.VOORURLimit)
+        self.VOORVentricularPulseWidth = float(self.VOORVentricularPulseWidth)
+        self.VOORMaxSensorRate= float(self.VOORMaxSensorRate)
+        self.VOORReactionTime= float(self.VOORReactionTime)
+        self.VOORResponseFactor=float(self.VOORResponseFactor)
+        self.VOORRecoveryTime= float(self.VOORRecoveryTime)
+        
+        #Checks to make sure the values inputted are valid
+        if not ((30<= self.VOORLRLimit<=50 and self.VOORLRLimit % 5 == 0) or (50<= self.VOORLRLimit<=90) or  (90 <= self.VOORLRLimit <= 175 and self.VOORLRLimit % 5 == 0)):
+            MyGUI.errorWindow(self)
+        elif not ((50<= self.VOORURLimit<=175 and self.VOORURLimit % 5 == 0)):
+            MyGUI.errorWindow(self)
+        elif not ((self.VOORVentricularAmplitude == 0) or (0.36 <= self.VOORVentricularAmplitude <= 2.3 and self.VOORVentricularAmplitude*10%1==0) or (2.5 <= self.VOORVentricularAmplitude <= 5 and self.VOORVentricularAmplitude*10%5==0)): 
+            MyGUI.errorWindow(self)
+        elif not((self.VOORVentricularPulseWidth == 0.05 )or (0.1<= self.VOORVentricularPulseWidth <= 1.9 and self.VOORVentricularPulseWidth*10 % 1==0)):
+            MyGUI.errorWindow(self)
+        elif not ((50<=self.VOORMaxSensorRate<=175 and self.VOORMaxSensorRate %5==0)):
+            MyGUI.errorWindow(self)
+        else:
+            MyGUI.successfulSubmitted(self, self.VOORConfigWindow)
+            self.currentUser.VOOR(self.VOORLRLimit, self.VOORURLimit, self.VOORVentricularAmplitude, self.VOORVentricularPulseWidth)
+            self.db.updateUser(self.currentUser)#Updates the user’s chosen parameters to the database
 
     def deleteUser(self):
         self.db.delete_user(self.currentUser.username)#Deletes user that is currently signed in from the database
