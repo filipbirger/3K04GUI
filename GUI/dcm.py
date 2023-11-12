@@ -1453,6 +1453,93 @@ class MyGUI:
             self.currentUser.VOOR(self.VOORLRLimit, self.VOORURLimit, self.VOORVentricularAmplitude, self.VOORVentricularPulseWidth)
             self.db.updateUser(self.currentUser)#Updates the user’s chosen parameters to the database 
 
+    def AOORConfig(self):
+        for widget in self.startWindow.winfo_children():
+            widget.destroy()
+        
+        self.backButton = tk.Button(self.startWindow, text = "Back", command=self.useConfigure)
+        self.backButton.pack()
+        self.backButton.place(relx=0.075, rely=0.85, relwidth=0.1, relheight=0.05)
+
+        self.AOORConfigWindow = self.startWindow
+
+        self.AOORConfigLabel=tk.Label(self.AOORConfigWindow, text="Configure Your AOOR Parameters", font=("Arial",18)) #Gathers the necessary parameters to configure VOO from the user
+        self.AOORConfigLabel.pack()
+        self.AOORConfigLabel.place(relx=0.3,rely=0.05)
+
+        self.LRLimitLabel= tk.Label(self.AOORConfigWindow, text="Lower Rate Limit: ")
+        self.LRLimitLabel.pack()
+        self.LRLimitLabel.place(relx=0.1,rely=0.2)
+        self.LRLimitTextField = tk.Entry(self.AOORConfigWindow)
+        self.LRLimitTextField.pack()
+        self.LRLimitTextField.place(relx=0.3, rely=0.2)
+        
+        self.LRLimitWarningLabel= tk.Label(self.AOORConfigWindow, text="Valid inputs are: values between 30-50 ppm incremented by 5 ppm\n values between 50-90 ppm incremented by 1 ppm\n values between 90-175 ppm incremented by 5 ppm",font=('Arial', 7) )
+        self.LRLimitWarningLabel.pack()
+        self.LRLimitWarningLabel.place(relx=0.1, rely=0.25)
+        
+        self.URLimitLabel= tk.Label(self.AOORConfigWindow, text="Upper Rate Limit: ")
+        self.URLimitLabel.pack()
+        self.URLimitLabel.place(relx=0.1,rely=0.4)
+        self.URLimitTextField = tk.Entry(self.AOORConfigWindow)
+        self.URLimitTextField.pack()
+        self.URLimitTextField.place(relx=0.3, rely=0.4)
+        
+        self.URLimitWarningLabel= tk.Label(self.AOORConfigWindow, text="Valid inputs are: values between 50-175 ppm incremented by 5 ppm",font=('Arial', 7) )
+        self.URLimitWarningLabel.pack()
+        self.URLimitWarningLabel.place(relx=0.1, rely=0.45)
+
+        self.AtrialAmplitudeLabel= tk.Label(self.AOORConfigWindow, text="Atrial Amplitude: ")
+        self.AtrialAmplitudeLabel.pack()
+        self.AtrialAmplitudeLabel.place(relx=0.1,rely=0.6)
+        self.AtrialAmplitudeTextField = tk.Entry(self.AOORConfigWindow)
+        self.AtrialAmplitudeTextField.pack()
+        self.AtrialAmplitudeTextField.place(relx=0.3, rely=0.6)
+
+        self.AtrialAmplitudeWarningLabel= tk.Label(self.AOORConfigWindow, text="Valid inputs are: values between 0, 0.36-2.3 V with 0.1 V increment\n values between 2.5-5.0 V with 0.5 V increment",font=('Arial', 7) )
+        self.AtrialAmplitudeWarningLabel.pack()
+        self.AtrialAmplitudeWarningLabel.place(relx=0.1, rely=0.65)
+
+        self.AtrialPulseWidthLabel= tk.Label(self.AOORConfigWindow, text="Atrial Pulse Width: ")
+        self.AtrialPulseWidthLabel.pack()
+        self.AtrialPulseWidthLabel.place(relx=0.1,rely=0.8)
+        self.AtrialPulseWidthTextField = tk.Entry(self.AOORConfigWindow)
+        self.AtrialPulseWidthTextField.pack()
+        self.AtrialPulseWidthTextField.place(relx=0.3, rely=0.8)
+
+        self.AtrialPulseWidthWarningLabel= tk.Label(self.AOORConfigWindow, text="Valid inputs are: 0.05 ms\n values between 0.1-1.9 ms with 0.1 ms increment",font=('Arial', 7) )
+        self.AtrialPulseWidthWarningLabel.pack()
+        self.AtrialPulseWidthWarningLabel.place(relx=0.1, rely=0.85)
+
+        self.AOORButton = tk.Button(self.AOORConfigWindow, text = "submit", command=self.submitAOOR) #Submit parameters to the device
+        self.AOORButton.pack()
+        self.AOORButton.place(relx=0.8, rely=0.8, relwidth=0.1, relheight=0.1)
+
+    def submitAOOR(self):
+        self.AOORLRLimit= self.LRLimitTextField.get().strip()
+        self.AOORURLimit= self.URLimitTextField.get().strip()
+        self.AOORAtrialAmplitude= self.AtrialAmplitudeTextField.get().strip()
+        self.AOORAtrialPulseWidth= self.AtrialPulseWidthTextField.get().strip()
+        if  self.AOORAtrialAmplitude == "0":
+            self.AOORAtrialAmplitude = 0
+        else:
+            self.AOORAtrialAmplitude = float(self.AOORAtrialAmplitude)
+        self.AOORLRLimit = float(self.AOORLRLimit)
+        self.AOORURLimit = float(self.AOORURLimit)
+        self.AOORAtrialPulseWidth = int(self.AOORAtrialPulseWidth)
+        #Checks to make sure the values inputted are valid
+        if not ((30<= self.AOORLRLimit<=50 and self.AOORLRLimit % 5 == 0) or (50<= self.AOORLRLimit<=90) or  (90 <= self.AOORLRLimit <= 175 and self.AOORLRLimit % 5 == 0)):
+            MyGUI.errorWindow(self)
+        elif not ((50<= self.AOORURLimit<=175 and self.AOORURLimit % 5 == 0)):
+            MyGUI.errorWindow(self)
+        elif not ((self.AOORAtrialAmplitude == 0) or (0.36 <= self.AOORAtrialAmplitude <= 2.3 and self.AOORAtrialAmplitude*10%1==0) or (2.5 <= self.AOORAtrialAmplitude <= 5 and self.AOORAtrialAmplitude*10%5==0)): 
+            MyGUI.errorWindow(self)
+        elif not((self.AOORAtrialPulseWidth == 0.05 )or (0.1<= self.AOORAtrialPulseWidth <= 1.9 and self.AOORAtrialPulseWidth*10 % 1==0)):
+            MyGUI.errorWindow(self)  
+        else:
+            MyGUI.successfulSubmitted(self, self.AOORConfigWindow)
+            self.currentUser.AOOR(self.AOORLRLimit, self.AOORURLimit, self.AOORAtrialAmplitude, self.AOORAtrialPulseWidth)
+            self.db.updateUser(self.currentUser)#Updates the user’s chosen parameters to the database 
 
 
     def deleteUser(self):
