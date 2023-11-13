@@ -287,7 +287,7 @@ class MyGUI:
         self.VentricularPulseWidthLabel.pack()
         self.VentricularPulseWidthLabel.place(relx=0.1, rely=0.7)
  
-        self.VOOButton = tk.Button(self.defVOOWindow, text = "submit", command=self.submitDefVOO) #Allows the user to submit the parameters to their device
+        self.VOOButton = tk.Button(self.defVOOWindow, text = "Submit", command=self.submitDefVOO) #Allows the user to submit the parameters to their device
         self.VOOButton.pack()
         self.VOOButton.place(relx=0.8, rely=0.8, relwidth=0.1, relheight=0.1)
 
@@ -332,7 +332,7 @@ class MyGUI:
         self.AtrialPulseWidthLabel.pack()
         self.AtrialPulseWidthLabel.place(relx=0.1, rely=0.7)
  
-        self.AOOButton = tk.Button(self.defAOOWindow, text = "submit", command=self.submitDefAOO)#Allows the user to submit the parameters to their device
+        self.AOOButton = tk.Button(self.defAOOWindow, text = "Submit", command=self.submitDefAOO)#Allows the user to submit the parameters to their device
         self.AOOButton.pack()
         self.AOOButton.place(relx=0.8, rely=0.8, relwidth=0.1, relheight=0.1)
     
@@ -376,27 +376,11 @@ class MyGUI:
         self.AtrialPulseWidthLabel.pack()
         self.AtrialPulseWidthLabel.place(relx=0.1, rely=0.7)
 
-        self.AtrialSensitivityLabel= tk.Label(self.defAAIWindow, text="Atrial Sensitivity: 1.05 mV", font=('Arial', 12))
-        self.AtrialSensitivityLabel.pack()
-        self.AtrialSensitivityLabel.place(relx=0.525, rely=0.15)
-
         self.ARPLabel= tk.Label(self.defAAIWindow, text="ARP: 250 ms", font=('Arial', 12))
         self.ARPLabel.pack()
         self.ARPLabel.place(relx=0.525, rely=0.3)
 
-        self.PVARPLabel= tk.Label(self.defAAIWindow, text="PVARP: 250 ms", font=('Arial', 12))
-        self.PVARPLabel.pack()
-        self.PVARPLabel.place(relx=0.525, rely=0.5)
-
-        self.HysteresisLabel= tk.Label(self.defAAIWindow, text="Hysteresis: 0 ppm", font=('Arial', 12))
-        self.HysteresisLabel.pack()
-        self.HysteresisLabel.place(relx=0.525, rely=0.7)
-
-        self.RateSmoothingLabel= tk.Label(self.defAAIWindow, text="Rate Smoothing: 0%", font=('Arial', 12))
-        self.RateSmoothingLabel.pack()
-        self.RateSmoothingLabel.place(relx=0.1, rely=0.8)
-
-        self.AAIButton = tk.Button(self.defAAIWindow, text = "submit", command=self.submitDefAAI)#Allows the user to submit the parameters to their device
+        self.AAIButton = tk.Button(self.defAAIWindow, text = "Submit", command=self.submitDefAAI)#Allows the user to submit the parameters to their device
         self.AAIButton.pack()
         self.AAIButton.place(relx=0.8, rely=0.8, relwidth=0.1, relheight=0.1)
 
@@ -405,13 +389,9 @@ class MyGUI:
         self.AAIURLimit=120.0
         self.AAIAtrialAmplitude=4.9
         self.AAIAtrialPulseWidth=0.4
-        self.AAIAtrialSensitivity=1.05
         self.AAIARP=250.0
-        self.AAIPVARP=250.0
-        self.AAIHysteresis=0.0
-        self.AAIRateSmoothing=0.0
 
-        self.currentUser.AAI(self.AAILRLimit, self.AAIURLimit, self.AAIAtrialAmplitude, self.AAIAtrialPulseWidth, self.AAIAtrialSensitivity, self.AAIARP, self.AAIPVARP, self.AAIHysteresis, self.AAIRateSmoothing)#Updates the user’s chosen parameters to the database
+        self.currentUser.AAI(self.AAILRLimit, self.AAIURLimit, self.AAIAtrialAmplitude, self.AAIAtrialPulseWidth,  self.AAIARP)#Updates the user’s chosen parameters to the database
         self.db.updateUser(self.currentUser)
         MyGUI.successfulSubmitted(self, self.defAAIWindow)
 
@@ -445,23 +425,11 @@ class MyGUI:
         self.VentricularPulseWidthLabel.pack()
         self.VentricularPulseWidthLabel.place(relx=0.1, rely=0.7)
 
-        self.VentricularSensitivityLabel= tk.Label(self.defVVIWindow, text="Ventricular Sensitivity: 3.5 mV", font=('Arial', 12))
-        self.VentricularSensitivityLabel.pack()
-        self.VentricularSensitivityLabel.place(relx=0.525, rely=0.15)
-
         self.VRPLabel= tk.Label(self.defVVIWindow, text="VRP: 320 ms", font=('Arial', 12))
         self.VRPLabel.pack()
         self.VRPLabel.place(relx=0.525, rely=0.3)
 
-        self.HysteresisLabel= tk.Label(self.defVVIWindow, text="Hysteresis: 0 ppm", font=('Arial', 12))
-        self.HysteresisLabel.pack()
-        self.HysteresisLabel.place(relx=0.525, rely=0.5)
-
-        self.RateSmoothingLabel= tk.Label(self.defVVIWindow, text="Rate Smoothing: 0%", font=('Arial', 12))
-        self.RateSmoothingLabel.pack()
-        self.RateSmoothingLabel.place(relx=0.55, rely=0.7)
-
-        self.VVIButton = tk.Button(self.defVVIWindow, text = "submit", command=self.submitDefVVI)#Allows the user to submit the parameters to their device
+        self.VVIButton = tk.Button(self.defVVIWindow, text = "Submit", command=self.submitDefVVI)#Allows the user to submit the parameters to their device
         self.VVIButton.pack()
         self.VVIButton.place(relx=0.8, rely=0.8, relwidth=0.1, relheight=0.1)
 
@@ -470,12 +438,9 @@ class MyGUI:
         self.VVIURLimit=120.0
         self.VVIVentricularAmplitude=4.9
         self.VVIVentricularPulseWidth=0.4
-        self.VVIVentricularSensitivity=3.5
         self.VVIVRP=320.0
-        self.VVIHysteresis=0.0
-        self.VVIRateSmoothing=0.0
 
-        self.currentUser.VVI(self.VVILRLimit, self.VVIURLimit, self.VVIVentricularAmplitude, self.VVIVentricularPulseWidth, self.VVIVentricularSensitivity, self.VVIVRP, self.VVIHysteresis, self.VVIRateSmoothing )#Updates the user’s chosen parameters to the database
+        self.currentUser.VVI(self.VVILRLimit, self.VVIURLimit, self.VVIVentricularAmplitude, self.VVIVentricularPulseWidth, self.VVIVRP)#Updates the user’s chosen parameters to the database
         self.db.updateUser(self.currentUser)
         MyGUI.successfulSubmitted(self, self.defVVIWindow)
     
@@ -513,10 +478,6 @@ class MyGUI:
         self.MaxSensorRateLabel.pack()
         self.MaxSensorRateLabel.place(relx=0.525, rely=0.15)
 
-        self.ActivityThreshLabel=tk.Label(self.defVOORWindow, text="Activity Threshold: Medium", font=('Arial',12))
-        self.ActivityThreshLabel.pack()
-        self.ActivityThreshLabel.place(relx=0.525, rely=0.3)
-
         self.ReactionTimeLabel=tk.Label(self.defVOORWindow, text="Reaction Time: 30 sec", font=('Arial',12))
         self.ReactionTimeLabel.pack()
         self.ReactionTimeLabel.place(relx=0.525, rely=0.5)
@@ -529,7 +490,7 @@ class MyGUI:
         self.RecoveryTimeLabel.pack()
         self.RecoveryTimeLabel.place(relx=0.1, rely=0.8)
 
-        self.VOORButton = tk.Button(self.defVOORWindow, text = "submit", command=self.submitDefVOOR) #Allows the user to submit the parameters to their device
+        self.VOORButton = tk.Button(self.defVOORWindow, text = "Submit", command=self.submitDefVOOR) #Allows the user to submit the parameters to their device
         self.VOORButton.pack()
         self.VOORButton.place(relx=0.8, rely=0.8, relwidth=0.1, relheight=0.1)
     
@@ -539,13 +500,12 @@ class MyGUI:
         self.VOORVentricularAmplitude=4.9
         self.VOORVentricularPulseWidth=0.4
         self.VOORMaxSensorRate=120
-        self.VOORActivityThresh=2
         self.VOORReactionTime=30
         self.VOORResponseFactor=8
         self.VOORRecoveryTime=5
         MyGUI.successfulSubmitted(self,self.defVOORWindow)
 
-        self.currentUser.VOOR(self.VOORLRLimit, self.VOORURLimit, self.VOORVentricularAmplitude, self.VOORVentricularPulseWidth, self.VOORMaxSensorRate, self.VOORActivityThresh,self.VOORReactionTime,self.VOORResponseFactor, self.VOORRecoveryTime) #Updates the user’s chosen parameters to the database
+        self.currentUser.VOOR(self.VOORLRLimit, self.VOORURLimit, self.VOORVentricularAmplitude, self.VOORVentricularPulseWidth, self.VOORMaxSensorRate,self.VOORReactionTime,self.VOORResponseFactor, self.VOORRecoveryTime) #Updates the user’s chosen parameters to the database
         self.db.updateUser(self.currentUser)
 
 
@@ -583,10 +543,6 @@ class MyGUI:
         self.MaxSensorRateLabel.pack()
         self.MaxSensorRateLabel.place(relx=0.525, rely=0.15)
 
-        self.ActivityThreshLabel=tk.Label(self.defAOORWindow, text="Activity Threshold: Medium", font=('Arial',12))
-        self.ActivityThreshLabel.pack()
-        self.ActivityThreshLabel.place(relx=0.525, rely=0.3)
-
         self.ReactionTimeLabel=tk.Label(self.defAOORWindow, text="Reaction Time: 30 sec", font=('Arial',12))
         self.ReactionTimeLabel.pack()
         self.ReactionTimeLabel.place(relx=0.525, rely=0.5)
@@ -599,7 +555,7 @@ class MyGUI:
         self.RecoveryTimeLabel.pack()
         self.RecoveryTimeLabel.place(relx=0.1, rely=0.8)
 
-        self.AOORButton = tk.Button(self.defAOORWindow, text = "submit", command=self.submitDefAOOR) #Allows the user to submit the parameters to their device
+        self.AOORButton = tk.Button(self.defAOORWindow, text = "Submit", command=self.submitDefAOOR) #Allows the user to submit the parameters to their device
         self.AOORButton.pack()
         self.AOORButton.place(relx=0.8, rely=0.8, relwidth=0.1, relheight=0.1)
     
@@ -609,13 +565,12 @@ class MyGUI:
         self.AOORAtrialAmplitude=4.9
         self.AOORAtrialPulseWidth=0.4
         self.AOORMaxSensorRate=120
-        self.AOORActivityThresh=2
         self.AOORReactionTime=30
         self.AOORResponseFactor=8
         self.AOORRecoveryTime=5
         MyGUI.successfulSubmitted(self,self.defAOORWindow)
 
-        self.currentUser.AOOR(self.AOORLRLimit, self.AOORURLimit, self.AOORAtrialAmplitude, self.AOORAtrialPulseWidth, self.AOORMaxSensorRate, self.AOORActivityThresh,self.AOORReactionTime,self.AOORResponseFactor, self.AOORRecoveryTime) #Updates the user’s chosen parameters to the database
+        self.currentUser.AOOR(self.AOORLRLimit, self.AOORURLimit, self.AOORAtrialAmplitude, self.AOORAtrialPulseWidth, self.AOORMaxSensorRate, self.AOORReactionTime,self.AOORResponseFactor, self.AOORRecoveryTime) #Updates the user’s chosen parameters to the database
         self.db.updateUser(self.currentUser)
 
     
@@ -657,10 +612,6 @@ class MyGUI:
         self.MaxSensorRateLabel.pack()
         self.MaxSensorRateLabel.place(relx=0.525, rely=0.15)
 
-        self.ActivityThreshLabel=tk.Label(self.defAAIRWindow, text="Activity Threshold: Medium", font=('Arial',12))
-        self.ActivityThreshLabel.pack()
-        self.ActivityThreshLabel.place(relx=0.525, rely=0.25)
-
         self.ReactionTimeLabel=tk.Label(self.defAAIRWindow, text="Reaction Time: 30 sec", font=('Arial',12))
         self.ReactionTimeLabel.pack()
         self.ReactionTimeLabel.place(relx=0.525, rely=0.35)
@@ -669,27 +620,11 @@ class MyGUI:
         self.ResponseFactorLabel.pack()
         self.ResponseFactorLabel.place(relx=0.525, rely=0.45)
 
-        self.AtrialSensitivity=tk.Label(self.defAAIRWindow, text="Atrial Sensitivity: 1.05 mv", font=('Arial', 12))
-        self.AtrialSensitivity.pack()
-        self.AtrialSensitivity.place(relx=0.525, rely=0.55)
-
         self.ARPLabel=tk.Label(self.defAAIRWindow, text=' ARP: 250 ms', font=('Arial', 12))
         self.ARPLabel.pack()
-        self.ARPLabel.place(relx=0.1 ,rely=0.65)
+        self.ARPLabel.place(relx=0.1 ,rely=0.65) 
 
-        self.PVARPLabel=tk.Label(self.defAAIRWindow, text="PVARP: 250 ms", font=("Arial",12))
-        self.PVARPLabel.pack()
-        self.PVARPLabel.place(relx=0.525,rely=0.65)
-
-        self.HysteresisLabel=tk.Label(self.defAAIRWindow, text="Hysteresis: 0 ppm", font=("Arial",12))
-        self.HysteresisLabel.pack()
-        self.HysteresisLabel.place(relx=0.1,rely=0.75)
-
-        self.RateSmoothingLabel=tk.Label(self.defAAIRWindow, text="Rate Smoothing: 0%", font=("Arial",12))
-        self.RateSmoothingLabel.pack()
-        self.RateSmoothingLabel.place(relx=0.525,rely=0.75)  
-
-        self.AAIRButton = tk.Button(self.defAAIRWindow, text = "submit", command=self.submitDefAAIR) #Allows the user to submit the parameters to their device
+        self.AAIRButton = tk.Button(self.defAAIRWindow, text = "Submit", command=self.submitDefAAIR) #Allows the user to submit the parameters to their device
         self.AAIRButton.pack()
         self.AAIRButton.place(relx=0.8, rely=0.8, relwidth=0.1, relheight=0.1)
 
@@ -699,18 +634,13 @@ class MyGUI:
         self.AAIRAtrialAmplitude=4.9
         self.AAIRAtrialPulseWidth=0.4
         self.AAIRMaxSensorRate=120
-        self.AAIRActivityThresh=2
         self.AAIRReactionTime=30
         self.AAIRResponseFactor=8
         self.AAIRRecoveryTime=5
-        self.AAIRAtrialSensitivity=1.05
         self.AAIRARP=250
-        self.AAIRPVARP=250
-        self.AAIRHysteresis=0
-        self.AAIRRateSmoothing=0
         MyGUI.successfulSubmitted(self,self.defAAIRWindow)
 
-        self.currentUser.AAIR(self.AAIRLRLimit, self.AAIRURLimit, self.AAIRAtrialAmplitude, self.AAIRAtrialPulseWidth, self.AAIRMaxSensorRate, self.AAIRActivityThresh,self.AAIRReactionTime,self.AAIRResponseFactor, self.AAIRRecoveryTime,self.AAIRAtrialSensitivity,self.AAIRARP,self.AAIRPVARP,self.AAIRHysteresis,self.AAIRRateSmoothing) #Updates the user’s chosen parameters to the database
+        self.currentUser.AAIR(self.AAIRLRLimit, self.AAIRURLimit, self.AAIRAtrialAmplitude, self.AAIRAtrialPulseWidth, self.AAIRMaxSensorRate,self.AAIRReactionTime,self.AAIRResponseFactor, self.AAIRRecoveryTime,self.AAIRARP) #Updates the user’s chosen parameters to the database
         self.db.updateUser(self.currentUser)      
 
     def defaultVVIR(self):
@@ -751,10 +681,6 @@ class MyGUI:
         self.MaxSensorRateLabel.pack()
         self.MaxSensorRateLabel.place(relx=0.525, rely=0.15)
 
-        self.ActivityThreshLabel=tk.Label(self.defVVIRWindow, text="Activity Threshold: Medium", font=('Arial',12))
-        self.ActivityThreshLabel.pack()
-        self.ActivityThreshLabel.place(relx=0.525, rely=0.25)
-
         self.ReactionTimeLabel=tk.Label(self.defVVIRWindow, text="Reaction Time: 30 sec", font=('Arial',12))
         self.ReactionTimeLabel.pack()
         self.ReactionTimeLabel.place(relx=0.525, rely=0.35)
@@ -763,23 +689,11 @@ class MyGUI:
         self.ResponseFactorLabel.pack()
         self.ResponseFactorLabel.place(relx=0.525, rely=0.45)
 
-        self.VentricularSensitivity=tk.Label(self.defVVIRWindow, text="Ventricular Sensitivity: 3.5 mv", font=('Arial', 12))
-        self.VentricularSensitivity.pack()
-        self.VentricularSensitivity.place(relx=0.525, rely=0.55)
-
         self.VRPLabel=tk.Label(self.defVVIRWindow, text=' ARP: 320 ms', font=('Arial', 12))
         self.VRPLabel.pack()
         self.VRPLabel.place(relx=0.1 ,rely=0.65)
 
-        self.HysteresisLabel=tk.Label(self.defVVIRWindow, text="Hysteresis: 0 ppm", font=("Arial",12))
-        self.HysteresisLabel.pack()
-        self.HysteresisLabel.place(relx=0.1,rely=0.75)
-
-        self.RateSmoothingLabel=tk.Label(self.defVVIRWindow, text="Rate Smoothing: 0%", font=("Arial",12))
-        self.RateSmoothingLabel.pack()
-        self.RateSmoothingLabel.place(relx=0.525,rely=0.65)
-
-        self.VVIRButton = tk.Button(self.defVVIRWindow, text = "submit", command=self.submitDefVVIR) #Allows the user to submit the parameters to their device
+        self.VVIRButton = tk.Button(self.defVVIRWindow, text = "Submit", command=self.submitDefVVIR) #Allows the user to submit the parameters to their device
         self.VVIRButton.pack()
         self.VVIRButton.place(relx=0.8, rely=0.8, relwidth=0.1, relheight=0.1)
     
@@ -789,17 +703,13 @@ class MyGUI:
         self.VVIRVentricularAmplitude=4.9
         self.VVIRVentricularPulseWidth=0.4
         self.VVIRMaxSensorRate=120
-        self.VVIRActivityThresh=2
         self.VVIRReactionTime=30
         self.VVIRResponseFactor=8
         self.VVIRRecoveryTime=5
-        self.VVIRVentricularSensitivity=3.5
         self.VVIRVRP=320
-        self.VVIRHysteresis=0
-        self.VVIRRateSmoothing=0
         MyGUI.successfulSubmitted(self,self.defVVIRWindow)
 
-        self.currentUser.AAIR(self.VVIRLRLimit, self.VVIRURLimit, self.VVIRVentricularAmplitude, self.VVIRVentricularPulseWidth, self.VVIRMaxSensorRate, self.VVIRActivityThresh,self.VVIRReactionTime,self.VVIRResponseFactor, self.VVIRRecoveryTime,self.VVIRVentricularSensitivity,self.VVIRVRP,self.VVIRHysteresis,self.VVIRRateSmoothing) #Updates the user’s chosen parameters to the database
+        self.currentUser.AAIR(self.VVIRLRLimit, self.VVIRURLimit, self.VVIRVentricularAmplitude, self.VVIRVentricularPulseWidth, self.VVIRMaxSensorRate,self.VVIRReactionTime,self.VVIRResponseFactor, self.VVIRRecoveryTime,self.VVIRVRP) #Updates the user’s chosen parameters to the database
         self.db.updateUser(self.currentUser)  
 
 
@@ -908,7 +818,7 @@ class MyGUI:
         self.VentricularPulseWidthWarningLabel.pack()
         self.VentricularPulseWidthWarningLabel.place(relx=0.045, rely=0.575)
 
-        self.VOOButton = tk.Button(self.VOOConfigWindow, text = "submit", command=self.submitVOO) #Submit parameters to the device
+        self.VOOButton = tk.Button(self.VOOConfigWindow, text = "Submit", command=self.submitVOO) #Submit parameters to the device
         self.VOOButton.pack()
         self.VOOButton.place(relx=0.8, rely=0.8, relwidth=0.1, relheight=0.1)
 
@@ -996,7 +906,7 @@ class MyGUI:
         self.AtrialPulseWidthWarningLabel.pack()
         self.AtrialPulseWidthWarningLabel.place(relx=0.045, rely=0.575)
 
-        self.AOOButton = tk.Button(self.AOOConfigWindow, text = "submit", command=self.submitAOO) #Submits parameters to the device
+        self.AOOButton = tk.Button(self.AOOConfigWindow, text = "Submit", command=self.submitAOO) #Submits parameters to the device
         self.AOOButton.pack()
         self.AOOButton.place(relx=0.8, rely=0.8, relwidth=0.1, relheight=0.1)
 
@@ -1085,17 +995,6 @@ class MyGUI:
         self.AtrialPulseWidthWarningLabel.pack()
         self.AtrialPulseWidthWarningLabel.place(relx=0.045, rely=0.575)
 
-        self.AtrialSensitivityLabel= tk.Label(self.AAIConfigWindow, text="Atrial Sensitivity: ", font=("Arial",12))
-        self.AtrialSensitivityLabel.pack()
-        self.AtrialSensitivityLabel.place(relx=0.5,rely=0.15)
-        self.AtrialSensitivityTextField = tk.Entry(self.AAIConfigWindow)
-        self.AtrialSensitivityTextField.pack()
-        self.AtrialSensitivityTextField.place(relx=0.7, rely=0.15)
-
-        self.AtrialSensitivityWarningLabel= tk.Label(self.AAIConfigWindow, text="Valid inputs are: 0.178, 0.375, 0.54 mV\n values between 0.07-0.72 mV with 0.5 mV increment",font=('Arial', 10), fg="blue" )
-        self.AtrialSensitivityWarningLabel.pack()
-        self.AtrialSensitivityWarningLabel.place(relx=0.5, rely=0.2)
-
         self.ARPLabel= tk.Label(self.AAIConfigWindow, text="ARP: ", font=("Arial", 12))
         self.ARPLabel.pack()
         self.ARPLabel.place(relx=0.5,rely=0.28)
@@ -1107,40 +1006,7 @@ class MyGUI:
         self.ARPWarningLabel.pack()
         self.ARPWarningLabel.place(relx=0.5, rely=0.335)
 
-        self.PVARPLabel= tk.Label(self.AAIConfigWindow, text="PVARP: ", font=("Arial",12))
-        self.PVARPLabel.pack()
-        self.PVARPLabel.place(relx=0.5,rely=0.4)
-        self.PVARPTextField = tk.Entry(self.AAIConfigWindow)
-        self.PVARPTextField.pack()
-        self.PVARPTextField.place(relx=0.7, rely=0.4)
-
-        self.PVARPWarningLabel= tk.Label(self.AAIConfigWindow, text="Valid inputs are: values between 150-500 ms with 10 ms increment",font=('Arial', 10), fg="blue" )
-        self.PVARPWarningLabel.pack()
-        self.PVARPWarningLabel.place(relx=0.5, rely=0.45)
-
-        self.HysteresisLabel= tk.Label(self.AAIConfigWindow, text="Hysteresis: ", font=("Arial",12))
-        self.HysteresisLabel.pack()
-        self.HysteresisLabel.place(relx=0.5,rely=0.5)
-        self.HysteresisTextField = tk.Entry(self.AAIConfigWindow)
-        self.HysteresisTextField.pack()
-        self.HysteresisTextField.place(relx=0.7, rely=0.5)
-
-        self.HysteresisWarningLabel= tk.Label(self.AAIConfigWindow, text="Valid inputs are: values between 30-50 ppm incremented by 5 ppm\n values between 50-90 ppm incremented by 1 ppm\n values between 90-175 ppm incremented by 5 ppm\n 0 (if turned OFF)",font=('Arial', 10), fg="blue" )
-        self.HysteresisWarningLabel.pack()
-        self.HysteresisWarningLabel.place(relx=0.5, rely=0.55)
-
-        self.RateSmoothingLabel= tk.Label(self.AAIConfigWindow, text="Rate Smoothing: ", font=("Arial",12))
-        self.RateSmoothingLabel.pack()
-        self.RateSmoothingLabel.place(relx=0.045,rely=0.65)
-        self.RateSmoothingTextField = tk.Entry(self.AAIConfigWindow)
-        self.RateSmoothingTextField.pack()
-        self.RateSmoothingTextField.place(relx=0.25, rely=0.65)
-
-        self.RateSmoothingWarningLabel= tk.Label(self.AAIConfigWindow, text="Valid inputs are: 0 (if turned OFF)\n 3, 6, 9, 12, 15, 18, 21, 25 %(if turned ON)",font=('Arial', 10), fg="blue" )
-        self.RateSmoothingWarningLabel.pack()
-        self.RateSmoothingWarningLabel.place(relx=0.045, rely=0.7)
-
-        self.AAIButton = tk.Button(self.AAIConfigWindow, text = "submit", command=self.submitAAI) #Submits parameters to the device
+        self.AAIButton = tk.Button(self.AAIConfigWindow, text = "Submit", command=self.submitAAI) #Submits parameters to the device
         self.AAIButton.pack()
         self.AAIButton.place(relx=0.8, rely=0.8, relwidth=0.1, relheight=0.1)
 
@@ -1149,33 +1015,17 @@ class MyGUI:
         self.AAIURLimit= self.URLimitTextField.get().strip()
         self.AAIAtrialAmplitude= self.AtrialAmplitudeTextField.get().strip()
         self.AAIAtrialPulseWidth= self.AtrialPulseWidthTextField.get().strip()
-        self.AAIAtrialSensitivity= self.AtrialSensitivityTextField.get().strip()
         self.AAIARP= self.ARPTextField.get().strip()
-        self.AAIPVARP= self.PVARPTextField.get().strip()
-        self.AAIHysteresis= self.HysteresisTextField.get().strip()
-        self.AAIRateSmoothing= self.RateSmoothingTextField.get().strip()
 
         if  self.AAIAtrialAmplitude== "0":
             self.AAIAtrialAmplitude = 0
         else:
             self.AAIAtrialAmplitude= float(self.AAIAtrialAmplitude)
-
-        if  self.AAIHysteresis== "0":
-            self.AAIHysteresis = 0
-        else:
-            self.AAIHysteresis= float(self.AAIHysteresis)
-
-        if  self.AAIRateSmoothing== "0":
-            self.AAIRateSmoothing = 0
-        else:
-            self.AAIRateSmoothing= float(self.AAIRateSmoothing)
             
         self.AAILRLimit= float(self.AAILRLimit)
         self.AAIURLimit= float(self.AAIURLimit)
         self.AAIAtrialPulseWidth= float(self.AAIAtrialPulseWidth)
-        self.AAIAtrialSensitivity= float(self.AAIAtrialSensitivity)
         self.AAIARP= float(self.AAIARP)
-        self.AAIPVARP= float(self.AAIPVARP)
         #Checks to make sure the values inputted are valid
         if not ((30<= self.AAILRLimit<=50 and self.AAILRLimit % 5 == 0) or (50<= self.AAILRLimit<=90) or  (90 <= self.AAILRLimit <= 175 and self.AAILRLimit % 5 == 0)):
             MyGUI.errorWindow(self)
@@ -1185,18 +1035,10 @@ class MyGUI:
             MyGUI.errorWindow(self)
         elif not ((self.AAIAtrialPulseWidth == 0.05 )or (0.1<= self.AAIAtrialPulseWidth <= 1.9 and self.AAIAtrialPulseWidth*10 % 1==0)):
             MyGUI.errorWindow(self)
-        elif not ((self.AAIAtrialSensitivity==0.178 or self.AAIAtrialSensitivity==0.357 or self.AAIAtrialSensitivity==0.54)or (0.07<=self.AAIAtrialSensitivity<=0.72 and self.AAIAtrialSensitivity*10 % 5==0)):   
-            MyGUI.errorWindow(self)
         elif not ((150<= self.AAIARP<=500 and self.AAIARP % 10 == 0)):
             MyGUI.errorWindow(self)
-        elif not ((150<= self.AAIPVARP<=500 and self.AAIPVARP % 10 == 0)):
-            MyGUI.errorWindow(self)
-        elif not ((self.AAIHysteresis==0 ) or (30<= self.AAIHysteresis<=50 and self.AAIHysteresis % 5 == 0) or (50<= self.AAIHysteresis<=90) or  (90 <= self.AAIHysteresis <= 175 and self.AAIHysteresis % 5 == 0)):
-            pass
-        elif not (((self.AAIRateSmoothing == 0)) or (self.AAIRateSmoothing == 3) or (self.AAIRateSmoothing == 6) or (self.AAIRateSmoothing == 9) or (self.AAIRateSmoothing == 12) or (self.AAIRateSmoothing == 15) or (self.AAIRateSmoothing == 18) or (self.AAIRateSmoothing == 21) or (self.AAIRateSmoothing == 25)):
-            MyGUI.errorWindow(self)
         else:
-            self.currentUser.AAI(self.AAILRLimit, self.AAIURLimit, self.AAIAtrialAmplitude, self.AAIAtrialPulseWidth, self.AAIAtrialSensitivity, self.AAIARP, self.AAIPVARP, self.AAIHysteresis, self.AAIRateSmoothing)
+            self.currentUser.AAI(self.AAILRLimit, self.AAIURLimit, self.AAIAtrialAmplitude, self.AAIAtrialPulseWidth, self.AAIARP)
             self.db.updateUser(self.currentUser)#Updates the user’s chosen parameters to the database
             MyGUI.successfulSubmitted(self,self.AAIConfigWindow)
 
@@ -1209,7 +1051,6 @@ class MyGUI:
         self.backButton.place(relx=0.075, rely=0.85, relwidth=0.1, relheight=0.05)
 
         self.VVIConfigWindow = self.startWindow
-
 
         self.VVIConfigLabel=tk.Label(self.VVIConfigWindow, text="Configure Your VVI Parameters", font=("Arial",18))#Gathers the necessary parameters to configure VVI from the user
         self.VVIConfigLabel.pack()
@@ -1259,17 +1100,6 @@ class MyGUI:
         self.VentricularPulseWidthWarningLabel.pack()
         self.VentricularPulseWidthWarningLabel.place(relx=0.045, rely=0.575)
 
-        self.VentricularSensitivityLabel= tk.Label(self.VVIConfigWindow, text="Ventricular Sensitivity: ", font=("Arial",12))
-        self.VentricularSensitivityLabel.pack()
-        self.VentricularSensitivityLabel.place(relx=0.5,rely=0.15)
-        self.VentricularSensitivityTextField = tk.Entry(self.VVIConfigWindow)
-        self.VentricularSensitivityTextField.pack()
-        self.VentricularSensitivityTextField.place(relx=0.7, rely=0.15)
-
-        self.VentricularSensitivityWarningLabel= tk.Label(self.VVIConfigWindow, text="Valid inputs are: 0.178, 0.375, 0.54 mV\n values between 0.07-0.72 mV with 0.5 mV increment",font=('Arial', 10), fg="blue" )
-        self.VentricularSensitivityWarningLabel.pack()
-        self.VentricularSensitivityWarningLabel.place(relx=0.5, rely=0.2)
-
         self.VRPLabel= tk.Label(self.VVIConfigWindow, text="VRP: ", font=("Arial",12))
         self.VRPLabel.pack()
         self.VRPLabel.place(relx=0.5,rely=0.28)
@@ -1281,29 +1111,7 @@ class MyGUI:
         self.VRPWarningLabel.pack()
         self.VRPWarningLabel.place(relx=0.5, rely=0.335)
 
-        self.RateSmoothingLabel= tk.Label(self.VVIConfigWindow, text="Rate Smoothing: ", font=("Arial",12))
-        self.RateSmoothingLabel.pack()
-        self.RateSmoothingLabel.place(relx=0.5,rely=0.4)
-        self.RateSmoothingTextField = tk.Entry(self.VVIConfigWindow)
-        self.RateSmoothingTextField.pack()
-        self.RateSmoothingTextField.place(relx=0.7, rely=0.4)
-
-        self.RateSmoothingWarningLabel= tk.Label(self.VVIConfigWindow, text="Valid inputs are: 0 (if turned OFF)\n 3, 6, 9, 12, 15, 18, 21, 25 %(if turned ON)",font=('Arial', 10), fg="blue" )
-        self.RateSmoothingWarningLabel.pack()
-        self.RateSmoothingWarningLabel.place(relx=0.5, rely=0.43)
-
-        self.HysteresisLabel= tk.Label(self.VVIConfigWindow, text="Hysteresis: ", font=("Arial",12))
-        self.HysteresisLabel.pack()
-        self.HysteresisLabel.place(relx=0.5,rely=0.5)
-        self.HysteresisTextField = tk.Entry(self.VVIConfigWindow)
-        self.HysteresisTextField.pack()
-        self.HysteresisTextField.place(relx=0.7, rely=0.5)
-
-        self.HysteresisWarningLabel= tk.Label(self.VVIConfigWindow, text="Valid inputs are: values between 30-50 ppm incremented by 5 ppm\n values between 50-90 ppm incremented by 1 ppm\n values between 90-175 ppm incremented by 5 ppm\n 0 (if turned OFF)",font=('Arial', 10), fg="blue" )
-        self.HysteresisWarningLabel.pack()
-        self.HysteresisWarningLabel.place(relx=0.5, rely=0.55)
-
-        self.VVIButton = tk.Button(self.VVIConfigWindow, text = "submit", command=self.submitVVI) #Submits parameters to the device
+        self.VVIButton = tk.Button(self.VVIConfigWindow, text = "Submit", command=self.submitVVI) #Submits parameters to the device
         self.VVIButton.pack()
         self.VVIButton.place(relx=0.8, rely=0.8, relwidth=0.1, relheight=0.1)
 
@@ -1312,33 +1120,17 @@ class MyGUI:
         self.VVIURLimit= self.URLimitTextField.get().strip()
         self.VVIVentricularAmplitude= self.VentricularAmplitudeTextField.get().strip()
         self.VVIVentricularPulseWidth= self.VentricularPulseWidthTextField.get().strip()
-        self.VVIVentricularSensitivity= self.VentricularSensitivityTextField.get().strip()
         self.VVIVRP= self.VRPTextField.get().strip()
-        self.VVIHysteresis= self.HysteresisTextField.get().strip()
-        self.VVIRateSmoothing= self.RateSmoothingTextField.get().strip()
         #Checks to make sure the values inputted are valid
         if self.VVIVentricularAmplitude == "0":
             self.VVIVentricularAmplitude =0
         else:
             self.VVIVentricularAmplitude= float(self.VVIVentricularAmplitude)
-        
-        if self.VVIHysteresis == "0":
-            self.VVIHysteresis=0
-        else: 
-            self.VVIHysteresis= float(self.VVIHysteresis)
-
-        if self.VVIRateSmoothing == "0":
-            self.VVIRateSmoothing=0
-        else: 
-            self.VVIRateSmoothing= float(self.VVIRateSmoothing)
                 
         self.VVILRLimit= float(self.VVILRLimit)
         self.VVIURLimit= float(self.VVIURLimit)
         self.VVIVentricularPulseWidth= float(self.VVIVentricularPulseWidth)
-        self.VVIVentricularSensitivity= float(self.VVIVentricularSensitivity)
         self.VVIVRP= float(self.VVIVRP)
-        self.VVIHysteresis= float(self.VVIHysteresis)
-        self.VVIRateSmoothing= float(self.VVIRateSmoothing)
 
         if not ((30<= self.VVILRLimit<=50 and self.VVILRLimit % 5 == 0) or (50<= self.VVILRLimit<=90) or  (90 <= self.VVILRLimit <= 175 and self.VVILRLimit % 5 == 0)):
             MyGUI.errorWindow(self)
@@ -1348,23 +1140,13 @@ class MyGUI:
             MyGUI.errorWindow(self)
         elif not ((self.VVIVentricularPulseWidth == 0.05 )or (0.1<= self.VVIVentricularPulseWidth <= 1.9 and self.VVIVentricularPulseWidth*10 %1==0)):
             MyGUI.errorWindow(self)
-        elif not ((self.VVIVentricularSensitivity==0.178 or self.VVIVentricularSensitivity==0.357 or self.VVIVentricularSensitivity==0.54)or (0.07<=self.VVIVentricularSensitivity<=0.72 and self.VVIVentricularSensitivity*10 %5==0)):   
-            MyGUI.errorWindow(self)
         elif not ((150<= self.VVIVRP<=500 and self.VVIVRP % 10 == 0)):
             MyGUI.errorWindow(self)
-        elif not ((self.VVIHysteresis ==0) or (30<= self.VVIHysteresis<=50 and self.VVIHysteresis % 5 == 0) or (50<= self.VVIHysteresis<=90) or  (90 <= self.VVIHysteresis <= 175 and self.VVIHysteresis % 5 == 0)):
-            MyGUI.errorWindow(self)
-        elif not ((self.VVIRateSmoothing==0) or (self.VVIRateSmoothing == 3) or (self.VVIRateSmoothing == 6) or (self.VVIRateSmoothing == 9) or (self.VVIRateSmoothing == 12) or (self.VVIRateSmoothing == 15) or (self.VVIRateSmoothing == 18) or (self.VVIRateSmoothing == 21) or (self.VVIRateSmoothing == 25)):
-            MyGUI.errorWindow(self)
         else:
-            self.currentUser.VVI(self.VVILRLimit, self.VVIURLimit, self.VVIVentricularAmplitude, self.VVIVentricularPulseWidth, self.VVIVentricularSensitivity, self.VVIVRP, self.VVIHysteresis, self.VVIRateSmoothing)
+            self.currentUser.VVI(self.VVILRLimit, self.VVIURLimit, self.VVIVentricularAmplitude, self.VVIVentricularPulseWidth, self.VVIVRP)
             self.db.updateUser(self.currentUser)#Updates the user’s chosen parameters to the database
             MyGUI.successfulSubmitted(self,self.VVIConfigWindow)
-
-
-        self.currentUser.VVI(self.VVILRLimit, self.VVIURLimit, self.VVIVentricularAmplitude, self.VVIVentricularPulseWidth, self.VVIVentricularSensitivity, self.VVIVRP, self.VVIHysteresis, self.VVIRateSmoothing)
-        self.db.updateUser(self.currentUser)
-    
+   
     def VOORConfig(self):
         for widget in self.startWindow.winfo_children():
             widget.destroy()
@@ -1434,17 +1216,6 @@ class MyGUI:
         self.MaximumSensorRateWarningLabel.pack()
         self.MaximumSensorRateWarningLabel.place(relx=0.045,rely=0.7)
 
-        self.ActivityThresholdLabel=tk.Label(self.VOORConfigWindow, text="Activity Threshold: ", font=("Arial",12))
-        self.ActivityThresholdLabel.pack()
-        self.ActivityThresholdLabel.place(relx=0.55,rely=0.15)
-        self.ActivityThresholdTextField=tk.Entry(self.VOORConfigWindow)
-        self.ActivityThresholdTextField.pack()
-        self.ActivityThresholdTextField.place(relx=0.75, rely=0.15)
-
-        self.ActivityThresholdWarningLabel=tk.Label(self.VOORConfigWindow, text="Valid inputs are: V-Low, Low, Med-Low,\n Med, Med-High, High, V-High", font=("Arial", 10), fg="blue")
-        self.ActivityThresholdWarningLabel.pack()
-        self.ActivityThresholdWarningLabel.place(relx=0.55,rely=0.2)
-
         self.ReactionTimeLabel=tk.Label(self.VOORConfigWindow, text="Reaction Time: ", font=("Arial",12))
         self.ReactionTimeLabel.pack()
         self.ReactionTimeLabel.place(relx=0.55,rely=0.3)
@@ -1478,7 +1249,7 @@ class MyGUI:
         self.RecoveryTimeWarningLabel.pack()
         self.RecoveryTimeWarningLabel.place(relx=0.55,rely=0.65)
 
-        self.VOORButton = tk.Button(self.VOORConfigWindow, text = "submit", command=self.submitVOOR) #Submit parameters to the device
+        self.VOORButton = tk.Button(self.VOORConfigWindow, text = "Submit", command=self.submitVOOR) #Submit parameters to the device
         self.VOORButton.pack()
         self.VOORButton.place(relx=0.8, rely=0.8, relwidth=0.1, relheight=0.1)
 
@@ -1517,11 +1288,79 @@ class MyGUI:
             MyGUI.errorWindow(self)
         elif not ((50<=self.VOORMaxSensorRate<=175 and self.VOORMaxSensorRate %5==0)):
             MyGUI.errorWindow(self)
+        elif not ((10<=self.VOORReactionTime<=50 and self.VOORReactionTime%10==0)):
+            MyGUI.errorWindow(self)
+        elif not ((1<=self.VOORResponseFactor<=16)):
+            MyGUI.errorWindow(self)
+        elif not ((2<=self.VOORRecoveryTime<=16)):
+            MyGUI.errorWindow(self)
         else:
             MyGUI.successfulSubmitted(self, self.VOORConfigWindow)
             self.currentUser.VOOR(self.VOORLRLimit, self.VOORURLimit, self.VOORVentricularAmplitude, self.VOORVentricularPulseWidth)
             self.db.updateUser(self.currentUser)#Updates the user’s chosen parameters to the database
+        
+    def AOORConfig(self):
+        for widget in self.startWindow.winfo_children():
+            widget.destroy()
 
+        self.backButton = tk.Button(self.startWindow, text = "Back", command=self.useConfigure)
+        self.backButton.pack()
+        self.backButton.place(relx=0.075, rely=0.85, relwidth=0.1, relheight=0.05)
+
+        self.AOORConfigWindow = self.startWindow
+
+        self.AOORConfigLabel=tk.Label(self.AOORConfigWindow, text="Configure Your AOOR Parameters", font=("Arial",18))#Gathers the necessary parameters to configure AOO from the user
+        self.AOORConfigLabel.pack()
+        self.AOORConfigLabel.place(relx=0.3,rely=0.05)
+
+        self.LRLimitLabel= tk.Label(self.AOORConfigWindow, text="Lower Rate Limit: ", font=("Arial",12))
+        self.LRLimitLabel.pack()
+        self.LRLimitLabel.place(relx=0.045,rely=0.15)
+        self.LRLimitTextField = tk.Entry(self.AOORConfigWindow)
+        self.LRLimitTextField.pack()
+        self.LRLimitTextField.place(relx=0.25, rely=0.15)
+        
+        self.LRLimitWarningLabel= tk.Label(self.AOORConfigWindow, text="Valid inputs are: values between 30-50 ppm incremented by 5 ppm\n values between 50-90 ppm incremented by 1 ppm\n values between 90-175 ppm incremented by 5 ppm",font=('Arial', 9), fg="blue" )
+        self.LRLimitWarningLabel.pack()
+        self.LRLimitWarningLabel.place(relx=0.045, rely=0.2)
+
+        self.URLimitLabel= tk.Label(self.AOORConfigWindow, text="Upper Rate Limit: ", font=("Arial",12))
+        self.URLimitLabel.pack()
+        self.URLimitLabel.place(relx=0.045,rely=0.3)
+        self.URLimitTextField = tk.Entry(self.AOORConfigWindow)
+        self.URLimitTextField.pack()
+        self.URLimitTextField.place(relx=0.25, rely=0.3)
+        
+        self.URLimitWarningLabel= tk.Label(self.AOORConfigWindow, text="Valid inputs are: values between 50-175 ppm incremented by 5 ppm",font=('Arial', 10), fg="blue" )
+        self.URLimitWarningLabel.pack()
+        self.URLimitWarningLabel.place(relx=0.045, rely=0.35)
+
+        self.AtrialAmplitudeLabel= tk.Label(self.AOORConfigWindow, text="Atrial Amplitude: ",font=("Arial",12))
+        self.AtrialAmplitudeLabel.pack()
+        self.AtrialAmplitudeLabel.place(relx=0.045,rely=0.4)
+        self.AtrialAmplitudeTextField = tk.Entry(self.AOORConfigWindow)
+        self.AtrialAmplitudeTextField.pack()
+        self.AtrialAmplitudeTextField.place(relx=0.25, rely=0.4)
+
+        self.AtrialAmplitudeWarningLabel= tk.Label(self.AOORConfigWindow, text="Valid inputs are: values between 0, 0.36-2.3 V with 0.1 V increment\n values between 2.5-5.0 V with 0.5 V increment",font=('Arial', 10), fg="blue" )
+        self.AtrialAmplitudeWarningLabel.pack()
+        self.AtrialAmplitudeWarningLabel.place(relx=0.045, rely=0.45)
+
+        self.AtrialPulseWidthLabel= tk.Label(self.AOORConfigWindow, text="Atrial Pulse Width: ", font=("Arial",12))
+        self.AtrialPulseWidthLabel.pack()
+        self.AtrialPulseWidthLabel.place(relx=0.045,rely=0.525)
+        self.AtrialPulseWidthTextField = tk.Entry(self.AOORConfigWindow)
+        self.AtrialPulseWidthTextField.pack()
+        self.AtrialPulseWidthTextField.place(relx=0.25, rely=0.525)
+
+        self.AtrialPulseWidthWarningLabel= tk.Label(self.AOORConfigWindow, text="Valid inputs are: 0.05 ms\n values between 0.1-1.9 ms with 0.1 ms increment",font=('Arial', 10), fg="blue" )
+        self.AtrialPulseWidthWarningLabel.pack()
+        self.AtrialPulseWidthWarningLabel.place(relx=0.045, rely=0.575)
+
+        self.AOORButton = tk.Button(self.AOOConfigWindow, text = "Submit", command=self.submitAOOR) #Submits parameters to the device
+        self.AOORButton.pack()
+        self.AOORButton.place(relx=0.8, rely=0.8, relwidth=0.1, relheight=0.1)
+        
     def deleteUser(self):
         self.db.delete_user(self.currentUser.username)#Deletes user that is currently signed in from the database
         
