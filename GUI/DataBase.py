@@ -1,4 +1,8 @@
 import sqlite3
+import base64
+ 
+from Crypto.Cipher import AES
+from Crypto.Util.Padding import pad, unpad
 
 class DataBase():#Gets called upon the creation of a new object/user
     def __init__(self):
@@ -122,11 +126,29 @@ class DataBase():#Gets called upon the creation of a new object/user
         user_data_dict = dict(zip(columns, data))
         
         return user_data_dict
-    '''
-    def encryption():
-
-    def decryption():
-    '''
+    
+    def addStrToSpecifyLen(s,specifyLen=0):
+        if specifyLen <= 0:
+            specifyLen = 1
+        while len(s) % specifyLen != 0:
+            s += '\0'
+        return s.encode(encoding='utf-8')
+    def encrypt_aes(text='', key=''):
+        aes = AES.new(addStrToSpecifyLen(key,16), AES.MODE_ECB)
+        encrypt = aes.encrypt(addStrToSpecifyLen(text,16))
+        encrypted_text = str(base64.encodebytes(encrypt), encoding='utf-8')
+        return encrypted_text
+    def decrypt_aes(data, aes_key):
+        aes = AES.new(addStrToSpecifyLen(aes_key,16), AES.MODE_ECB)
+        base64_decrypted = base64.decodebytes(addStrToSpecifyLen(data,16))
+        decrypted_text = str(aes.decrypt(base64_decrypted),encoding='utf-8').replace('\0','')
+        return decrypted_text
+    if __name__ == '__main__':
+        key = '12223'
+        data = 'test12dcds'
+        encrypt = encrypt_aes(data,key)
+        print(encrypt)
+        print(decrypt_aes(encrypt,key))
    
     def close(self):
         #closes the connection to the database
