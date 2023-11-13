@@ -122,7 +122,11 @@ class DataBase():#Gets called upon the creation of a new object/user
         user_data_dict = dict(zip(columns, data))
         
         return user_data_dict
-   
+    '''
+    def encryption():
+
+    def decryption():
+    '''
    
     def close(self):
         #closes the connection to the database
