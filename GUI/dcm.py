@@ -775,9 +775,9 @@ class MyGUI:
         self.VOORButton.pack()
         self.VOORButton.place(relx=0.15, rely=0.55, relwidth=0.3, relheight=0.05)
         
-        self.AOORButton=tk.Button(self.configModeWindow, text= "Configure AOOR", command=self.AOORConfig)
-        self.AOORButton.pack()
-        self.AOORButton.place(relx=0.6, rely=0.55, relwidth=0.3, relheight=0.05)
+        #self.AOORButton=tk.Button(self.configModeWindow, text= "Configure AOOR", command=self.AOORConfig)
+        #self.AOORButton.pack()
+        #self.AOORButton.place(relx=0.6, rely=0.55, relwidth=0.3, relheight=0.05)
         '''
         self.AAIRButton=tk.Button(self.configModeWindow, text= "Configure AAIR", command=self.AAIRConfig)
         self.AAIRButton.pack()
