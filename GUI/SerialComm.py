@@ -156,12 +156,19 @@ class SerialComm:
             pRecoveryTime = struct.pack("F",recoveryTime)
 
             write = b"\x16\x55"+pLowerRateLimit+pUpperRateLimit+pVentricularAmplitude+pVentricularPulseWidth+pVentricularSensitivity+pMaximumSensorRate+pVRP+pHysteresis+pRateSmoothing+pActivityThreshold+pReactionTime+pResponseFactor+pRecoveryTime
+            
             self.comm.write(write)
-    
-    
+
         except serial.SerialTimeoutException as error:
             print("Error",error)
-    
+    '''
+    def get_echo(self):
+        #Signal_echo = b"\x22\x55"+pLowerRateLimit+pUpperRateLimit+pVentricularAmplitude+pVentricularPulseWidth+pVentricularSensitivity+pMaximumSensorRate+pVRP+pHysteresis+pRateSmoothing+pActivityThreshold+pReactionTime+pResponseFactor+pRecoveryTime
+
+        with serial.Serial(self.comm.port, 115200) as pacemaker:
+            pacemaker.write(Signal_echo)
+            data = pacemaker.read(49)
+    '''
     def serVerify(self):
         return
 
