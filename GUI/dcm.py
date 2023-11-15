@@ -374,7 +374,7 @@ class MyGUI:
 
         self.AtrialPulseWidthLabel= tk.Label(self.defAAIWindow, text="Atrial Pulse Width: 0.4 ms", font=('Arial', 12))
         self.AtrialPulseWidthLabel.pack()
-        self.AtrialPulseWidthLabel.place(relx=0.1, rely=0.7)
+        self.AtrialPulseWidthLabel.place(relx=0.1, rely=0.6)
 
         self.AtrialSensitivityLabel= tk.Label(self.defAAIWindow, text="Atrial Sensitivity: 1.05 mV", font=('Arial', 12))
         self.AtrialSensitivityLabel.pack()
@@ -386,15 +386,15 @@ class MyGUI:
 
         self.PVARPLabel= tk.Label(self.defAAIWindow, text="PVARP: 250 ms", font=('Arial', 12))
         self.PVARPLabel.pack()
-        self.PVARPLabel.place(relx=0.525, rely=0.5)
+        self.PVARPLabel.place(relx=0.525, rely=0.45)
 
         self.HysteresisLabel= tk.Label(self.defAAIWindow, text="Hysteresis: 0 ppm", font=('Arial', 12))
         self.HysteresisLabel.pack()
-        self.HysteresisLabel.place(relx=0.525, rely=0.7)
+        self.HysteresisLabel.place(relx=0.525, rely=0.6)
 
         self.RateSmoothingLabel= tk.Label(self.defAAIWindow, text="Rate Smoothing: 0%", font=('Arial', 12))
         self.RateSmoothingLabel.pack()
-        self.RateSmoothingLabel.place(relx=0.1, rely=0.8)
+        self.RateSmoothingLabel.place(relx=0.1, rely=0.75)
 
         self.AAIButton = tk.Button(self.defAAIWindow, text = "submit", command=self.submitDefAAI)#Allows the user to submit the parameters to their device
         self.AAIButton.pack()
@@ -439,7 +439,7 @@ class MyGUI:
 
         self.VentricularPulseWidthLabel= tk.Label(self.defVVIWindow, text="Ventricular Pulse Width: 0.4 ms", font=('Arial', 12))
         self.VentricularPulseWidthLabel.pack()
-        self.VentricularPulseWidthLabel.place(relx=0.1, rely=0.7)
+        self.VentricularPulseWidthLabel.place(relx=0.1, rely=0.6)
 
         self.VentricularSensitivityLabel= tk.Label(self.defVVIWindow, text="Ventricular Sensitivity: 3.5 mV", font=('Arial', 12))
         self.VentricularSensitivityLabel.pack()
@@ -451,11 +451,11 @@ class MyGUI:
 
         self.HysteresisLabel= tk.Label(self.defVVIWindow, text="Hysteresis: 0 ppm", font=('Arial', 12))
         self.HysteresisLabel.pack()
-        self.HysteresisLabel.place(relx=0.525, rely=0.5)
+        self.HysteresisLabel.place(relx=0.525, rely=0.45)
 
         self.RateSmoothingLabel= tk.Label(self.defVVIWindow, text="Rate Smoothing: 0%", font=('Arial', 12))
         self.RateSmoothingLabel.pack()
-        self.RateSmoothingLabel.place(relx=0.55, rely=0.7)
+        self.RateSmoothingLabel.place(relx=0.55, rely=0.6)
 
         self.VVIButton = tk.Button(self.defVVIWindow, text = "submit", command=self.submitDefVVI)#Allows the user to submit the parameters to their device
         self.VVIButton.pack()
@@ -1196,7 +1196,7 @@ class MyGUI:
         self.LRLimitTextField.pack()
         self.LRLimitTextField.place(relx=0.3, rely=0.2)
         
-        self.LRLimitWarningLabel= tk.Label(self.VOORConfigWindow, text="Valid inputs are: values between 30-50 ppm incremented by 5 ppm\n values between 50-90 ppm incremented by 1 ppm\n values between 90-175 ppm incremented by 5 ppm",font=('Arial', 7) )
+        self.LRLimitWarningLabel= tk.Label(self.VOORConfigWindow, text="Valid inputs are: values between 30-50 ppm incremented by 5 ppm\n values between 50-90 ppm incremented by 1 ppm\n values between 90-175 ppm incremented by 5 ppm",font=('Arial', 7), fg="blue" )
         self.LRLimitWarningLabel.pack()
         self.LRLimitWarningLabel.place(relx=0.1, rely=0.25)
         
@@ -1207,7 +1207,7 @@ class MyGUI:
         self.URLimitTextField.pack()
         self.URLimitTextField.place(relx=0.3, rely=0.4)
         
-        self.URLimitWarningLabel= tk.Label(self.VOORConfigWindow, text="Valid inputs are: values between 50-175 ppm incremented by 5 ppm",font=('Arial', 7) )
+        self.URLimitWarningLabel= tk.Label(self.VOORConfigWindow, text="Valid inputs are: values between 50-175 ppm incremented by 5 ppm",font=('Arial', 7), fg="blue" )
         self.URLimitWarningLabel.pack()
         self.URLimitWarningLabel.place(relx=0.1, rely=0.45)
 
@@ -1218,7 +1218,7 @@ class MyGUI:
         self.VentricularAmplitudeTextField.pack()
         self.VentricularAmplitudeTextField.place(relx=0.3, rely=0.6)
 
-        self.VentricularAmplitudeWarningLabel= tk.Label(self.VOORConfigWindow, text="Valid inputs are: values between 0, 0.36-2.3 V with 0.1 V increment\n values between 2.5-5.0 V with 0.5 V increment",font=('Arial', 7) )
+        self.VentricularAmplitudeWarningLabel= tk.Label(self.VOORConfigWindow, text="Valid inputs are: values between 0, 0.36-2.3 V with 0.1 V increment\n values between 2.5-5.0 V with 0.5 V increment",font=('Arial', 7), fg="blue" )
         self.VentricularAmplitudeWarningLabel.pack()
         self.VentricularAmplitudeWarningLabel.place(relx=0.1, rely=0.65)
 
@@ -1229,7 +1229,7 @@ class MyGUI:
         self.VentricularPulseWidthTextField.pack()
         self.VentricularPulseWidthTextField.place(relx=0.3, rely=0.8)
 
-        self.VentricularPulseWidthWarningLabel= tk.Label(self.VOORConfigWindow, text="Valid inputs are: 0.05 ms\n values between 0.1-1.9 ms with 0.1 ms increment",font=('Arial', 7) )
+        self.VentricularPulseWidthWarningLabel= tk.Label(self.VOORConfigWindow, text="Valid inputs are: 0.05 ms\n values between 0.1-1.9 ms with 0.1 ms increment",font=('Arial', 7), fg="blue" )
         self.VentricularPulseWidthWarningLabel.pack()
         self.VentricularPulseWidthWarningLabel.place(relx=0.1, rely=0.85)
 
