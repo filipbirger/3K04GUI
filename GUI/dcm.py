@@ -182,7 +182,10 @@ class MyGUI:
         self.prevInfoLabel.pack()
         self.prevInfoLabel.place(relx=0.4, rely=0.05)
 
-        user_data = self.db.getUserByUsername(self.currentUser.username)
+        shift = 3  # Use the same shift value used for encryption in the database
+        encrypted_inputName = self.db.caesar_cipher_encrypt(self.currentUser.username, shift)
+        user_data = self.db.getUserByUsername(encrypted_inputName)
+
 
         y_position = 0.1
         for attribute, value in user_data.items(): #Displays the information for the user to view and submit
