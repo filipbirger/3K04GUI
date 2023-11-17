@@ -376,25 +376,9 @@ class MyGUI:
         self.AtrialPulseWidthLabel.pack()
         self.AtrialPulseWidthLabel.place(relx=0.1, rely=0.6)
 
-        self.AtrialSensitivityLabel= tk.Label(self.defAAIWindow, text="Atrial Sensitivity: 1.05 mV", font=('Arial', 12))
-        self.AtrialSensitivityLabel.pack()
-        self.AtrialSensitivityLabel.place(relx=0.525, rely=0.15)
-
         self.ARPLabel= tk.Label(self.defAAIWindow, text="ARP: 250 ms", font=('Arial', 12))
         self.ARPLabel.pack()
         self.ARPLabel.place(relx=0.525, rely=0.3)
-
-        self.PVARPLabel= tk.Label(self.defAAIWindow, text="PVARP: 250 ms", font=('Arial', 12))
-        self.PVARPLabel.pack()
-        self.PVARPLabel.place(relx=0.525, rely=0.45)
-
-        self.HysteresisLabel= tk.Label(self.defAAIWindow, text="Hysteresis: 0 ppm", font=('Arial', 12))
-        self.HysteresisLabel.pack()
-        self.HysteresisLabel.place(relx=0.525, rely=0.6)
-
-        self.RateSmoothingLabel= tk.Label(self.defAAIWindow, text="Rate Smoothing: 0%", font=('Arial', 12))
-        self.RateSmoothingLabel.pack()
-        self.RateSmoothingLabel.place(relx=0.1, rely=0.75)
 
         self.AAIButton = tk.Button(self.defAAIWindow, text = "submit", command=self.submitDefAAI)#Allows the user to submit the parameters to their device
         self.AAIButton.pack()
@@ -441,21 +425,9 @@ class MyGUI:
         self.VentricularPulseWidthLabel.pack()
         self.VentricularPulseWidthLabel.place(relx=0.1, rely=0.6)
 
-        self.VentricularSensitivityLabel= tk.Label(self.defVVIWindow, text="Ventricular Sensitivity: 3.5 mV", font=('Arial', 12))
-        self.VentricularSensitivityLabel.pack()
-        self.VentricularSensitivityLabel.place(relx=0.525, rely=0.15)
-
         self.VRPLabel= tk.Label(self.defVVIWindow, text="VRP: 320 ms", font=('Arial', 12))
         self.VRPLabel.pack()
         self.VRPLabel.place(relx=0.525, rely=0.3)
-
-        self.HysteresisLabel= tk.Label(self.defVVIWindow, text="Hysteresis: 0 ppm", font=('Arial', 12))
-        self.HysteresisLabel.pack()
-        self.HysteresisLabel.place(relx=0.525, rely=0.45)
-
-        self.RateSmoothingLabel= tk.Label(self.defVVIWindow, text="Rate Smoothing: 0%", font=('Arial', 12))
-        self.RateSmoothingLabel.pack()
-        self.RateSmoothingLabel.place(relx=0.55, rely=0.6)
 
         self.VVIButton = tk.Button(self.defVVIWindow, text = "submit", command=self.submitDefVVI)#Allows the user to submit the parameters to their device
         self.VVIButton.pack()
@@ -775,10 +747,10 @@ class MyGUI:
         self.VOORButton.pack()
         self.VOORButton.place(relx=0.15, rely=0.55, relwidth=0.3, relheight=0.05)
         
-        #self.AOORButton=tk.Button(self.configModeWindow, text= "Configure AOOR", command=self.AOORConfig)
-        #self.AOORButton.pack()
-        #self.AOORButton.place(relx=0.6, rely=0.55, relwidth=0.3, relheight=0.05)
-        '''
+        self.AOORButton=tk.Button(self.configModeWindow, text= "Configure AOOR", command=self.AOORConfig)
+        self.AOORButton.pack()
+        self.AOORButton.place(relx=0.6, rely=0.55, relwidth=0.3, relheight=0.05)
+
         self.AAIRButton=tk.Button(self.configModeWindow, text= "Configure AAIR", command=self.AAIRConfig)
         self.AAIRButton.pack()
         self.AAIRButton.place(relx=0.15, rely=0.75, relwidth=0.3, relheight=0.05)
@@ -786,8 +758,7 @@ class MyGUI:
         self.VVIRButton=tk.Button(self.configModeWindow, text= "Configure VVIR", command=self.VVIRConfig)
         self.VVIRButton.pack()
         self.VVIRButton.place(relx=0.6, rely=0.75, relwidth=0.3, relheight=0.05)
-        '''
-    
+        
     def VOOConfig(self):
         for widget in self.startWindow.winfo_children():
             widget.destroy()
@@ -831,7 +802,7 @@ class MyGUI:
         self.VentricularAmplitudeTextField.pack()
         self.VentricularAmplitudeTextField.place(relx=0.25, rely=0.4)
 
-        self.VentricularAmplitudeWarningLabel= tk.Label(self.VOOConfigWindow, text="Valid inputs are: values between 0, 0.36-2.3 V with 0.1 V increment\n values between 2.5-5.0 V with 0.5 V increment",font=('Arial', 10), fg="blue" )
+        self.VentricularAmplitudeWarningLabel= tk.Label(self.VOOConfigWindow, text="Valid inputs are: 0 or between 0.1-5.0 V with 0.1 V increment",font=('Arial', 10), fg="blue" )
         self.VentricularAmplitudeWarningLabel.pack()
         self.VentricularAmplitudeWarningLabel.place(relx=0.045, rely=0.45)
 
@@ -842,7 +813,7 @@ class MyGUI:
         self.VentricularPulseWidthTextField.pack()
         self.VentricularPulseWidthTextField.place(relx=0.275, rely=0.525)
 
-        self.VentricularPulseWidthWarningLabel= tk.Label(self.VOOConfigWindow, text="Valid inputs are: 0.05 ms\n values between 0.1-1.9 ms with 0.1 ms increment",font=('Arial', 10), fg="blue" )
+        self.VentricularPulseWidthWarningLabel= tk.Label(self.VOOConfigWindow, text="Valid inputs are: values between 1-30 ms with 1 ms increment",font=('Arial', 10), fg="blue" )
         self.VentricularPulseWidthWarningLabel.pack()
         self.VentricularPulseWidthWarningLabel.place(relx=0.045, rely=0.575)
 
@@ -867,9 +838,9 @@ class MyGUI:
             MyGUI.errorWindow(self)
         elif not ((50<= self.VOOURLimit<=175 and self.VOOURLimit % 5 == 0)):
             MyGUI.errorWindow(self)
-        elif not ((self.VOOVentricularAmplitude == 0) or (0.36 <= self.VOOVentricularAmplitude <= 2.3 and self.VOOVentricularAmplitude*10%1==0) or (2.5 <= self.VOOVentricularAmplitude <= 5 and self.VOOVentricularAmplitude*10%5==0)): 
+        elif not ((self.VOOVentricularAmplitude == 0) or (0.1 <= self.VOOVentricularAmplitude <= 5.0 and self.VOOVentricularAmplitude*10%1==0)): 
             MyGUI.errorWindow(self)
-        elif not((self.VOOVentricularPulseWidth == 0.05 )or (0.1<= self.VOOVentricularPulseWidth <= 1.9 and self.VOOVentricularPulseWidth*10 % 1==0)):
+        elif not((1.0<= self.VOOVentricularPulseWidth <= 30.0)):
             MyGUI.errorWindow(self)  
         else:
             MyGUI.successfulSubmitted(self, self.VOOConfigWindow)
@@ -919,7 +890,7 @@ class MyGUI:
         self.AtrialAmplitudeTextField.pack()
         self.AtrialAmplitudeTextField.place(relx=0.25, rely=0.4)
 
-        self.AtrialAmplitudeWarningLabel= tk.Label(self.AOOConfigWindow, text="Valid inputs are: values between 0, 0.36-2.3 V with 0.1 V increment\n values between 2.5-5.0 V with 0.5 V increment",font=('Arial', 10), fg="blue" )
+        self.AtrialAmplitudeWarningLabel= tk.Label(self.AOOConfigWindow, text="Valid inputs are: 0 or between 0.1-5.0 V with 0.1 V increment",font=('Arial', 10), fg="blue" )
         self.AtrialAmplitudeWarningLabel.pack()
         self.AtrialAmplitudeWarningLabel.place(relx=0.045, rely=0.45)
 
@@ -930,7 +901,7 @@ class MyGUI:
         self.AtrialPulseWidthTextField.pack()
         self.AtrialPulseWidthTextField.place(relx=0.25, rely=0.525)
 
-        self.AtrialPulseWidthWarningLabel= tk.Label(self.AOOConfigWindow, text="Valid inputs are: 0.05 ms\n values between 0.1-1.9 ms with 0.1 ms increment",font=('Arial', 10), fg="blue" )
+        self.AtrialPulseWidthWarningLabel= tk.Label(self.AOOConfigWindow, text="Valid inputs are: values between 1-30 ms with 1 ms increment",font=('Arial', 10), fg="blue" )
         self.AtrialPulseWidthWarningLabel.pack()
         self.AtrialPulseWidthWarningLabel.place(relx=0.045, rely=0.575)
 
@@ -956,9 +927,9 @@ class MyGUI:
             MyGUI.errorWindow(self)
         elif not ((50<= self.AOOURLimit<=175 and self.AOOURLimit % 5 == 0)):
             MyGUI.errorWindow(self)
-        elif not ((self.AOOAtrialAmplitude == 0) or (0.36 <= self.AOOAtrialAmplitude <= 2.3 and self.AOOAtrialAmplitude*10 %1==0) or (2.5 <= self.AOOAtrialAmplitude <= 5 and self.AOOAtrialAmplitude*10 %5==0)): 
+        elif not ((self.AOOAtrialAmplitude == 0) or (0.1 <= self.AOOAtrialAmplitude <= 5.0 and self.AOOAtrialAmplitude*10 %1==0)): 
             MyGUI.errorWindow(self)
-        elif not ((self.AOOAtrialPulseWidth == 0.05 )or (0.1<= self.AOOAtrialPulseWidth <= 1.9 and self.AOOAtrialPulseWidth*10 % 1 ==0)):
+        elif not ((1.0<= self.AOOAtrialPulseWidth <= 30.0)):
             MyGUI.errorWindow(self)    
         else:
             self.currentUser.AOO(self.AOOLRLimit, self.AOOURLimit, self.AOOAtrialAmplitude, self.AOOAtrialPulseWidth)
@@ -1008,7 +979,7 @@ class MyGUI:
         self.AtrialAmplitudeTextField.pack()
         self.AtrialAmplitudeTextField.place(relx=0.25, rely=0.4)
 
-        self.AtrialAmplitudeWarningLabel= tk.Label(self.AAIConfigWindow, text="Valid inputs are: values between 0, 0.36-2.3 V with 0.1 V\n increment values between 2.5-5.0 V with 0.5 V increment",font=('Arial', 10), fg="blue" )
+        self.AtrialAmplitudeWarningLabel= tk.Label(self.AAIConfigWindow, text="Valid inputs are: 0 or between 0.1-5.0 V with 0.1 V increment",font=('Arial', 10), fg="blue" )
         self.AtrialAmplitudeWarningLabel.pack()
         self.AtrialAmplitudeWarningLabel.place(relx=0.045, rely=0.45)
 
@@ -1019,7 +990,7 @@ class MyGUI:
         self.AtrialPulseWidthTextField.pack()
         self.AtrialPulseWidthTextField.place(relx=0.25, rely=0.525)
 
-        self.AtrialPulseWidthWarningLabel= tk.Label(self.AAIConfigWindow, text="Valid inputs are: 0.05 ms\n values between 0.1-1.9 ms with 0.1 ms increment",font=('Arial', 10), fg="blue" )
+        self.AtrialPulseWidthWarningLabel= tk.Label(self.AAIConfigWindow, text="Valid inputs are: values between 1-30 ms with 1 ms increment",font=('Arial', 10), fg="blue" )
         self.AtrialPulseWidthWarningLabel.pack()
         self.AtrialPulseWidthWarningLabel.place(relx=0.045, rely=0.575)
 
@@ -1059,9 +1030,9 @@ class MyGUI:
             MyGUI.errorWindow(self)
         elif not ((50<= self.AAIURLimit<=175 and self.AAIURLimit % 5 == 0)):
             MyGUI.errorWindow(self)
-        elif not ((self.AAIAtrialAmplitude==0) or (0.36 <= self.AAIAtrialAmplitude <= 2.3 and self.AAIAtrialAmplitude*10 %1==0) or (2.5 <= self.AAIAtrialAmplitude <= 5 and self.AAIAtrialAmplitude * 10 %5==0)): 
+        elif not ((self.AAIAtrialAmplitude==0) or (0.1 <= self.AAIAtrialAmplitude <= 5.0 and self.AAIAtrialAmplitude*10 %1==0)): 
             MyGUI.errorWindow(self)
-        elif not ((self.AAIAtrialPulseWidth == 0.05 )or (0.1<= self.AAIAtrialPulseWidth <= 1.9 and self.AAIAtrialPulseWidth*10 % 1==0)):
+        elif not ((1.0<= self.AAIAtrialPulseWidth <= 30.0)):
             MyGUI.errorWindow(self)
         elif not ((150<= self.AAIARP<=500 and self.AAIARP % 10 == 0)):
             MyGUI.errorWindow(self)
@@ -1113,7 +1084,7 @@ class MyGUI:
         self.VentricularAmplitudeTextField.pack()
         self.VentricularAmplitudeTextField.place(relx=0.25, rely=0.4)
 
-        self.VentricularAmplitudeWarningLabel= tk.Label(self.VVIConfigWindow, text="Valid inputs are: values between 0, 0.36-2.3 V with 0.1 V\n increment values between 2.5-5.0 V with 0.5 V increment",font=('Arial', 10), fg="blue" )
+        self.VentricularAmplitudeWarningLabel= tk.Label(self.VVIConfigWindow, text="Valid inputs are: 0 or between 0.1-5.0 V with 0.1 V increment",font=('Arial', 10), fg="blue" )
         self.VentricularAmplitudeWarningLabel.pack()
         self.VentricularAmplitudeWarningLabel.place(relx=0.045, rely=0.45)
 
@@ -1124,7 +1095,7 @@ class MyGUI:
         self.VentricularPulseWidthTextField.pack()
         self.VentricularPulseWidthTextField.place(relx=0.275, rely=0.525)
 
-        self.VentricularPulseWidthWarningLabel= tk.Label(self.VVIConfigWindow, text="Valid inputs are: 0.05 ms\n values between 0.1-1.9 ms with 0.1 ms increment",font=('Arial', 10), fg="blue" )
+        self.VentricularPulseWidthWarningLabel= tk.Label(self.VVIConfigWindow, text="Valid inputs are: values between 1-30 ms with 1 ms increment",font=('Arial', 10), fg="blue" )
         self.VentricularPulseWidthWarningLabel.pack()
         self.VentricularPulseWidthWarningLabel.place(relx=0.045, rely=0.575)
 
@@ -1164,9 +1135,9 @@ class MyGUI:
             MyGUI.errorWindow(self)
         elif not ((50<= self.VVIURLimit<=175 and self.VVIURLimit % 5 == 0)):
             MyGUI.errorWindow(self)
-        elif not  ((0.36 <= self.VVIVentricularAmplitude <= 2.3 and self.VVIVentricularAmplitude*10 %1==0) or (2.5 <= self.VVIVentricularAmplitude <= 5 and self.VVIVentricularAmplitude*10 %5==0) or (self.VVIVentricularAmplitude ==0)): 
+        elif not  ((0.1 <= self.VVIVentricularAmplitude <= 5.0 and self.VVIVentricularAmplitude*10 %1==0) or (self.VVIVentricularAmplitude ==0)): 
             MyGUI.errorWindow(self)
-        elif not ((self.VVIVentricularPulseWidth == 0.05 )or (0.1<= self.VVIVentricularPulseWidth <= 1.9 and self.VVIVentricularPulseWidth*10 %1==0)):
+        elif not ((1.0<= self.VVIVentricularPulseWidth <= 30.0)):
             MyGUI.errorWindow(self)
         elif not ((150<= self.VVIVRP<=500 and self.VVIVRP % 10 == 0)):
             MyGUI.errorWindow(self)
@@ -1185,53 +1156,97 @@ class MyGUI:
 
         self.VOORConfigWindow = self.startWindow
 
-        self.VOORConfigLabel=tk.Label(self.VOORConfigWindow, text="Configure Your VOO Parameters", font=("Arial",18)) #Gathers the necessary parameters to configure VOO from the user
+        self.VOORConfigLabel=tk.Label(self.VOORConfigWindow, text="Configure Your VOOR Parameters", font=("Arial",18)) #Gathers the necessary parameters to configure VOO from the user
         self.VOORConfigLabel.pack()
         self.VOORConfigLabel.place(relx=0.3,rely=0.05)
 
         self.LRLimitLabel= tk.Label(self.VOORConfigWindow, text="Lower Rate Limit: ", font=("Arial", 12))
         self.LRLimitLabel.pack()
-        self.LRLimitLabel.place(relx=0.1,rely=0.2)
+        self.LRLimitLabel.place(relx=0.045,rely=0.15)
         self.LRLimitTextField = tk.Entry(self.VOORConfigWindow)
         self.LRLimitTextField.pack()
-        self.LRLimitTextField.place(relx=0.3, rely=0.2)
+        self.LRLimitTextField.place(relx=0.25, rely=0.15)
         
-        self.LRLimitWarningLabel= tk.Label(self.VOORConfigWindow, text="Valid inputs are: values between 30-50 ppm incremented by 5 ppm\n values between 50-90 ppm incremented by 1 ppm\n values between 90-175 ppm incremented by 5 ppm",font=('Arial', 7), fg="blue" )
+        self.LRLimitWarningLabel= tk.Label(self.VOORConfigWindow, text="Valid inputs are: values between 30-50 ppm incremented by 5 ppm\n values between 50-90 ppm incremented by 1 ppm\n values between 90-175 ppm incremented by 5 ppm",font=('Arial', 9), fg="blue" )
         self.LRLimitWarningLabel.pack()
-        self.LRLimitWarningLabel.place(relx=0.1, rely=0.25)
+        self.LRLimitWarningLabel.place(relx=0.045, rely=0.2)
         
         self.URLimitLabel= tk.Label(self.VOORConfigWindow, text="Upper Rate Limit: ", font=("Arial",12))
         self.URLimitLabel.pack()
-        self.URLimitLabel.place(relx=0.1,rely=0.4)
+        self.URLimitLabel.place(relx=0.045,rely=0.3)
         self.URLimitTextField = tk.Entry(self.VOORConfigWindow)
         self.URLimitTextField.pack()
-        self.URLimitTextField.place(relx=0.3, rely=0.4)
+        self.URLimitTextField.place(relx=0.25, rely=0.3)
         
-        self.URLimitWarningLabel= tk.Label(self.VOORConfigWindow, text="Valid inputs are: values between 50-175 ppm incremented by 5 ppm",font=('Arial', 7), fg="blue" )
+        self.URLimitWarningLabel= tk.Label(self.VOORConfigWindow, text="Valid inputs are: values between 50-175 ppm incremented by 5 ppm",font=('Arial', 10), fg="blue" )
         self.URLimitWarningLabel.pack()
-        self.URLimitWarningLabel.place(relx=0.1, rely=0.45)
+        self.URLimitWarningLabel.place(relx=0.045, rely=0.35)
 
         self.VentricularAmplitudeLabel= tk.Label(self.VOORConfigWindow, text="Ventricular Amplitude: ", font=("Arial",12))
         self.VentricularAmplitudeLabel.pack()
-        self.VentricularAmplitudeLabel.place(relx=0.1,rely=0.6)
+        self.VentricularAmplitudeLabel.place(relx=0.045,rely=0.4)
         self.VentricularAmplitudeTextField = tk.Entry(self.VOORConfigWindow)
         self.VentricularAmplitudeTextField.pack()
-        self.VentricularAmplitudeTextField.place(relx=0.3, rely=0.6)
+        self.VentricularAmplitudeTextField.place(relx=0.25, rely=0.4)
 
-        self.VentricularAmplitudeWarningLabel= tk.Label(self.VOORConfigWindow, text="Valid inputs are: values between 0, 0.36-2.3 V with 0.1 V increment\n values between 2.5-5.0 V with 0.5 V increment",font=('Arial', 7), fg="blue" )
+        self.VentricularAmplitudeWarningLabel= tk.Label(self.VOORConfigWindow, text="Valid inputs are: 0 or between 0.1-5.0 V with 0.1 V increment",font=('Arial', 10), fg="blue" )
         self.VentricularAmplitudeWarningLabel.pack()
-        self.VentricularAmplitudeWarningLabel.place(relx=0.1, rely=0.65)
+        self.VentricularAmplitudeWarningLabel.place(relx=0.045, rely=0.45)
 
         self.VentricularPulseWidthLabel= tk.Label(self.VOORConfigWindow, text="Ventricular Pulse Width: ", font=("Arial",12))
         self.VentricularPulseWidthLabel.pack()
-        self.VentricularPulseWidthLabel.place(relx=0.1,rely=0.8)
+        self.VentricularPulseWidthLabel.place(relx=0.045,rely=0.525)
         self.VentricularPulseWidthTextField = tk.Entry(self.VOORConfigWindow)
         self.VentricularPulseWidthTextField.pack()
-        self.VentricularPulseWidthTextField.place(relx=0.3, rely=0.8)
+        self.VentricularPulseWidthTextField.place(relx=0.275, rely=0.525)
 
-        self.VentricularPulseWidthWarningLabel= tk.Label(self.VOORConfigWindow, text="Valid inputs are: 0.05 ms\n values between 0.1-1.9 ms with 0.1 ms increment",font=('Arial', 7), fg="blue" )
+        self.VentricularPulseWidthWarningLabel= tk.Label(self.VOORConfigWindow, text="Valid inputs are: values between 1-30 ms with 1 ms increment",font=('Arial', 10), fg="blue" )
         self.VentricularPulseWidthWarningLabel.pack()
-        self.VentricularPulseWidthWarningLabel.place(relx=0.1, rely=0.85)
+        self.VentricularPulseWidthWarningLabel.place(relx=0.045, rely=0.575)
+
+        self.MaximumSensorRateLabel=tk.Label(self.VOORConfigWindow, text="Maximum Sensor Rate: ", font=("Arial",12))
+        self.MaximumSensorRateLabel.pack()
+        self.MaximumSensorRateLabel.place(relx=0.55, rely=0.15)
+        self.MaximumSensorRateTextField=tk.Entry(self.VOORConfigWindow)
+        self.MaximumSensorRateTextField.pack()
+        self.MaximumSensorRateTextField.place(relx=0.8, rely=0.15)
+
+        self.MaximumSensorRateWarningLabel=tk.Label(self.VOORConfigWindow, text="Valid inputs are: values between 50-175 ppm\n with 5 ppm increment", font=("Arial",10), fg="blue")
+        self.MaximumSensorRateWarningLabel.pack()
+        self.MaximumSensorRateWarningLabel.place(relx=0.55, rely=0.2)
+
+        self.ReactionTimeLabel=tk.Label(self.VOORConfigWindow, text="Reaction Time: ", font=("Arial",12))
+        self.ReactionTimeLabel.pack()
+        self.ReactionTimeLabel.place(relx=0.55, rely=0.3)
+        self.ReactionTimeTextField=tk.Entry(self.VOORConfigWindow)
+        self.ReactionTimeTextField.pack()
+        self.ReactionTimeTextField.place(relx=0.8,rely=0.3)
+
+        self.ReactionTimeWarningLabel=tk.Label(self.VOORConfigWindow,text="Valid input are: values between 10-50 sec\n with a 10 sec increment", font=("Arial",10), fg="blue")
+        self.ReactionTimeWarningLabel.pack()
+        self.ReactionTimeWarningLabel.place(relx=0.55,rely=0.35)
+
+        self.ResponseFactorLabel=tk.Label(self.VOORConfigWindow, text="Response Factor: ", font=("Arial",12))
+        self.ResponseFactorLabel.pack()
+        self.ResponseFactorLabel.place(relx=0.55,rely=0.45)
+        self.ResponseFactorTextField=tk.Entry(self.VOORConfigWindow)
+        self.ResponseFactorTextField.pack()
+        self.ResponseFactorTextField.place(relx=0.8, rely=0.45)
+
+        self.ResponseFactorWarningLabel=tk.Label(self.VOORConfigWindow, text="Valid inputs are: values between 1-16 with an increment of 1", font=("Arial",10), fg="blue")
+        self.ResponseFactorWarningLabel.pack()
+        self.ResponseFactorWarningLabel.place(relx=0.55,rely=0.5)
+
+        self.RecoveryTimeLabel=tk.Label(self.VOORConfigWindow, text="Recovery Time: ", font=("Arial",12))
+        self.RecoveryTimeLabel.pack()
+        self.RecoveryTimeLabel.place(relx=0.55, rely=0.6)
+        self.RecoveryTimeTextField=tk.Entry(self.VOORConfigWindow)
+        self.RecoveryTimeTextField.pack()
+        self.RecoveryTimeTextField.place(relx=0.8,rely=0.6)
+
+        self.RecoveryTimeWarningLabel=tk.Label(self.VOORConfigWindow, text="Valid inputs are: values between 2-16 min\n with a 1 min increment", font=("Arial",10), fg="blue")
+        self.RecoveryTimeWarningLabel.pack()
+        self.RecoveryTimeWarningLabel.place(relx=0.55,rely=0.65)
 
         self.VOORButton = tk.Button(self.VOORConfigWindow, text = "Submit", command=self.submitVOOR) #Submit parameters to the device
         self.VOORButton.pack()
@@ -1265,9 +1280,9 @@ class MyGUI:
             MyGUI.errorWindow(self)
         elif not ((50<= self.VOORURLimit<=175 and self.VOORURLimit % 5 == 0)):
             MyGUI.errorWindow(self)
-        elif not ((self.VOORVentricularAmplitude == 0) or (0.36 <= self.VOORVentricularAmplitude <= 2.3 and self.VOORVentricularAmplitude*10%1==0) or (2.5 <= self.VOORVentricularAmplitude <= 5 and self.VOORVentricularAmplitude*10%5==0)): 
+        elif not ((self.VOORVentricularAmplitude == 0) or (0.1 <= self.VOORVentricularAmplitude <= 5.0 and self.VOORVentricularAmplitude*10%1==0)): 
             MyGUI.errorWindow(self)
-        elif not((self.VOORVentricularPulseWidth == 0.05 )or (0.1<= self.VOORVentricularPulseWidth <= 1.9 and self.VOORVentricularPulseWidth*10 % 1==0)):
+        elif not((1.0<= self.VOORVentricularPulseWidth <= 30.0)):
             MyGUI.errorWindow(self)
         elif not ((50<=self.VOORMaxSensorRate<=175 and self.VOORMaxSensorRate %5==0)):
             MyGUI.errorWindow(self)
@@ -1279,11 +1294,487 @@ class MyGUI:
             MyGUI.errorWindow(self)
         else:
             MyGUI.successfulSubmitted(self, self.VOORConfigWindow)
-            self.currentUser.VOOR(self.VOORLRLimit, self.VOORURLimit, self.VOORVentricularAmplitude, self.VOORVentricularPulseWidth)
+            self.currentUser.VOOR(self.VOORLRLimit, self.VOORURLimit, self.VOORVentricularAmplitude, self.VOORVentricularPulseWidth, self.VOORMaxSensorRate, self.VOORResponseFactor, self.VOORReactionTime, self.VOORRecoveryTime)
             self.db.updateUser(self.currentUser)#Updates the user’s chosen parameters to the database 
 
+    def AOORConfig(self):
+        for widget in self.startWindow.winfo_children():
+            widget.destroy()
+
+        self.backButton = tk.Button(self.startWindow, text = "Back", command=self.useConfigure)
+        self.backButton.pack()
+        self.backButton.place(relx=0.075, rely=0.85, relwidth=0.1, relheight=0.05)
+
+        self.AOORConfigWindow = self.startWindow
+
+        self.AOORConfigLabel=tk.Label(self.AOORConfigWindow, text="Configure Your AOOR Parameters", font=("Arial",18))#Gathers the necessary parameters to configure AOO from the user
+        self.AOORConfigLabel.pack()
+        self.AOORConfigLabel.place(relx=0.3,rely=0.05)
+
+        self.LRLimitLabel= tk.Label(self.AOORConfigWindow, text="Lower Rate Limit: ", font=("Arial",12))
+        self.LRLimitLabel.pack()
+        self.LRLimitLabel.place(relx=0.045,rely=0.15)
+        self.LRLimitTextField = tk.Entry(self.AOORConfigWindow)
+        self.LRLimitTextField.pack()
+        self.LRLimitTextField.place(relx=0.25, rely=0.15)
+        
+        self.LRLimitWarningLabel= tk.Label(self.AOORConfigWindow, text="Valid inputs are: values between 30-50 ppm incremented by 5 ppm\n values between 50-90 ppm incremented by 1 ppm\n values between 90-175 ppm incremented by 5 ppm",font=('Arial', 9), fg="blue" )
+        self.LRLimitWarningLabel.pack()
+        self.LRLimitWarningLabel.place(relx=0.045, rely=0.2)
+
+        self.URLimitLabel= tk.Label(self.AOORConfigWindow, text="Upper Rate Limit: ", font=("Arial",12))
+        self.URLimitLabel.pack()
+        self.URLimitLabel.place(relx=0.045,rely=0.3)
+        self.URLimitTextField = tk.Entry(self.AOORConfigWindow)
+        self.URLimitTextField.pack()
+        self.URLimitTextField.place(relx=0.25, rely=0.3)
+        
+        self.URLimitWarningLabel= tk.Label(self.AOORConfigWindow, text="Valid inputs are: values between 50-175 ppm incremented by 5 ppm",font=('Arial', 10), fg="blue" )
+        self.URLimitWarningLabel.pack()
+        self.URLimitWarningLabel.place(relx=0.045, rely=0.35)
+
+        self.AtrialAmplitudeLabel= tk.Label(self.AOORConfigWindow, text="Atrial Amplitude: ",font=("Arial",12))
+        self.AtrialAmplitudeLabel.pack()
+        self.AtrialAmplitudeLabel.place(relx=0.045,rely=0.4)
+        self.AtrialAmplitudeTextField = tk.Entry(self.AOORConfigWindow)
+        self.AtrialAmplitudeTextField.pack()
+        self.AtrialAmplitudeTextField.place(relx=0.25, rely=0.4)
+
+        self.AtrialAmplitudeWarningLabel= tk.Label(self.AOORConfigWindow, text="Valid inputs are: 0 or between 0.1-5.0 V with 0.1 V increment",font=('Arial', 10), fg="blue" )
+        self.AtrialAmplitudeWarningLabel.pack()
+        self.AtrialAmplitudeWarningLabel.place(relx=0.045, rely=0.45)
+
+        self.AtrialPulseWidthLabel= tk.Label(self.AOORConfigWindow, text="Atrial Pulse Width: ", font=("Arial",12))
+        self.AtrialPulseWidthLabel.pack()
+        self.AtrialPulseWidthLabel.place(relx=0.045,rely=0.525)
+        self.AtrialPulseWidthTextField = tk.Entry(self.AOORConfigWindow)
+        self.AtrialPulseWidthTextField.pack()
+        self.AtrialPulseWidthTextField.place(relx=0.25, rely=0.525)
+
+        self.AtrialPulseWidthWarningLabel= tk.Label(self.AOORConfigWindow, text="Valid inputs are: values between 1-30 ms with 1 ms increment",font=('Arial', 10), fg="blue" )
+        self.AtrialPulseWidthWarningLabel.pack()
+        self.AtrialPulseWidthWarningLabel.place(relx=0.045, rely=0.575)
+
+        self.MaximumSensorRateLabel=tk.Label(self.AOORConfigWindow, text="Maximum Sensor Rate: ", font=("Arial",12))
+        self.MaximumSensorRateLabel.pack()
+        self.MaximumSensorRateLabel.place(relx=0.55, rely=0.15)
+        self.MaximumSensorRateTextField=tk.Entry(self.AOORConfigWindow)
+        self.MaximumSensorRateTextField.pack()
+        self.MaximumSensorRateTextField.place(relx=0.8, rely=0.15)
+
+        self.MaximumSensorRateWarningLabel=tk.Label(self.AOORConfigWindow, text="Valid inputs are: values between 50-175 ppm\n with 5 ppm increment", font=("Arial",10), fg="blue")
+        self.MaximumSensorRateWarningLabel.pack()
+        self.MaximumSensorRateWarningLabel.place(relx=0.55, rely=0.2)
+
+        self.ReactionTimeLabel=tk.Label(self.AOORConfigWindow, text="Reaction Time: ", font=("Arial",12))
+        self.ReactionTimeLabel.pack()
+        self.ReactionTimeLabel.place(relx=0.55, rely=0.3)
+        self.ReactionTimeTextField=tk.Entry(self.AOORConfigWindow)
+        self.ReactionTimeTextField.pack()
+        self.ReactionTimeTextField.place(relx=0.8,rely=0.3)
+
+        self.ReactionTimeWarningLabel=tk.Label(self.AOORConfigWindow,text="Valid input are: values between 10-50 sec\n with a 10 sec increment", font=("Arial",10), fg="blue")
+        self.ReactionTimeWarningLabel.pack()
+        self.ReactionTimeWarningLabel.place(relx=0.55,rely=0.35)
+
+        self.ResponseFactorLabel=tk.Label(self.AOORConfigWindow, text="Response Factor: ", font=("Arial",12))
+        self.ResponseFactorLabel.pack()
+        self.ResponseFactorLabel.place(relx=0.55,rely=0.45)
+        self.ResponseFactorTextField=tk.Entry(self.AOORConfigWindow)
+        self.ResponseFactorTextField.pack()
+        self.ResponseFactorTextField.place(relx=0.8, rely=0.45)
+
+        self.ResponseFactorWarningLabel=tk.Label(self.AOORConfigWindow, text="Valid inputs are: values between 1-16 with an increment of 1", font=("Arial",10), fg="blue")
+        self.ResponseFactorWarningLabel.pack()
+        self.ResponseFactorWarningLabel.place(relx=0.55,rely=0.5)
+
+        self.RecoveryTimeLabel=tk.Label(self.AOORConfigWindow, text="Recovery Time: ", font=("Arial",12))
+        self.RecoveryTimeLabel.pack()
+        self.RecoveryTimeLabel.place(relx=0.55, rely=0.6)
+        self.RecoveryTimeTextField=tk.Entry(self.AOORConfigWindow)
+        self.RecoveryTimeTextField.pack()
+        self.RecoveryTimeTextField.place(relx=0.8,rely=0.6)
+
+        self.RecoveryTimeWarningLabel=tk.Label(self.AOORConfigWindow, text="Valid inputs are: values between 2-16 min\n with a 1 min increment", font=("Arial",10), fg="blue")
+        self.RecoveryTimeWarningLabel.pack()
+        self.RecoveryTimeWarningLabel.place(relx=0.55,rely=0.65)
+
+        self.AOORButton = tk.Button(self.AOORConfigWindow, text = "Submit", command=self.submitAOOR) #Submits parameters to the device
+        self.AOORButton.pack()
+        self.AOORButton.place(relx=0.8, rely=0.8, relwidth=0.1, relheight=0.1)
+
+    def submitAOOR(self):
+        self.AOORLRLimit= self.LRLimitTextField.get().strip()
+        self.AOORURLimit= self.URLimitTextField.get().strip()
+        self.AOORAtrialAmplitude= self.AtrialAmplitudeTextField.get().strip()
+        self.AOORAtrialPulseWidth= self.AtrialPulseWidthTextField.get().strip()
+        self.AOORMaxSensorRate=self.MaximumSensorRateTextField.get().strip()
+        self.AOORReactionTime=self.ReactionTimeTextField.get().strip()
+        self.AOORResponseFactor=self.ResponseFactorTextField.get().strip()
+        self.AOORRecoveryTime=self.RecoveryTimeTextField.get().strip()
 
 
+        if self.AOORAtrialAmplitude == "0":
+            self.AOORAtrialAmplitde =0
+        else:
+            self.AOORLRLimit= float(self.AOORLRLimit)
+        self.AOORURLimit= float(self.AOORURLimit)
+        self.AOORAtrialAmplitude= float(self.AOORAtrialAmplitude)
+        self.AOORAtrialPulseWidth= float(self.AOORAtrialPulseWidth)
+        self.AOORMaxSensorRate=float(self.AOORMaxSensorRate)
+        self.AOORReactionTime=float(self.AOORReactionTime)
+        self.AOORResponseFactor=float(self.AOORResponseFactor)
+        self.AOORRecoveryTime=float(self.AOORRecoveryTime)
+
+        #Checks to make sure the values inputted are valid
+        if not ((30<= self.AOORLRLimit<=50 and self.AOORLRLimit % 5 == 0) or (50<= self.AOORLRLimit<=90) or  (90 <= self.AOORLRLimit <= 175 and self.AOORLRLimit % 5 == 0)):
+            MyGUI.errorWindow(self)
+        elif not ((50<= self.AOORURLimit<=175 and self.AOORURLimit % 5 == 0)):
+            MyGUI.errorWindow(self)
+        elif not ((self.AOORAtrialAmplitude == 0) or (0.1 <= self.AOORAtrialAmplitude <= 5.0 and self.AOORAtrialAmplitude*10 %1==0)): 
+            MyGUI.errorWindow(self)
+        elif not ((1.0<= self.AOORAtrialPulseWidth <= 30.0)):
+            MyGUI.errorWindow(self)
+        elif not ((50.0<=self.AOORMaxSensorRate<=175.0 and self.AOORMaxSensorRate %5==0)):
+            MyGUI.errorWindow(self)
+        elif not ((10.0<=self.AOORReactionTime<=50.0 and self.AOORReactionTime%10==0)):
+            MyGUI.errorWindow(self)
+        elif not ((1.0<=self.AOORResponseFactor<=16.0)):
+            MyGUI.errorWindow(self)
+        elif not ((2.0<=self.AOORRecoveryTime<=16.0)):
+            MyGUI.errorWindow(self)
+        else:
+            self.currentUser.AOOR(self.AOORLRLimit, self.AOORURLimit, self.AOORAtrialAmplitude, self.AOORAtrialPulseWidth, self.AOORMaxSensorRate, self.AOORResponseFactor, self.AOORReactionTime, self.AOORRecoveryTime)
+            self.db.updateUser(self.currentUser)
+            MyGUI.successfulSubmitted(self,self.AOORConfigWindow)#Updates the user’s chosen parameters to the database
+    
+    def AAIRConfig(self):
+        for widget in self.startWindow.winfo_children():
+            widget.destroy()
+
+        self.backButton = tk.Button(self.startWindow, text = "Back", command=self.useConfigure)
+        self.backButton.pack()
+        self.backButton.place(relx=0.075, rely=0.85, relwidth=0.1, relheight=0.05)
+
+        self.AAIRConfigWindow = self.startWindow
+
+        self.AAIRConfigLabel=tk.Label(self.AAIRConfigWindow, text="Configure Your AAIR Parameters", font=("Arial",18))#Gathers the necessary parameters to configure AAI from the user
+        self.AAIRConfigLabel.pack()
+        self.AAIRConfigLabel.place(relx=0.3,rely=0.05)
+
+        self.LRLimitLabel= tk.Label(self.AAIRConfigWindow, text="Lower Rate Limit: ", font=("Arial",12))
+        self.LRLimitLabel.pack()
+        self.LRLimitLabel.place(relx=0.045,rely=0.15)
+        self.LRLimitTextField = tk.Entry(self.AAIRConfigWindow)
+        self.LRLimitTextField.pack()
+        self.LRLimitTextField.place(relx=0.25, rely=0.15)
+        
+        self.LRLimitWarningLabel= tk.Label(self.AAIRConfigWindow, text="Valid inputs are: values between 30-50 ppm incremented by 5 ppm\n values between 50-90 ppm incremented by 1 ppm\n values between 90-175 ppm incremented by 5 ppm",font=('Arial', 9), fg="blue" )
+        self.LRLimitWarningLabel.pack()
+        self.LRLimitWarningLabel.place(relx=0.045, rely=0.2)
+
+        self.URLimitLabel= tk.Label(self.AAIRConfigWindow, text="Upper Rate Limit: ", font=("Arial",12))
+        self.URLimitLabel.pack()
+        self.URLimitLabel.place(relx=0.045,rely=0.3)
+        self.URLimitTextField = tk.Entry(self.AAIRConfigWindow)
+        self.URLimitTextField.pack()
+        self.URLimitTextField.place(relx=0.25, rely=0.3)
+        
+        self.URLimitWarningLabel= tk.Label(self.AAIRConfigWindow, text="Valid inputs are: values between 50-175 ppm\n incremented by 5 ppm",font=('Arial', 10), fg="blue" )
+        self.URLimitWarningLabel.pack()
+        self.URLimitWarningLabel.place(relx=0.045, rely=0.335)
+
+        self.AtrialAmplitudeLabel= tk.Label(self.AAIRConfigWindow, text="Atrial Amplitude: ",font=("Arial",12))
+        self.AtrialAmplitudeLabel.pack()
+        self.AtrialAmplitudeLabel.place(relx=0.045,rely=0.4)
+        self.AtrialAmplitudeTextField = tk.Entry(self.AAIRConfigWindow)
+        self.AtrialAmplitudeTextField.pack()
+        self.AtrialAmplitudeTextField.place(relx=0.25, rely=0.4)
+
+        self.AtrialAmplitudeWarningLabel= tk.Label(self.AAIRConfigWindow, text="Valid inputs are: 0 or between 0.1-5.0 V with 0.1 V increment",font=('Arial', 10), fg="blue" )
+        self.AtrialAmplitudeWarningLabel.pack()
+        self.AtrialAmplitudeWarningLabel.place(relx=0.045, rely=0.45)
+
+        self.AtrialPulseWidthLabel= tk.Label(self.AAIRConfigWindow, text="Atrial Pulse Width: ", font=("Arial",12))
+        self.AtrialPulseWidthLabel.pack()
+        self.AtrialPulseWidthLabel.place(relx=0.045,rely=0.525)
+        self.AtrialPulseWidthTextField = tk.Entry(self.AAIRConfigWindow)
+        self.AtrialPulseWidthTextField.pack()
+        self.AtrialPulseWidthTextField.place(relx=0.25, rely=0.525)
+
+        self.AtrialPulseWidthWarningLabel= tk.Label(self.AAIRConfigWindow, text="Valid inputs are: values between 1-30 ms with 1 ms increment",font=('Arial', 10), fg="blue" )
+        self.AtrialPulseWidthWarningLabel.pack()
+        self.AtrialPulseWidthWarningLabel.place(relx=0.045, rely=0.575)
+
+        self.ARPLabel= tk.Label(self.AAIRConfigWindow, text="ARP: ", font=("Arial", 12))
+        self.ARPLabel.pack()
+        self.ARPLabel.place(relx=0.045,rely=0.65)
+        self.ARPTextField = tk.Entry(self.AAIRConfigWindow)
+        self.ARPTextField.pack()
+        self.ARPTextField.place(relx=0.275, rely=0.65)
+
+        self.ARPWarningLabel= tk.Label(self.AAIRConfigWindow, text="Valid inputs are: values between 150-500 ms\n with 10 ms increment",font=('Arial', 10), fg="blue" )
+        self.ARPWarningLabel.pack()
+        self.ARPWarningLabel.place(relx=0.045, rely=0.7)
+
+        self.MaximumSensorRateLabel=tk.Label(self.AAIRConfigWindow, text="Maximum Sensor Rate: ", font=("Arial",12))
+        self.MaximumSensorRateLabel.pack()
+        self.MaximumSensorRateLabel.place(relx=0.55, rely=0.15)
+        self.MaximumSensorRateTextField=tk.Entry(self.AAIRConfigWindow)
+        self.MaximumSensorRateTextField.pack()
+        self.MaximumSensorRateTextField.place(relx=0.8, rely=0.15)
+
+        self.MaximumSensorRateWarningLabel=tk.Label(self.AAIRConfigWindow, text="Valid inputs are: values between 50-175 ppm\n with 5 ppm increment", font=("Arial",10), fg="blue")
+        self.MaximumSensorRateWarningLabel.pack()
+        self.MaximumSensorRateWarningLabel.place(relx=0.55, rely=0.2)
+
+        self.ReactionTimeLabel=tk.Label(self.AAIRConfigWindow, text="Reaction Time: ", font=("Arial",12))
+        self.ReactionTimeLabel.pack()
+        self.ReactionTimeLabel.place(relx=0.55, rely=0.3)
+        self.ReactionTimeTextField=tk.Entry(self.AAIRConfigWindow)
+        self.ReactionTimeTextField.pack()
+        self.ReactionTimeTextField.place(relx=0.8,rely=0.3)
+
+        self.ReactionTimeWarningLabel=tk.Label(self.AAIRConfigWindow,text="Valid input are: values between 10-50 sec\n with a 10 sec increment", font=("Arial",10), fg="blue")
+        self.ReactionTimeWarningLabel.pack()
+        self.ReactionTimeWarningLabel.place(relx=0.55,rely=0.35)
+
+        self.ResponseFactorLabel=tk.Label(self.AAIRConfigWindow, text="Response Factor: ", font=("Arial",12))
+        self.ResponseFactorLabel.pack()
+        self.ResponseFactorLabel.place(relx=0.55,rely=0.45)
+        self.ResponseFactorTextField=tk.Entry(self.AAIRConfigWindow)
+        self.ResponseFactorTextField.pack()
+        self.ResponseFactorTextField.place(relx=0.8, rely=0.45)
+
+        self.ResponseFactorWarningLabel=tk.Label(self.AAIRConfigWindow, text="Valid inputs are: values between 1-16 with an increment of 1", font=("Arial",10), fg="blue")
+        self.ResponseFactorWarningLabel.pack()
+        self.ResponseFactorWarningLabel.place(relx=0.55,rely=0.5)
+
+        self.RecoveryTimeLabel=tk.Label(self.AAIRConfigWindow, text="Recovery Time: ", font=("Arial",12))
+        self.RecoveryTimeLabel.pack()
+        self.RecoveryTimeLabel.place(relx=0.55, rely=0.6)
+        self.RecoveryTimeTextField=tk.Entry(self.AAIRConfigWindow)
+        self.RecoveryTimeTextField.pack()
+        self.RecoveryTimeTextField.place(relx=0.8,rely=0.6)
+
+        self.RecoveryTimeWarningLabel=tk.Label(self.AAIRConfigWindow, text="Valid inputs are: values between 2-16 min\n with a 1 min increment", font=("Arial",10), fg="blue")
+        self.RecoveryTimeWarningLabel.pack()
+        self.RecoveryTimeWarningLabel.place(relx=0.55,rely=0.65)
+
+
+        self.AAIRButton = tk.Button(self.AAIRConfigWindow, text = "Submit", command=self.submitAAIR) #Submits parameters to the device
+        self.AAIRButton.pack()
+        self.AAIRButton.place(relx=0.8, rely=0.8, relwidth=0.1, relheight=0.1)
+
+    def submitAAIR(self):
+        self.AAIRLRLimit= self.LRLimitTextField.get().strip()
+        self.AAIRURLimit= self.URLimitTextField.get().strip()
+        self.AAIRAtrialAmplitude= self.AtrialAmplitudeTextField.get().strip()
+        self.AAIRAtrialPulseWidth= self.AtrialPulseWidthTextField.get().strip()
+        self.AAIRARP= self.ARPTextField.get().strip()
+        self.AAIRMaxSensorRate= self.MaximumSensorRateTextField.get().strip()
+        self.AAIRReactionTime=self.ReactionTimeTextField.get().strip()
+        self.AAIRResponseFactor=self.ResponseFactorTextField.get().strip()
+        self.AAIRRecoveryTime= self.RecoveryTimeTextField.get().strip()
+
+        if  self.AAIRAtrialAmplitude== "0":
+            self.AAIRAtrialAmplitude = 0
+        else:
+            self.AAIRAtrialAmplitude= float(self.AAIRAtrialAmplitude)
+            
+        self.AAIRLRLimit= float(self.AAIRLRLimit)
+        self.AAIRURLimit= float(self.AAIRURLimit)
+        self.AAIRAtrialPulseWidth= float(self.AAIRAtrialPulseWidth)
+        self.AAIRARP= float(self.AAIRARP)
+        self.AAIRMaxSensorRate= float(self.AAIRMaxSensorRate)
+        self.AAIRReactionTime=float(self.AAIRReactionTime)
+        self.AAIRResponseFactor=float(self.AAIRResponseFactor)
+        self.AAIRRecoveryTime= float(self.AAIRRecoveryTime)
+
+        #Checks to make sure the values inputted are valid
+        if not ((30<= self.AAIRLRLimit<=50 and self.AAIRLRLimit % 5 == 0) or (50<= self.AAIRLRLimit<=90) or  (90 <= self.AAIRLRLimit <= 175 and self.AAIRLRLimit % 5 == 0)):
+            MyGUI.errorWindow(self)
+        elif not ((50<= self.AAIRURLimit<=175 and self.AAIRURLimit % 5 == 0)):
+            MyGUI.errorWindow(self)
+        elif not ((self.AAIRAtrialAmplitude==0) or (0.1 <= self.AAIRAtrialAmplitude <= 5.0 and self.AAIRAtrialAmplitude*10 %1==0)): 
+            MyGUI.errorWindow(self)
+        elif not ((1.0<= self.AAIRAtrialPulseWidth <= 30.0)):
+            MyGUI.errorWindow(self)
+        elif not ((150<= self.AAIRARP<=500 and self.AAIRARP % 10 == 0)):
+            MyGUI.errorWindow(self)
+        else:
+            self.currentUser.AAIR(self.AAIRLRLimit, self.AAIRURLimit, self.AAIRAtrialAmplitude, self.AAIRAtrialPulseWidth, self.AAIRARP, self.AAIRMaxSensorRate, self.AAIRReactionTime, self.AAIRResponseFactor, self.AAIRRecoveryTime)
+            self.db.updateUser(self.currentUser)#Updates the user’s chosen parameters to the database
+            MyGUI.successfulSubmitted(self,self.AAIRConfigWindow)
+    
+
+    def VVIRConfig(self):
+        for widget in self.startWindow.winfo_children():
+            widget.destroy()
+
+        self.backButton = tk.Button(self.startWindow, text = "Back", command=self.useConfigure)
+        self.backButton.pack()
+        self.backButton.place(relx=0.075, rely=0.85, relwidth=0.1, relheight=0.05)
+
+        self.VVIRConfigWindow = self.startWindow
+
+        self.VVIRConfigLabel=tk.Label(self.VVIRConfigWindow, text="Configure Your VVIR Parameters", font=("Arial",18))#Gathers the necessary parameters to configure VVI from the user
+        self.VVIRConfigLabel.pack()
+        self.VVIRConfigLabel.place(relx=0.3,rely=0.05)
+
+        self.LRLimitLabel= tk.Label(self.VVIRConfigWindow, text="Lower Rate Limit: ", font=("Arial",12))
+        self.LRLimitLabel.pack()
+        self.LRLimitLabel.place(relx=0.045,rely=0.15)
+        self.LRLimitTextField = tk.Entry(self.VVIRConfigWindow)
+        self.LRLimitTextField.pack()
+        self.LRLimitTextField.place(relx=0.25, rely=0.15)
+        
+        self.LRLimitWarningLabel= tk.Label(self.VVIRConfigWindow, text="Valid inputs are: values between 30-50 ppm incremented by 5 ppm\n values between 50-90 ppm incremented by 1 ppm\n values between 90-175 ppm incremented by 5 ppm",font=('Arial', 9), fg="blue" )
+        self.LRLimitWarningLabel.pack()
+        self.LRLimitWarningLabel.place(relx=0.045, rely=0.2)
+
+        self.URLimitLabel= tk.Label(self.VVIRConfigWindow, text="Upper Rate Limit: ", font=("Arial",12))
+        self.URLimitLabel.pack()
+        self.URLimitLabel.place(relx=0.045,rely=0.3)
+        self.URLimitTextField = tk.Entry(self.VVIRConfigWindow)
+        self.URLimitTextField.pack()
+        self.URLimitTextField.place(relx=0.25, rely=0.3)
+        
+        self.URLimitWarningLabel= tk.Label(self.VVIRConfigWindow, text="Valid inputs are: values between 50-175 ppm\n incremented by 5 ppm",font=('Arial', 10), fg="blue" )
+        self.URLimitWarningLabel.pack()
+        self.URLimitWarningLabel.place(relx=0.045, rely=0.335)
+
+        self.VentricularAmplitudeLabel= tk.Label(self.VVIRConfigWindow, text="Ventricular Amplitude: ",font=("Arial",12))
+        self.VentricularAmplitudeLabel.pack()
+        self.VentricularAmplitudeLabel.place(relx=0.045,rely=0.4)
+        self.VentricularAmplitudeTextField = tk.Entry(self.VVIRConfigWindow)
+        self.VentricularAmplitudeTextField.pack()
+        self.VentricularAmplitudeTextField.place(relx=0.25, rely=0.4)
+
+        self.VentricularAmplitudeWarningLabel= tk.Label(self.VVIRConfigWindow, text="Valid inputs are: 0 or between 0.1-5.0 V with 0.1 V increment",font=('Arial', 10), fg="blue" )
+        self.VentricularAmplitudeWarningLabel.pack()
+        self.VentricularAmplitudeWarningLabel.place(relx=0.045, rely=0.45)
+
+        self.VentricularPulseWidthLabel= tk.Label(self.VVIRConfigWindow, text="Ventricular Pulse Width: ", font=("Arial",12))
+        self.VentricularPulseWidthLabel.pack()
+        self.VentricularPulseWidthLabel.place(relx=0.045,rely=0.525)
+        self.VentricularPulseWidthTextField = tk.Entry(self.VVIRConfigWindow)
+        self.VentricularPulseWidthTextField.pack()
+        self.VentricularPulseWidthTextField.place(relx=0.275, rely=0.525)
+
+        self.VentricularPulseWidthWarningLabel= tk.Label(self.VVIRConfigWindow, text="Valid inputs are: values between 1-30 ms with 1 ms increment",font=('Arial', 10), fg="blue" )
+        self.VentricularPulseWidthWarningLabel.pack()
+        self.VentricularPulseWidthWarningLabel.place(relx=0.045, rely=0.575)
+
+        self.VRPLabel= tk.Label(self.VVIRConfigWindow, text="VRP: ", font=("Arial",12))
+        self.VRPLabel.pack()
+        self.VRPLabel.place(relx=0.045,rely=0.65)
+        self.VRPTextField = tk.Entry(self.VVIRConfigWindow)
+        self.VRPTextField.pack()
+        self.VRPTextField.place(relx=0.275, rely=0.65)
+
+        self.VRPWarningLabel= tk.Label(self.VVIRConfigWindow, text="Valid inputs are: values between 150-500 ms with 10 ms increment",font=('Arial', 10), fg="blue" )
+        self.VRPWarningLabel.pack()
+        self.VRPWarningLabel.place(relx=0.045, rely=0.7)
+
+        self.MaximumSensorRateLabel=tk.Label(self.VVIRConfigWindow, text="Maximum Sensor Rate: ", font=("Arial",12))
+        self.MaximumSensorRateLabel.pack()
+        self.MaximumSensorRateLabel.place(relx=0.55, rely=0.15)
+        self.MaximumSensorRateTextField=tk.Entry(self.VVIRConfigWindow)
+        self.MaximumSensorRateTextField.pack()
+        self.MaximumSensorRateTextField.place(relx=0.8, rely=0.15)
+
+        self.MaximumSensorRateWarningLabel=tk.Label(self.VVIRConfigWindow, text="Valid inputs are: values between 50-175 ppm\n with 5 ppm increment", font=("Arial",10), fg="blue")
+        self.MaximumSensorRateWarningLabel.pack()
+        self.MaximumSensorRateWarningLabel.place(relx=0.55, rely=0.2)
+
+        self.ReactionTimeLabel=tk.Label(self.VVIRConfigWindow, text="Reaction Time: ", font=("Arial",12))
+        self.ReactionTimeLabel.pack()
+        self.ReactionTimeLabel.place(relx=0.55, rely=0.3)
+        self.ReactionTimeTextField=tk.Entry(self.VVIRConfigWindow)
+        self.ReactionTimeTextField.pack()
+        self.ReactionTimeTextField.place(relx=0.8,rely=0.3)
+
+        self.ReactionTimeWarningLabel=tk.Label(self.VVIRConfigWindow,text="Valid input are: values between 10-50 sec\n with a 10 sec increment", font=("Arial",10), fg="blue")
+        self.ReactionTimeWarningLabel.pack()
+        self.ReactionTimeWarningLabel.place(relx=0.55,rely=0.35)
+
+        self.ResponseFactorLabel=tk.Label(self.VVIRConfigWindow, text="Response Factor: ", font=("Arial",12))
+        self.ResponseFactorLabel.pack()
+        self.ResponseFactorLabel.place(relx=0.55,rely=0.45)
+        self.ResponseFactorTextField=tk.Entry(self.VVIRConfigWindow)
+        self.ResponseFactorTextField.pack()
+        self.ResponseFactorTextField.place(relx=0.8, rely=0.45)
+
+        self.ResponseFactorWarningLabel=tk.Label(self.VVIRConfigWindow, text="Valid inputs are: values between 1-16 with an increment of 1", font=("Arial",10), fg="blue")
+        self.ResponseFactorWarningLabel.pack()
+        self.ResponseFactorWarningLabel.place(relx=0.55,rely=0.5)
+
+        self.RecoveryTimeLabel=tk.Label(self.VVIRConfigWindow, text="Recovery Time: ", font=("Arial",12))
+        self.RecoveryTimeLabel.pack()
+        self.RecoveryTimeLabel.place(relx=0.55, rely=0.6)
+        self.RecoveryTimeTextField=tk.Entry(self.VVIRConfigWindow)
+        self.RecoveryTimeTextField.pack()
+        self.RecoveryTimeTextField.place(relx=0.8,rely=0.6)
+
+        self.RecoveryTimeWarningLabel=tk.Label(self.VVIRConfigWindow, text="Valid inputs are: values between 2-16 min\n with a 1 min increment", font=("Arial",10), fg="blue")
+        self.RecoveryTimeWarningLabel.pack()
+        self.RecoveryTimeWarningLabel.place(relx=0.55,rely=0.65)
+
+        self.VVIRButton = tk.Button(self.VVIRConfigWindow, text = "Submit", command=self.submitVVIR) #Submits parameters to the device
+        self.VVIRButton.pack()
+        self.VVIRButton.place(relx=0.8, rely=0.8, relwidth=0.1, relheight=0.1)
+
+    def submitVVIR(self):
+        self.VVIRLRLimit= self.LRLimitTextField.get().strip()
+        self.VVIRURLimit= self.URLimitTextField.get().strip()
+        self.VVIRVentricularAmplitude= self.VentricularAmplitudeTextField.get().strip()
+        self.VVIRVentricularPulseWidth= self.VentricularPulseWidthTextField.get().strip()
+        self.VVIRVRP= self.VRPTextField.get().strip()
+        self.VVIRMaxSensorRate= self.MaximumSensorRateTextField.get().strip()
+        self.VVIRReactionTime= self.ReactionTimeTextField.get().strip()
+        self.VVIRRecoveryTime= self.RecoveryTimeTextField.get().strip()
+        self.VVIRResponseFactor= self.ResponseFactorTextField.get().strip()
+
+        #Checks to make sure the values inputted are valid
+        if self.VVIRVentricularAmplitude == "0":
+            self.VVIRVentricularAmplitude =0
+        else:
+            self.VVIRVentricularAmplitude= float(self.VVIRVentricularAmplitude)
+                
+        self.VVIRLRLimit= float(self.VVIRLRLimit)
+        self.VVIRURLimit= float(self.VVIRURLimit)
+        self.VVIRVentricularPulseWidth= float(self.VVIRVentricularPulseWidth)
+        self.VVIRVRP= float(self.VVIRVRP)
+        self.VVIRMaxSensorRate= float(self.VVIRMaxSensorRate)
+        self.VVIRRecoveryTime= float(self.VVIRRecoveryTime)
+        self.VVIRResponseFactor= float(self.VVIRResponseFactor)
+        self.VVIRReactionTime= float(self.VVIRReactionTime)
+
+        if not ((30<= self.VVIRLRLimit<=50 and self.VVIRLRLimit % 5 == 0) or (50<= self.VVIRLRLimit<=90) or  (90 <= self.VVIRLRLimit <= 175 and self.VVIRLRLimit % 5 == 0)):
+            MyGUI.errorWindow(self)
+        elif not ((50<= self.VVIRURLimit<=175 and self.VVIRURLimit % 5 == 0)):
+            MyGUI.errorWindow(self)
+        elif not  ((0.1 <= self.VVIRVentricularAmplitude <= 5.0 and self.VVIRVentricularAmplitude*10 %1==0) or (self.VVIRVentricularAmplitude ==0)): 
+            MyGUI.errorWindow(self)
+        elif not ((1.0<= self.VVIRVentricularPulseWidth <= 30.0)):
+            MyGUI.errorWindow(self)
+        elif not ((150<= self.VVIRVRP<=500 and self.VVIRVRP % 10 == 0)):
+            MyGUI.errorWindow(self)
+        elif not ((50.0<=self.VVIRMaxSensorRate<=175.0 and self.VVIRMaxSensorRate %5==0)):
+            MyGUI.errorWindow(self)
+        elif not ((10.0<=self.VVIRReactionTime<=50.0 and self.VVIRReactionTime%10==0)):
+            MyGUI.errorWindow(self)
+        elif not ((1.0<=self.VVIRResponseFactor<=16.0)):
+            MyGUI.errorWindow(self)
+        elif not ((2.0<=self.VVIRRecoveryTime<=16.0)):
+            MyGUI.errorWindow(self)
+        else:
+            self.currentUser.VVIR(self.VVIRLRLimit, self.VVIRURLimit, self.VVIRVentricularAmplitude, self.VVIRVentricularPulseWidth, self.VVIRVRP, self.VVIRMaxSensorRate, self.VVIRReactionTime, self.VVIRResponseFactor, self.VVIRRecoveryTime)
+            self.db.updateUser(self.currentUser)#Updates the user’s chosen parameters to the database
+            MyGUI.successfulSubmitted(self,self.VVIRConfigWindow)
+    
+    
     def deleteUser(self):
         self.db.delete_user(self.currentUser.username)#Deletes user that is currently signed in from the database
         
