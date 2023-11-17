@@ -138,7 +138,6 @@ class MyGUI:
 
         
         self.startWindow.title("Main Settings")
-        self.startWindow.configure(bg="azure2")
 
         self.settingLabel = tk.Label(self.startWindow, text="Welcome to Main Settings", font=('Arial', 18)) #Generates after the user has signed in
         self.settingLabel.pack()
@@ -176,7 +175,6 @@ class MyGUI:
         self.backButton = tk.Button(self.startWindow, text = "Back", command=self.createMainSettingWindow)
         self.backButton.pack()
         self.backButton.place(relx=0.075, rely=0.85, relwidth=0.1, relheight=0.05)
-
 
         self.prevInfoWindow = self.startWindow
         
@@ -325,19 +323,19 @@ class MyGUI:
         self.defAOOLabel.pack()
         self.defAOOLabel.place(relx=0.35, rely=0.05)
 
-        self.LRLimitLabel= tk.Label(self.defAOOWindow, text="Lower Rate Limit: 60 ppm", font=('Arial', 12), bg="azure2")
+        self.LRLimitLabel= tk.Label(self.defAOOWindow, text="Lower Rate Limit: 60 ppm", font=('Arial', 14), bg="azure2")
         self.LRLimitLabel.pack()
         self.LRLimitLabel.place(relx=0.1, rely=0.15)
 
-        self.URLimitLabel= tk.Label(self.defAOOWindow, text="Upper Rate Limit: 120 ppm", font=('Arial', 12), bg="azure2")
+        self.URLimitLabel= tk.Label(self.defAOOWindow, text="Upper Rate Limit: 120 ppm", font=('Arial', 14), bg="azure2")
         self.URLimitLabel.pack()
         self.URLimitLabel.place(relx=0.1, rely=0.3)
 
-        self.AtrialAmplitudeLabel= tk.Label(self.defAOOWindow, text="Atrial Amplitude: 5.0 V", font=('Arial', 12), bg="azure2")
+        self.AtrialAmplitudeLabel= tk.Label(self.defAOOWindow, text="Atrial Amplitude: 5.0 V", font=('Arial', 14), bg="azure2")
         self.AtrialAmplitudeLabel.pack()
         self.AtrialAmplitudeLabel.place(relx=0.1, rely=0.45)
 
-        self.AtrialPulseWidthLabel= tk.Label(self.defAOOWindow, text="Atrial Pulse Width: 1.0 ms", font=('Arial', 12), bg="azure2")
+        self.AtrialPulseWidthLabel= tk.Label(self.defAOOWindow, text="Atrial Pulse Width: 1.0 ms", font=('Arial', 14), bg="azure2")
         self.AtrialPulseWidthLabel.pack()
         self.AtrialPulseWidthLabel.place(relx=0.1, rely=0.6)
  
@@ -369,23 +367,23 @@ class MyGUI:
         self.defAAILabel.pack()
         self.defAAILabel.place(relx=0.35, rely=0.05)
 
-        self.LRLimitLabel= tk.Label(self.defAAIWindow, text="Lower Rate Limit: 60 ppm", font=('Arial', 12), bg="azure2")
+        self.LRLimitLabel= tk.Label(self.defAAIWindow, text="Lower Rate Limit: 60 ppm", font=('Arial', 14), bg="azure2")
         self.LRLimitLabel.pack()
         self.LRLimitLabel.place(relx=0.1, rely=0.15)
 
-        self.URLimitLabel= tk.Label(self.defAAIWindow, text="Upper Rate Limit: 120 ppm", font=('Arial', 12), bg="azure2")
+        self.URLimitLabel= tk.Label(self.defAAIWindow, text="Upper Rate Limit: 120 ppm", font=('Arial', 14), bg="azure2")
         self.URLimitLabel.pack()
         self.URLimitLabel.place(relx=0.1, rely=0.3)
 
-        self.AtrialAmplitudeLabel= tk.Label(self.defAAIWindow, text="Atrial Amplitude: 5.0 V", font=('Arial', 12), bg="azure2")
+        self.AtrialAmplitudeLabel= tk.Label(self.defAAIWindow, text="Atrial Amplitude: 5.0 V", font=('Arial', 14), bg="azure2")
         self.AtrialAmplitudeLabel.pack()
         self.AtrialAmplitudeLabel.place(relx=0.1, rely=0.45)
 
-        self.AtrialPulseWidthLabel= tk.Label(self.defAAIWindow, text="Atrial Pulse Width: 1.0 ms", font=('Arial', 12), bg="azure2")
+        self.AtrialPulseWidthLabel= tk.Label(self.defAAIWindow, text="Atrial Pulse Width: 1.0 ms", font=('Arial', 14), bg="azure2")
         self.AtrialPulseWidthLabel.pack()
         self.AtrialPulseWidthLabel.place(relx=0.1, rely=0.6)
 
-        self.ARPLabel= tk.Label(self.defAAIWindow, text="ARP: 250 ms", font=('Arial', 12), bg="azure2")
+        self.ARPLabel= tk.Label(self.defAAIWindow, text="ARP: 250 ms", font=('Arial', 14), bg="azure2")
         self.ARPLabel.pack()
         self.ARPLabel.place(relx=0.525, rely=0.15)
 
@@ -418,23 +416,23 @@ class MyGUI:
         self.defVVILabel.pack()
         self.defVVILabel.place(relx=0.35, rely=0.05)
 
-        self.LRLimitLabel= tk.Label(self.defVVIWindow, text="Lower Rate Limit: 60 ppm", font=('Arial', 12), bg="azure2")
+        self.LRLimitLabel= tk.Label(self.defVVIWindow, text="Lower Rate Limit: 60 ppm", font=('Arial', 14), bg="azure2")
         self.LRLimitLabel.pack()
         self.LRLimitLabel.place(relx=0.1, rely=0.15)
 
-        self.URLimitLabel= tk.Label(self.defVVIWindow, text="Upper Rate Limit: 120 ppm", font=('Arial', 12), bg="azure2")
+        self.URLimitLabel= tk.Label(self.defVVIWindow, text="Upper Rate Limit: 120 ppm", font=('Arial', 14), bg="azure2")
         self.URLimitLabel.pack()
         self.URLimitLabel.place(relx=0.1, rely=0.3)
 
-        self.VentricularAmplitudeLabel= tk.Label(self.defVVIWindow, text="Ventricular Amplitude: 5.0 V", font=('Arial', 12), bg="azure2")
+        self.VentricularAmplitudeLabel= tk.Label(self.defVVIWindow, text="Ventricular Amplitude: 5.0 V", font=('Arial', 14), bg="azure2")
         self.VentricularAmplitudeLabel.pack()
         self.VentricularAmplitudeLabel.place(relx=0.1, rely=0.45)
 
-        self.VentricularPulseWidthLabel= tk.Label(self.defVVIWindow, text="Ventricular Pulse Width: 1.0 ms", font=('Arial', 12), bg="azure2")
+        self.VentricularPulseWidthLabel= tk.Label(self.defVVIWindow, text="Ventricular Pulse Width: 1.0 ms", font=('Arial', 14), bg="azure2")
         self.VentricularPulseWidthLabel.pack()
         self.VentricularPulseWidthLabel.place(relx=0.1, rely=0.6)
 
-        self.VRPLabel= tk.Label(self.defVVIWindow, text="VRP: 320 ms", font=('Arial', 12), bg="azure2")
+        self.VRPLabel= tk.Label(self.defVVIWindow, text="VRP: 320 ms", font=('Arial', 14), bg="azure2")
         self.VRPLabel.pack()
         self.VRPLabel.place(relx=0.525, rely=0.15)
 
@@ -467,35 +465,35 @@ class MyGUI:
         self.defVOORLabel.pack()
         self.defVOORLabel.place(relx=0.35, rely=0.05)
 
-        self.LRLimitLabel= tk.Label(self.defVOORWindow, text="Lower Rate Limit: 60 ppm", font=('Arial', 12), bg="azure2")
+        self.LRLimitLabel= tk.Label(self.defVOORWindow, text="Lower Rate Limit: 60 ppm", font=('Arial', 14), bg="azure2")
         self.LRLimitLabel.pack()
         self.LRLimitLabel.place(relx=0.1, rely=0.15)
 
-        self.URLimitLabel= tk.Label(self.defVOORWindow, text="Upper Rate Limit: 120 ppm", font=('Arial', 12), bg="azure2")
+        self.URLimitLabel= tk.Label(self.defVOORWindow, text="Upper Rate Limit: 120 ppm", font=('Arial', 14), bg="azure2")
         self.URLimitLabel.pack()
         self.URLimitLabel.place(relx=0.1, rely=0.3)
 
-        self.VentricularAmplitudeLabel= tk.Label(self.defVOORWindow, text="Ventricular Amplitude: 5.0 V", font=('Arial', 12), bg="azure2")
+        self.VentricularAmplitudeLabel= tk.Label(self.defVOORWindow, text="Ventricular Amplitude: 5.0 V", font=('Arial', 14), bg="azure2")
         self.VentricularAmplitudeLabel.pack()
         self.VentricularAmplitudeLabel.place(relx=0.1, rely=0.45)
 
-        self.VentricularPulseWidthLabel= tk.Label(self.defVOORWindow, text="Ventricular Pulse Width: 1.0 ms", font=('Arial', 12),bg="azure2")
+        self.VentricularPulseWidthLabel= tk.Label(self.defVOORWindow, text="Ventricular Pulse Width: 1.0 ms", font=('Arial', 14),bg="azure2")
         self.VentricularPulseWidthLabel.pack()
         self.VentricularPulseWidthLabel.place(relx=0.1, rely=0.6)
 
-        self.MaxSensorRateLabel=tk.Label(self.defVOORWindow, text="Maximum Sensor Rate: 120 ppm", font=('Arial', 12), bg="azure2")
+        self.MaxSensorRateLabel=tk.Label(self.defVOORWindow, text="Maximum Sensor Rate: 120 ppm", font=('Arial', 14), bg="azure2")
         self.MaxSensorRateLabel.pack()
         self.MaxSensorRateLabel.place(relx=0.525, rely=0.15)
 
-        self.ReactionTimeLabel=tk.Label(self.defVOORWindow, text="Reaction Time: 30 sec", font=('Arial',12), bg="azure2")
+        self.ReactionTimeLabel=tk.Label(self.defVOORWindow, text="Reaction Time: 30 sec", font=('Arial',14), bg="azure2")
         self.ReactionTimeLabel.pack()
         self.ReactionTimeLabel.place(relx=0.525, rely=0.45)
 
-        self.ResponseFactorLabel=tk.Label(self.defVOORWindow, text="Response Factor: 8", font=('Arial',12), bg="azure2")
+        self.ResponseFactorLabel=tk.Label(self.defVOORWindow, text="Response Factor: 8", font=('Arial',14), bg="azure2")
         self.ResponseFactorLabel.pack()
         self.ResponseFactorLabel.place(relx=0.525, rely=0.6)
 
-        self.RecoveryTimeLabel=tk.Label(self.defVOORWindow, text="Recovery Time: 5 min", font=('Arial',12), bg="azure2")
+        self.RecoveryTimeLabel=tk.Label(self.defVOORWindow, text="Recovery Time: 5 min", font=('Arial',14), bg="azure2")
         self.RecoveryTimeLabel.pack()
         self.RecoveryTimeLabel.place(relx=0.525, rely=0.3)
 
@@ -532,35 +530,35 @@ class MyGUI:
         self.defAOORLabel.pack()
         self.defAOORLabel.place(relx=0.35, rely=0.05)
 
-        self.LRLimitLabel= tk.Label(self.defAOORWindow, text="Lower Rate Limit: 60 ppm", font=('Arial', 12), bg="azure2")
+        self.LRLimitLabel= tk.Label(self.defAOORWindow, text="Lower Rate Limit: 60 ppm", font=('Arial', 14), bg="azure2")
         self.LRLimitLabel.pack()
         self.LRLimitLabel.place(relx=0.1, rely=0.15)
 
-        self.URLimitLabel= tk.Label(self.defAOORWindow, text="Upper Rate Limit: 120 ppm", font=('Arial', 12), bg="azure2")
+        self.URLimitLabel= tk.Label(self.defAOORWindow, text="Upper Rate Limit: 120 ppm", font=('Arial', 14), bg="azure2")
         self.URLimitLabel.pack()
         self.URLimitLabel.place(relx=0.1, rely=0.3)
 
-        self.AtrialAmplitudeLabel= tk.Label(self.defAOORWindow, text="Atrial Amplitude: 5.0 V", font=('Arial', 12), bg="azure2")
+        self.AtrialAmplitudeLabel= tk.Label(self.defAOORWindow, text="Atrial Amplitude: 5.0 V", font=('Arial', 14), bg="azure2")
         self.AtrialAmplitudeLabel.pack()
         self.AtrialAmplitudeLabel.place(relx=0.1, rely=0.45)
 
-        self.AtrialPulseWidthLabel= tk.Label(self.defAOORWindow, text="Atrial Pulse Width: 0.1 ms", font=('Arial', 12), bg="azure2")
+        self.AtrialPulseWidthLabel= tk.Label(self.defAOORWindow, text="Atrial Pulse Width: 0.1 ms", font=('Arial', 14), bg="azure2")
         self.AtrialPulseWidthLabel.pack()
         self.AtrialPulseWidthLabel.place(relx=0.1, rely=0.6)
 
-        self.MaxSensorRateLabel=tk.Label(self.defAOORWindow, text="Maximum Sensor Rate: 120 ppm", font=('Arial', 12), bg="azure2")
+        self.MaxSensorRateLabel=tk.Label(self.defAOORWindow, text="Maximum Sensor Rate: 120 ppm", font=('Arial', 14), bg="azure2")
         self.MaxSensorRateLabel.pack()
         self.MaxSensorRateLabel.place(relx=0.525, rely=0.15)
 
-        self.ReactionTimeLabel=tk.Label(self.defAOORWindow, text="Reaction Time: 30 sec", font=('Arial',12), bg="azure2")
+        self.ReactionTimeLabel=tk.Label(self.defAOORWindow, text="Reaction Time: 30 sec", font=('Arial',14), bg="azure2")
         self.ReactionTimeLabel.pack()
         self.ReactionTimeLabel.place(relx=0.525, rely=0.45)
 
-        self.ResponseFactorLabel=tk.Label(self.defAOORWindow, text="Response Factor: 8", font=('Arial',12), bg="azure2")
+        self.ResponseFactorLabel=tk.Label(self.defAOORWindow, text="Response Factor: 8", font=('Arial',14), bg="azure2")
         self.ResponseFactorLabel.pack()
         self.ResponseFactorLabel.place(relx=0.525, rely=0.6)
 
-        self.RecoveryTimeLabel=tk.Label(self.defAOORWindow, text="Recovery Time: 5 min", font=('Arial',12), bg="azure2")
+        self.RecoveryTimeLabel=tk.Label(self.defAOORWindow, text="Recovery Time: 5 min", font=('Arial',14), bg="azure2")
         self.RecoveryTimeLabel.pack()
         self.RecoveryTimeLabel.place(relx=0.525, rely=0.3)
 
@@ -597,39 +595,39 @@ class MyGUI:
         self.defAAIRLabel.pack()
         self.defAAIRLabel.place(relx=0.35, rely=0.05)
 
-        self.LRLimitLabel= tk.Label(self.defAAIRWindow, text="Lower Rate Limit: 60 ppm", font=('Arial', 12), bg="azure2")
+        self.LRLimitLabel= tk.Label(self.defAAIRWindow, text="Lower Rate Limit: 60 ppm", font=('Arial', 14), bg="azure2")
         self.LRLimitLabel.pack()
         self.LRLimitLabel.place(relx=0.1, rely=0.15)
 
-        self.URLimitLabel= tk.Label(self.defAAIRWindow, text="Upper Rate Limit: 120 ppm", font=('Arial', 12), bg="azure2")
+        self.URLimitLabel= tk.Label(self.defAAIRWindow, text="Upper Rate Limit: 120 ppm", font=('Arial', 14), bg="azure2")
         self.URLimitLabel.pack()
         self.URLimitLabel.place(relx=0.1, rely=0.3)
 
-        self.AtrialAmplitudeLabel= tk.Label(self.defAAIRWindow, text="Atrial Amplitude: 5.0 V", font=('Arial', 12), bg="azure2")
+        self.AtrialAmplitudeLabel= tk.Label(self.defAAIRWindow, text="Atrial Amplitude: 5.0 V", font=('Arial', 14), bg="azure2")
         self.AtrialAmplitudeLabel.pack()
         self.AtrialAmplitudeLabel.place(relx=0.1, rely=0.45)
 
-        self.AtrialPulseWidthLabel= tk.Label(self.defAAIRWindow, text="Atrial Pulse Width: 1.0 ms", font=('Arial', 12), bg="azure2")
+        self.AtrialPulseWidthLabel= tk.Label(self.defAAIRWindow, text="Atrial Pulse Width: 1.0 ms", font=('Arial', 14), bg="azure2")
         self.AtrialPulseWidthLabel.pack()
         self.AtrialPulseWidthLabel.place(relx=0.1, rely=0.6)
 
-        self.RecoveryTimeLabel=tk.Label(self.defAAIRWindow, text="Recovery Time: 5 min", font=('Arial',12), bg="azure2")
+        self.RecoveryTimeLabel=tk.Label(self.defAAIRWindow, text="Recovery Time: 5 min", font=('Arial',14), bg="azure2")
         self.RecoveryTimeLabel.pack()
         self.RecoveryTimeLabel.place(relx=0.525, rely=0.6)
 
-        self.MaxSensorRateLabel=tk.Label(self.defAAIRWindow, text="Maximum Sensor Rate: 120 ppm", font=('Arial', 12), bg="azure2")
+        self.MaxSensorRateLabel=tk.Label(self.defAAIRWindow, text="Maximum Sensor Rate: 120 ppm", font=('Arial', 14), bg="azure2")
         self.MaxSensorRateLabel.pack()
         self.MaxSensorRateLabel.place(relx=0.525, rely=0.15)
 
-        self.ReactionTimeLabel=tk.Label(self.defAAIRWindow, text="Reaction Time: 30 sec", font=('Arial',12),bg="azure2")
+        self.ReactionTimeLabel=tk.Label(self.defAAIRWindow, text="Reaction Time: 30 sec", font=('Arial',14),bg="azure2")
         self.ReactionTimeLabel.pack()
         self.ReactionTimeLabel.place(relx=0.525, rely=0.3)
 
-        self.ResponseFactorLabel=tk.Label(self.defAAIRWindow, text="Response Factor: 8", font=('Arial',12), bg="azure2")
+        self.ResponseFactorLabel=tk.Label(self.defAAIRWindow, text="Response Factor: 8", font=('Arial',14), bg="azure2")
         self.ResponseFactorLabel.pack()
         self.ResponseFactorLabel.place(relx=0.525, rely=0.45)
 
-        self.ARPLabel=tk.Label(self.defAAIRWindow, text=' ARP: 250 ms', font=('Arial', 12), bg="azure2")
+        self.ARPLabel=tk.Label(self.defAAIRWindow, text=' ARP: 250 ms', font=('Arial', 14), bg="azure2")
         self.ARPLabel.pack()
         self.ARPLabel.place(relx=0.1 ,rely=0.75) 
 
@@ -666,39 +664,39 @@ class MyGUI:
         self.defVVIRLabel.pack()
         self.defVVIRLabel.place(relx=0.35, rely=0.05)
 
-        self.LRLimitLabel= tk.Label(self.defVVIRWindow, text="Lower Rate Limit: 60 ppm", font=('Arial', 12), bg="azure2")
+        self.LRLimitLabel= tk.Label(self.defVVIRWindow, text="Lower Rate Limit: 60 ppm", font=('Arial', 14), bg="azure2")
         self.LRLimitLabel.pack()
         self.LRLimitLabel.place(relx=0.1, rely=0.15)
 
-        self.URLimitLabel= tk.Label(self.defVVIRWindow, text="Upper Rate Limit: 120 ppm", font=('Arial', 12), bg="azure2")
+        self.URLimitLabel= tk.Label(self.defVVIRWindow, text="Upper Rate Limit: 120 ppm", font=('Arial', 14), bg="azure2")
         self.URLimitLabel.pack()
         self.URLimitLabel.place(relx=0.1, rely=0.3)
 
-        self.VentricularAmplitudeLabel= tk.Label(self.defVVIRWindow, text="Ventricular Amplitude: 5.0 V", font=('Arial', 12), bg="azure2")
+        self.VentricularAmplitudeLabel= tk.Label(self.defVVIRWindow, text="Ventricular Amplitude: 5.0 V", font=('Arial', 14), bg="azure2")
         self.VentricularAmplitudeLabel.pack()
         self.VentricularAmplitudeLabel.place(relx=0.1, rely=0.45)
 
-        self.VentricularPulseWidthLabel= tk.Label(self.defVVIRWindow, text="Ventricular Pulse Width: 1.0 ms", font=('Arial', 12), bg="azure2")
+        self.VentricularPulseWidthLabel= tk.Label(self.defVVIRWindow, text="Ventricular Pulse Width: 1.0 ms", font=('Arial', 14), bg="azure2")
         self.VentricularPulseWidthLabel.pack()
         self.VentricularPulseWidthLabel.place(relx=0.1, rely=0.6)
 
-        self.RecoveryTimeLabel=tk.Label(self.defVVIRWindow, text="Recovery Time: 5 min", font=('Arial',12), bg="azure2")
+        self.RecoveryTimeLabel=tk.Label(self.defVVIRWindow, text="Recovery Time: 5 min", font=('Arial',14), bg="azure2")
         self.RecoveryTimeLabel.pack()
         self.RecoveryTimeLabel.place(relx=0.525, rely=0.6)
 
-        self.MaxSensorRateLabel=tk.Label(self.defVVIRWindow, text="Maximum Sensor Rate: 120 ppm", font=('Arial', 12), bg="azure2")
+        self.MaxSensorRateLabel=tk.Label(self.defVVIRWindow, text="Maximum Sensor Rate: 120 ppm", font=('Arial', 14), bg="azure2")
         self.MaxSensorRateLabel.pack()
         self.MaxSensorRateLabel.place(relx=0.525, rely=0.15)
 
-        self.ReactionTimeLabel=tk.Label(self.defVVIRWindow, text="Reaction Time: 30 sec", font=('Arial',12), bg="azure2")
+        self.ReactionTimeLabel=tk.Label(self.defVVIRWindow, text="Reaction Time: 30 sec", font=('Arial',14), bg="azure2")
         self.ReactionTimeLabel.pack()
         self.ReactionTimeLabel.place(relx=0.525, rely=0.3)
 
-        self.ResponseFactorLabel=tk.Label(self.defVVIRWindow, text="Response Factor: 8", font=('Arial',12), bg="azure2")
+        self.ResponseFactorLabel=tk.Label(self.defVVIRWindow, text="Response Factor: 8", font=('Arial',14), bg="azure2")
         self.ResponseFactorLabel.pack()
         self.ResponseFactorLabel.place(relx=0.525, rely=0.45)
 
-        self.VRPLabel=tk.Label(self.defVVIRWindow, text=' ARP: 320 ms', font=('Arial', 12), bg="azure2")
+        self.VRPLabel=tk.Label(self.defVVIRWindow, text=' VRP: 320 ms', font=('Arial', 14), bg="azure2")
         self.VRPLabel.pack()
         self.VRPLabel.place(relx=0.1 ,rely=0.75)
 
