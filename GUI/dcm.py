@@ -1781,7 +1781,12 @@ class MyGUI:
     
     
     def deleteUser(self):
-        self.db.delete_user(self.currentUser.username)#Deletes user that is currently signed in from the database
+
+        shift = 3  # Use the same shift value used for encryption in the database
+        encrypted_inputName = self.db.caesar_cipher_encrypt(self.currentUser.username, shift)
+       
+
+        self.db.delete_user(encrypted_inputName)#Deletes user that is currently signed in from the database
         
         print("User successfully deleted!")  
         
