@@ -13,31 +13,32 @@ class MyGUI:
         self.startWindow=tk.Tk()
         self.startWindow.geometry("800x800")
         self.startWindow.title("3K04 Pacemaker")
+        self.startWindow.configure(bg="azure2")
 
         self.connceted = True#verifies device is connected
         self.deviceId = 2 #gives device an identification number
 
-        self.startTitle = tk.Label(self.startWindow, text="Pacemaker", font=('Arial', 24))
+        self.startTitle = tk.Label(self.startWindow, text="Pacemaker", font=('Arial', 24), bg="azure2")
         self.startTitle.place(relx=0.4, rely=0.1)
         if (self.connceted == True):
             self.newUserButton = tk.Button(self.startWindow, text="New User", command=self.createNewUser) #Functionality to create New User
             self.newUserButton.place(relx=0.6, rely=0.2, relheight=0.1, relwidth=0.2)
-            self.newUserLabel=tk.Label(self.startWindow, text="Click 'New User' to set up your\n profile and start\n configuring your pacemaker", font=("Arial",8))
+            self.newUserLabel=tk.Label(self.startWindow, text="Click 'New User' to set up your\n profile and start\n configuring your pacemaker", font=("Arial",8),bg="azure2")
             self.newUserLabel.pack()
             self.newUserLabel.place(relx=0.6, rely=0.3)
             self.signInButton = tk.Button(self.startWindow, text="Sign In", command=self.createLoginWindow) #Functionality to Sign In
             self.signInButton.place(relx=0.2, rely=0.2, relheight=0.1, relwidth=0.2)
-            self.signInLabel=tk.Label(self.startWindow, text="Click 'Sign in' if you are\n an existing user", font=("Arial",8))
+            self.signInLabel=tk.Label(self.startWindow, text="Click 'Sign in' if you are\n an existing user", font=("Arial",8),bg="azure2")
             self.signInLabel.pack()
             self.signInLabel.place(relx=0.22, rely=0.3)
 
             self.aboutButton = tk.Button (self.startWindow, text="About", command=self.aboutDevice) #Provides ‘About’ information 
             self.aboutButton.place(relx=0.4, rely=0.6, relheight=0.1, relwidth=0.2)
-            self.aboutLabel=tk.Label(self.startWindow, text="Click 'About' for more\n information about your pacemaker", font=("Arial",8))
+            self.aboutLabel=tk.Label(self.startWindow, text="Click 'About' for more\n information about your pacemaker", font=("Arial",8),bg="azure2")
             self.aboutLabel.pack()
             self.aboutLabel.place(relx=0.385,rely=0.7)
         else:
-            self.notConnectedLabel = tk.Label(self.startWindow, text="No Device In Range", font=('Arial', 24)) #Checks if device is not connected
+            self.notConnectedLabel = tk.Label(self.startWindow, text="No Device In Range", font=('Arial', 24),bg="azure2") #Checks if device is not connected
             self.notConnectedLabel.pack()
         self.startWindow.mainloop()
 
@@ -45,13 +46,14 @@ class MyGUI:
         self.newUserWindow = tk.Toplevel(self.startWindow)#Called when New User button is clicked
         self.newUserWindow.geometry("300x200")
         self.newUserWindow.title("Create New User")
+        self.newUserWindow.configure(bg="azure2")
 
-        self.userNameLabel = tk.Label(self.newUserWindow, text="Username:")#Gathers Username from the New User
+        self.userNameLabel = tk.Label(self.newUserWindow, text="Username:",bg="azure2")#Gathers Username from the New User
         self.userNameLabel.pack()
         self.userNameTextField = tk.Entry(self.newUserWindow)
         self.userNameTextField.pack()
 
-        self.userPasswordLabel = tk.Label(self.newUserWindow, text="Password:")#Gathers Password from the New User
+        self.userPasswordLabel = tk.Label(self.newUserWindow, text="Password:",bg="azure2")#Gathers Password from the New User
         self.userPasswordLabel.pack()
         self.userPasswordTextField = tk.Entry(self.newUserWindow, show="*") #Hides password characters
         self.userPasswordTextField.pack()
@@ -62,7 +64,7 @@ class MyGUI:
     def populateUserInfo(self):
         allUsersSize = self.db.getAllUsers()#Gathers number of current users from the database and checks if there are less than 10
         if len(allUsersSize)>=10: #If there are currently more than 10 users, it prohibits the new user from signing up
-            self.maxUserReachedText = tk.Label(self.newUserWindow, text="Error: Maximum number of users reached!", fg="red")
+            self.maxUserReachedText = tk.Label(self.newUserWindow, text="Error: Maximum number of users reached!", fg="red",bg="azure2")
             self.maxUserReachedText.pack()
             print("")
             return
@@ -79,19 +81,21 @@ class MyGUI:
         self.aboutWindow = tk.Toplevel(self.startWindow) #Generates when ‘About’ button is clicked
         self.aboutWindow.geometry("300x200")
         self.aboutWindow.title("About")
-        self.applicationModelNumberLabel = tk.Label(self.aboutWindow, text="Application model number: 7", font=('Arial', 12)) #Displays the device’s information
+        self.aboutWindow.configure(bg="azure2")
+        self.applicationModelNumberLabel = tk.Label(self.aboutWindow, text="Application model number: 7", font=('Arial', 12), bg="azure2") #Displays the device’s information
         self.applicationModelNumberLabel.pack(padx=0.1)
-        self.revisionNumberLabel = tk.Label(self.aboutWindow, text="Revision Number: 1.3", font=('Arial', 12))
+        self.revisionNumberLabel = tk.Label(self.aboutWindow, text="Revision Number: 1.3", font=('Arial', 12), bg="azure2")
         self.revisionNumberLabel.pack(padx=0.1)
-        self.DCMNumberLabel = tk.Label(self.aboutWindow, text="DCM serial number: 1", font=('Arial', 12))
+        self.DCMNumberLabel = tk.Label(self.aboutWindow, text="DCM serial number: 1", font=('Arial', 12), bg="azure2")
         self.DCMNumberLabel.pack(padx=0.1)
-        self.instituteNameLabel = tk.Label(self.aboutWindow, text="Institution name: McMaster U", font=('Arial', 12))
+        self.instituteNameLabel = tk.Label(self.aboutWindow, text="Institution name: McMaster U", font=('Arial', 12), bg="azure2")
         self.instituteNameLabel.pack(padx=0.1)
 
     def createLoginWindow(self):
         self.loginWindow = tk.Toplevel(self.startWindow)#Generates when ‘Sign In’ is clicked
         self.loginWindow.geometry("300x200")
         self.loginWindow.title("Login")
+        self.loginWindow.configure(bg="azure2")
 
         self.loginNameLabel = tk.Label(self.loginWindow, text="Username:")#Prompts user to sign in with their Username 
         self.loginNameLabel.pack()
@@ -129,6 +133,7 @@ class MyGUI:
 
         
         self.startWindow.title("Main Settings")
+        self.startWindow.configure(bg="azure2")
 
         self.settingLabel = tk.Label(self.startWindow, text="Welcome to Main Settings", font=('Arial', 18)) #Generates after the user has signed in
         self.settingLabel.pack()
@@ -169,7 +174,6 @@ class MyGUI:
 
 
         self.prevInfoWindow = self.startWindow
-        #self.prevInfoWindow.geometry("800x800")
         
         self.prevInfoLabel=tk.Label(self.prevInfoWindow, text="Previous Pacing Mode", font=('Arial',18)) #Accesses user’s previous pacing parameters from the database
         self.prevInfoLabel.pack()
@@ -179,9 +183,9 @@ class MyGUI:
 
         y_position = 0.1
         for attribute, value in user_data.items(): #Displays the information for the user to view and submit
-            label = tk.Label(self.prevInfoWindow, text=f"{attribute}: {value}", font=('Arial', 12))
+            label = tk.Label(self.prevInfoWindow, text=f"{attribute}: {value}", font=('Arial', 14))
             label.place(relx=0.1, rely=y_position)
-            y_position += 0.03
+            y_position += 0.048
 
     def configPaceMode(self):
         for widget in self.startWindow.winfo_children():
@@ -279,11 +283,11 @@ class MyGUI:
         self.URLimitLabel.pack()
         self.URLimitLabel.place(relx=0.1, rely=0.3)
 
-        self.VentricularAmplitudeLabel= tk.Label(self.defVOOWindow, text="Ventricular Amplitude: 4.9 V", font=('Arial', 12))
+        self.VentricularAmplitudeLabel= tk.Label(self.defVOOWindow, text="Ventricular Amplitude: 5.0 V", font=('Arial', 12))
         self.VentricularAmplitudeLabel.pack()
         self.VentricularAmplitudeLabel.place(relx=0.1, rely=0.45)
 
-        self.VentricularPulseWidthLabel= tk.Label(self.defVOOWindow, text="Ventricular Pulse Width: 0.4 ms", font=('Arial', 12))
+        self.VentricularPulseWidthLabel= tk.Label(self.defVOOWindow, text="Ventricular Pulse Width: 1.0 ms", font=('Arial', 12))
         self.VentricularPulseWidthLabel.pack()
         self.VentricularPulseWidthLabel.place(relx=0.1, rely=0.6)
  
@@ -324,11 +328,11 @@ class MyGUI:
         self.URLimitLabel.pack()
         self.URLimitLabel.place(relx=0.1, rely=0.3)
 
-        self.AtrialAmplitudeLabel= tk.Label(self.defAOOWindow, text="Atrial Amplitude: 4.9 V", font=('Arial', 12))
+        self.AtrialAmplitudeLabel= tk.Label(self.defAOOWindow, text="Atrial Amplitude: 5.0 V", font=('Arial', 12))
         self.AtrialAmplitudeLabel.pack()
         self.AtrialAmplitudeLabel.place(relx=0.1, rely=0.45)
 
-        self.AtrialPulseWidthLabel= tk.Label(self.defAOOWindow, text="Atrial Pulse Width: 0.4 ms", font=('Arial', 12))
+        self.AtrialPulseWidthLabel= tk.Label(self.defAOOWindow, text="Atrial Pulse Width: 1.0 ms", font=('Arial', 12))
         self.AtrialPulseWidthLabel.pack()
         self.AtrialPulseWidthLabel.place(relx=0.1, rely=0.6)
  
@@ -368,11 +372,11 @@ class MyGUI:
         self.URLimitLabel.pack()
         self.URLimitLabel.place(relx=0.1, rely=0.3)
 
-        self.AtrialAmplitudeLabel= tk.Label(self.defAAIWindow, text="Atrial Amplitude: 4.9 V", font=('Arial', 12))
+        self.AtrialAmplitudeLabel= tk.Label(self.defAAIWindow, text="Atrial Amplitude: 5.0 V", font=('Arial', 12))
         self.AtrialAmplitudeLabel.pack()
         self.AtrialAmplitudeLabel.place(relx=0.1, rely=0.45)
 
-        self.AtrialPulseWidthLabel= tk.Label(self.defAAIWindow, text="Atrial Pulse Width: 0.4 ms", font=('Arial', 12))
+        self.AtrialPulseWidthLabel= tk.Label(self.defAAIWindow, text="Atrial Pulse Width: 1.0 ms", font=('Arial', 12))
         self.AtrialPulseWidthLabel.pack()
         self.AtrialPulseWidthLabel.place(relx=0.1, rely=0.6)
 
@@ -380,7 +384,7 @@ class MyGUI:
         self.ARPLabel.pack()
         self.ARPLabel.place(relx=0.525, rely=0.3)
 
-        self.AAIButton = tk.Button(self.defAAIWindow, text = "submit", command=self.submitDefAAI)#Allows the user to submit the parameters to their device
+        self.AAIButton = tk.Button(self.defAAIWindow, text = "Submit", command=self.submitDefAAI)#Allows the user to submit the parameters to their device
         self.AAIButton.pack()
         self.AAIButton.place(relx=0.8, rely=0.8, relwidth=0.1, relheight=0.1)
 
@@ -417,11 +421,11 @@ class MyGUI:
         self.URLimitLabel.pack()
         self.URLimitLabel.place(relx=0.1, rely=0.3)
 
-        self.VentricularAmplitudeLabel= tk.Label(self.defVVIWindow, text="Ventricular Amplitude: 4.9 V", font=('Arial', 12))
+        self.VentricularAmplitudeLabel= tk.Label(self.defVVIWindow, text="Ventricular Amplitude: 5.0 V", font=('Arial', 12))
         self.VentricularAmplitudeLabel.pack()
         self.VentricularAmplitudeLabel.place(relx=0.1, rely=0.45)
 
-        self.VentricularPulseWidthLabel= tk.Label(self.defVVIWindow, text="Ventricular Pulse Width: 0.4 ms", font=('Arial', 12))
+        self.VentricularPulseWidthLabel= tk.Label(self.defVVIWindow, text="Ventricular Pulse Width: 1.0 ms", font=('Arial', 12))
         self.VentricularPulseWidthLabel.pack()
         self.VentricularPulseWidthLabel.place(relx=0.1, rely=0.6)
 
@@ -429,7 +433,7 @@ class MyGUI:
         self.VRPLabel.pack()
         self.VRPLabel.place(relx=0.525, rely=0.3)
 
-        self.VVIButton = tk.Button(self.defVVIWindow, text = "submit", command=self.submitDefVVI)#Allows the user to submit the parameters to their device
+        self.VVIButton = tk.Button(self.defVVIWindow, text = "Submit", command=self.submitDefVVI)#Allows the user to submit the parameters to their device
         self.VVIButton.pack()
         self.VVIButton.place(relx=0.8, rely=0.8, relwidth=0.1, relheight=0.1)
 
@@ -466,11 +470,11 @@ class MyGUI:
         self.URLimitLabel.pack()
         self.URLimitLabel.place(relx=0.1, rely=0.3)
 
-        self.VentricularAmplitudeLabel= tk.Label(self.defVOORWindow, text="Ventricular Amplitude: 4.9 V", font=('Arial', 12))
+        self.VentricularAmplitudeLabel= tk.Label(self.defVOORWindow, text="Ventricular Amplitude: 5.0 V", font=('Arial', 12))
         self.VentricularAmplitudeLabel.pack()
         self.VentricularAmplitudeLabel.place(relx=0.1, rely=0.45)
 
-        self.VentricularPulseWidthLabel= tk.Label(self.defVOORWindow, text="Ventricular Pulse Width: 0.4 ms", font=('Arial', 12))
+        self.VentricularPulseWidthLabel= tk.Label(self.defVOORWindow, text="Ventricular Pulse Width: 1.0 ms", font=('Arial', 12))
         self.VentricularPulseWidthLabel.pack()
         self.VentricularPulseWidthLabel.place(relx=0.1, rely=0.6)
 
@@ -531,11 +535,11 @@ class MyGUI:
         self.URLimitLabel.pack()
         self.URLimitLabel.place(relx=0.1, rely=0.3)
 
-        self.AtrialAmplitudeLabel= tk.Label(self.defAOORWindow, text="Atrial Amplitude: 4.9 V", font=('Arial', 12))
+        self.AtrialAmplitudeLabel= tk.Label(self.defAOORWindow, text="Atrial Amplitude: 5.0 V", font=('Arial', 12))
         self.AtrialAmplitudeLabel.pack()
         self.AtrialAmplitudeLabel.place(relx=0.1, rely=0.45)
 
-        self.AtrialPulseWidthLabel= tk.Label(self.defAOORWindow, text="Atrial Pulse Width: 0.4 ms", font=('Arial', 12))
+        self.AtrialPulseWidthLabel= tk.Label(self.defAOORWindow, text="Atrial Pulse Width: 0.1 ms", font=('Arial', 12))
         self.AtrialPulseWidthLabel.pack()
         self.AtrialPulseWidthLabel.place(relx=0.1, rely=0.6)
 
@@ -596,11 +600,11 @@ class MyGUI:
         self.URLimitLabel.pack()
         self.URLimitLabel.place(relx=0.1, rely=0.25)
 
-        self.AtrialAmplitudeLabel= tk.Label(self.defAAIRWindow, text="Atrial Amplitude: 4.9 V", font=('Arial', 12))
+        self.AtrialAmplitudeLabel= tk.Label(self.defAAIRWindow, text="Atrial Amplitude: 5.0 V", font=('Arial', 12))
         self.AtrialAmplitudeLabel.pack()
         self.AtrialAmplitudeLabel.place(relx=0.1, rely=0.35)
 
-        self.AtrialPulseWidthLabel= tk.Label(self.defAAIRWindow, text="Atrial Pulse Width: 0.4 ms", font=('Arial', 12))
+        self.AtrialPulseWidthLabel= tk.Label(self.defAAIRWindow, text="Atrial Pulse Width: 1.0 ms", font=('Arial', 12))
         self.AtrialPulseWidthLabel.pack()
         self.AtrialPulseWidthLabel.place(relx=0.1, rely=0.45)
 
@@ -665,11 +669,11 @@ class MyGUI:
         self.URLimitLabel.pack()
         self.URLimitLabel.place(relx=0.1, rely=0.25)
 
-        self.VentricularAmplitudeLabel= tk.Label(self.defVVIRWindow, text="Ventricular Amplitude: 4.9 V", font=('Arial', 12))
+        self.VentricularAmplitudeLabel= tk.Label(self.defVVIRWindow, text="Ventricular Amplitude: 5.0 V", font=('Arial', 12))
         self.VentricularAmplitudeLabel.pack()
         self.VentricularAmplitudeLabel.place(relx=0.1, rely=0.35)
 
-        self.VentricularPulseWidthLabel= tk.Label(self.defVVIRWindow, text="Ventricular Pulse Width: 0.4 ms", font=('Arial', 12))
+        self.VentricularPulseWidthLabel= tk.Label(self.defVVIRWindow, text="Ventricular Pulse Width: 1.0 ms", font=('Arial', 12))
         self.VentricularPulseWidthLabel.pack()
         self.VentricularPulseWidthLabel.place(relx=0.1, rely=0.45)
 
