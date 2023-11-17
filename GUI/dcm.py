@@ -21,18 +21,18 @@ class MyGUI:
         self.startTitle = tk.Label(self.startWindow, text="Pacemaker", font=('Arial', 24), bg="azure2")
         self.startTitle.place(relx=0.4, rely=0.1)
         if (self.connceted == True):
-            self.newUserButton = tk.Button(self.startWindow, text="New User", command=self.createNewUser) #Functionality to create New User
+            self.newUserButton = tk.Button(self.startWindow, text="New User", command=self.createNewUser, font=("Arial",12)) #Functionality to create New User
             self.newUserButton.place(relx=0.6, rely=0.2, relheight=0.1, relwidth=0.2)
             self.newUserLabel=tk.Label(self.startWindow, text="Click 'New User' to set up your\n profile and start\n configuring your pacemaker", font=("Arial",8),bg="azure2")
             self.newUserLabel.pack()
             self.newUserLabel.place(relx=0.6, rely=0.3)
-            self.signInButton = tk.Button(self.startWindow, text="Sign In", command=self.createLoginWindow) #Functionality to Sign In
+            self.signInButton = tk.Button(self.startWindow, text="Sign In", command=self.createLoginWindow, font=("Arial",12)) #Functionality to Sign In
             self.signInButton.place(relx=0.2, rely=0.2, relheight=0.1, relwidth=0.2)
             self.signInLabel=tk.Label(self.startWindow, text="Click 'Sign in' if you are\n an existing user", font=("Arial",8),bg="azure2")
             self.signInLabel.pack()
             self.signInLabel.place(relx=0.22, rely=0.3)
 
-            self.aboutButton = tk.Button (self.startWindow, text="About", command=self.aboutDevice) #Provides ‘About’ information 
+            self.aboutButton = tk.Button (self.startWindow, text="About", command=self.aboutDevice, font=("Arial",12)) #Provides ‘About’ information 
             self.aboutButton.place(relx=0.4, rely=0.6, relheight=0.1, relwidth=0.2)
             self.aboutLabel=tk.Label(self.startWindow, text="Click 'About' for more\n information about your pacemaker", font=("Arial",8),bg="azure2")
             self.aboutLabel.pack()
@@ -60,6 +60,7 @@ class MyGUI:
 
         self.enterButton = tk.Button(self.newUserWindow, text="Submit", command=self.populateUserInfo) 
         self.enterButton.pack()
+        self.enterButton.place(relx=0.42,rely=0.5)
         
     def populateUserInfo(self):
         allUsersSize = self.db.getAllUsers()#Gathers number of current users from the database and checks if there are less than 10
@@ -97,18 +98,19 @@ class MyGUI:
         self.loginWindow.title("Login")
         self.loginWindow.configure(bg="azure2")
 
-        self.loginNameLabel = tk.Label(self.loginWindow, text="Username:")#Prompts user to sign in with their Username 
+        self.loginNameLabel = tk.Label(self.loginWindow, text="Username:", bg="azure2")#Prompts user to sign in with their Username 
         self.loginNameLabel.pack()
         self.loginNameTextField = tk.Entry(self.loginWindow)
         self.loginNameTextField.pack()
 
-        self.loginPasswordLabel = tk.Label(self.loginWindow, text="Password:")#Prompts user to sign in with their password
+        self.loginPasswordLabel = tk.Label(self.loginWindow, text="Password:", bg="azure2")#Prompts user to sign in with their password
         self.loginPasswordLabel.pack()
         self.loginPasswordTextField = tk.Entry(self.loginWindow, show="*")#Hides password characters
         self.loginPasswordTextField.pack()
 
         self.loginButton = tk.Button(self.loginWindow, text="Login", command=self.verifyLogin)
         self.loginButton.pack()
+        self.loginButton.place(relx=0.42, rely=0.5)
 
         self.errorLabel = tk.Label(self.loginWindow, text="", fg="red")
         self.errorLabel.pack()
@@ -139,32 +141,32 @@ class MyGUI:
         
         self.startWindow.title("Main Settings")
 
-        self.settingLabel = tk.Label(self.startWindow, text="Welcome to Main Settings", font=('Arial', 18)) #Generates after the user has signed in
+        self.settingLabel = tk.Label(self.startWindow, text="Welcome to Main Settings", font=('Arial', 18), bg="azure2") #Generates after the user has signed in
         self.settingLabel.pack()
 
-        self.prevInfoLabel = tk.Label(self.startWindow,text="Would you like to use your previous pacing mode?", font=('Arial', 12)) #Asks user to choose between using their previous pacing mode or configuring their pacing mode
+        self.prevInfoLabel = tk.Label(self.startWindow,text="Would you like to use your previous pacing mode?", font=('Arial', 14), bg="azure2") #Asks user to choose between using their previous pacing mode or configuring their pacing mode
         self.prevInfoLabel.pack()
         self.prevInfoLabel.place(relx=0.5, rely=0.3, anchor='center')
 
-        self.prevInfoButtonYes= tk.Button(self.startWindow, text="Yes", command=self.getPrevMode) #Allows user to select their previous pacing mode
+        self.prevInfoButtonYes= tk.Button(self.startWindow, text="Yes", command=self.getPrevMode, font=("Arial",12)) #Allows user to select their previous pacing mode
         self.prevInfoButtonYes.pack()
         self.prevInfoButtonYes.place(relx=0.1, rely=0.5, relwidth=0.3, relheight=0.05)
 
-        self.warningYes= tk.Label(self.startWindow, text="By clicking 'Yes' you agree to have your\n previous pacing mode stored in our database", font=('Arial', 8))
+        self.warningYes= tk.Label(self.startWindow, text="By clicking 'Yes' you agree to have your\n previous pacing mode stored in our database", font=('Arial', 8), bg="azure2")
         self.warningYes.pack()
         self.warningYes.place(relx=0.1, rely=0.55)
 
-        self.prevInfoButtonNo= tk.Button(self.startWindow, text="No", command= self.configPaceMode) #Allows user to select to not use their previous mode
+        self.prevInfoButtonNo= tk.Button(self.startWindow, text="No", command= self.configPaceMode, font=("Arial",12)) #Allows user to select to not use their previous mode
         self.prevInfoButtonNo.pack()
         self.prevInfoButtonNo.place(relx=0.6, rely=0.5, relwidth=0.3, relheight=0.05)
 
-        self.warningNo= tk.Label(self.startWindow, text="By clicking 'No' you are choosing to\n configure your pacing mode manually", font=('Arial', 8))
+        self.warningNo= tk.Label(self.startWindow, text="By clicking 'No' you are choosing to\n configure your pacing mode manually", font=('Arial', 8), bg="azure2")
         self.warningNo.pack()
         self.warningNo.place(relx=0.625, rely=0.55)
 
-        self.deleteUserButton = tk.Button(self.startWindow, text = "Delete User", command=self.deleteUser) #Gives the user the option to delete their profile from the database
+        self.deleteUserButton = tk.Button(self.startWindow, text = "Delete User", command=self.deleteUser, font=("Arial",12)) #Gives the user the option to delete their profile from the database
         self.deleteUserButton.place(relx=0.35, rely=0.7, relwidth=0.3, relheight=0.05)
-        self.deleteUserLabel= tk.Label(self.startWindow, text="By clicking 'Delete User', you are choosing to\n permanently delete your profile and pacing\n history from our database", font=("Arial",8))
+        self.deleteUserLabel= tk.Label(self.startWindow, text="By clicking 'Delete User', you are choosing to\n permanently delete your profile and pacing\n history from our database", font=("Arial",8), bg="azure2")
         self.deleteUserLabel.pack()
         self.deleteUserLabel.place(relx=0.355,rely=0.75)
 
@@ -203,18 +205,18 @@ class MyGUI:
 
         self.defaultWindow = self.startWindow
 
-        self.pickDefault= tk.Label(self.defaultWindow, text="Would you like to configure the pacing mode or use a default pacing mode?", font=('Arial', 12), bg="azure2") #Gives the user the option to either configure the pacing mode manually or use default parameters
+        self.pickDefault= tk.Label(self.defaultWindow, text="Would you like to configure the pacing mode or use a default pacing mode?", font=('Arial', 14), bg="azure2") #Gives the user the option to either configure the pacing mode manually or use default parameters
         self.pickDefault.pack()
         self.pickDefault.place(relx=0.5, rely=0.3, anchor='center')
 
-        self.useDefaultButtonYes= tk.Button(self.defaultWindow, text="Default", command= self.useDefault) #Allows user to select to configure using default parameters
+        self.useDefaultButtonYes= tk.Button(self.defaultWindow, text="Default", command= self.useDefault, font=("Arial",12)) #Allows user to select to configure using default parameters
         self.useDefaultButtonYes.pack()
         self.useDefaultButtonYes.place(relx=0.1, rely=0.5, relwidth=0.3, relheight=0.05)
         self.useDefaultLabel=tk.Label(self.defaultWindow, text="By clicking 'Default', you will get the option\n to choose your pacing mode with it's\n corresponding default values", font=('Arial',8), bg="azure2")
         self.useDefaultLabel.pack()
         self.useDefaultLabel.place(relx=0.125,rely=0.55)
 
-        self.useConfigButtonNo= tk.Button(self.defaultWindow, text="Configure", command= self.useConfigure) #Allow user to select to configure manually
+        self.useConfigButtonNo= tk.Button(self.defaultWindow, text="Configure", command= self.useConfigure, font=("Arial",12)) #Allow user to select to configure manually
         self.useConfigButtonNo.pack()
         self.useConfigButtonNo.place(relx=0.6, rely=0.5, relwidth=0.3, relheight=0.05)
         self.useConfigLabel=tk.Label(self.defaultWindow,text="By clicking 'Configure', you will\n select your desired pacing mode\n and input your own parameters", font=('Arial',8), bg="azure2")
@@ -235,35 +237,35 @@ class MyGUI:
         self.defaultModeLabel.pack()
         self.defaultModeLabel.place(relx=0.3, rely=0.05)
 
-        self.VOOButton = tk.Button(self.defaultModeWindow, text = "Default VOO", command=self.defaultVOO)
+        self.VOOButton = tk.Button(self.defaultModeWindow, text = "Default VOO", command=self.defaultVOO,font=("Arial",12))
         self.VOOButton.pack()
         self.VOOButton.place(relx=0.15, rely=0.15, relwidth=0.3, relheight=0.05)
 
-        self.AOOButton = tk.Button(self.defaultModeWindow, text = "Default AOO", command=self.defaultAOO)
+        self.AOOButton = tk.Button(self.defaultModeWindow, text = "Default AOO", command=self.defaultAOO,font=("Arial",12))
         self.AOOButton.pack()
         self.AOOButton.place(relx=0.6, rely=0.15, relwidth=0.3, relheight=0.05)
 
-        self.AAIButton = tk.Button(self.defaultModeWindow, text = "Default AAI", command=self.defaultAAI)
+        self.AAIButton = tk.Button(self.defaultModeWindow, text = "Default AAI", command=self.defaultAAI,font=("Arial",12))
         self.AAIButton.pack()
         self.AAIButton.place(relx=0.15, rely=0.35, relwidth=0.3, relheight=0.05)
 
-        self.VVIButton = tk.Button(self.defaultModeWindow, text = "Default VVI", command=self.defaultVVI)
+        self.VVIButton = tk.Button(self.defaultModeWindow, text = "Default VVI", command=self.defaultVVI,font=("Arial",12))
         self.VVIButton.pack()
         self.VVIButton.place(relx=0.6, rely=0.35, relwidth=0.3, relheight=0.05)
 
-        self.VOORButton=tk.Button(self.defaultModeWindow, text= "Default VOOR", command=self.defaultVOOR)
+        self.VOORButton=tk.Button(self.defaultModeWindow, text= "Default VOOR", command=self.defaultVOOR,font=("Arial",12))
         self.VOORButton.pack()
         self.VOORButton.place(relx=0.15, rely=0.55, relwidth=0.3, relheight=0.05)
         
-        self.AOORButton=tk.Button(self.defaultModeWindow, text= "Default AOOR", command=self.defaultAOOR)
+        self.AOORButton=tk.Button(self.defaultModeWindow, text= "Default AOOR", command=self.defaultAOOR,font=("Arial",12))
         self.AOORButton.pack()
         self.AOORButton.place(relx=0.6, rely=0.55, relwidth=0.3, relheight=0.05)
 
-        self.AAIRButton=tk.Button(self.defaultModeWindow, text= "Default AAIR", command=self.defaultAAIR)
+        self.AAIRButton=tk.Button(self.defaultModeWindow, text= "Default AAIR", command=self.defaultAAIR,font=("Arial",12))
         self.AAIRButton.pack()
         self.AAIRButton.place(relx=0.15, rely=0.75, relwidth=0.3, relheight=0.05)
         
-        self.VVIRButton=tk.Button(self.defaultModeWindow, text= "Default VVIR", command=self.defaultVVIR)
+        self.VVIRButton=tk.Button(self.defaultModeWindow, text= "Default VVIR", command=self.defaultVVIR,font=("Arial",12))
         self.VVIRButton.pack()
         self.VVIRButton.place(relx=0.6, rely=0.75, relwidth=0.3, relheight=0.05)
     
@@ -737,35 +739,35 @@ class MyGUI:
         self.configModeLabel.pack()
         self.configModeLabel.place(relx=0.3, rely=0.05)
 
-        self.VOOButton = tk.Button(self.configModeWindow, text = "Configure VOO", command=self.VOOConfig)
+        self.VOOButton = tk.Button(self.configModeWindow, text = "Configure VOO", command=self.VOOConfig,font=("Arial",12))
         self.VOOButton.pack()
         self.VOOButton.place(relx=0.15, rely=0.15, relwidth=0.3, relheight=0.05)
 
-        self.AOOButton = tk.Button(self.configModeWindow, text = "Configure AOO", command=self.AOOConfig)
+        self.AOOButton = tk.Button(self.configModeWindow, text = "Configure AOO", command=self.AOOConfig,font=("Arial",12))
         self.AOOButton.pack()
         self.AOOButton.place(relx=0.6, rely=0.15, relwidth=0.3, relheight=0.05)
 
-        self.AAIButton = tk.Button(self.configModeWindow, text = "Configure AAI", command=self.AAIConfig)
+        self.AAIButton = tk.Button(self.configModeWindow, text = "Configure AAI", command=self.AAIConfig,font=("Arial",12))
         self.AAIButton.pack()
         self.AAIButton.place(relx=0.15, rely=0.35, relwidth=0.3, relheight=0.05)
 
-        self.VVIButton = tk.Button(self.configModeWindow, text = "Configure VVI", command=self.VVIConfig)
+        self.VVIButton = tk.Button(self.configModeWindow, text = "Configure VVI", command=self.VVIConfig,font=("Arial",12))
         self.VVIButton.pack()
         self.VVIButton.place(relx=0.6, rely=0.35, relwidth=0.3, relheight=0.05)
         
-        self.VOORButton=tk.Button(self.configModeWindow, text= "Configure VOOR", command=self.VOORConfig)
+        self.VOORButton=tk.Button(self.configModeWindow, text= "Configure VOOR", command=self.VOORConfig,font=("Arial",12))
         self.VOORButton.pack()
         self.VOORButton.place(relx=0.15, rely=0.55, relwidth=0.3, relheight=0.05)
         
-        self.AOORButton=tk.Button(self.configModeWindow, text= "Configure AOOR", command=self.AOORConfig)
+        self.AOORButton=tk.Button(self.configModeWindow, text= "Configure AOOR", command=self.AOORConfig,font=("Arial",12))
         self.AOORButton.pack()
         self.AOORButton.place(relx=0.6, rely=0.55, relwidth=0.3, relheight=0.05)
 
-        self.AAIRButton=tk.Button(self.configModeWindow, text= "Configure AAIR", command=self.AAIRConfig)
+        self.AAIRButton=tk.Button(self.configModeWindow, text= "Configure AAIR", command=self.AAIRConfig,font=("Arial",12))
         self.AAIRButton.pack()
         self.AAIRButton.place(relx=0.15, rely=0.75, relwidth=0.3, relheight=0.05)
         
-        self.VVIRButton=tk.Button(self.configModeWindow, text= "Configure VVIR", command=self.VVIRConfig)
+        self.VVIRButton=tk.Button(self.configModeWindow, text= "Configure VVIR", command=self.VVIRConfig,font=("Arial",12))
         self.VVIRButton.pack()
         self.VVIRButton.place(relx=0.6, rely=0.75, relwidth=0.3, relheight=0.05)
         
@@ -1166,97 +1168,97 @@ class MyGUI:
 
         self.VOORConfigWindow = self.startWindow
 
-        self.VOORConfigLabel=tk.Label(self.VOORConfigWindow, text="Configure Your VOOR Parameters", font=("Arial",18)) #Gathers the necessary parameters to configure VOO from the user
+        self.VOORConfigLabel=tk.Label(self.VOORConfigWindow, text="Configure Your VOOR Parameters", font=("Arial",18), bg="azure2") #Gathers the necessary parameters to configure VOO from the user
         self.VOORConfigLabel.pack()
         self.VOORConfigLabel.place(relx=0.3,rely=0.05)
 
-        self.LRLimitLabel= tk.Label(self.VOORConfigWindow, text="Lower Rate Limit: ", font=("Arial", 12))
+        self.LRLimitLabel= tk.Label(self.VOORConfigWindow, text="Lower Rate Limit: ", font=("Arial", 14), bg="azure2")
         self.LRLimitLabel.pack()
         self.LRLimitLabel.place(relx=0.045,rely=0.15)
         self.LRLimitTextField = tk.Entry(self.VOORConfigWindow)
         self.LRLimitTextField.pack()
-        self.LRLimitTextField.place(relx=0.25, rely=0.15)
+        self.LRLimitTextField.place(relx=0.325, rely=0.15)
         
-        self.LRLimitWarningLabel= tk.Label(self.VOORConfigWindow, text="Valid inputs are: values between 30-50 ppm incremented by 5 ppm\n values between 50-90 ppm incremented by 1 ppm\n values between 90-175 ppm incremented by 5 ppm",font=('Arial', 9), fg="blue" )
+        self.LRLimitWarningLabel= tk.Label(self.VOORConfigWindow, text="Valid inputs are: values between 30-50 ppm\n incremented by 5 ppm, values between\n 50-90 ppm incremented by 1 ppm, values\n between 90-175 ppm incremented by 5 ppm",font=('Arial', 12), fg="blue", bg="azure2" )
         self.LRLimitWarningLabel.pack()
         self.LRLimitWarningLabel.place(relx=0.045, rely=0.2)
         
-        self.URLimitLabel= tk.Label(self.VOORConfigWindow, text="Upper Rate Limit: ", font=("Arial",12))
+        self.URLimitLabel= tk.Label(self.VOORConfigWindow, text="Upper Rate Limit: ", font=("Arial",14), bg="azure2")
         self.URLimitLabel.pack()
-        self.URLimitLabel.place(relx=0.045,rely=0.3)
+        self.URLimitLabel.place(relx=0.045,rely=0.35)
         self.URLimitTextField = tk.Entry(self.VOORConfigWindow)
         self.URLimitTextField.pack()
-        self.URLimitTextField.place(relx=0.25, rely=0.3)
+        self.URLimitTextField.place(relx=0.325, rely=0.35)
         
-        self.URLimitWarningLabel= tk.Label(self.VOORConfigWindow, text="Valid inputs are: values between 50-175 ppm incremented by 5 ppm",font=('Arial', 10), fg="blue" )
+        self.URLimitWarningLabel= tk.Label(self.VOORConfigWindow, text="Valid inputs are: values between\n 50-175 ppm incremented by 5 ppm",font=('Arial', 12), fg="blue", bg="azure2" )
         self.URLimitWarningLabel.pack()
-        self.URLimitWarningLabel.place(relx=0.045, rely=0.35)
+        self.URLimitWarningLabel.place(relx=0.045, rely=0.4)
 
-        self.VentricularAmplitudeLabel= tk.Label(self.VOORConfigWindow, text="Ventricular Amplitude: ", font=("Arial",12))
+        self.VentricularAmplitudeLabel= tk.Label(self.VOORConfigWindow, text="Ventricular Amplitude: ", font=("Arial",14), bg="azure2")
         self.VentricularAmplitudeLabel.pack()
-        self.VentricularAmplitudeLabel.place(relx=0.045,rely=0.4)
+        self.VentricularAmplitudeLabel.place(relx=0.045,rely=0.5)
         self.VentricularAmplitudeTextField = tk.Entry(self.VOORConfigWindow)
         self.VentricularAmplitudeTextField.pack()
-        self.VentricularAmplitudeTextField.place(relx=0.25, rely=0.4)
+        self.VentricularAmplitudeTextField.place(relx=0.325, rely=0.5)
 
-        self.VentricularAmplitudeWarningLabel= tk.Label(self.VOORConfigWindow, text="Valid inputs are: 0 or between 0.1-5.0 V with 0.1 V increment",font=('Arial', 10), fg="blue" )
+        self.VentricularAmplitudeWarningLabel= tk.Label(self.VOORConfigWindow, text="Valid inputs are: 0 or between\n 0.1-5.0 V with 0.1 V increment",font=('Arial', 12), fg="blue", bg="azure2" )
         self.VentricularAmplitudeWarningLabel.pack()
-        self.VentricularAmplitudeWarningLabel.place(relx=0.045, rely=0.45)
+        self.VentricularAmplitudeWarningLabel.place(relx=0.045, rely=0.55)
 
-        self.VentricularPulseWidthLabel= tk.Label(self.VOORConfigWindow, text="Ventricular Pulse Width: ", font=("Arial",12))
+        self.VentricularPulseWidthLabel= tk.Label(self.VOORConfigWindow, text="Ventricular Pulse Width: ", font=("Arial",14), bg="azure2")
         self.VentricularPulseWidthLabel.pack()
-        self.VentricularPulseWidthLabel.place(relx=0.045,rely=0.525)
+        self.VentricularPulseWidthLabel.place(relx=0.045,rely=0.65)
         self.VentricularPulseWidthTextField = tk.Entry(self.VOORConfigWindow)
         self.VentricularPulseWidthTextField.pack()
-        self.VentricularPulseWidthTextField.place(relx=0.275, rely=0.525)
+        self.VentricularPulseWidthTextField.place(relx=0.325, rely=0.65)
 
-        self.VentricularPulseWidthWarningLabel= tk.Label(self.VOORConfigWindow, text="Valid inputs are: values between 1-30 ms with 1 ms increment",font=('Arial', 10), fg="blue" )
+        self.VentricularPulseWidthWarningLabel= tk.Label(self.VOORConfigWindow, text="Valid inputs are: values between\n 1-30 ms with 1 ms increment",font=('Arial', 12), fg="blue", bg="azure2" )
         self.VentricularPulseWidthWarningLabel.pack()
-        self.VentricularPulseWidthWarningLabel.place(relx=0.045, rely=0.575)
+        self.VentricularPulseWidthWarningLabel.place(relx=0.045, rely=0.7)
 
-        self.MaximumSensorRateLabel=tk.Label(self.VOORConfigWindow, text="Maximum Sensor Rate: ", font=("Arial",12))
+        self.MaximumSensorRateLabel=tk.Label(self.VOORConfigWindow, text="Maximum Sensor Rate: ", font=("Arial",14), bg="azure2")
         self.MaximumSensorRateLabel.pack()
         self.MaximumSensorRateLabel.place(relx=0.55, rely=0.15)
         self.MaximumSensorRateTextField=tk.Entry(self.VOORConfigWindow)
         self.MaximumSensorRateTextField.pack()
-        self.MaximumSensorRateTextField.place(relx=0.8, rely=0.15)
+        self.MaximumSensorRateTextField.place(relx=0.825, rely=0.15)
 
-        self.MaximumSensorRateWarningLabel=tk.Label(self.VOORConfigWindow, text="Valid inputs are: values between 50-175 ppm\n with 5 ppm increment", font=("Arial",10), fg="blue")
+        self.MaximumSensorRateWarningLabel=tk.Label(self.VOORConfigWindow, text="Valid inputs are: values between\n 50-175 ppm with 5 ppm increment", font=("Arial",12), fg="blue", bg="azure2")
         self.MaximumSensorRateWarningLabel.pack()
         self.MaximumSensorRateWarningLabel.place(relx=0.55, rely=0.2)
 
-        self.ReactionTimeLabel=tk.Label(self.VOORConfigWindow, text="Reaction Time: ", font=("Arial",12))
+        self.ReactionTimeLabel=tk.Label(self.VOORConfigWindow, text="Reaction Time: ", font=("Arial",14), bg="azure2")
         self.ReactionTimeLabel.pack()
-        self.ReactionTimeLabel.place(relx=0.55, rely=0.3)
+        self.ReactionTimeLabel.place(relx=0.55, rely=0.35)
         self.ReactionTimeTextField=tk.Entry(self.VOORConfigWindow)
         self.ReactionTimeTextField.pack()
-        self.ReactionTimeTextField.place(relx=0.8,rely=0.3)
+        self.ReactionTimeTextField.place(relx=0.825,rely=0.35)
 
-        self.ReactionTimeWarningLabel=tk.Label(self.VOORConfigWindow,text="Valid input are: values between 10-50 sec\n with a 10 sec increment", font=("Arial",10), fg="blue")
+        self.ReactionTimeWarningLabel=tk.Label(self.VOORConfigWindow,text="Valid input are: values between 10-50 sec\n with a 10 sec increment", font=("Arial",12), fg="blue", bg="azure2")
         self.ReactionTimeWarningLabel.pack()
-        self.ReactionTimeWarningLabel.place(relx=0.55,rely=0.35)
+        self.ReactionTimeWarningLabel.place(relx=0.55,rely=0.4)
 
-        self.ResponseFactorLabel=tk.Label(self.VOORConfigWindow, text="Response Factor: ", font=("Arial",12))
+        self.ResponseFactorLabel=tk.Label(self.VOORConfigWindow, text="Response Factor: ", font=("Arial",14), bg="azure2")
         self.ResponseFactorLabel.pack()
-        self.ResponseFactorLabel.place(relx=0.55,rely=0.45)
+        self.ResponseFactorLabel.place(relx=0.55,rely=0.5)
         self.ResponseFactorTextField=tk.Entry(self.VOORConfigWindow)
         self.ResponseFactorTextField.pack()
-        self.ResponseFactorTextField.place(relx=0.8, rely=0.45)
+        self.ResponseFactorTextField.place(relx=0.825, rely=0.5)
 
-        self.ResponseFactorWarningLabel=tk.Label(self.VOORConfigWindow, text="Valid inputs are: values between 1-16 with an increment of 1", font=("Arial",10), fg="blue")
+        self.ResponseFactorWarningLabel=tk.Label(self.VOORConfigWindow, text="Valid inputs are: values between\n 1-16 with an increment of 1", font=("Arial",12), fg="blue", bg="azure2")
         self.ResponseFactorWarningLabel.pack()
-        self.ResponseFactorWarningLabel.place(relx=0.55,rely=0.5)
+        self.ResponseFactorWarningLabel.place(relx=0.55,rely=0.55)
 
-        self.RecoveryTimeLabel=tk.Label(self.VOORConfigWindow, text="Recovery Time: ", font=("Arial",12))
+        self.RecoveryTimeLabel=tk.Label(self.VOORConfigWindow, text="Recovery Time: ", font=("Arial",14), bg="azure2")
         self.RecoveryTimeLabel.pack()
-        self.RecoveryTimeLabel.place(relx=0.55, rely=0.6)
+        self.RecoveryTimeLabel.place(relx=0.55, rely=0.65)
         self.RecoveryTimeTextField=tk.Entry(self.VOORConfigWindow)
         self.RecoveryTimeTextField.pack()
-        self.RecoveryTimeTextField.place(relx=0.8,rely=0.6)
+        self.RecoveryTimeTextField.place(relx=0.825,rely=0.65)
 
-        self.RecoveryTimeWarningLabel=tk.Label(self.VOORConfigWindow, text="Valid inputs are: values between 2-16 min\n with a 1 min increment", font=("Arial",10), fg="blue")
+        self.RecoveryTimeWarningLabel=tk.Label(self.VOORConfigWindow, text="Valid inputs are: values between\n 2-16 min with a 1 min increment", font=("Arial",12), fg="blue", bg="azure2")
         self.RecoveryTimeWarningLabel.pack()
-        self.RecoveryTimeWarningLabel.place(relx=0.55,rely=0.65)
+        self.RecoveryTimeWarningLabel.place(relx=0.55,rely=0.7)
 
         self.VOORButton = tk.Button(self.VOORConfigWindow, text = "Submit", command=self.submitVOOR) #Submit parameters to the device
         self.VOORButton.pack()
@@ -1317,97 +1319,97 @@ class MyGUI:
 
         self.AOORConfigWindow = self.startWindow
 
-        self.AOORConfigLabel=tk.Label(self.AOORConfigWindow, text="Configure Your AOOR Parameters", font=("Arial",18))#Gathers the necessary parameters to configure AOO from the user
+        self.AOORConfigLabel=tk.Label(self.AOORConfigWindow, text="Configure Your AOOR Parameters", font=("Arial",18), bg="azure2")#Gathers the necessary parameters to configure AOO from the user
         self.AOORConfigLabel.pack()
         self.AOORConfigLabel.place(relx=0.3,rely=0.05)
 
-        self.LRLimitLabel= tk.Label(self.AOORConfigWindow, text="Lower Rate Limit: ", font=("Arial",12))
+        self.LRLimitLabel= tk.Label(self.AOORConfigWindow, text="Lower Rate Limit: ", font=("Arial",14), bg="azure2")
         self.LRLimitLabel.pack()
         self.LRLimitLabel.place(relx=0.045,rely=0.15)
         self.LRLimitTextField = tk.Entry(self.AOORConfigWindow)
         self.LRLimitTextField.pack()
-        self.LRLimitTextField.place(relx=0.25, rely=0.15)
+        self.LRLimitTextField.place(relx=0.325, rely=0.15)
         
-        self.LRLimitWarningLabel= tk.Label(self.AOORConfigWindow, text="Valid inputs are: values between 30-50 ppm incremented by 5 ppm\n values between 50-90 ppm incremented by 1 ppm\n values between 90-175 ppm incremented by 5 ppm",font=('Arial', 9), fg="blue" )
+        self.LRLimitWarningLabel= tk.Label(self.AOORConfigWindow, text="Valid inputs are: values between 30-50 ppm\n incremented by 5 ppm, values between\n 50-90 ppm incremented by 1 ppm, values\n between 90-175 ppm incremented by 5 ppm",font=('Arial', 12), fg="blue", bg="azure2" )
         self.LRLimitWarningLabel.pack()
         self.LRLimitWarningLabel.place(relx=0.045, rely=0.2)
 
-        self.URLimitLabel= tk.Label(self.AOORConfigWindow, text="Upper Rate Limit: ", font=("Arial",12))
+        self.URLimitLabel= tk.Label(self.AOORConfigWindow, text="Upper Rate Limit: ", font=("Arial",14), bg="azure2")
         self.URLimitLabel.pack()
-        self.URLimitLabel.place(relx=0.045,rely=0.3)
+        self.URLimitLabel.place(relx=0.045,rely=0.35)
         self.URLimitTextField = tk.Entry(self.AOORConfigWindow)
         self.URLimitTextField.pack()
-        self.URLimitTextField.place(relx=0.25, rely=0.3)
+        self.URLimitTextField.place(relx=0.325, rely=0.35)
         
-        self.URLimitWarningLabel= tk.Label(self.AOORConfigWindow, text="Valid inputs are: values between 50-175 ppm incremented by 5 ppm",font=('Arial', 10), fg="blue" )
+        self.URLimitWarningLabel= tk.Label(self.AOORConfigWindow, text="Valid inputs are: values between\n 50-175 ppm incremented by 5 ppm",font=('Arial', 12), fg="blue", bg="azure2" )
         self.URLimitWarningLabel.pack()
-        self.URLimitWarningLabel.place(relx=0.045, rely=0.35)
+        self.URLimitWarningLabel.place(relx=0.045, rely=0.4)
 
-        self.AtrialAmplitudeLabel= tk.Label(self.AOORConfigWindow, text="Atrial Amplitude: ",font=("Arial",12))
+        self.AtrialAmplitudeLabel= tk.Label(self.AOORConfigWindow, text="Atrial Amplitude: ",font=("Arial",14), bg="azure2")
         self.AtrialAmplitudeLabel.pack()
-        self.AtrialAmplitudeLabel.place(relx=0.045,rely=0.4)
+        self.AtrialAmplitudeLabel.place(relx=0.045,rely=0.5)
         self.AtrialAmplitudeTextField = tk.Entry(self.AOORConfigWindow)
         self.AtrialAmplitudeTextField.pack()
-        self.AtrialAmplitudeTextField.place(relx=0.25, rely=0.4)
+        self.AtrialAmplitudeTextField.place(relx=0.325, rely=0.5)
 
-        self.AtrialAmplitudeWarningLabel= tk.Label(self.AOORConfigWindow, text="Valid inputs are: 0 or between 0.1-5.0 V with 0.1 V increment",font=('Arial', 10), fg="blue" )
+        self.AtrialAmplitudeWarningLabel= tk.Label(self.AOORConfigWindow, text="Valid inputs are: 0 or between\n 0.1-5.0 V with 0.1 V increment",font=('Arial', 12), fg="blue", bg="azure2" )
         self.AtrialAmplitudeWarningLabel.pack()
-        self.AtrialAmplitudeWarningLabel.place(relx=0.045, rely=0.45)
+        self.AtrialAmplitudeWarningLabel.place(relx=0.045, rely=0.55)
 
-        self.AtrialPulseWidthLabel= tk.Label(self.AOORConfigWindow, text="Atrial Pulse Width: ", font=("Arial",12))
+        self.AtrialPulseWidthLabel= tk.Label(self.AOORConfigWindow, text="Atrial Pulse Width: ", font=("Arial",14), bg="azure2")
         self.AtrialPulseWidthLabel.pack()
-        self.AtrialPulseWidthLabel.place(relx=0.045,rely=0.525)
+        self.AtrialPulseWidthLabel.place(relx=0.045,rely=0.65)
         self.AtrialPulseWidthTextField = tk.Entry(self.AOORConfigWindow)
         self.AtrialPulseWidthTextField.pack()
-        self.AtrialPulseWidthTextField.place(relx=0.25, rely=0.525)
+        self.AtrialPulseWidthTextField.place(relx=0.325, rely=0.65)
 
-        self.AtrialPulseWidthWarningLabel= tk.Label(self.AOORConfigWindow, text="Valid inputs are: values between 1-30 ms with 1 ms increment",font=('Arial', 10), fg="blue" )
+        self.AtrialPulseWidthWarningLabel= tk.Label(self.AOORConfigWindow, text="Valid inputs are: values between\n 1-30 ms with 1 ms increment",font=('Arial', 12), fg="blue", bg="azure2" )
         self.AtrialPulseWidthWarningLabel.pack()
-        self.AtrialPulseWidthWarningLabel.place(relx=0.045, rely=0.575)
+        self.AtrialPulseWidthWarningLabel.place(relx=0.045, rely=0.7)
 
-        self.MaximumSensorRateLabel=tk.Label(self.AOORConfigWindow, text="Maximum Sensor Rate: ", font=("Arial",12))
+        self.MaximumSensorRateLabel=tk.Label(self.AOORConfigWindow, text="Maximum Sensor Rate: ", font=("Arial",14), bg="azure2")
         self.MaximumSensorRateLabel.pack()
         self.MaximumSensorRateLabel.place(relx=0.55, rely=0.15)
         self.MaximumSensorRateTextField=tk.Entry(self.AOORConfigWindow)
         self.MaximumSensorRateTextField.pack()
-        self.MaximumSensorRateTextField.place(relx=0.8, rely=0.15)
+        self.MaximumSensorRateTextField.place(relx=0.825, rely=0.15)
 
-        self.MaximumSensorRateWarningLabel=tk.Label(self.AOORConfigWindow, text="Valid inputs are: values between 50-175 ppm\n with 5 ppm increment", font=("Arial",10), fg="blue")
+        self.MaximumSensorRateWarningLabel=tk.Label(self.AOORConfigWindow, text="Valid inputs are: values between\n 50-175 ppm with 5 ppm increment", font=("Arial",12), fg="blue", bg="azure2")
         self.MaximumSensorRateWarningLabel.pack()
         self.MaximumSensorRateWarningLabel.place(relx=0.55, rely=0.2)
 
-        self.ReactionTimeLabel=tk.Label(self.AOORConfigWindow, text="Reaction Time: ", font=("Arial",12))
+        self.ReactionTimeLabel=tk.Label(self.AOORConfigWindow, text="Reaction Time: ", font=("Arial",14), bg="azure2")
         self.ReactionTimeLabel.pack()
-        self.ReactionTimeLabel.place(relx=0.55, rely=0.3)
+        self.ReactionTimeLabel.place(relx=0.55, rely=0.35)
         self.ReactionTimeTextField=tk.Entry(self.AOORConfigWindow)
         self.ReactionTimeTextField.pack()
-        self.ReactionTimeTextField.place(relx=0.8,rely=0.3)
+        self.ReactionTimeTextField.place(relx=0.825,rely=0.35)
 
-        self.ReactionTimeWarningLabel=tk.Label(self.AOORConfigWindow,text="Valid input are: values between 10-50 sec\n with a 10 sec increment", font=("Arial",10), fg="blue")
+        self.ReactionTimeWarningLabel=tk.Label(self.AOORConfigWindow,text="Valid input are: values between 10-50 sec\n with a 10 sec increment", font=("Arial",12), fg="blue", bg="azure2")
         self.ReactionTimeWarningLabel.pack()
-        self.ReactionTimeWarningLabel.place(relx=0.55,rely=0.35)
+        self.ReactionTimeWarningLabel.place(relx=0.55,rely=0.4)
 
-        self.ResponseFactorLabel=tk.Label(self.AOORConfigWindow, text="Response Factor: ", font=("Arial",12))
+        self.ResponseFactorLabel=tk.Label(self.AOORConfigWindow, text="Response Factor: ", font=("Arial",14), bg="azure2")
         self.ResponseFactorLabel.pack()
-        self.ResponseFactorLabel.place(relx=0.55,rely=0.45)
+        self.ResponseFactorLabel.place(relx=0.55,rely=0.5)
         self.ResponseFactorTextField=tk.Entry(self.AOORConfigWindow)
         self.ResponseFactorTextField.pack()
-        self.ResponseFactorTextField.place(relx=0.8, rely=0.45)
+        self.ResponseFactorTextField.place(relx=0.825, rely=0.5)
 
-        self.ResponseFactorWarningLabel=tk.Label(self.AOORConfigWindow, text="Valid inputs are: values between 1-16 with an increment of 1", font=("Arial",10), fg="blue")
+        self.ResponseFactorWarningLabel=tk.Label(self.AOORConfigWindow, text="Valid inputs are: values between 1-16\n with an increment of 1", font=("Arial",12), fg="blue", bg="azure2")
         self.ResponseFactorWarningLabel.pack()
-        self.ResponseFactorWarningLabel.place(relx=0.55,rely=0.5)
+        self.ResponseFactorWarningLabel.place(relx=0.55,rely=0.55)
 
-        self.RecoveryTimeLabel=tk.Label(self.AOORConfigWindow, text="Recovery Time: ", font=("Arial",12))
+        self.RecoveryTimeLabel=tk.Label(self.AOORConfigWindow, text="Recovery Time: ", font=("Arial",14), bg="azure2")
         self.RecoveryTimeLabel.pack()
-        self.RecoveryTimeLabel.place(relx=0.55, rely=0.6)
+        self.RecoveryTimeLabel.place(relx=0.55, rely=0.65)
         self.RecoveryTimeTextField=tk.Entry(self.AOORConfigWindow)
         self.RecoveryTimeTextField.pack()
-        self.RecoveryTimeTextField.place(relx=0.8,rely=0.6)
+        self.RecoveryTimeTextField.place(relx=0.825,rely=0.65)
 
-        self.RecoveryTimeWarningLabel=tk.Label(self.AOORConfigWindow, text="Valid inputs are: values between 2-16 min\n with a 1 min increment", font=("Arial",10), fg="blue")
+        self.RecoveryTimeWarningLabel=tk.Label(self.AOORConfigWindow, text="Valid inputs are: values between\n 2-16 min with a 1 min increment", font=("Arial",12), fg="blue", bg="azure2")
         self.RecoveryTimeWarningLabel.pack()
-        self.RecoveryTimeWarningLabel.place(relx=0.55,rely=0.65)
+        self.RecoveryTimeWarningLabel.place(relx=0.55,rely=0.7)
 
         self.AOORButton = tk.Button(self.AOORConfigWindow, text = "Submit", command=self.submitAOOR) #Submits parameters to the device
         self.AOORButton.pack()
@@ -1468,108 +1470,108 @@ class MyGUI:
 
         self.AAIRConfigWindow = self.startWindow
 
-        self.AAIRConfigLabel=tk.Label(self.AAIRConfigWindow, text="Configure Your AAIR Parameters", font=("Arial",18))#Gathers the necessary parameters to configure AAI from the user
+        self.AAIRConfigLabel=tk.Label(self.AAIRConfigWindow, text="Configure Your AAIR Parameters", font=("Arial", 18), bg="azure2")#Gathers the necessary parameters to configure AAI from the user
         self.AAIRConfigLabel.pack()
         self.AAIRConfigLabel.place(relx=0.3,rely=0.05)
 
-        self.LRLimitLabel= tk.Label(self.AAIRConfigWindow, text="Lower Rate Limit: ", font=("Arial",12))
+        self.LRLimitLabel= tk.Label(self.AAIRConfigWindow, text="Lower Rate Limit: ", font=("Arial",14), bg="azure2")
         self.LRLimitLabel.pack()
         self.LRLimitLabel.place(relx=0.045,rely=0.15)
         self.LRLimitTextField = tk.Entry(self.AAIRConfigWindow)
         self.LRLimitTextField.pack()
-        self.LRLimitTextField.place(relx=0.25, rely=0.15)
+        self.LRLimitTextField.place(relx=0.325, rely=0.15)
         
-        self.LRLimitWarningLabel= tk.Label(self.AAIRConfigWindow, text="Valid inputs are: values between 30-50 ppm incremented by 5 ppm\n values between 50-90 ppm incremented by 1 ppm\n values between 90-175 ppm incremented by 5 ppm",font=('Arial', 9), fg="blue" )
+        self.LRLimitWarningLabel= tk.Label(self.AAIRConfigWindow, text="Valid inputs are: values between 30-50 ppm\n incremented by 5 ppm, values between\n 50-90 ppm incremented by 1 ppm, values\n between 90-175 ppm incremented by 5 ppm",font=('Arial', 12), fg="blue", bg="azure2" )
         self.LRLimitWarningLabel.pack()
         self.LRLimitWarningLabel.place(relx=0.045, rely=0.2)
 
-        self.URLimitLabel= tk.Label(self.AAIRConfigWindow, text="Upper Rate Limit: ", font=("Arial",12))
+        self.URLimitLabel= tk.Label(self.AAIRConfigWindow, text="Upper Rate Limit: ", font=("Arial",14), bg="azure2")
         self.URLimitLabel.pack()
-        self.URLimitLabel.place(relx=0.045,rely=0.3)
+        self.URLimitLabel.place(relx=0.045,rely=0.35)
         self.URLimitTextField = tk.Entry(self.AAIRConfigWindow)
         self.URLimitTextField.pack()
-        self.URLimitTextField.place(relx=0.25, rely=0.3)
+        self.URLimitTextField.place(relx=0.325, rely=0.35)
         
-        self.URLimitWarningLabel= tk.Label(self.AAIRConfigWindow, text="Valid inputs are: values between 50-175 ppm\n incremented by 5 ppm",font=('Arial', 10), fg="blue" )
+        self.URLimitWarningLabel= tk.Label(self.AAIRConfigWindow, text="Valid inputs are: values between\n 50-175 ppm incremented by 5 ppm",font=('Arial', 12), fg="blue", bg="azure2" )
         self.URLimitWarningLabel.pack()
-        self.URLimitWarningLabel.place(relx=0.045, rely=0.335)
+        self.URLimitWarningLabel.place(relx=0.045, rely=0.4)
 
-        self.AtrialAmplitudeLabel= tk.Label(self.AAIRConfigWindow, text="Atrial Amplitude: ",font=("Arial",12))
+        self.AtrialAmplitudeLabel= tk.Label(self.AAIRConfigWindow, text="Atrial Amplitude: ",font=("Arial",14), bg="azure2")
         self.AtrialAmplitudeLabel.pack()
-        self.AtrialAmplitudeLabel.place(relx=0.045,rely=0.4)
+        self.AtrialAmplitudeLabel.place(relx=0.045,rely=0.5)
         self.AtrialAmplitudeTextField = tk.Entry(self.AAIRConfigWindow)
         self.AtrialAmplitudeTextField.pack()
-        self.AtrialAmplitudeTextField.place(relx=0.25, rely=0.4)
+        self.AtrialAmplitudeTextField.place(relx=0.325, rely=0.5)
 
-        self.AtrialAmplitudeWarningLabel= tk.Label(self.AAIRConfigWindow, text="Valid inputs are: 0 or between 0.1-5.0 V with 0.1 V increment",font=('Arial', 10), fg="blue" )
+        self.AtrialAmplitudeWarningLabel= tk.Label(self.AAIRConfigWindow, text="Valid inputs are: 0 or between\n 0.1-5.0 V with 0.1 V increment",font=('Arial', 12), fg="blue", bg="azure2" )
         self.AtrialAmplitudeWarningLabel.pack()
-        self.AtrialAmplitudeWarningLabel.place(relx=0.045, rely=0.45)
+        self.AtrialAmplitudeWarningLabel.place(relx=0.045, rely=0.55)
 
-        self.AtrialPulseWidthLabel= tk.Label(self.AAIRConfigWindow, text="Atrial Pulse Width: ", font=("Arial",12))
+        self.AtrialPulseWidthLabel= tk.Label(self.AAIRConfigWindow, text="Atrial Pulse Width: ", font=("Arial",14), bg="azure2")
         self.AtrialPulseWidthLabel.pack()
-        self.AtrialPulseWidthLabel.place(relx=0.045,rely=0.525)
+        self.AtrialPulseWidthLabel.place(relx=0.045,rely=0.65)
         self.AtrialPulseWidthTextField = tk.Entry(self.AAIRConfigWindow)
         self.AtrialPulseWidthTextField.pack()
-        self.AtrialPulseWidthTextField.place(relx=0.25, rely=0.525)
+        self.AtrialPulseWidthTextField.place(relx=0.325, rely=0.65)
 
-        self.AtrialPulseWidthWarningLabel= tk.Label(self.AAIRConfigWindow, text="Valid inputs are: values between 1-30 ms with 1 ms increment",font=('Arial', 10), fg="blue" )
+        self.AtrialPulseWidthWarningLabel= tk.Label(self.AAIRConfigWindow, text="Valid inputs are: values between\n 1-30 ms with 1 ms increment",font=('Arial', 12), fg="blue", bg="azure2" )
         self.AtrialPulseWidthWarningLabel.pack()
-        self.AtrialPulseWidthWarningLabel.place(relx=0.045, rely=0.575)
+        self.AtrialPulseWidthWarningLabel.place(relx=0.045, rely=0.7)
 
-        self.ARPLabel= tk.Label(self.AAIRConfigWindow, text="ARP: ", font=("Arial", 12))
+        self.ARPLabel= tk.Label(self.AAIRConfigWindow, text="ARP: ", font=("Arial", 14), bg="azure2")
         self.ARPLabel.pack()
-        self.ARPLabel.place(relx=0.045,rely=0.65)
+        self.ARPLabel.place(relx=0.325,rely=0.8)
         self.ARPTextField = tk.Entry(self.AAIRConfigWindow)
         self.ARPTextField.pack()
-        self.ARPTextField.place(relx=0.275, rely=0.65)
+        self.ARPTextField.place(relx=0.425, rely=0.8)
 
-        self.ARPWarningLabel= tk.Label(self.AAIRConfigWindow, text="Valid inputs are: values between 150-500 ms\n with 10 ms increment",font=('Arial', 10), fg="blue" )
+        self.ARPWarningLabel= tk.Label(self.AAIRConfigWindow, text="Valid inputs are: values between\n 150-500 ms with 10 ms increment",font=('Arial', 12), fg="blue", bg="azure2" )
         self.ARPWarningLabel.pack()
-        self.ARPWarningLabel.place(relx=0.045, rely=0.7)
+        self.ARPWarningLabel.place(relx=0.325, rely=0.85)
 
-        self.MaximumSensorRateLabel=tk.Label(self.AAIRConfigWindow, text="Maximum Sensor Rate: ", font=("Arial",12))
+        self.MaximumSensorRateLabel=tk.Label(self.AAIRConfigWindow, text="Maximum Sensor Rate: ", font=("Arial",14), bg="azure2")
         self.MaximumSensorRateLabel.pack()
         self.MaximumSensorRateLabel.place(relx=0.55, rely=0.15)
         self.MaximumSensorRateTextField=tk.Entry(self.AAIRConfigWindow)
         self.MaximumSensorRateTextField.pack()
-        self.MaximumSensorRateTextField.place(relx=0.8, rely=0.15)
+        self.MaximumSensorRateTextField.place(relx=0.825, rely=0.15)
 
-        self.MaximumSensorRateWarningLabel=tk.Label(self.AAIRConfigWindow, text="Valid inputs are: values between 50-175 ppm\n with 5 ppm increment", font=("Arial",10), fg="blue")
+        self.MaximumSensorRateWarningLabel=tk.Label(self.AAIRConfigWindow, text="Valid inputs are: values between\n 50-175 ppm with 5 ppm increment", font=("Arial",12), fg="blue", bg="azure2")
         self.MaximumSensorRateWarningLabel.pack()
         self.MaximumSensorRateWarningLabel.place(relx=0.55, rely=0.2)
 
-        self.ReactionTimeLabel=tk.Label(self.AAIRConfigWindow, text="Reaction Time: ", font=("Arial",12))
+        self.ReactionTimeLabel=tk.Label(self.AAIRConfigWindow, text="Reaction Time: ", font=("Arial",14), bg="azure2")
         self.ReactionTimeLabel.pack()
-        self.ReactionTimeLabel.place(relx=0.55, rely=0.3)
+        self.ReactionTimeLabel.place(relx=0.55, rely=0.35)
         self.ReactionTimeTextField=tk.Entry(self.AAIRConfigWindow)
         self.ReactionTimeTextField.pack()
-        self.ReactionTimeTextField.place(relx=0.8,rely=0.3)
+        self.ReactionTimeTextField.place(relx=0.825,rely=0.35)
 
-        self.ReactionTimeWarningLabel=tk.Label(self.AAIRConfigWindow,text="Valid input are: values between 10-50 sec\n with a 10 sec increment", font=("Arial",10), fg="blue")
+        self.ReactionTimeWarningLabel=tk.Label(self.AAIRConfigWindow,text="Valid input are: values between\n 10-50 sec with a 10 sec increment", font=("Arial",12), fg="blue",bg="azure2")
         self.ReactionTimeWarningLabel.pack()
-        self.ReactionTimeWarningLabel.place(relx=0.55,rely=0.35)
+        self.ReactionTimeWarningLabel.place(relx=0.55,rely=0.4)
 
-        self.ResponseFactorLabel=tk.Label(self.AAIRConfigWindow, text="Response Factor: ", font=("Arial",12))
+        self.ResponseFactorLabel=tk.Label(self.AAIRConfigWindow, text="Response Factor: ", font=("Arial",14), bg="azure2")
         self.ResponseFactorLabel.pack()
-        self.ResponseFactorLabel.place(relx=0.55,rely=0.45)
+        self.ResponseFactorLabel.place(relx=0.55,rely=0.5)
         self.ResponseFactorTextField=tk.Entry(self.AAIRConfigWindow)
         self.ResponseFactorTextField.pack()
-        self.ResponseFactorTextField.place(relx=0.8, rely=0.45)
+        self.ResponseFactorTextField.place(relx=0.825, rely=0.5)
 
-        self.ResponseFactorWarningLabel=tk.Label(self.AAIRConfigWindow, text="Valid inputs are: values between 1-16 with an increment of 1", font=("Arial",10), fg="blue")
+        self.ResponseFactorWarningLabel=tk.Label(self.AAIRConfigWindow, text="Valid inputs are: values between\n 1-16 with an increment of 1", font=("Arial",12), fg="blue", bg="azure2")
         self.ResponseFactorWarningLabel.pack()
-        self.ResponseFactorWarningLabel.place(relx=0.55,rely=0.5)
+        self.ResponseFactorWarningLabel.place(relx=0.55,rely=0.55)
 
-        self.RecoveryTimeLabel=tk.Label(self.AAIRConfigWindow, text="Recovery Time: ", font=("Arial",12))
+        self.RecoveryTimeLabel=tk.Label(self.AAIRConfigWindow, text="Recovery Time: ", font=("Arial",14), bg="azure2")
         self.RecoveryTimeLabel.pack()
-        self.RecoveryTimeLabel.place(relx=0.55, rely=0.6)
+        self.RecoveryTimeLabel.place(relx=0.55, rely=0.65)
         self.RecoveryTimeTextField=tk.Entry(self.AAIRConfigWindow)
         self.RecoveryTimeTextField.pack()
-        self.RecoveryTimeTextField.place(relx=0.8,rely=0.6)
+        self.RecoveryTimeTextField.place(relx=0.825,rely=0.65)
 
-        self.RecoveryTimeWarningLabel=tk.Label(self.AAIRConfigWindow, text="Valid inputs are: values between 2-16 min\n with a 1 min increment", font=("Arial",10), fg="blue")
+        self.RecoveryTimeWarningLabel=tk.Label(self.AAIRConfigWindow, text="Valid inputs are: values between\n 2-16 min with a 1 min increment", font=("Arial",12), fg="blue", bg="azure2")
         self.RecoveryTimeWarningLabel.pack()
-        self.RecoveryTimeWarningLabel.place(relx=0.55,rely=0.65)
+        self.RecoveryTimeWarningLabel.place(relx=0.55,rely=0.7)
 
 
         self.AAIRButton = tk.Button(self.AAIRConfigWindow, text = "Submit", command=self.submitAAIR) #Submits parameters to the device
@@ -1628,108 +1630,108 @@ class MyGUI:
 
         self.VVIRConfigWindow = self.startWindow
 
-        self.VVIRConfigLabel=tk.Label(self.VVIRConfigWindow, text="Configure Your VVIR Parameters", font=("Arial",18))#Gathers the necessary parameters to configure VVI from the user
+        self.VVIRConfigLabel=tk.Label(self.VVIRConfigWindow, text="Configure Your VVIR Parameters", font=("Arial",18), bg="azure2")#Gathers the necessary parameters to configure VVI from the user
         self.VVIRConfigLabel.pack()
         self.VVIRConfigLabel.place(relx=0.3,rely=0.05)
 
-        self.LRLimitLabel= tk.Label(self.VVIRConfigWindow, text="Lower Rate Limit: ", font=("Arial",12))
+        self.LRLimitLabel= tk.Label(self.VVIRConfigWindow, text="Lower Rate Limit: ", font=("Arial",14), bg="azure2")
         self.LRLimitLabel.pack()
         self.LRLimitLabel.place(relx=0.045,rely=0.15)
         self.LRLimitTextField = tk.Entry(self.VVIRConfigWindow)
         self.LRLimitTextField.pack()
-        self.LRLimitTextField.place(relx=0.25, rely=0.15)
+        self.LRLimitTextField.place(relx=0.325, rely=0.15)
         
-        self.LRLimitWarningLabel= tk.Label(self.VVIRConfigWindow, text="Valid inputs are: values between 30-50 ppm incremented by 5 ppm\n values between 50-90 ppm incremented by 1 ppm\n values between 90-175 ppm incremented by 5 ppm",font=('Arial', 9), fg="blue" )
+        self.LRLimitWarningLabel= tk.Label(self.VVIRConfigWindow, text="Valid inputs are: values between 30-50 ppm\n incremented by 5 ppm, values between\n 50-90 ppm incremented by 1 ppm, values\n between 90-175 ppm incremented by 5 ppm",font=('Arial', 12), fg="blue", bg="azure2" )
         self.LRLimitWarningLabel.pack()
         self.LRLimitWarningLabel.place(relx=0.045, rely=0.2)
 
-        self.URLimitLabel= tk.Label(self.VVIRConfigWindow, text="Upper Rate Limit: ", font=("Arial",12))
+        self.URLimitLabel= tk.Label(self.VVIRConfigWindow, text="Upper Rate Limit: ", font=("Arial",14), bg="azure2")
         self.URLimitLabel.pack()
-        self.URLimitLabel.place(relx=0.045,rely=0.3)
+        self.URLimitLabel.place(relx=0.045,rely=0.35)
         self.URLimitTextField = tk.Entry(self.VVIRConfigWindow)
         self.URLimitTextField.pack()
-        self.URLimitTextField.place(relx=0.25, rely=0.3)
+        self.URLimitTextField.place(relx=0.325, rely=0.35)
         
-        self.URLimitWarningLabel= tk.Label(self.VVIRConfigWindow, text="Valid inputs are: values between 50-175 ppm\n incremented by 5 ppm",font=('Arial', 10), fg="blue" )
+        self.URLimitWarningLabel= tk.Label(self.VVIRConfigWindow, text="Valid inputs are: values between\n 50-175 ppm incremented by 5 ppm",font=('Arial', 12), fg="blue", bg="azure2" )
         self.URLimitWarningLabel.pack()
-        self.URLimitWarningLabel.place(relx=0.045, rely=0.335)
+        self.URLimitWarningLabel.place(relx=0.045, rely=0.4)
 
-        self.VentricularAmplitudeLabel= tk.Label(self.VVIRConfigWindow, text="Ventricular Amplitude: ",font=("Arial",12))
+        self.VentricularAmplitudeLabel= tk.Label(self.VVIRConfigWindow, text="Ventricular Amplitude: ",font=("Arial",14), bg="azure2")
         self.VentricularAmplitudeLabel.pack()
-        self.VentricularAmplitudeLabel.place(relx=0.045,rely=0.4)
+        self.VentricularAmplitudeLabel.place(relx=0.045,rely=0.5)
         self.VentricularAmplitudeTextField = tk.Entry(self.VVIRConfigWindow)
         self.VentricularAmplitudeTextField.pack()
-        self.VentricularAmplitudeTextField.place(relx=0.25, rely=0.4)
+        self.VentricularAmplitudeTextField.place(relx=0.325, rely=0.5)
 
-        self.VentricularAmplitudeWarningLabel= tk.Label(self.VVIRConfigWindow, text="Valid inputs are: 0 or between 0.1-5.0 V with 0.1 V increment",font=('Arial', 10), fg="blue" )
+        self.VentricularAmplitudeWarningLabel= tk.Label(self.VVIRConfigWindow, text="Valid inputs are: 0 or between\n 0.1-5.0 V with 0.1 V increment",font=('Arial', 12), fg="blue", bg="azure2" )
         self.VentricularAmplitudeWarningLabel.pack()
-        self.VentricularAmplitudeWarningLabel.place(relx=0.045, rely=0.45)
+        self.VentricularAmplitudeWarningLabel.place(relx=0.045, rely=0.55)
 
-        self.VentricularPulseWidthLabel= tk.Label(self.VVIRConfigWindow, text="Ventricular Pulse Width: ", font=("Arial",12))
+        self.VentricularPulseWidthLabel= tk.Label(self.VVIRConfigWindow, text="Ventricular Pulse Width: ", font=("Arial",14), bg="azure2")
         self.VentricularPulseWidthLabel.pack()
-        self.VentricularPulseWidthLabel.place(relx=0.045,rely=0.525)
+        self.VentricularPulseWidthLabel.place(relx=0.045,rely=0.65)
         self.VentricularPulseWidthTextField = tk.Entry(self.VVIRConfigWindow)
         self.VentricularPulseWidthTextField.pack()
-        self.VentricularPulseWidthTextField.place(relx=0.275, rely=0.525)
+        self.VentricularPulseWidthTextField.place(relx=0.325, rely=0.65)
 
-        self.VentricularPulseWidthWarningLabel= tk.Label(self.VVIRConfigWindow, text="Valid inputs are: values between 1-30 ms with 1 ms increment",font=('Arial', 10), fg="blue" )
+        self.VentricularPulseWidthWarningLabel= tk.Label(self.VVIRConfigWindow, text="Valid inputs are: values between\n 1-30 ms with 1 ms increment",font=('Arial', 12), fg="blue", bg="azure2" )
         self.VentricularPulseWidthWarningLabel.pack()
-        self.VentricularPulseWidthWarningLabel.place(relx=0.045, rely=0.575)
+        self.VentricularPulseWidthWarningLabel.place(relx=0.045, rely=0.7)
 
-        self.VRPLabel= tk.Label(self.VVIRConfigWindow, text="VRP: ", font=("Arial",12))
+        self.VRPLabel= tk.Label(self.VVIRConfigWindow, text="VRP: ", font=("Arial",14), bg="azure2")
         self.VRPLabel.pack()
-        self.VRPLabel.place(relx=0.045,rely=0.65)
+        self.VRPLabel.place(relx=0.325,rely=0.8)
         self.VRPTextField = tk.Entry(self.VVIRConfigWindow)
         self.VRPTextField.pack()
-        self.VRPTextField.place(relx=0.275, rely=0.65)
+        self.VRPTextField.place(relx=0.425, rely=0.8)
 
-        self.VRPWarningLabel= tk.Label(self.VVIRConfigWindow, text="Valid inputs are: values between 150-500 ms with 10 ms increment",font=('Arial', 10), fg="blue" )
+        self.VRPWarningLabel= tk.Label(self.VVIRConfigWindow, text="Valid inputs are: values between\n 150-500 ms with 10 ms increment",font=('Arial', 12), fg="blue", bg="azure2" )
         self.VRPWarningLabel.pack()
-        self.VRPWarningLabel.place(relx=0.045, rely=0.7)
+        self.VRPWarningLabel.place(relx=0.325, rely=0.85)
 
-        self.MaximumSensorRateLabel=tk.Label(self.VVIRConfigWindow, text="Maximum Sensor Rate: ", font=("Arial",12))
+        self.MaximumSensorRateLabel=tk.Label(self.VVIRConfigWindow, text="Maximum Sensor Rate: ", font=("Arial",14), bg="azure2")
         self.MaximumSensorRateLabel.pack()
         self.MaximumSensorRateLabel.place(relx=0.55, rely=0.15)
         self.MaximumSensorRateTextField=tk.Entry(self.VVIRConfigWindow)
         self.MaximumSensorRateTextField.pack()
-        self.MaximumSensorRateTextField.place(relx=0.8, rely=0.15)
+        self.MaximumSensorRateTextField.place(relx=0.825, rely=0.15)
 
-        self.MaximumSensorRateWarningLabel=tk.Label(self.VVIRConfigWindow, text="Valid inputs are: values between 50-175 ppm\n with 5 ppm increment", font=("Arial",10), fg="blue")
+        self.MaximumSensorRateWarningLabel=tk.Label(self.VVIRConfigWindow, text="Valid inputs are: values between\n 50-175 ppm with 5 ppm increment", font=("Arial",12), fg="blue", bg="azure2")
         self.MaximumSensorRateWarningLabel.pack()
         self.MaximumSensorRateWarningLabel.place(relx=0.55, rely=0.2)
 
-        self.ReactionTimeLabel=tk.Label(self.VVIRConfigWindow, text="Reaction Time: ", font=("Arial",12))
+        self.ReactionTimeLabel=tk.Label(self.VVIRConfigWindow, text="Reaction Time: ", font=("Arial",14), bg="azure2")
         self.ReactionTimeLabel.pack()
-        self.ReactionTimeLabel.place(relx=0.55, rely=0.3)
+        self.ReactionTimeLabel.place(relx=0.55, rely=0.35)
         self.ReactionTimeTextField=tk.Entry(self.VVIRConfigWindow)
         self.ReactionTimeTextField.pack()
-        self.ReactionTimeTextField.place(relx=0.8,rely=0.3)
+        self.ReactionTimeTextField.place(relx=0.825,rely=0.35)
 
-        self.ReactionTimeWarningLabel=tk.Label(self.VVIRConfigWindow,text="Valid input are: values between 10-50 sec\n with a 10 sec increment", font=("Arial",10), fg="blue")
+        self.ReactionTimeWarningLabel=tk.Label(self.VVIRConfigWindow,text="Valid input are: values between\n 10-50 sec with a 10 sec increment", font=("Arial",12), fg="blue", bg="azure2")
         self.ReactionTimeWarningLabel.pack()
-        self.ReactionTimeWarningLabel.place(relx=0.55,rely=0.35)
+        self.ReactionTimeWarningLabel.place(relx=0.55,rely=0.4)
 
-        self.ResponseFactorLabel=tk.Label(self.VVIRConfigWindow, text="Response Factor: ", font=("Arial",12))
+        self.ResponseFactorLabel=tk.Label(self.VVIRConfigWindow, text="Response Factor: ", font=("Arial",14), bg="azure2")
         self.ResponseFactorLabel.pack()
-        self.ResponseFactorLabel.place(relx=0.55,rely=0.45)
+        self.ResponseFactorLabel.place(relx=0.55,rely=0.5)
         self.ResponseFactorTextField=tk.Entry(self.VVIRConfigWindow)
         self.ResponseFactorTextField.pack()
-        self.ResponseFactorTextField.place(relx=0.8, rely=0.45)
+        self.ResponseFactorTextField.place(relx=0.825, rely=0.5)
 
-        self.ResponseFactorWarningLabel=tk.Label(self.VVIRConfigWindow, text="Valid inputs are: values between 1-16 with an increment of 1", font=("Arial",10), fg="blue")
+        self.ResponseFactorWarningLabel=tk.Label(self.VVIRConfigWindow, text="Valid inputs are: values between\n 1-16 with an increment of 1", font=("Arial",12), fg="blue", bg="azure2")
         self.ResponseFactorWarningLabel.pack()
-        self.ResponseFactorWarningLabel.place(relx=0.55,rely=0.5)
+        self.ResponseFactorWarningLabel.place(relx=0.55,rely=0.55)
 
-        self.RecoveryTimeLabel=tk.Label(self.VVIRConfigWindow, text="Recovery Time: ", font=("Arial",12))
+        self.RecoveryTimeLabel=tk.Label(self.VVIRConfigWindow, text="Recovery Time: ", font=("Arial",14), bg="azure2")
         self.RecoveryTimeLabel.pack()
-        self.RecoveryTimeLabel.place(relx=0.55, rely=0.6)
+        self.RecoveryTimeLabel.place(relx=0.55, rely=0.65)
         self.RecoveryTimeTextField=tk.Entry(self.VVIRConfigWindow)
         self.RecoveryTimeTextField.pack()
-        self.RecoveryTimeTextField.place(relx=0.8,rely=0.6)
+        self.RecoveryTimeTextField.place(relx=0.825,rely=0.65)
 
-        self.RecoveryTimeWarningLabel=tk.Label(self.VVIRConfigWindow, text="Valid inputs are: values between 2-16 min\n with a 1 min increment", font=("Arial",10), fg="blue")
+        self.RecoveryTimeWarningLabel=tk.Label(self.VVIRConfigWindow, text="Valid inputs are: values between\n 2-16 min with a 1 min increment", font=("Arial",12), fg="blue", bg="azure2")
         self.RecoveryTimeWarningLabel.pack()
-        self.RecoveryTimeWarningLabel.place(relx=0.55,rely=0.65)
+        self.RecoveryTimeWarningLabel.place(relx=0.55,rely=0.7)
 
         self.VVIRButton = tk.Button(self.VVIRConfigWindow, text = "Submit", command=self.submitVVIR) #Submits parameters to the device
         self.VVIRButton.pack()
