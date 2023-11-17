@@ -3,8 +3,8 @@
 class userClass:
 #Gets called upon the creation of a new object/user. 
 # The user is created with a username, password, and device ID, all other protected parameters are set to 0 until changed
-    def __init__(self, username, password,DeviceId = None,lowerRateLimit = None,upperRateLimit = None, ventricularAmplitude = None, ventricularPulseWidth = None, ventricularSensitivity = None, 
-                 VRP = None, Hysteresis = None, rateSmoothing = None, atrialAmplitude = None, atrialPulseWidth = None, atrialSensitivity = None, ARP = None, PVARP = None, maximumSensorRate = None, activityThreshold = None, reactionTime = None, responseFactor = None, recoveryTime = None): #initializes user attributes to NULL
+    def __init__(self, username, password,DeviceId = None,lowerRateLimit = None,upperRateLimit = None, ventricularAmplitude = None, ventricularPulseWidth = None, 
+                 VRP = None, atrialAmplitude = None, atrialPulseWidth = None, ARP = None, maximumSensorRate = None, reactionTime = None, responseFactor = None, recoveryTime = None): #initializes user attributes to NULL
         self.username = username 
         self._password = password
         self.DeviceId = DeviceId
@@ -12,17 +12,11 @@ class userClass:
         self._upperRateLimit = upperRateLimit
         self._atrialAmplitude = atrialAmplitude
         self._atrialPulseWidth = atrialPulseWidth
-        self._atrialSensitivity = atrialSensitivity
         self._ARP = ARP
-        self._PVARP = PVARP
-        self._Hysteresis = Hysteresis
-        self._rateSmoothing = rateSmoothing
         self._ventricularAmplitude = ventricularAmplitude
         self._ventricularPulseWidth = ventricularPulseWidth
-        self._ventricularSensitivity = ventricularSensitivity
         self._VRP = VRP
         self._maximumSensorRate = maximumSensorRate
-        self._activityThreshold = activityThreshold
         self._reactionTime = reactionTime
         self._responseFactor = responseFactor
         self._recoveryTime = recoveryTime
@@ -76,44 +70,12 @@ class userClass:
         self._atrialPulseWidth = value
 
     @property
-    def atrialSensitivity(self): #gets atrial sensitivity from database
-        return self._atrialSensitivity
-
-    @atrialSensitivity.setter
-    def atrialSensitivity(self, value): #sets atrial sensitivity to database
-        self._atrialSensitivity = value
-
-    @property
     def ARP(self): #gets ARP from database
         return self._ARP
 
     @ARP.setter
     def ARP(self, value): #sets ARP to database
         self._ARP = value
-
-    @property
-    def PVARP(self): #gets PVARP from database
-        return self._PVARP
-
-    @PVARP.setter
-    def PVARP(self, value): #sets PVARP to database
-        self._PVARP = value
-
-    @property
-    def Hysteresis(self): #gets Hysteresis from database
-        return self._Hysteresis
-
-    @Hysteresis.setter
-    def Hysteresis(self, value): #sets Hysteresis to database
-        self._Hysteresis = value
-
-    @property
-    def rateSmoothing(self): #gets Rate Smoothing from database
-        return self._rateSmoothing
-
-    @rateSmoothing.setter
-    def rateSmoothing(self, value): #sets Rate Smoothing to database
-        self._rateSmoothing = value
 
     @property
     def ventricularAmplitude(self): #gets Ventricular amplitude from database
@@ -132,14 +94,6 @@ class userClass:
         self._ventricularPulseWidth = value
 
     @property
-    def ventricularSensitivity(self): #gets ventricular sensitivity from database
-        return self._ventricularSensitivity
-
-    @ventricularSensitivity.setter
-    def ventricularSensitivity(self, value): #sets ventricular sensitivity to database
-        self._ventricularSensitivity = value
-
-    @property
     def VRP(self): #gets VRP from database
         return self._VRP
 
@@ -154,14 +108,6 @@ class userClass:
     @maximumSensorRate.setter
     def maximumSensorRate(self, value): #sets max sensor rate to database
         self._maximumSensorRate = value
-
-    @property
-    def activityThreshold(self): #gets activity threshold from database
-        return self._activityThreshold
-
-    @activityThreshold.setter
-    def activityThreshold(self, value): #sets activity threshold to database
-        self._activityThreshold = value
 
     @property
     def reactionTime(self): #gets reaction time from database
@@ -195,15 +141,9 @@ class userClass:
         self._atrialPulseWidth = atrialPulseWidth
         self._ventricularAmplitude = 0
         self._ventricularPulseWidth = 0
-        self._ventricularSensitivity = 0
-        self._atrialSensitivity = 0
         self._ARP = 0
         self._VRP = 0
-        self._PVARP = 0
-        self._Hysteresis = 0
-        self._rateSmoothing = 0
         self._maximumSensorRate = 0
-        self._activityThreshold = 0
         self._reactionTime = 0
         self._responseFactor = 0
         self._recoveryTime = 0
@@ -215,140 +155,98 @@ class userClass:
         self._ventricularPulseWidth = ventricularPulseWidth
         self._atrialAmplitude = 0
         self._atrialPulseWidth = 0
-        self._ventricularSensitivity = 0
-        self._atrialSensitivity = 0
         self._ARP = 0
         self._VRP = 0
-        self._PVARP = 0
-        self._Hysteresis = 0
-        self._rateSmoothing = 0
         self._maximumSensorRate = 0
-        self._activityThreshold = 0
         self._reactionTime = 0
         self._responseFactor = 0
         self._recoveryTime = 0
 
-    def AAI(self,lowerRateLimit, upperRateLimit, atrialAmplitude, atrialPulseWidth, atrialSensitivity, ARP, PVARP, Hysteresis, rateSmoothing ): #initializes all AAI parameters to zero
+    def AAI(self,lowerRateLimit, upperRateLimit, atrialAmplitude, atrialPulseWidth, ARP): #initializes all AAI parameters to zero
         self._lowerRateLimit = lowerRateLimit
         self._upperRateLimit = upperRateLimit
         self._atrialAmplitude = atrialAmplitude
         self._atrialPulseWidth = atrialPulseWidth
-        self._atrialSensitivity = atrialSensitivity
         self._ARP = ARP
-        self._PVARP = PVARP
-        self._Hysteresis = Hysteresis
-        self._rateSmoothing = rateSmoothing
         self._ventricularAmplitude = 0
         self._ventricularPulseWidth = 0
-        self._ventricularSensitivity = 0
         self._VRP = 0
         self._maximumSensorRate = 0
-        self._activityThreshold = 0
         self._reactionTime = 0
         self._responseFactor = 0
         self._recoveryTime = 0
 
 
     
-    def VVI(self,lowerRateLimit, upperRateLimit, ventricularAmplitude, ventricularPulseWidth, ventricularSensitivity, VRP, Hysteresis, rateSmoothing): #initializes all VVI parameters to zero
+    def VVI(self,lowerRateLimit, upperRateLimit, ventricularAmplitude, ventricularPulseWidth, VRP): #initializes all VVI parameters to zero
         self._lowerRateLimit = lowerRateLimit
         self._upperRateLimit = upperRateLimit
         self._ventricularAmplitude = ventricularAmplitude
         self._ventricularPulseWidth = ventricularPulseWidth
-        self._ventricularSensitivity = ventricularSensitivity
         self._VRP = VRP
-        self._Hysteresis = Hysteresis
-        self._rateSmoothing = rateSmoothing
-        self._atrialSensitivity = 0
         self._ARP = 0
         self._atrialAmplitude = 0
         self._atrialPulseWidth = 0
-        self._PVARP = 0
         self._maximumSensorRate = 0
-        self._activityThreshold = 0
         self._reactionTime = 0
         self._responseFactor = 0
         self._recoveryTime = 0
     
-    def AOOR(self,lowerRateLimit, upperRateLimit, atrialAmplitude, atrialPulseWidth, maximumSensorRate, activityThreshold, reactionTime, responseFactor, recoveryTime): #initializes all AOO parameters to zero
+    def AOOR(self,lowerRateLimit, upperRateLimit, atrialAmplitude, atrialPulseWidth, maximumSensorRate, reactionTime, responseFactor, recoveryTime): #initializes all AOO parameters to zero
         self._lowerRateLimit = lowerRateLimit
         self._upperRateLimit = upperRateLimit
         self._atrialAmplitude = atrialAmplitude
         self._atrialPulseWidth = atrialPulseWidth
         self._maximumSensorRate = maximumSensorRate
-        self._activityThreshold = activityThreshold
         self._reactionTime = reactionTime
         self._responseFactor = responseFactor
         self._recoveryTime = recoveryTime
         self._ventricularAmplitude = 0
         self._ventricularPulseWidth = 0
-        self._ventricularSensitivity = 0
-        self._atrialSensitivity = 0
         self._ARP = 0
         self._VRP = 0
-        self._PVARP = 0
-        self._Hysteresis = 0
-        self._rateSmoothing = 0
     
-    def VOOR(self,lowerRateLimit, upperRateLimit, ventricularAmplitude, ventricularPulseWidth, maximumSensorRate, activityThreshold, reactionTime, responseFactor, recoveryTime): #initializes all VOO parameters to zero
+    def VOOR(self,lowerRateLimit, upperRateLimit, ventricularAmplitude, ventricularPulseWidth, maximumSensorRate, reactionTime, responseFactor, recoveryTime): #initializes all VOO parameters to zero
         self._lowerRateLimit = lowerRateLimit
         self._upperRateLimit = upperRateLimit
         self._ventricularAmplitude = ventricularAmplitude
         self._ventricularPulseWidth = ventricularPulseWidth
         self._maximumSensorRate = maximumSensorRate
-        self._activityThreshold = activityThreshold
         self._reactionTime = reactionTime
         self._responseFactor = responseFactor
         self._recoveryTime = recoveryTime
         self._atrialAmplitude = 0
         self._atrialPulseWidth = 0
-        self._ventricularSensitivity = 0
-        self._atrialSensitivity = 0
         self._ARP = 0
         self._VRP = 0
-        self._PVARP = 0
-        self._Hysteresis = 0
-        self._rateSmoothing = 0
 
-    def AAIR(self,lowerRateLimit, upperRateLimit, atrialAmplitude, atrialPulseWidth, atrialSensitivity, ARP, PVARP, Hysteresis, rateSmoothing, maximumSensorRate, activityThreshold, reactionTime, responseFactor, recoveryTime): #initializes all AAI parameters to zero
+    def AAIR(self,lowerRateLimit, upperRateLimit, atrialAmplitude, atrialPulseWidth,  ARP, maximumSensorRate, reactionTime, responseFactor, recoveryTime): #initializes all AAI parameters to zero
         self._lowerRateLimit = lowerRateLimit
         self._upperRateLimit = upperRateLimit
         self._atrialAmplitude = atrialAmplitude
         self._atrialPulseWidth = atrialPulseWidth
-        self._atrialSensitivity = atrialSensitivity
         self._ARP = ARP
-        self._PVARP = PVARP
-        self._Hysteresis = Hysteresis
-        self._rateSmoothing = rateSmoothing
         self._maximumSensorRate = maximumSensorRate
-        self._activityThreshold = activityThreshold
         self._reactionTime = reactionTime
         self._responseFactor = responseFactor
         self._recoveryTime = recoveryTime
         self._ventricularAmplitude = 0
         self._ventricularPulseWidth = 0
-        self._ventricularSensitivity = 0
         self._VRP = 0
 
-    def VVIR(self,lowerRateLimit, upperRateLimit, ventricularAmplitude, ventricularPulseWidth, ventricularSensitivity, VRP, Hysteresis, rateSmoothing, maximumSensorRate, activityThreshold, reactionTime, responseFactor, recoveryTime): #initializes all VVI parameters to zero
+    def VVIR(self,lowerRateLimit, upperRateLimit, ventricularAmplitude, ventricularPulseWidth, VRP, maximumSensorRate, reactionTime, responseFactor, recoveryTime): #initializes all VVI parameters to zero
         self._lowerRateLimit = lowerRateLimit
         self._upperRateLimit = upperRateLimit
         self._ventricularAmplitude = ventricularAmplitude
         self._ventricularPulseWidth = ventricularPulseWidth
-        self._ventricularSensitivity = ventricularSensitivity
         self._VRP = VRP
-        self._Hysteresis = Hysteresis
-        self._rateSmoothing = rateSmoothing
         self._maximumSensorRate = maximumSensorRate
-        self._activityThreshold = activityThreshold
         self._reactionTime = reactionTime
         self._responseFactor = responseFactor
         self._recoveryTime = recoveryTime
-        self._atrialSensitivity = 0
         self._ARP = 0
         self._atrialAmplitude = 0
         self._atrialPulseWidth = 0
-        self._PVARP = 0
 
 
     def delete(self): #destructor
@@ -358,17 +256,11 @@ class userClass:
         del self._upperRateLimit 
         del self._atrialAmplitude 
         del self._atrialPulseWidth 
-        del self._atrialSensitivity 
-        del self._ARP 
-        del self._PVARP 
-        del self._Hysteresis 
-        del self._rateSmoothing 
+        del self._ARP  
         del self._ventricularAmplitude 
-        del self._ventricularPulseWidth
-        del self._ventricularSensitivity 
+        del self._ventricularPulseWidth 
         del self._VRP 
         del self._maximumSensorRate
-        del self._activityThreshold
         del self._reactionTime
         del self._responseFactor
         del self._recoveryTime

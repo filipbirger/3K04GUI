@@ -151,19 +151,19 @@ class TestUserClass(unittest.TestCase):
         self.assertEqual(user.atrialSensitivity, 0)
         self.assertEqual(user.ARP, 0)
         self.assertEqual(user.PVARP, 0)
-    '''
+    
     def test_VOOR(self):
         user = userClass("Alice", "password123")
-        user.AAI(70, 150, 1, 3.5, 1.0, 1, 1, 1, 1)#9 data "1" is not clear
+        user.AAI(70, 150, 150, 3.5, 1.0, 2, 30, 8, 8)
         self.assertEqual(user.lowerRateLimit, 70)
         self.assertEqual(user.upperRateLimit, 150)
-        self.assertEqual(user.maximumSensorRate, 1)
+        self.assertEqual(user.maximumSensorRate, 150)
         self.assertEqual(user.ventricularAmplitude, 3.5)
         self.assertEqual(user.ventricularPulseWidth, 1.0)
-        self.assertEqual(user.activityThreshold, 1)
-        self.assertEqual(user.reactionTime, 1)
-        self.assertEqual(user.responseFactor, 1)
-        self.assertEqual(user.recoveryTime, 1)
+        self.assertEqual(user.activityThreshold, 2)
+        self.assertEqual(user.reactionTime, 30)
+        self.assertEqual(user.responseFactor, 8)
+        self.assertEqual(user.recoveryTime, 8)
         self.assertEqual(user.ventricularSensitivity, 0)
         self.assertEqual(user.VRP, 0)
         self.assertEqual(user.Hysteresis, 0)
@@ -176,16 +176,16 @@ class TestUserClass(unittest.TestCase):
 
     def test_AOOR(self):
         user = userClass("Alice", "password123")
-        user.AAI(70, 150, 1, 3.5, 1.0, 1, 1, 1, 1)#9 data "1" is not clear
+        user.AAI(70, 150, 150, 3.5, 1.0, 2, 30, 8, 8)
         self.assertEqual(user.lowerRateLimit, 70)
         self.assertEqual(user.upperRateLimit, 150)
-        self.assertEqual(user.maximumSensorRate, 1)
+        self.assertEqual(user.maximumSensorRate, 150)
         self.assertEqual(user.atrialAmplitude, 3.5)
         self.assertEqual(user.atrialPulseWidth, 1.0)
-        self.assertEqual(user.activityThreshold, 1)
-        self.assertEqual(user.reactionTime, 1)
-        self.assertEqual(user.responseFactor, 1)
-        self.assertEqual(user.recoveryTime, 1)
+        self.assertEqual(user.activityThreshold, 2)
+        self.assertEqual(user.reactionTime, 30)
+        self.assertEqual(user.responseFactor, 8)
+        self.assertEqual(user.recoveryTime, 8)
         self.assertEqual(user.atrialSensitivity, 0)
         self.assertEqual(user.ARP, 0)
         self.assertEqual(user.PVARP, 0)
@@ -198,10 +198,10 @@ class TestUserClass(unittest.TestCase):
     
     def test_AAIR(self):
         user = userClass("Alice", "password123")
-        user.AAI(70, 150, 1, 3.5, 1.0, 0.75, 250, 300, 20, 15, 1, 1, 1, 1)#14 data "1" is not clear
+        user.AAI(70, 150, 1, 3.5, 1.0, 0.75, 250, 300, 20, 15, 2, 30, 8, 8)
         self.assertEqual(user.lowerRateLimit, 70)
         self.assertEqual(user.upperRateLimit, 150)
-        self.assertEqual(user.maximumSensorRate, 1)
+        self.assertEqual(user.maximumSensorRate, 150)
         self.assertEqual(user.atrialAmplitude, 3.5)
         self.assertEqual(user.atrialPulseWidth, 1.0)
         self.assertEqual(user.atrialSensitivity, 0.75)
@@ -209,10 +209,10 @@ class TestUserClass(unittest.TestCase):
         self.assertEqual(user.PVARP, 300)
         self.assertEqual(user.Hysteresis, 20)
         self.assertEqual(user.rateSmoothing, 15)
-        self.assertEqual(user.activityThreshold, 1)
-        self.assertEqual(user.reactionTime, 1)
-        self.assertEqual(user.responseFactor, 1)
-        self.assertEqual(user.recoveryTime, 1)
+        self.assertEqual(user.activityThreshold, 2)
+        self.assertEqual(user.reactionTime, 30)
+        self.assertEqual(user.responseFactor, 8)
+        self.assertEqual(user.recoveryTime, 8)
         self.assertEqual(user.ventricularAmplitude, 0)
         self.assertEqual(user.ventricularPulseWidth, 0)
         self.assertEqual(user.ventricularSensitivity, 0)
@@ -220,27 +220,26 @@ class TestUserClass(unittest.TestCase):
     
     def test_VVIR(self):
         user = userClass("Alice", "password123")
-        user.VVI(70, 150, 1, 3.5, 1.0, 0.75, 250, 20, 15, 1, 1, 1, 1)#13 data "1" is not clear
+        user.VVI(70, 150, 150, 3.5, 1.0, 0.75, 250, 20, 15, 2, 30, 8, 8)
         self.assertEqual(user.lowerRateLimit, 70)
         self.assertEqual(user.upperRateLimit, 150)
-        self.assertEqual(user.maximumSensorRate, 1)
+        self.assertEqual(user.maximumSensorRate, 150)
         self.assertEqual(user.ventricularAmplitude, 3.5)
         self.assertEqual(user.ventricularPulseWidth, 1.0)
         self.assertEqual(user.ventricularSensitivity, 0.75)
         self.assertEqual(user.VRP, 250)
         self.assertEqual(user.Hysteresis, 20)
         self.assertEqual(user.rateSmoothing, 15)
-        self.assertEqual(user.activityThreshold, 1)
-        self.assertEqual(user.reactionTime, 1)
-        self.assertEqual(user.responseFactor, 1)
-        self.assertEqual(user.recoveryTime, 1)
+        self.assertEqual(user.activityThreshold, 2)
+        self.assertEqual(user.reactionTime, 30)
+        self.assertEqual(user.responseFactor, 8)
+        self.assertEqual(user.recoveryTime, 8)
         self.assertEqual(user.atrialAmplitude, 0)
         self.assertEqual(user.atrialPulseWidth, 0)
         self.assertEqual(user.atrialSensitivity, 0)
         self.assertEqual(user.ARP, 0)
         self.assertEqual(user.PVARP, 0)
-    '''
-
+    
  #testing the delete methode    
     def test_delete(self):
         user = userClass("Alice", "password123")
