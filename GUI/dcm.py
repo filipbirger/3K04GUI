@@ -117,7 +117,12 @@ class MyGUI:
         inputName = self.loginNameTextField.get().strip() #strips unnecessary characters from username and password
         inputPassword = self.loginPasswordTextField.get().strip()
 
-        user = self.db.getUserByUsername(inputName)
+        shift = 3  # Use the same shift value used for encryption in the database
+        encrypted_inputName = self.db.caesar_cipher_encrypt(inputName, shift)
+        encrypted_inputPassword = self.db.caesar_cipher_encrypt(inputPassword, shift)
+
+
+        user = self.db.getUserByUsername(encrypted_inputName)
 
         if user and user['password'] == inputPassword: #Checks to make sure that the user signing in already exists in the database
             self.loginWindow.destroy()

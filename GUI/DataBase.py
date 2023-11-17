@@ -35,10 +35,13 @@ class DataBase():#Gets called upon the creation of a new object/user
   
     def insertUser(self, user):
         #pushes the newly created user to the table while mapping the parameters to the appropriate column
+        shift = 3  # Shift value for encryption
+        encrypted_username = self.caesar_cipher_encrypt(user.username, shift)
+        encrypted_password = self.caesar_cipher_encrypt(user.password, shift)
         with self.conn:
             user_data = {
-                "username": user.username,
-                "password": user.password,
+                "username": encrypted_username,
+                "password": encrypted_password,
                 "DeviceId": user.DeviceId,
                 "lowerRateLimit": user.lowerRateLimit,
                 "upperRateLimit": user.upperRateLimit,
@@ -66,10 +69,13 @@ class DataBase():#Gets called upon the creation of a new object/user
   
     def updateUser(self, user):
         #updates users already found in the table given username is the input 
+        shift = 3  # Shift value for encryption
+        encrypted_username = self.caesar_cipher_encrypt(user.username, shift) if user.username else None
+        encrypted_password = self.caesar_cipher_encrypt(user.password, shift) if user.password else None
         with self.conn:
             user_data = {
-                "username": user.username,
-                "password": user.password,
+                "username": encrypted_username,
+                "password": encrypted_password,
                 "DeviceId": user.DeviceId,
                 "lowerRateLimit": float(user.lowerRateLimit) if user.lowerRateLimit else None,
                 "upperRateLimit": float(user.upperRateLimit) if user.upperRateLimit else None,
@@ -115,41 +121,49 @@ class DataBase():#Gets called upon the creation of a new object/user
         self.c.execute("SELECT * FROM Users")
         return self.c.fetchall()
     def getUserByUsername(self, username):
-        #Allows us to fetch a specific user, it provides us the ability to return any user from the list 
+        shift = 3  # Shift value for decryption
+
+        # Query to fetch the user data
         self.c.execute("SELECT * FROM Users WHERE username = ?", (username,))
         data = self.c.fetchone()
-        
-        # Fetching column names from the cursor description
-        columns = [column[0] for column in self.c.description]
-        
-        # Creating a dictionary with column names as keys
-        user_data_dict = dict(zip(columns, data))
-        
-        return user_data_dict
-    '''
-    def addStrToSpecifyLen(s,specifyLen=0):
-        if specifyLen <= 0:
-            specifyLen = 1
-        while len(s) % specifyLen != 0:
-            s += '\0'
-        return s.encode(encoding='utf-8')
-    def encrypt_aes(text='', key=''):
-        aes = AES.new(addStrToSpecifyLen(key,16), AES.MODE_ECB)
-        encrypt = aes.encrypt(addStrToSpecifyLen(text,16))
-        encrypted_text = str(base64.encodebytes(encrypt), encoding='utf-8')
+
+        if data:
+            # Fetching column names from the cursor description
+            columns = [column[0] for column in self.c.description]
+
+            # Decrypting username and password
+            decrypted_username = self.caesar_cipher_decrypt(data[0], shift)  # Assuming username is the first column
+            decrypted_password = self.caesar_cipher_decrypt(data[1], shift)  # Assuming password is the second column
+
+            # Creating a dictionary with column names as keys and decrypted data for username and password
+            user_data_dict = dict(zip(columns, data))
+            user_data_dict['username'] = decrypted_username
+            user_data_dict['password'] = decrypted_password
+
+            return user_data_dict
+        else:
+            return None  # Or handle the case when the user is not found
+
+     # Caesar Cipher encryption function
+    def caesar_cipher_encrypt(self, text, shift):
+        encrypted_text = ""
+        for char in text:
+            if char.isalpha():
+                shift_amount = shift % 26
+                if char.islower():
+                    encrypted_text += chr((ord(char) - ord('a') + shift_amount) % 26 + ord('a'))
+                else:
+                    encrypted_text += chr((ord(char) - ord('A') + shift_amount) % 26 + ord('A'))
+            elif char.isdigit():
+                encrypted_text += str((int(char) + shift) % 10)
+            else:
+                encrypted_text += char
         return encrypted_text
-    def decrypt_aes(data, aes_key):
-        aes = AES.new(addStrToSpecifyLen(aes_key,16), AES.MODE_ECB)
-        base64_decrypted = base64.decodebytes(addStrToSpecifyLen(data,16))
-        decrypted_text = str(aes.decrypt(base64_decrypted),encoding='utf-8').replace('\0','')
-        return decrypted_text
-    if __name__ == '__main__':
-        key = '12223'
-        data = 'test12dcds'
-        encrypt = encrypt_aes(data,key)
-        print(encrypt)
-        print(decrypt_aes(encrypt,key))
-    '''
+
+    # Caesar Cipher decryption function
+    def caesar_cipher_decrypt(self, encrypted_text, shift):
+        return self.caesar_cipher_encrypt(encrypted_text, -shift)
+    
     def close(self):
         #closes the connection to the database
         self.conn.close()
