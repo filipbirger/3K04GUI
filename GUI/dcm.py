@@ -978,8 +978,8 @@ class MyGUI:
         self.URLimitLabel.place(relx=0.045,rely=0.35)
         self.URLimitTextField = tk.Entry(self.AAIConfigWindow)
         self.URLimitTextField.pack()
-        self.URLimitTextField.place(relx=0.325, rely=0.5)
-        
+        self.URLimitTextField.place(relx=0.325, rely=0.35)
+
         self.URLimitWarningLabel= tk.Label(self.AAIConfigWindow, text="Valid inputs are: values between\n 50-175 ppm incremented by 5 ppm",font=('Arial', 12), fg="blue", bg="azure2" )
         self.URLimitWarningLabel.pack()
         self.URLimitWarningLabel.place(relx=0.045, rely=0.4)
