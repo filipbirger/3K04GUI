@@ -306,8 +306,8 @@ class MyGUI:
     def submitDefVOO(self):
         self.VOOLRLimit=60.0
         self.VOOURLimit=120.0
-        self.VOOVentricularAmplitude=4.9
-        self.VOOVentricularPulseWidth=0.4
+        self.VOOVentricularAmplitude=5.0
+        self.VOOVentricularPulseWidth=1.0
         MyGUI.successfulSubmitted(self,self.defVOOWindow)
 
 
@@ -351,8 +351,8 @@ class MyGUI:
     def submitDefAOO(self):
         self.AOOLRLimit=60.0
         self.AOOURLimit=120.0
-        self.AOOAtrialAmplitude=4.9
-        self.AOOAtrialPulseWidth=0.4
+        self.AOOAtrialAmplitude=5.0
+        self.AOOAtrialPulseWidth=1.0
 
         self.currentUser.AOO(self.AOOLRLimit, self.AOOURLimit, self.AOOAtrialAmplitude, self.AOOAtrialPulseWidth)#Updates the user’s chosen parameters to the database
         self.db.updateUser(self.currentUser)
@@ -399,8 +399,8 @@ class MyGUI:
     def submitDefAAI(self):
         self.AAILRLimit=60.0
         self.AAIURLimit=120.0
-        self.AAIAtrialAmplitude=4.9
-        self.AAIAtrialPulseWidth=0.4
+        self.AAIAtrialAmplitude=5.0
+        self.AAIAtrialPulseWidth=1.0
         self.AAIARP=250.0
 
         self.currentUser.AAI(self.AAILRLimit, self.AAIURLimit, self.AAIAtrialAmplitude, self.AAIAtrialPulseWidth,  self.AAIARP)#Updates the user’s chosen parameters to the database
@@ -448,8 +448,8 @@ class MyGUI:
     def submitDefVVI(self):
         self.VVILRLimit=60.0
         self.VVIURLimit=120.0
-        self.VVIVentricularAmplitude=4.9
-        self.VVIVentricularPulseWidth=0.4
+        self.VVIVentricularAmplitude=5.0
+        self.VVIVentricularPulseWidth=1.0
         self.VVIVRP=320.0
 
         self.currentUser.VVI(self.VVILRLimit, self.VVIURLimit, self.VVIVentricularAmplitude, self.VVIVentricularPulseWidth, self.VVIVRP)#Updates the user’s chosen parameters to the database
@@ -509,8 +509,8 @@ class MyGUI:
     def submitDefVOOR(self):
         self.VOORLRLimit=60.0
         self.VOORURLimit=120.0
-        self.VOORVentricularAmplitude=4.9
-        self.VOORVentricularPulseWidth=0.4
+        self.VOORVentricularAmplitude=5.0
+        self.VOORVentricularPulseWidth=1.0
         self.VOORMaxSensorRate=120
         self.VOORReactionTime=30
         self.VOORResponseFactor=8
@@ -574,8 +574,8 @@ class MyGUI:
     def submitDefAOOR(self):
         self.AOORLRLimit=60.0
         self.AOORURLimit=120.0
-        self.AOORAtrialAmplitude=4.9
-        self.AOORAtrialPulseWidth=0.4
+        self.AOORAtrialAmplitude=5.0
+        self.AOORAtrialPulseWidth=1.0
         self.AOORMaxSensorRate=120
         self.AOORReactionTime=30
         self.AOORResponseFactor=8
@@ -643,8 +643,8 @@ class MyGUI:
     def submitDefAAIR(self):
         self.AAIRLRLimit=60.0
         self.AAIRURLimit=120.0
-        self.AAIRAtrialAmplitude=4.9
-        self.AAIRAtrialPulseWidth=0.4
+        self.AAIRAtrialAmplitude=5.0
+        self.AAIRAtrialPulseWidth=1.0
         self.AAIRMaxSensorRate=120
         self.AAIRReactionTime=30
         self.AAIRResponseFactor=8
@@ -712,8 +712,8 @@ class MyGUI:
     def submitDefVVIR(self):
         self.VVIRLRLimit=60.0
         self.VVIRURLimit=120.0
-        self.VVIRVentricularAmplitude=4.9
-        self.VVIRVentricularPulseWidth=0.4
+        self.VVIRVentricularAmplitude=5.0
+        self.VVIRVentricularPulseWidth=1.0
         self.VVIRMaxSensorRate=120
         self.VVIRReactionTime=30
         self.VVIRResponseFactor=8
@@ -1118,7 +1118,7 @@ class MyGUI:
         self.VRPTextField.pack()
         self.VRPTextField.place(relx=0.7, rely=0.15)
 
-        self.VRPWarningLabel= tk.Label(self.VVIConfigWindow, text="Valid inputs are: values between\n 150-500 ms with 10 ms increment",font=('Arial', 10), fg="blue", bg="azure2" )
+        self.VRPWarningLabel= tk.Label(self.VVIConfigWindow, text="Valid inputs are: values between\n 150-500 ms with 10 ms increment",font=('Arial', 12), fg="blue", bg="azure2" )
         self.VRPWarningLabel.pack()
         self.VRPWarningLabel.place(relx=0.55, rely=0.2)
 
