@@ -2,6 +2,8 @@ import tkinter as tk
 import userClass
 import sqlite3
 from DataBase import DataBase
+import SerialComm
+import Egram
 
 class MyGUI:
 
@@ -313,6 +315,7 @@ class MyGUI:
 
         self.currentUser.VOO(self.VOOLRLimit, self.VOOURLimit, self.VOOVentricularAmplitude, self.VOOVentricularPulseWidth) #Updates the user’s chosen parameters to the database
         self.db.updateUser(self.currentUser)
+        
     
     def defaultAOO(self):
         for widget in self.startWindow.winfo_children():
@@ -353,10 +356,22 @@ class MyGUI:
         self.AOOURLimit=120.0
         self.AOOAtrialAmplitude=4.9
         self.AOOAtrialPulseWidth=0.4
-
         self.currentUser.AOO(self.AOOLRLimit, self.AOOURLimit, self.AOOAtrialAmplitude, self.AOOAtrialPulseWidth)#Updates the user’s chosen parameters to the database
         self.db.updateUser(self.currentUser)
-        MyGUI.successfulSubmitted(self,self.defAOOWindow)
+       
+       
+        self.conn = SerialComm.SerialComm()
+        self.conn.serWriteAOO(1,self.currentUser)
+        #MyGUI.successfulSubmitted(self,self.defAOOWindow)
+        
+        self.EgramWindow = tk.Toplevel(self.startWindow)
+        self.canvas = tk.Canvas(self.EgramWindow, width=800, height=800, bg='white')
+        self.canvas.pack(fill=tk.BOTH, expand=True)
+
+
+        self.egramOBJ=Egram.Egram()
+        self.egramOBJ.updateEgram(self.canvas)
+
 
     def defaultAAI(self):
         for widget in self.startWindow.winfo_children():
@@ -406,6 +421,7 @@ class MyGUI:
         self.currentUser.AAI(self.AAILRLimit, self.AAIURLimit, self.AAIAtrialAmplitude, self.AAIAtrialPulseWidth,  self.AAIARP)#Updates the user’s chosen parameters to the database
         self.db.updateUser(self.currentUser)
         MyGUI.successfulSubmitted(self, self.defAAIWindow)
+
 
     def defaultVVI(self):
         for widget in self.startWindow.winfo_children():

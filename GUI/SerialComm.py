@@ -1,5 +1,7 @@
 import serial
 import struct
+import DataBase as db
+
 
 class SerialComm:
     
@@ -19,19 +21,24 @@ class SerialComm:
 
 
     
-    def serWriteAOO(self,mode, lowerRateLimit, upperRateLimit,atrialAmplitude,atrialPulseWidth):
+    def serWriteAOO(self, mode, user):
         try:
-            pmode = struct.pack("F",mode)
-            pLowerRateLimit = struct.pack("F",lowerRateLimit)
-            pUpperRateLimit = struct.pack("F",upperRateLimit)
-            pAtrialAmplitude = struct.pack("F",atrialAmplitude )
-            pAtrialPulseWidth = struct.pack("F",atrialPulseWidth)
+            temp = b''
 
-            write = b"\x16\x55"+pmode+pLowerRateLimit+pUpperRateLimit+pAtrialAmplitude+pAtrialPulseWidth
-            self.comm.write(write)
+            # Iterate over the attributes of the user object
+            for attr in list(vars(user))[3:]:
+                value = getattr(user, attr)
+                temp += struct.pack("f", value)
+        
+            pmode = struct.pack("f", mode)
+
+            write = b"\x16\x55" + pmode + temp
+            print(write)
         
         except serial.SerialTimeoutException as error:
-            print("Error",error)
+            print("Error", error)
+        
+
 
     def serWriteVOO(self, lowerRateLimit,upperRateLimit,ventricularAmplitude,ventricularPulseWidth):
         try:
