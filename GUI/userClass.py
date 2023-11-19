@@ -4,7 +4,8 @@ class userClass:
 #Gets called upon the creation of a new object/user. 
 # The user is created with a username, password, and device ID, all other protected parameters are set to 0 until changed
     def __init__(self, username, password,DeviceId = None,lowerRateLimit = None,upperRateLimit = None, ventricularAmplitude = None, ventricularPulseWidth = None, 
-                 VRP = None, atrialAmplitude = None, atrialPulseWidth = None, ARP = None, maximumSensorRate = None, reactionTime = None, responseFactor = None, recoveryTime = None): #initializes user attributes to NULL
+                 VRP = None, atrialAmplitude = None, atrialPulseWidth = None, ARP = None, maximumSensorRate = None, reactionTime = None, responseFactor = None, recoveryTime = None,
+                 fixedAVDelay = None, dynamicAVDelay = None, sensedAVDelay= None, ATRDuration = None, ATRFallbackMode = None, ATRFallbackTime = None): #initializes user attributes to NULL
         self.username = username 
         self._password = password
         self.DeviceId = DeviceId
@@ -20,6 +21,12 @@ class userClass:
         self._reactionTime = reactionTime
         self._responseFactor = responseFactor
         self._recoveryTime = recoveryTime
+        self._fixedAVDelay = fixedAVDelay
+        self._dynamicAVDelay = dynamicAVDelay
+        self._sensedAVDelay = sensedAVDelay
+        self._ATRDuration = ATRDuration
+        self._ATRFallbackMode = ATRFallbackMode
+        self._ATRFallbackTime = ATRFallbackTime
 
     @property
     def username(self): #get username from database
@@ -132,6 +139,54 @@ class userClass:
     @recoveryTime.setter
     def recoveryTime(self, value): #sets recovery time to database
         self._recoveryTime = value
+    
+    @property
+    def fixedAVDelay(self): #gets recoveryTime from database
+        return self._fixedAVDelay
+
+    @fixedAVDelay.setter
+    def fixedAVDelay(self, value): #sets recovery time to database
+        self._fixedAVDelay = value
+    
+    @property
+    def dynamicAVDelay(self): #gets recoveryTime from database
+        return self._dynamicAVDelay
+
+    @dynamicAVDelay.setter
+    def dynamicAVDelay(self, value): #sets recovery time to database
+        self._dynamicAVDelay = value
+    
+    @property
+    def sensedAVDelay(self): #gets recoveryTime from database
+        return self._sensedAVDelay
+
+    @sensedAVDelay.setter
+    def sensedAVDelay(self, value): #sets recovery time to database
+        self._sensedAVDelay = value
+    
+    @property
+    def ATRDuration(self): #gets recoveryTime from database
+        return self._ATRDuration
+
+    @ATRDuration.setter
+    def ATRDuration(self, value): #sets recovery time to database
+        self._ATRDuration = value
+    
+    @property
+    def ATRFallbackMode(self): #gets recoveryTime from database
+        return self._ATRFallbackMode
+
+    @ATRFallbackMode.setter
+    def ATRFallbackMode(self, value): #sets recovery time to database
+        self._ATRFallbackMode = value
+    
+    @property
+    def ATRFallbackTime(self): #gets recoveryTime from database
+        return self._ATRFallbackTime   
+
+    @ATRFallbackTime.setter
+    def ATRFallbackTime(self, value): #sets recovery time to database
+        self._ATRFallbackTime = value
 
 
     def AOO(self,lowerRateLimit, upperRateLimit, atrialAmplitude, atrialPulseWidth): #initializes all AOO parameters to zero
@@ -147,6 +202,12 @@ class userClass:
         self._reactionTime = 0
         self._responseFactor = 0
         self._recoveryTime = 0
+        self._fixedAVDelay =0
+        self._dynamicAVDelay =0
+        self._sensedAVDelay =0
+        self._ATRDuration =0
+        self._ATRFallbackMode =0
+        self._ATRFallbackTime =0
 
     def VOO(self,lowerRateLimit, upperRateLimit, ventricularAmplitude, ventricularPulseWidth): #initializes all VOO parameters to zero
         self._lowerRateLimit = lowerRateLimit
@@ -161,6 +222,12 @@ class userClass:
         self._reactionTime = 0
         self._responseFactor = 0
         self._recoveryTime = 0
+        self._fixedAVDelay =0
+        self._dynamicAVDelay =0
+        self._sensedAVDelay =0
+        self._ATRDuration =0
+        self._ATRFallbackMode =0
+        self._ATRFallbackTime =0
 
     def AAI(self,lowerRateLimit, upperRateLimit, atrialAmplitude, atrialPulseWidth, ARP): #initializes all AAI parameters to zero
         self._lowerRateLimit = lowerRateLimit
@@ -175,6 +242,12 @@ class userClass:
         self._reactionTime = 0
         self._responseFactor = 0
         self._recoveryTime = 0
+        self._fixedAVDelay =0
+        self._dynamicAVDelay =0
+        self._sensedAVDelay =0
+        self._ATRDuration =0
+        self._ATRFallbackMode =0
+        self._ATRFallbackTime =0
 
 
     
@@ -191,6 +264,12 @@ class userClass:
         self._reactionTime = 0
         self._responseFactor = 0
         self._recoveryTime = 0
+        self._fixedAVDelay =0
+        self._dynamicAVDelay =0
+        self._sensedAVDelay =0
+        self._ATRDuration =0
+        self._ATRFallbackMode =0
+        self._ATRFallbackTime =0
     
     def AOOR(self,lowerRateLimit, upperRateLimit, atrialAmplitude, atrialPulseWidth, maximumSensorRate, reactionTime, responseFactor, recoveryTime): #initializes all AOO parameters to zero
         self._lowerRateLimit = lowerRateLimit
@@ -205,6 +284,12 @@ class userClass:
         self._ventricularPulseWidth = 0
         self._ARP = 0
         self._VRP = 0
+        self._fixedAVDelay =0
+        self._dynamicAVDelay =0
+        self._sensedAVDelay =0
+        self._ATRDuration =0
+        self._ATRFallbackMode =0
+        self._ATRFallbackTime =0
     
     def VOOR(self,lowerRateLimit, upperRateLimit, ventricularAmplitude, ventricularPulseWidth, maximumSensorRate, reactionTime, responseFactor, recoveryTime): #initializes all VOO parameters to zero
         self._lowerRateLimit = lowerRateLimit
@@ -219,6 +304,12 @@ class userClass:
         self._atrialPulseWidth = 0
         self._ARP = 0
         self._VRP = 0
+        self._fixedAVDelay =0
+        self._dynamicAVDelay =0
+        self._sensedAVDelay =0
+        self._ATRDuration =0
+        self._ATRFallbackMode =0
+        self._ATRFallbackTime =0
 
     def AAIR(self,lowerRateLimit, upperRateLimit, atrialAmplitude, atrialPulseWidth,  ARP, maximumSensorRate, reactionTime, responseFactor, recoveryTime): #initializes all AAI parameters to zero
         self._lowerRateLimit = lowerRateLimit
@@ -233,6 +324,12 @@ class userClass:
         self._ventricularAmplitude = 0
         self._ventricularPulseWidth = 0
         self._VRP = 0
+        self._fixedAVDelay =0
+        self._dynamicAVDelay =0
+        self._sensedAVDelay =0
+        self._ATRDuration =0
+        self._ATRFallbackMode =0
+        self._ATRFallbackTime =0
 
     def VVIR(self,lowerRateLimit, upperRateLimit, ventricularAmplitude, ventricularPulseWidth, VRP, maximumSensorRate, reactionTime, responseFactor, recoveryTime): #initializes all VVI parameters to zero
         self._lowerRateLimit = lowerRateLimit
@@ -247,6 +344,53 @@ class userClass:
         self._ARP = 0
         self._atrialAmplitude = 0
         self._atrialPulseWidth = 0
+        self._fixedAVDelay =0
+        self._dynamicAVDelay =0
+        self._sensedAVDelay =0
+        self._ATRDuration =0
+        self._ATRFallbackMode =0
+        self._ATRFallbackTime =0
+    
+    def DDD(self, lowerRateLimit, upperRateLimit, ventricularAmplitude, ventricularPulseWidth, VRP,atrialAmplitude, atrialPulseWidth, ARP, fixedAVDelay, dynamicAVDelay, sensedAVDelay, ATRDuration, ATRFallbackMode, ATRFallbackTime):
+        self._lowerRateLimit = lowerRateLimit
+        self._upperRateLimit =upperRateLimit
+        self._ventricularAmplitude= ventricularAmplitude
+        self._ventricularPulseWidth = ventricularPulseWidth
+        self._atrialAmplitude= atrialAmplitude
+        self._atrialPulseWidth = atrialPulseWidth
+        self._VRP = VRP
+        self._ARP = ARP
+        self._fixedAVDelay = fixedAVDelay
+        self._dynamicAVDelay =dynamicAVDelay
+        self._sensedAVDelay = sensedAVDelay
+        self._ATRDuration = ATRDuration
+        self._ATRFallbackMode = ATRFallbackMode
+        self._ATRFallbackTime = ATRFallbackTime
+        self._maximumSensorRate =0
+        self._reactionTime = 0
+        self._recoveryTime =0
+        self._responseFactor =0
+
+    def DDDR(self, lowerRateLimit, upperRateLimit, ventricularAmplitude, ventricularPulseWidth, VRP,atrialAmplitude, atrialPulseWidth, ARP, fixedAVDelay, dynamicAVDelay, sensedAVDelay, ATRDuration, ATRFallbackMode, ATRFallbackTime, maximumSensorRate, reactionTime, responseFactor, recoveryTime):
+        self._lowerRateLimit = lowerRateLimit
+        self._upperRateLimit =upperRateLimit
+        self._ventricularAmplitude= ventricularAmplitude
+        self._ventricularPulseWidth = ventricularPulseWidth
+        self._atrialAmplitude= atrialAmplitude
+        self._atrialPulseWidth = atrialPulseWidth
+        self._VRP = VRP
+        self._ARP = ARP
+        self._fixedAVDelay = fixedAVDelay
+        self._dynamicAVDelay =dynamicAVDelay
+        self._sensedAVDelay = sensedAVDelay
+        self._ATRDuration = ATRDuration
+        self._ATRFallbackMode = ATRFallbackMode
+        self._ATRFallbackTime = ATRFallbackTime
+        self._maximumSensorRate = maximumSensorRate
+        self._reactionTime = reactionTime
+        self._recoveryTime =recoveryTime
+        self._responseFactor =responseFactor
+        
 
 
     def delete(self): #destructor
@@ -264,6 +408,12 @@ class userClass:
         del self._reactionTime
         del self._responseFactor
         del self._recoveryTime
+        del self._fixedAVDelay
+        del self._dynamicAVDelay
+        del self._sensedAVDelay
+        del self._ATRDuration
+        del self._ATRFallbackMode
+        del self._ATRFallbackTime
 
 
     

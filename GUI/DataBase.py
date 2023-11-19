@@ -26,7 +26,13 @@ class DataBase():#Gets called upon the creation of a new object/user
                 maximumSensorRate REAL,
                 reactionTime REAL,
                 responseFactor REAL,
-                recoveryTime REAL
+                recoveryTime REAL,
+                fixedAVDelay REAL,
+                dynamicAVDelay REAL,
+                sensedAVDelay REAL,
+                ATRDuration REAL,
+                ATRFallbackMode REAL,
+                ATRFallbackTime REAL
             )
         """)
         self.conn.commit()
@@ -54,14 +60,21 @@ class DataBase():#Gets called upon the creation of a new object/user
                 "maximumSensorRate" : user.maximumSensorRate,
                 "reactionTime" : user.reactionTime,
                 "responseFactor" : user.responseFactor,
-                "recoveryTime" : user.recoveryTime
-            }
+                "recoveryTime" : user.recoveryTime,
+                "fixedAVDelay" : user.fixedAVDelay,
+                "dynamicAVDelay" : user.dynamicAVDelay,
+                "sensedAVDelay" : user.sensedAVDelay,
+                "ATRDuration" : user.ATRDuration,
+                "ATRFallbackMode" : user.ATRFallbackMode,
+                "ATRFallbackTime" : user.ATRFallbackTime
+             }
             self.c.execute("""
                 INSERT INTO Users VALUES (
                     :username, :password, :DeviceId, :lowerRateLimit, :upperRateLimit, :ventricularAmplitude, 
                     :ventricularPulseWidth, :VRP,
                     :atrialAmplitude, :atrialPulseWidth, :ARP,:maximumSensorRate,
-                    :reactionTime,:responseFactor,:recoveryTime
+                    :reactionTime,:responseFactor,:recoveryTime, :fixedAVDelay, :dynamicAVDelay, :sensedAVDelay,
+                    :ATRDuration, :ATRFallbackMode, :ATRFallbackTime
                 )
             """, user_data)
 
@@ -88,7 +101,14 @@ class DataBase():#Gets called upon the creation of a new object/user
                 "maximumSensorRate": float(user.maximumSensorRate) if user.maximumSensorRate else None,
                 "reactionTime": float(user.reactionTime) if user.reactionTime else None,
                 "responseFactor": float(user.responseFactor) if user.responseFactor else None,
-                "recoveryTime": float(user.recoveryTime) if user.recoveryTime else None
+                "recoveryTime": float(user.recoveryTime) if user.recoveryTime else None,
+                "fixedAVDelay": float(user.fixedAVDelay) if user.fixedAVDelay else None,
+                "dynamicAVDelay": float (user.dynamicAVDelay) if user.dynamicAVDelay else None,
+                "sensedAVDelay": float (user.sensedAVDelay) if user.sensedAVDelay else None,
+                "ATRDuration": float (user.ATRDuration) if user.ATRDuration else None,
+                "ATRFallbackMode": float (user.ATRFallbackMode) if user.ATRFallbackMode else None,
+                "ATRFallbackTime": float (user.ATRFallbackTime) if user.ATRFallbackTime else None
+
             }
             self.c.execute("""
                 UPDATE Users SET
@@ -105,7 +125,13 @@ class DataBase():#Gets called upon the creation of a new object/user
                     maximumSensorRate = :maximumSensorRate,
                     reactionTime = :reactionTime,
                     responseFactor = :responseFactor,
-                    recoveryTime = :recoveryTime
+                    recoveryTime = :recoveryTime,
+                    fixedAVDelay = :fixedAVDelay,
+                    dynamicAVDelay = :dynamicAVDelay,
+                    sensedAVDelay = :sensedAVDelay,
+                    ATRDuration = :ATRDuration,
+                    ATRFallbackMode = :ATRFallbackMode,
+                    ATRFallbackTime = :ATRFallbackTime
                 WHERE username = :username
             """, user_data)
 

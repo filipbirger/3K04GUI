@@ -247,27 +247,35 @@ class MyGUI:
 
         self.AAIButton = tk.Button(self.defaultModeWindow, text = "Default AAI", command=self.defaultAAI,font=("Arial",12))
         self.AAIButton.pack()
-        self.AAIButton.place(relx=0.15, rely=0.35, relwidth=0.3, relheight=0.05)
+        self.AAIButton.place(relx=0.15, rely=0.3, relwidth=0.3, relheight=0.05)
 
         self.VVIButton = tk.Button(self.defaultModeWindow, text = "Default VVI", command=self.defaultVVI,font=("Arial",12))
         self.VVIButton.pack()
-        self.VVIButton.place(relx=0.6, rely=0.35, relwidth=0.3, relheight=0.05)
+        self.VVIButton.place(relx=0.6, rely=0.3, relwidth=0.3, relheight=0.05)
 
         self.VOORButton=tk.Button(self.defaultModeWindow, text= "Default VOOR", command=self.defaultVOOR,font=("Arial",12))
         self.VOORButton.pack()
-        self.VOORButton.place(relx=0.15, rely=0.55, relwidth=0.3, relheight=0.05)
+        self.VOORButton.place(relx=0.15, rely=0.45, relwidth=0.3, relheight=0.05)
         
         self.AOORButton=tk.Button(self.defaultModeWindow, text= "Default AOOR", command=self.defaultAOOR,font=("Arial",12))
         self.AOORButton.pack()
-        self.AOORButton.place(relx=0.6, rely=0.55, relwidth=0.3, relheight=0.05)
+        self.AOORButton.place(relx=0.6, rely=0.45, relwidth=0.3, relheight=0.05)
 
         self.AAIRButton=tk.Button(self.defaultModeWindow, text= "Default AAIR", command=self.defaultAAIR,font=("Arial",12))
         self.AAIRButton.pack()
-        self.AAIRButton.place(relx=0.15, rely=0.75, relwidth=0.3, relheight=0.05)
+        self.AAIRButton.place(relx=0.15, rely=0.6, relwidth=0.3, relheight=0.05)
         
         self.VVIRButton=tk.Button(self.defaultModeWindow, text= "Default VVIR", command=self.defaultVVIR,font=("Arial",12))
         self.VVIRButton.pack()
-        self.VVIRButton.place(relx=0.6, rely=0.75, relwidth=0.3, relheight=0.05)
+        self.VVIRButton.place(relx=0.6, rely=0.6, relwidth=0.3, relheight=0.05)
+
+        self.DDDButton=tk.Button(self.defaultModeWindow, text="Default DDD", command=self.defaultDDD, font=("Arial", 12))
+        self.DDDButton.pack()
+        self.DDDButton.place(relx=0.15,rely=0.75,relwidth=0.3,relheight=0.05)
+
+        self.DDDRButton=tk.Button(self.defaultModeWindow, text="Default DDDR", command=self.defaultDDDR, font=("Arial",12))
+        self.DDDRButton.pack()
+        self.DDDRButton.place(relx=0.6,rely=0.75, relwidth=0.3, relheight=0.05)
     
     def defaultVOO(self):
         for widget in self.startWindow.winfo_children():
@@ -721,8 +729,254 @@ class MyGUI:
         self.VVIRVRP=320
         MyGUI.successfulSubmitted(self,self.defVVIRWindow)
 
-        self.currentUser.AAIR(self.VVIRLRLimit, self.VVIRURLimit, self.VVIRVentricularAmplitude, self.VVIRVentricularPulseWidth, self.VVIRMaxSensorRate,self.VVIRReactionTime,self.VVIRResponseFactor, self.VVIRRecoveryTime,self.VVIRVRP) #Updates the user’s chosen parameters to the database
+        self.currentUser.VVIR(self.VVIRLRLimit, self.VVIRURLimit, self.VVIRVentricularAmplitude, self.VVIRVentricularPulseWidth, self.VVIRMaxSensorRate,self.VVIRReactionTime,self.VVIRResponseFactor, self.VVIRRecoveryTime,self.VVIRVRP) #Updates the user’s chosen parameters to the database
         self.db.updateUser(self.currentUser)  
+    
+    def defaultDDD(self):
+        for widget in self.startWindow.winfo_children():
+            widget.destroy()
+
+        self.backButton = tk.Button(self.startWindow, text = "Back", command=self.useDefault)
+        self.backButton.pack()
+        self.backButton.place(relx=0.075, rely=0.85, relwidth=0.1, relheight=0.05)
+
+        self.defDDDWindow=self.startWindow
+
+        self.defDDDLabel=tk.Label(self.defDDDWindow, text="Default DDD Parameters", font=("Arial",18),bg="azure2") #Displays default VOO parameters
+        self.defDDDLabel.pack()
+        self.defDDDLabel.place(relx=0.35, rely=0.05)
+
+        self.LRLimitLabel= tk.Label(self.defDDDWindow, text="Lower Rate Limit: 60 ppm", font=('Arial', 14),bg="azure2")
+        self.LRLimitLabel.pack()
+        self.LRLimitLabel.place(relx=0.1, rely=0.15)
+
+        self.URLimitLabel= tk.Label(self.defDDDWindow, text="Upper Rate Limit: 120 ppm", font=('Arial', 14),bg="azure2")
+        self.URLimitLabel.pack()
+        self.URLimitLabel.place(relx=0.1, rely=0.3)
+
+        self.VentricularAmplitudeLabel= tk.Label(self.defDDDWindow, text="Ventricular Amplitude: 5.0 V", font=('Arial', 14),bg="azure2")
+        self.VentricularAmplitudeLabel.pack()
+        self.VentricularAmplitudeLabel.place(relx=0.1, rely=0.45)
+
+        self.VentricularPulseWidthLabel= tk.Label(self.defDDDWindow, text="Ventricular Pulse Width: 1.0 ms", font=('Arial', 14),bg="azure2")
+        self.VentricularPulseWidthLabel.pack()
+        self.VentricularPulseWidthLabel.place(relx=0.1, rely=0.6)
+
+        self.AtrialAmplitudeLabel= tk.Label(self.defDDDWindow, text="Atrial Amplitude: 5.0 V", font=('Arial', 14), bg="azure2")
+        self.AtrialAmplitudeLabel.pack()
+        self.AtrialAmplitudeLabel.place(relx=0.525, rely=0.15)
+
+        self.AtrialPulseWidthLabel= tk.Label(self.defDDDWindow, text="Atrial Pulse Width: 1.0 ms", font=('Arial', 14), bg="azure2")
+        self.AtrialPulseWidthLabel.pack()
+        self.AtrialPulseWidthLabel.place(relx=0.525, rely=0.3)
+
+        self.ARPLabel= tk.Label(self.defDDDWindow, text="ARP: 250 ms", font=('Arial', 14), bg="azure2")
+        self.ARPLabel.pack()
+        self.ARPLabel.place(relx=0.525, rely=0.45)
+
+        self.VRPLabel=tk.Label(self.defDDDWindow, text=' VRP: 320 ms', font=('Arial', 14), bg="azure2")
+        self.VRPLabel.pack()
+        self.VRPLabel.place(relx=0.525 ,rely=0.6)
+
+        self.DDDButton = tk.Button(self.defDDDWindow, text = "Next", command=self.nextDDD) #Allows the user to submit the parameters to their device
+        self.DDDButton.pack()
+        self.DDDButton.place(relx=0.8, rely=0.8, relwidth=0.1, relheight=0.1)
+
+    def nextDDD(self):
+        for widget in self.startWindow.winfo_children():
+            widget.destroy()
+
+        self.backButton = tk.Button(self.startWindow, text = "Back", command=self.useDefault)
+        self.backButton.pack()
+        self.backButton.place(relx=0.075, rely=0.85, relwidth=0.1, relheight=0.05)
+
+        self.nextDDDWindow=self.startWindow
+
+        self.defDDDLabel=tk.Label(self.nextDDDWindow, text="Default DDD Parameters", font=("Arial",18),bg="azure2") #Displays default VOO parameters
+        self.defDDDLabel.pack()
+        self.defDDDLabel.place(relx=0.35, rely=0.05)
+
+        self.FixedAVLabel=tk.Label(self.nextDDDWindow, text="Fixed AV Delay: 150 ms", font=("Arial", 14), bg="azure2")
+        self.FixedAVLabel.pack()
+        self.FixedAVLabel.place(relx=0.1,rely=0.15)
+
+        self.DynamicAVLabel=tk.Label(self.nextDDDWindow, text="Dynamic AV Delay: Off", font=("Arial",14), bg="azure2")
+        self.DynamicAVLabel.pack()
+        self.DynamicAVLabel.place(relx=0.1,rely=0.3)
+
+        self.SensedAVLabel=tk.Label(self.nextDDDWindow, text="Sensed AV Delay Offset: Off", font=("Arial",14),bg="azure2")
+        self.SensedAVLabel.pack()
+        self.SensedAVLabel.place(relx=0.1,rely=0.45)
+
+        self.ATRDurationLabel=tk.Label(self.nextDDDWindow, text="ATR Duration: 20 cc", font=("Arial",14), bg="azure2")
+        self.ATRDurationLabel.pack()
+        self.ATRDurationLabel.place(relx=0.525,rely=0.15)
+
+        self.ATRFallbackModeLabel=tk.Label(self.nextDDDWindow, text="ATR Fallback Mode: Off", font=("Arial",14), bg="azure2")
+        self.ATRFallbackModeLabel.pack()
+        self.ATRFallbackModeLabel.place(relx=0.525, rely=0.3)
+
+        self.ATRFallbackTimeLabel=tk.Label(self.nextDDDWindow, text="ATR Fallback Timing: 1 min", font=("Arial",14), bg="azure2")
+        self.ATRFallbackTimeLabel.pack()
+        self.ATRFallbackTimeLabel.place(relx=0.525,rely=0.45)
+
+        self.DDDNextButton = tk.Button(self.nextDDDWindow, text = "Submit", command=self.submitDefDDD) #Allows the user to submit the parameters to their device
+        self.DDDNextButton.pack()
+        self.DDDNextButton.place(relx=0.8, rely=0.8, relwidth=0.1, relheight=0.1)
+
+    def submitDefDDD(self):
+        self.DDDLRLimit=60.0
+        self.DDDURLimit=120.0
+        self.DDDVentricularAmplitude=5.0
+        self.DDDVentricularPulseWidth=1.0
+        self.DDDVRP=320.0
+        self.DDDAtrialAmplitude=5.0
+        self.DDDAtrialPulseWidth=1.0
+        self.DDDARP=250
+        self.DDDFixedAVDelay=150
+        self.DDDDynamicAV=0
+        self.DDDSensedAV=0
+        self.DDDATRDuration=20
+        self.DDDATRFallbackMode=0
+        self.DDDATRFallbackTime=1
+        MyGUI.successfulSubmitted(self,self.nextDDDWindow)
+
+        self.currentUser.DDD(self.DDDLRLimit, self.DDDURLimit, self.DDDVentricularAmplitude, self.DDDVentricularPulseWidth, self.DDDVRP, self.DDDAtrialAmplitude, self.DDDAtrialPulseWidth, self.DDDARP, self.DDDFixedAVDelay, self.DDDDynamicAV, self.DDDSensedAV,self.DDDATRDuration, self.DDDATRFallbackMode, self.DDDATRFallbackTime) #Updates the user’s chosen parameters to the database
+        self.db.updateUser(self.currentUser)  
+
+
+    def defaultDDDR(self):
+        for widget in self.startWindow.winfo_children():
+            widget.destroy()
+
+        self.backButton = tk.Button(self.startWindow, text = "Back", command=self.useDefault)
+        self.backButton.pack()
+        self.backButton.place(relx=0.075, rely=0.85, relwidth=0.1, relheight=0.05)
+
+        self.defDDDRWindow=self.startWindow
+
+        self.defDDDRLabel=tk.Label(self.defDDDRWindow, text="Default DDDR Parameters", font=("Arial",18),bg="azure2") #Displays default VOO parameters
+        self.defDDDRLabel.pack()
+        self.defDDDRLabel.place(relx=0.35, rely=0.05)
+
+        self.LRLimitLabel= tk.Label(self.defDDDRWindow, text="Lower Rate Limit: 60 ppm", font=('Arial', 14),bg="azure2")
+        self.LRLimitLabel.pack()
+        self.LRLimitLabel.place(relx=0.1, rely=0.15)
+
+        self.URLimitLabel= tk.Label(self.defDDDRWindow, text="Upper Rate Limit: 120 ppm", font=('Arial', 14),bg="azure2")
+        self.URLimitLabel.pack()
+        self.URLimitLabel.place(relx=0.1, rely=0.3)
+
+        self.VentricularAmplitudeLabel= tk.Label(self.defDDDRWindow, text="Ventricular Amplitude: 5.0 V", font=('Arial', 14),bg="azure2")
+        self.VentricularAmplitudeLabel.pack()
+        self.VentricularAmplitudeLabel.place(relx=0.1, rely=0.45)
+
+        self.VentricularPulseWidthLabel= tk.Label(self.defDDDRWindow, text="Ventricular Pulse Width: 1.0 ms", font=('Arial', 14),bg="azure2")
+        self.VentricularPulseWidthLabel.pack()
+        self.VentricularPulseWidthLabel.place(relx=0.1, rely=0.6)
+
+        self.AtrialAmplitudeLabel= tk.Label(self.defDDDRWindow, text="Atrial Amplitude: 5.0 V", font=('Arial', 14), bg="azure2")
+        self.AtrialAmplitudeLabel.pack()
+        self.AtrialAmplitudeLabel.place(relx=0.525, rely=0.15)
+
+        self.AtrialPulseWidthLabel= tk.Label(self.defDDDRWindow, text="Atrial Pulse Width: 1.0 ms", font=('Arial', 14), bg="azure2")
+        self.AtrialPulseWidthLabel.pack()
+        self.AtrialPulseWidthLabel.place(relx=0.525, rely=0.3)
+
+        self.ARPLabel= tk.Label(self.defDDDRWindow, text="ARP: 250 ms", font=('Arial', 14), bg="azure2")
+        self.ARPLabel.pack()
+        self.ARPLabel.place(relx=0.525, rely=0.45)
+
+        self.VRPLabel=tk.Label(self.defDDDRWindow, text=' VRP: 320 ms', font=('Arial', 14), bg="azure2")
+        self.VRPLabel.pack()
+        self.VRPLabel.place(relx=0.525 ,rely=0.6)
+
+        self.DDDRButton = tk.Button(self.defDDDRWindow, text = "Next", command=self.nextDDDR) #Allows the user to submit the parameters to their device
+        self.DDDRButton.pack()
+        self.DDDRButton.place(relx=0.8, rely=0.8, relwidth=0.1, relheight=0.1)
+    
+    def nextDDDR(self):
+        for widget in self.startWindow.winfo_children():
+            widget.destroy()
+
+        self.backButton = tk.Button(self.startWindow, text = "Back", command=self.useDefault)
+        self.backButton.pack()
+        self.backButton.place(relx=0.075, rely=0.85, relwidth=0.1, relheight=0.05)
+
+        self.nextDDDRWindow=self.startWindow
+
+        self.defDDDRLabel=tk.Label(self.nextDDDRWindow, text="Default DDDR Parameters", font=("Arial",18),bg="azure2") #Displays default VOO parameters
+        self.defDDDRLabel.pack()
+        self.defDDDRLabel.place(relx=0.35, rely=0.05)
+
+        self.FixedAVLabel=tk.Label(self.nextDDDRWindow, text="Fixed AV Delay: 150 ms", font=("Arial", 14), bg="azure2")
+        self.FixedAVLabel.pack()
+        self.FixedAVLabel.place(relx=0.1,rely=0.15)
+
+        self.DynamicAVLabel=tk.Label(self.nextDDDRWindow, text="Dynamic AV Delay: Off", font=("Arial",14), bg="azure2")
+        self.DynamicAVLabel.pack()
+        self.DynamicAVLabel.place(relx=0.1,rely=0.3)
+
+        self.SensedAVLabel=tk.Label(self.nextDDDRWindow, text="Sensed AV Delay Offset: Off", font=("Arial",14),bg="azure2")
+        self.SensedAVLabel.pack()
+        self.SensedAVLabel.place(relx=0.1,rely=0.45)
+
+        self.ATRDurationLabel=tk.Label(self.nextDDDRWindow, text="ATR Duration: 20 cc", font=("Arial",14), bg="azure2")
+        self.ATRDurationLabel.pack()
+        self.ATRDurationLabel.place(relx=0.525,rely=0.15)
+
+        self.ATRFallbackModeLabel=tk.Label(self.nextDDDRWindow, text="ATR Fallback Mode: Off", font=("Arial",14), bg="azure2")
+        self.ATRFallbackModeLabel.pack()
+        self.ATRFallbackModeLabel.place(relx=0.525, rely=0.3)
+
+        self.ATRFallbackTimeLabel=tk.Label(self.nextDDDRWindow, text="ATR Fallback Timing: 1 min", font=("Arial",14), bg="azure2")
+        self.ATRFallbackTimeLabel.pack()
+        self.ATRFallbackTimeLabel.place(relx=0.525,rely=0.45)
+
+        self.RecoveryTimeLabel=tk.Label(self.defDDDRWindow, text="Recovery Time: 5 min", font=('Arial',14), bg="azure2")
+        self.RecoveryTimeLabel.pack()
+        self.RecoveryTimeLabel.place(relx=0.1, rely=0.6)
+
+        self.MaxSensorRateLabel=tk.Label(self.defDDDRWindow, text="Maximum Sensor Rate: 120 ppm", font=('Arial', 14), bg="azure2")
+        self.MaxSensorRateLabel.pack()
+        self.MaxSensorRateLabel.place(relx=0.1, rely=0.75)
+
+        self.ReactionTimeLabel=tk.Label(self.defDDDRWindow, text="Reaction Time: 30 sec", font=('Arial',14), bg="azure2")
+        self.ReactionTimeLabel.pack()
+        self.ReactionTimeLabel.place(relx=0.525, rely=0.6)
+
+        self.ResponseFactorLabel=tk.Label(self.defDDDRWindow, text="Response Factor: 8", font=('Arial',14), bg="azure2")
+        self.ResponseFactorLabel.pack()
+        self.ResponseFactorLabel.place(relx=0.525, rely=0.75)
+
+        self.DDDRNextButton = tk.Button(self.nextDDDRWindow, text = "Submit", command=self.submitDefDDDR) #Allows the user to submit the parameters to their device
+        self.DDDRNextButton.pack()
+        self.DDDRNextButton.place(relx=0.8, rely=0.8, relwidth=0.1, relheight=0.1)
+    
+    def submitDefDDDR(self):
+        self.DDDRLRLimit=60.0
+        self.DDDRURLimit=120.0
+        self.DDDRVentricularAmplitude=5.0
+        self.DDDRVentricularPulseWidth=1.0
+        self.DDDRVRP=320.0
+        self.DDDRAtrialAmplitude=5.0
+        self.DDDRAtrialPulseWidth=1.0
+        self.DDDRARP=250
+        self.DDDRFixedAVDelay=150
+        self.DDDRDynamicAV=0
+        self.DDDRSensedAV=0
+        self.DDDRATRDuration=20
+        self.DDDRATRFallbackMode=0
+        self.DDDRATRFallbackTime=1
+        self.DDDRMaxSensorRate=120
+        self.DDDRReactionTime=30
+        self.DDDRResponseFactor=8
+        self.DDDRRecoveryTime=5
+        self.DDDRVRP=320
+        MyGUI.successfulSubmitted(self,self.nextDDDRWindow)
+
+        self.currentUser.DDDR(self.DDDRLRLimit, self.DDDRURLimit, self.DDDRVentricularAmplitude, self.DDDRVentricularPulseWidth, self.DDDRVRP, self.DDDRAtrialAmplitude, self.DDDRAtrialPulseWidth, self.DDDRARP, self.DDDRFixedAVDelay, self.DDDRDynamicAV, self.DDDRSensedAV,self.DDDRATRDuration, self.DDDRATRFallbackMode, self.DDDRATRFallbackTime, self.DDDRMaxSensorRate, self.DDDRRecoveryTime, self.DDDRResponseFactor, self.DDDRReactionTime) #Updates the user’s chosen parameters to the database
+        self.db.updateUser(self.currentUser) 
 
 
     def useConfigure(self):
