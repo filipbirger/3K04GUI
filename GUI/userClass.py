@@ -264,16 +264,12 @@ class userClass:
         self._reactionTime = 0
         self._responseFactor = 0
         self._recoveryTime = 0
-<<<<<<< HEAD
-
-=======
         self._fixedAVDelay =0
         self._dynamicAVDelay =0
         self._sensedAVDelay =0
         self._ATRDuration =0
         self._ATRFallbackMode =0
         self._ATRFallbackTime =0
->>>>>>> 09648fdbc9a66fb34d575bad32647eeb1525c9b1
     
     def AOOR(self,lowerRateLimit, upperRateLimit, atrialAmplitude, atrialPulseWidth, maximumSensorRate, reactionTime, responseFactor, recoveryTime): #initializes all AOO parameters to zero
         self._lowerRateLimit = lowerRateLimit
@@ -288,8 +284,6 @@ class userClass:
         self._reactionTime = reactionTime
         self._responseFactor = responseFactor
         self._recoveryTime = recoveryTime
-<<<<<<< HEAD
-=======
         self._ventricularAmplitude = 0
         self._ventricularPulseWidth = 0
         self._ARP = 0
@@ -300,7 +294,6 @@ class userClass:
         self._ATRDuration =0
         self._ATRFallbackMode =0
         self._ATRFallbackTime =0
->>>>>>> 09648fdbc9a66fb34d575bad32647eeb1525c9b1
     
     def VOOR(self,lowerRateLimit, upperRateLimit, ventricularAmplitude, ventricularPulseWidth, maximumSensorRate, reactionTime, responseFactor, recoveryTime): #initializes all VOO parameters to zero
         self._lowerRateLimit = lowerRateLimit
@@ -315,8 +308,6 @@ class userClass:
         self._reactionTime = reactionTime
         self._responseFactor = responseFactor
         self._recoveryTime = recoveryTime
-<<<<<<< HEAD
-=======
         self._atrialAmplitude = 0
         self._atrialPulseWidth = 0
         self._ARP = 0
@@ -327,7 +318,6 @@ class userClass:
         self._ATRDuration =0
         self._ATRFallbackMode =0
         self._ATRFallbackTime =0
->>>>>>> 09648fdbc9a66fb34d575bad32647eeb1525c9b1
 
     def AAIR(self,lowerRateLimit, upperRateLimit, atrialAmplitude, atrialPulseWidth,  ARP, maximumSensorRate, reactionTime, responseFactor, recoveryTime): #initializes all AAI parameters to zero
         self._lowerRateLimit = lowerRateLimit
@@ -342,8 +332,6 @@ class userClass:
         self._reactionTime = reactionTime
         self._responseFactor = responseFactor
         self._recoveryTime = recoveryTime
-<<<<<<< HEAD
-=======
         self._ventricularAmplitude = 0
         self._ventricularPulseWidth = 0
         self._VRP = 0
@@ -353,7 +341,6 @@ class userClass:
         self._ATRDuration =0
         self._ATRFallbackMode =0
         self._ATRFallbackTime =0
->>>>>>> 09648fdbc9a66fb34d575bad32647eeb1525c9b1
 
     def VVIR(self,lowerRateLimit, upperRateLimit, ventricularAmplitude, ventricularPulseWidth, VRP, maximumSensorRate, reactionTime, responseFactor, recoveryTime): #initializes all VVI parameters to zero
         self._lowerRateLimit = lowerRateLimit
@@ -368,8 +355,6 @@ class userClass:
         self._reactionTime = reactionTime
         self._responseFactor = responseFactor
         self._recoveryTime = recoveryTime
-<<<<<<< HEAD
-=======
         self._ARP = 0
         self._atrialAmplitude = 0
         self._atrialPulseWidth = 0
@@ -420,7 +405,6 @@ class userClass:
         self._recoveryTime =recoveryTime
         self._responseFactor =responseFactor
         
->>>>>>> 09648fdbc9a66fb34d575bad32647eeb1525c9b1
 
 
     def delete(self): #destructor

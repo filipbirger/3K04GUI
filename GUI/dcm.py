@@ -365,14 +365,9 @@ class MyGUI:
     def submitDefAOO(self):
         self.AOOLRLimit=60.0
         self.AOOURLimit=120.0
-<<<<<<< HEAD
-        self.AOOAtrialAmplitude=4.9
-        self.AOOAtrialPulseWidth=0.4
-=======
         self.AOOAtrialAmplitude=5.0
         self.AOOAtrialPulseWidth=1.0
 
->>>>>>> 09648fdbc9a66fb34d575bad32647eeb1525c9b1
         self.currentUser.AOO(self.AOOLRLimit, self.AOOURLimit, self.AOOAtrialAmplitude, self.AOOAtrialPulseWidth)#Updates the user’s chosen parameters to the database
         self.db.updateUser(self.currentUser)
        
