@@ -1,5 +1,7 @@
 import serial
 import struct
+import DataBase as db
+import numpy as np
 
 class SerialComm:
     
@@ -17,151 +19,109 @@ class SerialComm:
             print("Error",error)
             self.isConnected = False
 
-
-    
-    def serWriteAOO(self,mode,lowerRateLimit, upperRateLimit,atrialAmplitude,atrialPulseWidth):
-        try:
-            pmode = struct.pack("F",mode)
-            pLowerRateLimit = struct.pack("F",lowerRateLimit)
-            pUpperRateLimit = struct.pack("F",upperRateLimit)
-            pAtrialAmplitude = struct.pack("F",atrialAmplitude )
-            pAtrialPulseWidth = struct.pack("F",atrialPulseWidth)
-
-            write = b"\x16\x55"+pmode+pLowerRateLimit+pUpperRateLimit+pAtrialAmplitude+pAtrialPulseWidth
-            self.comm.write(write)
-        
-        except serial.SerialTimeoutException as error:
-            print("Error",error)
-
-    def serWriteVOO(self, lowerRateLimit,upperRateLimit,ventricularAmplitude,ventricularPulseWidth):
-        try:
-            pLowerRateLimit = struct.pack("F",lowerRateLimit)
-            pUpperRateLimit = struct.pack("F",upperRateLimit)
-            pVentricularAmplitude = struct.pack("F",ventricularAmplitude )
-            pVentricularPulseWidth = struct.pack("F",ventricularPulseWidth)
-
-            write = b"\x16\x55"+pLowerRateLimit+pUpperRateLimit+pVentricularAmplitude+pVentricularPulseWidth
-            self.comm.write(write)
-        
-        except serial.SerialTimeoutException as error:
-            print("Error",error)
-
-    def serWriteAAI(self, lowerRateLimit,upperRateLimit,atrialAmplitude,atrialPulseWidth,ARP):
-        try:
-            pLowerRateLimit = struct.pack("F",lowerRateLimit)
-            pUpperRateLimit = struct.pack("F",upperRateLimit)
-            pAtrialAmplitude = struct.pack("F",atrialAmplitude )
-            pAtrialPulseWidth = struct.pack("F",atrialPulseWidth)
-            pARP = struct.pack("F",ARP)
-
-            write = b"\x16\x55"+pLowerRateLimit+pUpperRateLimit+pAtrialAmplitude+pAtrialPulseWidth+pARP
-            self.comm.write(write)
-        
-        except serial.SerialTimeoutException as error:
-            print("Error",error)
-
-    def serWriteVVI(self, lowerRateLimit,upperRateLimit,ventricularAmplitude,ventricularPulseWidth,VRP):
-        try:
-            pLowerRateLimit = struct.pack("F",lowerRateLimit)
-            pUpperRateLimit = struct.pack("F",upperRateLimit)
-            pVentricularAmplitude = struct.pack("F",ventricularAmplitude )
-            pVentricularPulseWidth = struct.pack("F",ventricularPulseWidth)
-            pVRP = struct.pack("F",VRP)
-
-            write = b"\x16\x55"+pLowerRateLimit+pUpperRateLimit+pVentricularAmplitude+pVentricularPulseWidth+pVRP
-            self.comm.write(write)
-        
-        except serial.SerialTimeoutException as error:
-            print("Error",error)
-
-    def serWriteAOOR(self, lowerRateLimit,upperRateLimit,atrialAmplitude,atrialPulseWidth,maximumSensorRate,activityThreshold,reactionTime,responseFactor,recoveryTime):
-        try:
-            pLowerRateLimit = struct.pack("F",lowerRateLimit)
-            pUpperRateLimit = struct.pack("F",upperRateLimit)
-            pAtrialAmplitude = struct.pack("F",atrialAmplitude )
-            pAtrialPulseWidth = struct.pack("F",atrialPulseWidth)
-            pMaximumSensorRate = struct.pack("F",maximumSensorRate)
-            pActivityThreshold = struct.pack("F",activityThreshold)
-            pReactionTime = struct.pack("F",reactionTime)
-            pResponseFactor = struct.pack("F",responseFactor)
-            pRecoveryTime = struct.pack("F",recoveryTime)
-
-            write = b"\x16\x55"+pLowerRateLimit+pUpperRateLimit+pAtrialAmplitude+pAtrialPulseWidth+pMaximumSensorRate+pActivityThreshold+pReactionTime+pResponseFactor+pRecoveryTime
-            self.comm.write(write)
-        
-        except serial.SerialTimeoutException as error:
-            print("Error",error)
-
-    def serWriteVOOR(self, lowerRateLimit,upperRateLimit,ventricularAmplitude,ventricularPulseWidth,maximumSensorRate,activityThreshold,reactionTime,responseFactor,recoveryTime):
-        try:
-            pLowerRateLimit = struct.pack("F",lowerRateLimit)
-            pUpperRateLimit = struct.pack("F",upperRateLimit)
-            pVentricularAmplitude = struct.pack("F",ventricularAmplitude )
-            pVentricularPulseWidth = struct.pack("F",ventricularPulseWidth)
-            pMaximumSensorRate = struct.pack("F",maximumSensorRate)
-            pActivityThreshold = struct.pack("F",activityThreshold)
-            pReactionTime = struct.pack("F",reactionTime)
-            pResponseFactor = struct.pack("F",responseFactor)
-            pRecoveryTime = struct.pack("F",recoveryTime)
-
-            write = b"\x16\x55"+pLowerRateLimit+pUpperRateLimit+pVentricularAmplitude+pVentricularPulseWidth+pMaximumSensorRate+pActivityThreshold+pReactionTime+pResponseFactor+pRecoveryTime
-            self.comm.write(write)
-    
-    
-        except serial.SerialTimeoutException as error:
-            print("Error",error)
-    
-    def serWriteAAIR(self, lowerRateLimit,upperRateLimit,atrialAmplitude,atrialPulseWidth,maximumSensorRate,ARP,activityThreshold,reactionTime,responseFactor,recoveryTime):
-        try:
-            pLowerRateLimit = struct.pack("F",lowerRateLimit)
-            pUpperRateLimit = struct.pack("F",upperRateLimit)
-            pAtrialAmplitude = struct.pack("F",atrialAmplitude )
-            pAtrialPulseWidth = struct.pack("F",atrialPulseWidth)
-            pMaximumSensorRate = struct.pack("F",maximumSensorRate)
-            pARP = struct.pack("F",ARP)
-            pActivityThreshold = struct.pack("F",activityThreshold)
-            pReactionTime = struct.pack("F",reactionTime)
-            pResponseFactor = struct.pack("F",responseFactor)
-            pRecoveryTime = struct.pack("F",recoveryTime)
-
-            write = b"\x16\x55"+pLowerRateLimit+pUpperRateLimit+pAtrialAmplitude+pAtrialPulseWidth+pMaximumSensorRate+pARP+pActivityThreshold+pReactionTime+pResponseFactor+pRecoveryTime
-            self.comm.write(write)
-        
-        except serial.SerialTimeoutException as error:
-            print("Error",error)
-
-    def serWriteVVIR(self, lowerRateLimit,upperRateLimit,ventricularAmplitude,ventricularPulseWidth,maximumSensorRate,VRP,activityThreshold,reactionTime,responseFactor,recoveryTime):
-        try:
-            pLowerRateLimit = struct.pack("F",lowerRateLimit)
-            pUpperRateLimit = struct.pack("F",upperRateLimit)
-            pVentricularAmplitude = struct.pack("F",ventricularAmplitude )
-            pVentricularPulseWidth = struct.pack("F",ventricularPulseWidth)
-            pMaximumSensorRate = struct.pack("F",maximumSensorRate)
-            pVRP = struct.pack("F",VRP)
-            pActivityThreshold = struct.pack("F",activityThreshold)
-            pReactionTime = struct.pack("F",reactionTime)
-            pResponseFactor = struct.pack("F",responseFactor)
-            pRecoveryTime = struct.pack("F",recoveryTime)
-
-            write = b"\x16\x55"+pLowerRateLimit+pUpperRateLimit+pVentricularAmplitude+pVentricularPulseWidth+pMaximumSensorRate+pVRP+pActivityThreshold+pReactionTime+pResponseFactor+pRecoveryTime
-            
-            self.comm.write(write)
-
-        except serial.SerialTimeoutException as error:
-            print("Error",error)
     '''
-    def get_echo(self):
-        #Signal_echo = b"\x22\x55"+pLowerRateLimit+pUpperRateLimit+pVentricularAmplitude+pVentricularPulseWidth+pVentricularSensitivity+pMaximumSensorRate+pVRP+pHysteresis+pRateSmoothing+pActivityThreshold+pReactionTime+pResponseFactor+pRecoveryTime
+    array =[]
+    Data = np.genfromtxt("data.txt",encoding=None)
+    for each in Data:
+        array.append(each)
 
-        with serial.Serial(self.comm.port, 115200) as pacemaker:
+    MODE = array[0]
+    LRL = array[1]
+    URL =array[2]
+    VA = array[3]
+    VPW = array[4]
+    VRP = array[5]
+    AA = array[6]
+    APW = array[7]
+    ARP = array[8]
+    maximumSensorRate = array[9]
+    reactionTime = array[10]
+    responseFactor = array[11]
+    recoveryTime = array[12]
+    '''
+
+    def receive(pMODE,pLRL,pUrl,pVA,pVPW,pVRP,pAA,pAPW,pARP,pMaximumSensorRate,pReactionTime,pResponseFactor,pRecoveryTime):
+        frdm_port = "COM7"
+        Start = b'\x16'
+        SYNC = b'\x22'
+        Fn_set = b'\x55'
+        MODE = struct.pack("B", pMODE)
+        LRL = struct.pack("B", pLRL)
+        URL = struct.pack("B", pUrl)
+        VA = struct.pack("d", pVA)
+        VPW = struct.pack("d", pVPW)
+        VRP = struct.pack("H", pVRP)
+        AA = struct.pack("d", pAA)
+        APW = struct.pack("d", pAPW)
+        ARP = struct.pack("H", pARP)
+        maximumSensorRate  = struct.pack("B", pMaximumSensorRate)
+        reactionTime = struct.pack("H", pReactionTime)
+        responseFactor = struct.pack("B", pResponseFactor)
+        recoveryTime = struct.pack("H", pRecoveryTime)
+        
+        Signal_set_order = Start+Fn_set+MODE+LRL+URL+VA+VPW+VRP+AA+APW+ARP+maximumSensorRate+reactionTime+responseFactor+recoveryTime
+
+        Signal_echo_order = Start+SYNC+MODE+LRL+URL+VA+VPW+VRP+AA+APW+ARP+maximumSensorRate+reactionTime+responseFactor+recoveryTime
+
+        with serial.Serial(frdm_port, 115200) as pacemaker:
+            pacemaker.write(Signal_set_order)
+
+        with serial.Serial(frdm_port, 115200) as pacemaker:
+            pacemaker.write(Signal_echo_order)
+            data = pacemaker.read(61)
+            MODE_echo = struct.unpack('B',data[0:1])[0]
+            LRL_echo = struct.unpack('B',data[1:2])[0]
+            URL_echo = struct.unpack('B',data[2:3])[0]
+            VA_echo = struct.unpack("d", data[3:11])[0]
+            VPW_echo = struct.unpack("d", data[11:19])[0]
+            VRP_echo = struct.unpack("H", data[19:21])[0]
+            AA_echo = struct.unpack("d", data[21:29])[0]
+            APW_echo = struct.unpack("d", data[29:37])[0]
+            ARP_echo = struct.unpack("H", data[37:39])[0]
+            maximumSensorRate_echo = struct.unpack("B", data[39:40])[0]
+            reactionTime_echo = struct.unpack("H", data[40:42])[0]
+            responseFactor_echo = struct.unpack("B", data[42:43])[0]
+            recoveryTime_echo = struct.unpack("H", data[43:45])[0]
+            ATR_signal = struct.unpack("d", data[45:53])[0]
+            VENT_signal = struct.unpack("d", data[53:61])[0]
+
+            if MODE_echo == pMODE and LRL_echo == pLRL and URL_echo == pUrl and VA_echo == pVA and VPW_echo == pVPW and VRP_echo == pVRP and AA_echo == pAA and APW_echo == pAPW and ARP_echo == pARP and maximumSensorRate_echo == pMaximumSensorRate and reactionTime_echo == pReactionTime and responseFactor_echo == pResponseFactor and recoveryTime_echo == pRecoveryTime:
+                return True
+            else:
+                return False
+
+    def read():
+        frdm_port = "COM7"
+        Start = b'\x16'
+        SYNC = b'\x22'
+        Fn_set = b'\x55'
+        Signal_echo = Start + SYNC
+        i=0
+        while(i<45):
+            Signal_echo = Signal_echo + struct.pack("B", 0)
+            i = i+1
+        with serial.Serial(frdm_port, 115200) as pacemaker:
             pacemaker.write(Signal_echo)
-            data = pacemaker.read(49)
-    '''
-    def serVerify(self):
-        return
+            data = pacemaker.read(61)
+            ATR_signal = struct.unpack("d", data[45:53])[0]
+            VENT_signal = struct.unpack("d", data[53:61])[0]
+            return [ATR_signal,VENT_signal] #For egram
+    
+    def serWriteAOO(self, mode, user):
+        try:
+            temp = b''
 
+            # Iterate over the attributes of the user object
+            for attr in list(vars(user))[3:]:
+                value = getattr(user, attr)
+                temp += struct.pack("f", value)
+        
+            pmode = struct.pack("f", mode)
 
-
-
-
+            write = b"\x16\x55" + pmode + temp
+            print(write)
+        
+        except serial.SerialTimeoutException as error:
+            print("Error", error)
+        
 

@@ -2,6 +2,8 @@ import tkinter as tk
 import userClass
 import sqlite3
 from DataBase import DataBase
+import SerialComm
+import Egram
 
 class MyGUI:
 
@@ -128,7 +130,7 @@ class MyGUI:
 
         if user and user['password'] == inputPassword: #Checks to make sure that the user signing in already exists in the database
             self.loginWindow.destroy()
-            self.currentUser = userClass.userClass(username=user['username'], password=user['password'])
+            self.currentUser = userClass.userClass(username=user['username'], password=user['password'],DeviceId=user['DeviceId'])
             self.createMainSettingWindow()
         else:
             self.errorLabel.config(text="Invalid username or password")
@@ -322,10 +324,14 @@ class MyGUI:
         self.VOOVentricularAmplitude=5.0
         self.VOOVentricularPulseWidth=1.0
         MyGUI.successfulSubmitted(self,self.defVOOWindow)
-
-
+        
         self.currentUser.VOO(self.VOOLRLimit, self.VOOURLimit, self.VOOVentricularAmplitude, self.VOOVentricularPulseWidth) #Updates the user’s chosen parameters to the database
         self.db.updateUser(self.currentUser)
+        
+        #Serial comm to pacemaker when the function is submitted
+        self.conn = SerialComm.SerialComm()
+        self.conn.serWriteAOO(1,self.currentUser)
+
     
     def defaultAOO(self):
         for widget in self.startWindow.winfo_children():
@@ -369,7 +375,20 @@ class MyGUI:
 
         self.currentUser.AOO(self.AOOLRLimit, self.AOOURLimit, self.AOOAtrialAmplitude, self.AOOAtrialPulseWidth)#Updates the user’s chosen parameters to the database
         self.db.updateUser(self.currentUser)
+       
+       
+        self.conn = SerialComm.SerialComm()
+        self.conn.serWriteAOO(0,self.currentUser)
         MyGUI.successfulSubmitted(self,self.defAOOWindow)
+        
+        self.EgramWindow = tk.Toplevel(self.startWindow)
+        self.canvas = tk.Canvas(self.EgramWindow, width=800, height=800, bg='white')
+        self.canvas.pack(fill=tk.BOTH, expand=True)
+
+
+        self.egramOBJ=Egram.Egram()
+        self.egramOBJ.updateEgram(self.canvas)
+
 
     def defaultAAI(self):
         for widget in self.startWindow.winfo_children():
@@ -418,7 +437,11 @@ class MyGUI:
 
         self.currentUser.AAI(self.AAILRLimit, self.AAIURLimit, self.AAIAtrialAmplitude, self.AAIAtrialPulseWidth,  self.AAIARP)#Updates the user’s chosen parameters to the database
         self.db.updateUser(self.currentUser)
+        #Serial comm to pacemaker when the function is submitted
+        self.conn = SerialComm.SerialComm()
+        self.conn.serWriteAOO(2,self.currentUser)
         MyGUI.successfulSubmitted(self, self.defAAIWindow)
+
 
     def defaultVVI(self):
         for widget in self.startWindow.winfo_children():
@@ -467,6 +490,9 @@ class MyGUI:
 
         self.currentUser.VVI(self.VVILRLimit, self.VVIURLimit, self.VVIVentricularAmplitude, self.VVIVentricularPulseWidth, self.VVIVRP)#Updates the user’s chosen parameters to the database
         self.db.updateUser(self.currentUser)
+        #Serial comm to pacemaker when the function is submitted
+        self.conn = SerialComm.SerialComm()
+        self.conn.serWriteAOO(3,self.currentUser)
         MyGUI.successfulSubmitted(self, self.defVVIWindow)
     
     def defaultVOOR(self):
@@ -533,6 +559,10 @@ class MyGUI:
         self.currentUser.VOOR(self.VOORLRLimit, self.VOORURLimit, self.VOORVentricularAmplitude, self.VOORVentricularPulseWidth, self.VOORMaxSensorRate,self.VOORReactionTime,self.VOORResponseFactor, self.VOORRecoveryTime) #Updates the user’s chosen parameters to the database
         self.db.updateUser(self.currentUser)
 
+        #Serial comm to pacemaker when the function is submitted
+        self.conn = SerialComm.SerialComm()
+        self.conn.serWriteAOO(5,self.currentUser)
+
 
     def defaultAOOR(self):
         for widget in self.startWindow.winfo_children():
@@ -597,6 +627,11 @@ class MyGUI:
 
         self.currentUser.AOOR(self.AOORLRLimit, self.AOORURLimit, self.AOORAtrialAmplitude, self.AOORAtrialPulseWidth, self.AOORMaxSensorRate, self.AOORReactionTime,self.AOORResponseFactor, self.AOORRecoveryTime) #Updates the user’s chosen parameters to the database
         self.db.updateUser(self.currentUser)
+
+        #Serial comm to pacemaker when the function is submitted
+        self.conn = SerialComm.SerialComm()
+        self.conn.serWriteAOO(4,self.currentUser)
+
 
     
     def defaultAAIR(self):
@@ -667,6 +702,11 @@ class MyGUI:
 
         self.currentUser.AAIR(self.AAIRLRLimit, self.AAIRURLimit, self.AAIRAtrialAmplitude, self.AAIRAtrialPulseWidth, self.AAIRMaxSensorRate,self.AAIRReactionTime,self.AAIRResponseFactor, self.AAIRRecoveryTime,self.AAIRARP) #Updates the user’s chosen parameters to the database
         self.db.updateUser(self.currentUser)      
+
+        #Serial comm to pacemaker when the function is submitted
+        self.conn = SerialComm.SerialComm()
+        self.conn.serWriteAOO(6,self.currentUser)
+
 
     def defaultVVIR(self):
         for widget in self.startWindow.winfo_children():
@@ -982,6 +1022,11 @@ class MyGUI:
 
         self.currentUser.DDDR(self.DDDRLRLimit, self.DDDRURLimit, self.DDDRVentricularAmplitude, self.DDDRVentricularPulseWidth, self.DDDRVRP, self.DDDRAtrialAmplitude, self.DDDRAtrialPulseWidth, self.DDDRARP, self.DDDRFixedAVDelay, self.DDDRDynamicAV, self.DDDRSensedAV,self.DDDRATRDuration, self.DDDRATRFallbackMode, self.DDDRATRFallbackTime, self.DDDRMaxSensorRate, self.DDDRRecoveryTime, self.DDDRResponseFactor, self.DDDRReactionTime) #Updates the user’s chosen parameters to the database
         self.db.updateUser(self.currentUser) 
+
+        #Serial comm to pacemaker when the function is submitted
+        self.conn = SerialComm.SerialComm()
+        self.conn.serWriteAOO(7,self.currentUser)
+
 
 
     def useConfigure(self):

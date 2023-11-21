@@ -10,12 +10,12 @@ class userClass:
         self.DeviceId = DeviceId
         self._lowerRateLimit = lowerRateLimit
         self._upperRateLimit = upperRateLimit
-        self._atrialAmplitude = atrialAmplitude
-        self._atrialPulseWidth = atrialPulseWidth
-        self._ARP = ARP
         self._ventricularAmplitude = ventricularAmplitude
         self._ventricularPulseWidth = ventricularPulseWidth
         self._VRP = VRP
+        self._atrialAmplitude = atrialAmplitude
+        self._atrialPulseWidth = atrialPulseWidth
+        self._ARP = ARP
         self._maximumSensorRate = maximumSensorRate
         self._reactionTime = reactionTime
         self._responseFactor = responseFactor
@@ -191,12 +191,12 @@ class userClass:
     def AOO(self,lowerRateLimit, upperRateLimit, atrialAmplitude, atrialPulseWidth): #initializes all AOO parameters to zero
         self._lowerRateLimit = lowerRateLimit
         self._upperRateLimit = upperRateLimit
-        self._atrialAmplitude = atrialAmplitude
-        self._atrialPulseWidth = atrialPulseWidth
         self._ventricularAmplitude = 0
         self._ventricularPulseWidth = 0
-        self._ARP = 0
         self._VRP = 0
+        self._atrialAmplitude = atrialAmplitude
+        self._atrialPulseWidth = atrialPulseWidth
+        self._ARP = 0
         self._maximumSensorRate = 0
         self._reactionTime = 0
         self._responseFactor = 0
@@ -213,10 +213,10 @@ class userClass:
         self._upperRateLimit = upperRateLimit
         self._ventricularAmplitude = ventricularAmplitude
         self._ventricularPulseWidth = ventricularPulseWidth
+        self._VRP = 0
         self._atrialAmplitude = 0
         self._atrialPulseWidth = 0
         self._ARP = 0
-        self._VRP = 0
         self._maximumSensorRate = 0
         self._reactionTime = 0
         self._responseFactor = 0
@@ -231,12 +231,12 @@ class userClass:
     def AAI(self,lowerRateLimit, upperRateLimit, atrialAmplitude, atrialPulseWidth, ARP): #initializes all AAI parameters to zero
         self._lowerRateLimit = lowerRateLimit
         self._upperRateLimit = upperRateLimit
-        self._atrialAmplitude = atrialAmplitude
-        self._atrialPulseWidth = atrialPulseWidth
-        self._ARP = ARP
         self._ventricularAmplitude = 0
         self._ventricularPulseWidth = 0
         self._VRP = 0
+        self._atrialAmplitude = atrialAmplitude
+        self._atrialPulseWidth = atrialPulseWidth
+        self._ARP = ARP
         self._maximumSensorRate = 0
         self._reactionTime = 0
         self._responseFactor = 0
@@ -256,9 +256,9 @@ class userClass:
         self._ventricularAmplitude = ventricularAmplitude
         self._ventricularPulseWidth = ventricularPulseWidth
         self._VRP = VRP
-        self._ARP = 0
         self._atrialAmplitude = 0
         self._atrialPulseWidth = 0
+        self._ARP = 0
         self._maximumSensorRate = 0
         self._reactionTime = 0
         self._responseFactor = 0
@@ -273,8 +273,12 @@ class userClass:
     def AOOR(self,lowerRateLimit, upperRateLimit, atrialAmplitude, atrialPulseWidth, maximumSensorRate, reactionTime, responseFactor, recoveryTime): #initializes all AOO parameters to zero
         self._lowerRateLimit = lowerRateLimit
         self._upperRateLimit = upperRateLimit
+        self._ventricularAmplitude = 0
+        self._ventricularPulseWidth = 0
+        self._VRP = 0
         self._atrialAmplitude = atrialAmplitude
         self._atrialPulseWidth = atrialPulseWidth
+        self._ARP = 0
         self._maximumSensorRate = maximumSensorRate
         self._reactionTime = reactionTime
         self._responseFactor = responseFactor
@@ -295,6 +299,10 @@ class userClass:
         self._upperRateLimit = upperRateLimit
         self._ventricularAmplitude = ventricularAmplitude
         self._ventricularPulseWidth = ventricularPulseWidth
+        self._VRP =0
+        self._atrialAmplitude = 0
+        self._atrialPulseWidth = 0
+        self._ARP = 0
         self._maximumSensorRate = maximumSensorRate
         self._reactionTime = reactionTime
         self._responseFactor = responseFactor
@@ -313,6 +321,9 @@ class userClass:
     def AAIR(self,lowerRateLimit, upperRateLimit, atrialAmplitude, atrialPulseWidth,  ARP, maximumSensorRate, reactionTime, responseFactor, recoveryTime): #initializes all AAI parameters to zero
         self._lowerRateLimit = lowerRateLimit
         self._upperRateLimit = upperRateLimit
+        self._ventricularAmplitude = 0
+        self._ventricularPulseWidth = 0
+        self._VRP = 0
         self._atrialAmplitude = atrialAmplitude
         self._atrialPulseWidth = atrialPulseWidth
         self._ARP = ARP
@@ -335,7 +346,10 @@ class userClass:
         self._upperRateLimit = upperRateLimit
         self._ventricularAmplitude = ventricularAmplitude
         self._ventricularPulseWidth = ventricularPulseWidth
-        self._VRP = VRP
+        self._VRP =VRP
+        self._atrialAmplitude = 0
+        self._atrialPulseWidth = 0
+        self._ARP = 0
         self._maximumSensorRate = maximumSensorRate
         self._reactionTime = reactionTime
         self._responseFactor = responseFactor
