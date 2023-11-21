@@ -1,8 +1,8 @@
 import sqlite3
 import base64
  
-from Crypto.Cipher import AES
-from Crypto.Util.Padding import pad, unpad
+#from Crypto.Cipher import AES
+#from Crypto.Util.Padding import pad, unpad
 
 class DataBase():#Gets called upon the creation of a new object/user
     def __init__(self):
@@ -37,8 +37,6 @@ class DataBase():#Gets called upon the creation of a new object/user
         """)
         self.conn.commit()
 
-
-  
     def insertUser(self, user):
         #pushes the newly created user to the table while mapping the parameters to the appropriate column
         shift = 3  # Shift value for encryption
@@ -72,8 +70,8 @@ class DataBase():#Gets called upon the creation of a new object/user
                 INSERT INTO Users VALUES (
                     :username, :password, :DeviceId, :lowerRateLimit, :upperRateLimit, :ventricularAmplitude, 
                     :ventricularPulseWidth, :VRP,
-                    :atrialAmplitude, :atrialPulseWidth, :ARP,:maximumSensorRate,
-                    :reactionTime,:responseFactor,:recoveryTime, :fixedAVDelay, :dynamicAVDelay, :sensedAVDelay,
+                    :atrialAmplitude, :atrialPulseWidth, :ARP,:maximumSensorRate,:reactionTime,
+                    :responseFactor,:recoveryTime,:fixedAVDelay, :dynamicAVDelay, :sensedAVDelay,
                     :ATRDuration, :ATRFallbackMode, :ATRFallbackTime
                 )
             """, user_data)
@@ -108,7 +106,6 @@ class DataBase():#Gets called upon the creation of a new object/user
                 "ATRDuration": float (user.ATRDuration) if user.ATRDuration else None,
                 "ATRFallbackMode": float (user.ATRFallbackMode) if user.ATRFallbackMode else None,
                 "ATRFallbackTime": float (user.ATRFallbackTime) if user.ATRFallbackTime else None
-
             }
             self.c.execute("""
                 UPDATE Users SET
@@ -134,6 +131,7 @@ class DataBase():#Gets called upon the creation of a new object/user
                     ATRFallbackTime = :ATRFallbackTime
                 WHERE username = :username
             """, user_data)
+        
 
 
     def delete_user(self, username):

@@ -182,19 +182,24 @@ class MyGUI:
         
         self.prevInfoLabel=tk.Label(self.prevInfoWindow, text="Previous Pacing Mode", font=('Arial',18), bg="azure2") #Accesses user’s previous pacing parameters from the database
         self.prevInfoLabel.pack()
-        self.prevInfoLabel.place(relx=0.4, rely=0.05)
+        self.prevInfoLabel.place(relx=0.35, rely=0.05)
 
         shift = 3  # Use the same shift value used for encryption in the database
         encrypted_inputName = self.db.caesar_cipher_encrypt(self.currentUser.username, shift)
         user_data = self.db.getUserByUsername(encrypted_inputName)
 
-
         y_position = 0.1
+        y2_position= 0.1
         for attribute, value in user_data.items(): #Displays the information for the user to view and submit
             label = tk.Label(self.prevInfoWindow, text=f"{attribute}: {value}", font=('Arial', 14), bg="azure2")
-            label.place(relx=0.1, rely=y_position)
-            y_position += 0.048
-
+            if y_position<=0.75:    
+                y_position += 0.048
+                label.place(relx=0.1, rely=y_position)
+            else:
+                y2_position+=0.048
+                label.place(relx=0.6, rely=y2_position)
+                
+                
     def configPaceMode(self):
         for widget in self.startWindow.winfo_children():
             widget.destroy()
@@ -839,7 +844,7 @@ class MyGUI:
         self.DDDATRDuration=20
         self.DDDATRFallbackMode=0
         self.DDDATRFallbackTime=1
-        MyGUI.successfulSubmitted(self,self.nextDDDWindow)
+        MyGUI.successfulSubmitted(self, self.nextDDDWindow)
 
         self.currentUser.DDD(self.DDDLRLimit, self.DDDURLimit, self.DDDVentricularAmplitude, self.DDDVentricularPulseWidth, self.DDDVRP, self.DDDAtrialAmplitude, self.DDDAtrialPulseWidth, self.DDDARP, self.DDDFixedAVDelay, self.DDDDynamicAV, self.DDDSensedAV,self.DDDATRDuration, self.DDDATRFallbackMode, self.DDDATRFallbackTime) #Updates the user’s chosen parameters to the database
         self.db.updateUser(self.currentUser)  

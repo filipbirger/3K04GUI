@@ -1,5 +1,4 @@
 
-
 class userClass:
 #Gets called upon the creation of a new object/user. 
 # The user is created with a username, password, and device ID, all other protected parameters are set to 0 until changed
