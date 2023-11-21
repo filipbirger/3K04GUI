@@ -3,7 +3,7 @@ import userClass
 import sqlite3
 from DataBase import DataBase
 import SerialComm
-import Egram
+#import Egram
 
 class MyGUI:
 
@@ -1026,8 +1026,6 @@ class MyGUI:
         #Serial comm to pacemaker when the function is submitted
         self.conn = SerialComm.SerialComm()
         self.conn.serWriteAOO(7,self.currentUser)
-
-
 
     def useConfigure(self):
         for widget in self.startWindow.winfo_children():
@@ -2199,10 +2197,55 @@ class MyGUI:
         self.ARPWarningLabel= tk.Label(self.DDDConfigWindow, text="Valid inputs are: values between\n 150-500 ms with 10 ms increment",font=('Arial', 12), fg="blue", bg="azure2" )
         self.ARPWarningLabel.pack()
         self.ARPWarningLabel.place(relx=0.55, rely=0.7)
-
-        self.DDDButton = tk.Button(self.DDDConfigWindow, text = "Next", command=self.nextConfigDDD) #Submits parameters to the device
+        
+        self.DDDButton = tk.Button(self.DDDConfigWindow, text = "Next", command=self.subConfigDDD1) #Submits parameters to the device
         self.DDDButton.pack()
         self.DDDButton.place(relx=0.8, rely=0.8, relwidth=0.1, relheight=0.1)
+
+    def subConfigDDD1(self):
+        self.DDDLRLimit= self.LRLimitTextField.get().strip()
+        self.DDDURLimit= self.URLimitTextField.get().strip()
+        self.DDDVentricularAmplitude= self.VentricularAmplitudeTextField.get().strip()
+        self.DDDVentricularPulseWidth= self.VentricularPulseWidthTextField.get().strip()
+        self.DDDVRP= self.VRPTextField.get().strip()
+        self.DDDAtrialAmplitude = self.AtrialAmplitudeTextField.get().strip()
+        self.DDDAtrialPulseWidth = self.AtrialAmplitudeTextField.get().strip()
+        self.DDDARP = self.ARPTextField.get().strip()
+
+        if self.DDDVentricularAmplitude == "0":
+            self.DDDVentricularAmplitude =  0
+        else:
+            self.DDDVentricularAmplitude= float(self.DDDVentricularAmplitude)
+        
+        self.DDDLRLimit= float(self.DDDLRLimit)
+        self.DDDURLimit= float(self.DDDURLimit)
+        self.DDDVentricularPulseWidth= float(self.DDDVentricularPulseWidth)
+        self.DDDVRP= float(self.DDDVRP)
+        self.DDDAtrialAmplitude = float(self.DDDAtrialAmplitude)
+        self.DDDAtrialPulseWidth = float(self.DDDAtrialPulseWidth)
+        self.DDDARP = float(self.DDDARP)
+
+        if not ((30<= self.DDDLRLimit<=50 and self.DDDLRLimit % 5 == 0) or (50<= self.DDDLRLimit<=90) or  (90 <= self.DDDLRLimit <= 175 and self.DDDLRLimit % 5 == 0)):
+            MyGUI.errorWindow(self)
+        elif not ((50<= self.DDDURLimit<=175 and self.DDDURLimit % 5 == 0)):
+            MyGUI.errorWindow(self)
+        elif not  ((0.1 <= self.DDDVentricularAmplitude <= 5.0 and self.DDDVentricularAmplitude*10 %1==0) or (self.DDDVentricularAmplitude ==0)): 
+            MyGUI.errorWindow(self)
+        elif not ((1.0<= self.DDDVentricularPulseWidth <= 30.0)):
+            MyGUI.errorWindow(self)
+        elif not ((150<= self.DDDVRP<=500 and self.DDDVRP % 10 == 0)):
+            MyGUI.errorWindow(self)
+        elif not ((self.DDDAtrialAmplitude==0) or (0.1 <= self.DDDAtrialAmplitude <= 5.0 and self.DDDAtrialAmplitude*10 %1==0)): 
+            MyGUI.errorWindow(self)
+        elif not ((1.0<= self.DDDAtrialPulseWidth <= 30.0)):
+            MyGUI.errorWindow(self)
+        elif not ((150<= self.DDDARP<=500 and self.DDDARP % 10 == 0)):
+            MyGUI.errorWindow(self)
+        else:
+            self.currentUser.DDD(self.DDDLRLimit, self.DDDURLimit, self.DDDVentricularAmplitude, self.DDDVentricularPulseWidth, self.DDDVRP, self.DDDAtrialAmplitude, self.DDDAtrialPulseWidth, self.DDDARP, 0,0,0,0,0,0)
+            self.db.updateUser(self.currentUser)#Updates the user’s chosen parameters to the database
+            MyGUI.nextConfigDDD(self)
+
 
     def nextConfigDDD(self):
         for widget in self.startWindow.winfo_children():
@@ -2247,7 +2290,7 @@ class MyGUI:
         self.SensedAVDelayTextField.pack()
         self.SensedAVDelayTextField.place(relx=0.325, rely=0.5)
 
-        self.SensedAVDelayWarningLabel=tk.Label(self.nextConfigDDDWindow, text="Valid inputs are: off, values between\n -10 to 100 ms incremented by -10 ms",font=("Arial",12), fg="blue", bg="azure2")
+        self.SensedAVDelayWarningLabel=tk.Label(self.nextConfigDDDWindow, text="Valid inputs are: off, values between\n -10 to -100 ms incremented by -10 ms",font=("Arial",12), fg="blue", bg="azure2")
         self.SensedAVDelayWarningLabel.pack()
         self.SensedAVDelayWarningLabel.place(relx=0.045, rely=0.55)
 
@@ -2289,26 +2332,14 @@ class MyGUI:
         self.nextConfigDDDButton.place(relx=0.8, rely=0.8, relwidth=0.1, relheight=0.1)
 
     def submitDDD(self):
-        self.DDDLRLimit= self.LRLimitTextField.get().strip()
-        self.DDDURLimit= self.URLimitTextField.get().strip()
-        self.DDDVentricularAmplitude= self.VentricularAmplitudeTextField.get().strip()
-        self.DDDVentricularPulseWidth= self.VentricularPulseWidthTextField.get().strip()
-        self.DDDVRP= self.VRPTextField.get().strip()
-        self.DDDAtrialAmplitude = self.AtrialAmplitudeTextField.get().strip()
-        self.DDDAtrialPulseWidth = self.AtrialAmplitudeTextField.get().strip()
-        self.DDDARP = self.ARPTextField.get().strip()
         self.DDDFixedAV = self.FixedAVDelayTextField.get().strip()
         self.DDDDynamicAV= self.DynamicAVDelayTextField.get().strip()
         self.DDDSensedAV = self.SensedAVDelayTextField.get().strip()
         self.DDDATRDuration = self.ATRDurationTextField.get().strip()
         self.DDDATRFallbackMode = self.ATRModeTextField.get().strip()
         self.DDDATRFallbackTime = self.ATRFallbackTimeTextField.get().strip()
-
+        
         #Checks to make sure the values inputted are valid
-        if self.DDDVentricularAmplitude == "0":
-            self.DDDVentricularAmplitude =0
-        else:
-            self.DDDVentricularAmplitude= float(self.VVIVentricularAmplitude)
         
         if self.DDDDynamicAV == "Off":
             self.DDDDynamicAV = 0
@@ -2317,12 +2348,12 @@ class MyGUI:
         else:
             self.DDDDynamicAV=50
         
-        if self.DDDATRMode == "Off":
-            self.DDDATRMode = 0
-        elif self.DDDATRMode == "On":
-            self.DDDATRMode = 1
+        if self.DDDATRFallbackMode == "Off":
+            self.DDDATRFallbackMode = 0
+        elif self.DDDATRFallbackMode == "On":
+            self.DDDATRFallbackMode = 1
         else:
-            self.DDDATRMode=50
+            self.DDDATRFallbackMode=50
         
         if self.DDDSensedAV == "Off":
             self.DDDSensedAV = 0
@@ -2330,35 +2361,11 @@ class MyGUI:
             self.DDDSensedAV= float(self.DDDSensedAV)
 
  
-        self.DDDLRLimit= float(self.DDDLRLimit)
-        self.DDDURLimit= float(self.DDDURLimit)
-        self.DDDVentricularPulseWidth= float(self.DDDVentricularPulseWidth)
-        self.DDDVRP= float(self.DDDVRP)
-        self.DDDAtrialAmplitude = float(self.DDDAtrialAmplitude)
-        self.DDDAtrialPulseWidth = float(self.DDDAtrialPulseWidth)
-        self.DDDARP = float(self.DDDARP)
         self.DDDFixedAV = float(self.DDDFixedAV)
         self.DDDATRDuration = float(self.DDDATRDuration)
         self.DDDATRFallbackTime = float(self.DDDATRFallbackTime)
 
-
-        if not ((30<= self.VVILRLimit<=50 and self.VVILRLimit % 5 == 0) or (50<= self.VVILRLimit<=90) or  (90 <= self.VVILRLimit <= 175 and self.VVILRLimit % 5 == 0)):
-            MyGUI.errorWindow(self)
-        elif not ((50<= self.VVIURLimit<=175 and self.VVIURLimit % 5 == 0)):
-            MyGUI.errorWindow(self)
-        elif not  ((0.1 <= self.VVIVentricularAmplitude <= 5.0 and self.VVIVentricularAmplitude*10 %1==0) or (self.VVIVentricularAmplitude ==0)): 
-            MyGUI.errorWindow(self)
-        elif not ((1.0<= self.VVIVentricularPulseWidth <= 30.0)):
-            MyGUI.errorWindow(self)
-        elif not ((150<= self.VVIVRP<=500 and self.VVIVRP % 10 == 0)):
-            MyGUI.errorWindow(self)
-        elif not ((self.DDDAtrialAmplitude==0) or (0.1 <= self.DDDAtrialAmplitude <= 5.0 and self.DDDAtrialAmplitude*10 %1==0)): 
-            MyGUI.errorWindow(self)
-        elif not ((1.0<= self.DDDAtrialPulseWidth <= 30.0)):
-            MyGUI.errorWindow(self)
-        elif not ((150<= self.DDDARP<=500 and self.DDDARP % 10 == 0)):
-            MyGUI.errorWindow(self)
-        elif not ((70<= self.DDDFixedAV <=300 and self.DDDFixedAV % 10 == 0)):
+        if not ((70<= self.DDDFixedAV <=300 and self.DDDFixedAV % 10 == 0)):
             MyGUI.errorWindow(self)
         elif not ((self.DDDDynamicAV == 0) or (self.DDDDynamicAV == 1)):
             MyGUI.errorWindow(self)
@@ -2374,7 +2381,6 @@ class MyGUI:
             MyGUI.successfulSubmitted(self,self.nextConfigDDDWindow)
 
 
-
     def DDDRConfig(self):
         for widget in self.startWindow.winfo_children():
             widget.destroy()
@@ -2383,105 +2389,367 @@ class MyGUI:
         self.backButton.pack()
         self.backButton.place(relx=0.075, rely=0.85, relwidth=0.1, relheight=0.05)
 
-        self.DDDConfigWindow = self.startWindow
+        self.DDDRConfigWindow = self.startWindow
 
-        self.DDDConfigLabel=tk.Label(self.DDDConfigWindow, text="Configure Your DDD Parameters", font=("Arial",18), bg="azure2") #Gathers the necessary parameters to configure VOO from the user
-        self.DDDConfigLabel.pack()
-        self.DDDConfigLabel.place(relx=0.3,rely=0.05)
+        self.DDDRConfigLabel=tk.Label(self.DDDRConfigWindow, text="Configure Your DDDR Parameters", font=("Arial",18), bg="azure2") #Gathers the necessary parameters to configure VOO from the user
+        self.DDDRConfigLabel.pack()
+        self.DDDRConfigLabel.place(relx=0.3,rely=0.05)
 
-        self.LRLimitLabel= tk.Label(self.DDDConfigWindow, text="Lower Rate Limit: ", font=("Arial", 14), bg="azure2")
+        self.LRLimitLabel= tk.Label(self.DDDRConfigWindow, text="Lower Rate Limit: ", font=("Arial", 14), bg="azure2")
         self.LRLimitLabel.pack()
         self.LRLimitLabel.place(relx=0.045,rely=0.15)
-        self.LRLimitTextField = tk.Entry(self.DDDConfigWindow)
+        self.LRLimitTextField = tk.Entry(self.DDDRConfigWindow)
         self.LRLimitTextField.pack()
         self.LRLimitTextField.place(relx=0.325, rely=0.15)
         
-        self.LRLimitWarningLabel= tk.Label(self.DDDConfigWindow, text="Valid inputs are: values between 30-50 ppm\n incremented by 5 ppm, values between\n 50-90 ppm incremented by 1 ppm, values\n between 90-175 ppm incremented by 5 ppm",font=('Arial', 12), fg="blue", bg="azure2" )
+        self.LRLimitWarningLabel= tk.Label(self.DDDRConfigWindow, text="Valid inputs are: values between 30-50 ppm\n incremented by 5 ppm, values between\n 50-90 ppm incremented by 1 ppm, values\n between 90-175 ppm incremented by 5 ppm",font=('Arial', 12), fg="blue", bg="azure2" )
         self.LRLimitWarningLabel.pack()
         self.LRLimitWarningLabel.place(relx=0.045, rely=0.2)
         
-        self.URLimitLabel= tk.Label(self.DDDConfigWindow, text="Upper Rate Limit: ", font=("Arial",14), bg="azure2")
+        self.URLimitLabel= tk.Label(self.DDDRConfigWindow, text="Upper Rate Limit: ", font=("Arial",14), bg="azure2")
         self.URLimitLabel.pack()
         self.URLimitLabel.place(relx=0.045,rely=0.35)
-        self.URLimitTextField = tk.Entry(self.DDDConfigWindow)
+        self.URLimitTextField = tk.Entry(self.DDDRConfigWindow)
         self.URLimitTextField.pack()
         self.URLimitTextField.place(relx=0.325, rely=0.35)
         
-        self.URLimitWarningLabel= tk.Label(self.DDDConfigWindow, text="Valid inputs are: values between 50-175 ppm\n incremented by 5 ppm",font=('Arial', 12), fg="blue", bg="azure2" )
+        self.URLimitWarningLabel= tk.Label(self.DDDRConfigWindow, text="Valid inputs are: values between 50-175 ppm\n incremented by 5 ppm",font=('Arial', 12), fg="blue", bg="azure2" )
         self.URLimitWarningLabel.pack()
         self.URLimitWarningLabel.place(relx=0.045, rely=0.4)
 
-        self.VentricularAmplitudeLabel= tk.Label(self.DDDConfigWindow, text="Ventricular Amplitude: ", font=("Arial",14), bg="azure2")
+        self.VentricularAmplitudeLabel= tk.Label(self.DDDRConfigWindow, text="Ventricular Amplitude: ", font=("Arial",14), bg="azure2")
         self.VentricularAmplitudeLabel.pack()
         self.VentricularAmplitudeLabel.place(relx=0.045,rely=0.5)
-        self.VentricularAmplitudeTextField = tk.Entry(self.DDDConfigWindow)
+        self.VentricularAmplitudeTextField = tk.Entry(self.DDDRConfigWindow)
         self.VentricularAmplitudeTextField.pack()
         self.VentricularAmplitudeTextField.place(relx=0.325, rely=0.5)
 
-        self.VentricularAmplitudeWarningLabel= tk.Label(self.DDDConfigWindow, text="Valid inputs are: 0 or between\n 0.1-5.0 V with 0.1 V increment",font=('Arial', 12), fg="blue", bg="azure2" )
+        self.VentricularAmplitudeWarningLabel= tk.Label(self.DDDRConfigWindow, text="Valid inputs are: 0 or between\n 0.1-5.0 V with 0.1 V increment",font=('Arial', 12), fg="blue", bg="azure2" )
         self.VentricularAmplitudeWarningLabel.pack()
         self.VentricularAmplitudeWarningLabel.place(relx=0.045, rely=0.55)
 
-        self.VentricularPulseWidthLabel= tk.Label(self.DDDConfigWindow, text="Ventricular Pulse Width: ", font=("Arial",14), bg="azure2")
+        self.VentricularPulseWidthLabel= tk.Label(self.DDDRConfigWindow, text="Ventricular Pulse Width: ", font=("Arial",14), bg="azure2")
         self.VentricularPulseWidthLabel.pack()
         self.VentricularPulseWidthLabel.place(relx=0.045,rely=0.65)
-        self.VentricularPulseWidthTextField = tk.Entry(self.DDDConfigWindow)
+        self.VentricularPulseWidthTextField = tk.Entry(self.DDDRConfigWindow)
         self.VentricularPulseWidthTextField.pack()
         self.VentricularPulseWidthTextField.place(relx=0.325, rely=0.65)
 
-        self.VentricularPulseWidthWarningLabel= tk.Label(self.DDDConfigWindow, text="Valid inputs are: values between\n 1-30 ms with 1 ms increment",font=('Arial', 12), fg="blue", bg="azure2" )
+        self.VentricularPulseWidthWarningLabel= tk.Label(self.DDDRConfigWindow, text="Valid inputs are: values between\n 1-30 ms with 1 ms increment",font=('Arial', 12), fg="blue", bg="azure2" )
         self.VentricularPulseWidthWarningLabel.pack()
         self.VentricularPulseWidthWarningLabel.place(relx=0.045, rely=0.7)
 
-        self.AtrialAmplitudeLabel= tk.Label(self.DDDConfigWindow, text="Atrial Amplitude: ",font=("Arial",14), bg="azure2")
+        self.AtrialAmplitudeLabel= tk.Label(self.DDDRConfigWindow, text="Atrial Amplitude: ",font=("Arial",14), bg="azure2")
         self.AtrialAmplitudeLabel.pack()
         self.AtrialAmplitudeLabel.place(relx=0.55,rely=0.15)
-        self.AtrialAmplitudeTextField = tk.Entry(self.DDDConfigWindow)
+        self.AtrialAmplitudeTextField = tk.Entry(self.DDDRConfigWindow)
         self.AtrialAmplitudeTextField.pack()
         self.AtrialAmplitudeTextField.place(relx=0.825, rely=0.15)
 
-        self.AtrialAmplitudeWarningLabel= tk.Label(self.DDDConfigWindow, text="Valid inputs are: 0 or between\n 0.1-5.0 V with 0.1 V increment",font=('Arial', 12), fg="blue", bg="azure2" )
+        self.AtrialAmplitudeWarningLabel= tk.Label(self.DDDRConfigWindow, text="Valid inputs are: 0 or between\n 0.1-5.0 V with 0.1 V increment",font=('Arial', 12), fg="blue", bg="azure2" )
         self.AtrialAmplitudeWarningLabel.pack()
         self.AtrialAmplitudeWarningLabel.place(relx=0.55, rely=0.2)
 
-        self.AtrialPulseWidthLabel= tk.Label(self.DDDConfigWindow, text="Atrial Pulse Width: ", font=("Arial",14), bg="azure2")
+        self.AtrialPulseWidthLabel= tk.Label(self.DDDRConfigWindow, text="Atrial Pulse Width: ", font=("Arial",14), bg="azure2")
         self.AtrialPulseWidthLabel.pack()
         self.AtrialPulseWidthLabel.place(relx=0.55,rely=0.35)
-        self.AtrialPulseWidthTextField = tk.Entry(self.DDDConfigWindow)
+        self.AtrialPulseWidthTextField = tk.Entry(self.DDDRConfigWindow)
         self.AtrialPulseWidthTextField.pack()
         self.AtrialPulseWidthTextField.place(relx=0.825, rely=0.35)
 
-        self.AtrialPulseWidthWarningLabel= tk.Label(self.DDDConfigWindow, text="Valid inputs are: values between\n 1-30 ms with 1 ms increment",font=('Arial', 12), fg="blue", bg="azure2" )
+        self.AtrialPulseWidthWarningLabel= tk.Label(self.DDDRConfigWindow, text="Valid inputs are: values between\n 1-30 ms with 1 ms increment",font=('Arial', 12), fg="blue", bg="azure2" )
         self.AtrialPulseWidthWarningLabel.pack()
         self.AtrialPulseWidthWarningLabel.place(relx=0.55, rely=0.4)
 
-        self.VRPLabel= tk.Label(self.DDDConfigWindow, text="VRP: ", font=("Arial",14), bg="azure2")
+        self.VRPLabel= tk.Label(self.DDDRConfigWindow, text="VRP: ", font=("Arial",14), bg="azure2")
         self.VRPLabel.pack()
         self.VRPLabel.place(relx=0.55,rely=0.5)
-        self.VRPTextField = tk.Entry(self.DDDConfigWindow)
+        self.VRPTextField = tk.Entry(self.DDDRConfigWindow)
         self.VRPTextField.pack()
         self.VRPTextField.place(relx=0.825, rely=0.5)
 
-        self.VRPWarningLabel= tk.Label(self.DDDConfigWindow, text="Valid inputs are: values between\n 150-500 ms with 10 ms increment",font=('Arial', 12), fg="blue", bg="azure2" )
+        self.VRPWarningLabel= tk.Label(self.DDDRConfigWindow, text="Valid inputs are: values between\n 150-500 ms with 10 ms increment",font=('Arial', 12), fg="blue", bg="azure2" )
         self.VRPWarningLabel.pack()
         self.VRPWarningLabel.place(relx=0.55, rely=0.55)
 
-        self.ARPLabel= tk.Label(self.DDDConfigWindow, text="ARP: ", font=("Arial", 14), bg="azure2")
+        self.ARPLabel= tk.Label(self.DDDRConfigWindow, text="ARP: ", font=("Arial", 14), bg="azure2")
         self.ARPLabel.pack()
         self.ARPLabel.place(relx=0.55,rely=0.65)
-        self.ARPTextField = tk.Entry(self.DDDConfigWindow)
+        self.ARPTextField = tk.Entry(self.DDDRConfigWindow)
         self.ARPTextField.pack()
         self.ARPTextField.place(relx=0.825, rely=0.65)
 
-        self.ARPWarningLabel= tk.Label(self.DDDConfigWindow, text="Valid inputs are: values between\n 150-500 ms with 10 ms increment",font=('Arial', 12), fg="blue", bg="azure2" )
+        self.ARPWarningLabel= tk.Label(self.DDDRConfigWindow, text="Valid inputs are: values between\n 150-500 ms with 10 ms increment",font=('Arial', 12), fg="blue", bg="azure2" )
         self.ARPWarningLabel.pack()
         self.ARPWarningLabel.place(relx=0.55, rely=0.7)
 
-        self.DDDButton = tk.Button(self.DDDConfigWindow, text = "Next", command=self.nextConfigDDD) #Submits parameters to the device
-        self.DDDButton.pack()
-        self.DDDButton.place(relx=0.8, rely=0.8, relwidth=0.1, relheight=0.1)
+        self.DDDRButton = tk.Button(self.DDDRConfigWindow, text = "Next", command=self.subConfigDDDR1) #Submits parameters to the device
+        self.DDDRButton.pack()
+        self.DDDRButton.place(relx=0.8, rely=0.8, relwidth=0.1, relheight=0.1)
     
+    def subConfigDDDR1(self):
+        self.DDDRLRLimit= self.LRLimitTextField.get().strip()
+        self.DDDRURLimit= self.URLimitTextField.get().strip()
+        self.DDDRVentricularAmplitude= self.VentricularAmplitudeTextField.get().strip()
+        self.DDDRVentricularPulseWidth= self.VentricularPulseWidthTextField.get().strip()
+        self.DDDRVRP= self.VRPTextField.get().strip()
+        self.DDDRAtrialAmplitude = self.AtrialAmplitudeTextField.get().strip()
+        self.DDDRAtrialPulseWidth = self.AtrialAmplitudeTextField.get().strip()
+        self.DDDRARP = self.ARPTextField.get().strip()
+
+        if self.DDDRVentricularAmplitude == "0":
+            self.DDDRVentricularAmplitude =  0
+        else:
+            self.DDDRVentricularAmplitude= float(self.DDDRVentricularAmplitude)
+        
+        self.DDDRLRLimit= float(self.DDDRLRLimit)
+        self.DDDRURLimit= float(self.DDDRURLimit)
+        self.DDDRVentricularPulseWidth= float(self.DDDRVentricularPulseWidth)
+        self.DDDRVRP= float(self.DDDRVRP)
+        self.DDDRAtrialAmplitude = float(self.DDDRAtrialAmplitude)
+        self.DDDRAtrialPulseWidth = float(self.DDDRAtrialPulseWidth)
+        self.DDDRARP = float(self.DDDRARP)
+
+        if not ((30<= self.DDDRLRLimit<=50 and self.DDDRLRLimit % 5 == 0) or (50<= self.DDDRLRLimit<=90) or  (90 <= self.DDDRLRLimit <= 175 and self.DDDRLRLimit % 5 == 0)):
+            MyGUI.errorWindow(self)
+        elif not ((50<= self.DDDRURLimit<=175 and self.DDDRURLimit % 5 == 0)):
+            MyGUI.errorWindow(self)
+        elif not  ((0.1 <= self.DDDRVentricularAmplitude <= 5.0 and self.DDDRVentricularAmplitude*10 %1==0) or (self.DDDRVentricularAmplitude ==0)): 
+            MyGUI.errorWindow(self)
+        elif not ((1.0<= self.DDDRVentricularPulseWidth <= 30.0)):
+            MyGUI.errorWindow(self)
+        elif not ((150<= self.DDDRVRP<=500 and self.DDDRVRP % 10 == 0)):
+            MyGUI.errorWindow(self)
+        elif not ((self.DDDRAtrialAmplitude==0) or (0.1 <= self.DDDRAtrialAmplitude <= 5.0 and self.DDDRAtrialAmplitude*10 %1==0)): 
+            MyGUI.errorWindow(self)
+        elif not ((1.0<= self.DDDRAtrialPulseWidth <= 30.0)):
+            MyGUI.errorWindow(self)
+        elif not ((150<= self.DDDRARP<=500 and self.DDDRARP % 10 == 0)):
+            MyGUI.errorWindow(self)
+        else:
+            self.currentUser.DDDR(self.DDDRLRLimit, self.DDDRURLimit, self.DDDRVentricularAmplitude, self.DDDRVentricularPulseWidth, self.DDDRVRP, self.DDDRAtrialAmplitude, self.DDDRAtrialPulseWidth, self.DDDRARP, 0,0,0,0,0,0,0,0,0,0)
+            self.db.updateUser(self.currentUser)#Updates the user’s chosen parameters to the database
+            MyGUI.nextConfigDDDR(self)
     
+    def nextConfigDDDR(self):
+        for widget in self.startWindow.winfo_children():
+            widget.destroy()
+        
+        self.backButton = tk.Button(self.startWindow, text = "Back", command=self.useConfigure)
+        self.backButton.pack()
+        self.backButton.place(relx=0.075, rely=0.85, relwidth=0.1, relheight=0.05)
+
+        self.nextConfigDDDRWindow = self.startWindow
+
+        self.DDDRConfigLabel=tk.Label(self.nextConfigDDDRWindow, text="Configure Your DDDR Parameters", font=("Arial",18), bg="azure2") #Gathers the necessary parameters to configure VOO from the user
+        self.DDDRConfigLabel.pack()
+        self.DDDRConfigLabel.place(relx=0.3,rely=0.05)
+
+        self.FixedAVDelayLabel=tk.Label(self.nextConfigDDDRWindow, text="Fixed AV Delay: ", font=("Arial",14), bg="azure2")
+        self.FixedAVDelayLabel.pack()
+        self.FixedAVDelayLabel.place(relx=0.045, rely=0.15)
+        self.FixedAVDelayTextField=tk.Entry(self.nextConfigDDDRWindow)
+        self.FixedAVDelayTextField.pack()
+        self.FixedAVDelayTextField.place(relx=0.325, rely=0.15)
+
+        self.FixedAVDelayWarningLabel=tk.Label(self.nextConfigDDDRWindow, text="Valid inputs are: values between 70-300 ms\n incremented by 10 ms", font=("Arial",12), fg="blue", bg="azure2")
+        self.FixedAVDelayWarningLabel.pack()
+        self.FixedAVDelayWarningLabel.place(relx=0.045,rely=0.2)
+
+        self.DynamicAVDelayLabel=tk.Label(self.nextConfigDDDRWindow, text="Dynamic AV Delay: ", font=("Arial", 14), bg="azure2")
+        self.DynamicAVDelayLabel.pack()
+        self.DynamicAVDelayLabel.place(relx=0.045, rely=0.35)
+        self.DynamicAVDelayTextField= tk.Entry(self.nextConfigDDDRWindow)
+        self.DynamicAVDelayTextField.pack()
+        self.DynamicAVDelayTextField.place(relx=0.325, rely=0.35)
+
+        self.DynamicAVDelayWarningLabel=tk.Label(self.nextConfigDDDRWindow, text="Valid inputs are: Off or On", font=("Arial", 12), fg="blue", bg="azure2")
+        self.DynamicAVDelayWarningLabel.pack()
+        self.DynamicAVDelayWarningLabel.place(relx=0.045, rely=0.4)
+
+        self.SensedAVDelayLabel=tk.Label(self.nextConfigDDDRWindow, text="Sensed AV Delay Offset: ", font=("Arial",14), bg="azure2")
+        self.SensedAVDelayLabel.pack()
+        self.SensedAVDelayLabel.place(relx=0.045, rely=0.5)
+        self.SensedAVDelayTextField=tk.Entry(self.nextConfigDDDRWindow)
+        self.SensedAVDelayTextField.pack()
+        self.SensedAVDelayTextField.place(relx=0.325, rely=0.5)
+
+        self.SensedAVDelayWarningLabel=tk.Label(self.nextConfigDDDRWindow, text="Valid inputs are: off, values between\n -10 to -100 ms incremented by -10 ms",font=("Arial",12), fg="blue", bg="azure2")
+        self.SensedAVDelayWarningLabel.pack()
+        self.SensedAVDelayWarningLabel.place(relx=0.045, rely=0.55)
+
+        self.ATRModeLabel=tk.Label(self.nextConfigDDDRWindow, text="ATR Fallback Mode: ", fon=("Arial", 14), bg="azure2")
+        self.ATRModeLabel.pack()
+        self.ATRModeLabel.place(relx=0.55, rely=0.15)
+        self.ATRModeTextField=tk.Entry(self.nextConfigDDDRWindow)
+        self.ATRModeTextField.pack()
+        self.ATRModeTextField.place(relx=0.825, rely=0.15)
+
+        self.ATRModeWarningLabel=tk.Label(self.nextConfigDDDRWindow, text="Valid inputs are: Off or On", font=("Arial",12), fg="blue", bg="azure2")
+        self.ATRModeWarningLabel.pack()
+        self.ATRModeWarningLabel.place(relx=0.55, rely=0.2)
+
+        self.ATRDurationLabel=tk.Label(self.nextConfigDDDRWindow, text="ATR Duration: ", font=("Arial", 14), bg="azure2")
+        self.ATRDurationLabel.pack()
+        self.ATRDurationLabel.place(relx=0.55, rely=0.35)
+        self.ATRDurationTextField=tk.Entry(self.nextConfigDDDRWindow)
+        self.ATRDurationTextField.pack()
+        self.ATRDurationTextField.place(relx=0.825, rely=0.35)
+
+        self.ATRDurationWarningLabel=tk.Label(self.nextConfigDDDRWindow, text="Valid inputs are: 10 cc, values between\n 20-80 cc incremented by 20 cc, values between\n 100-2000 cc incremented by 100 cc", font=("Arial", 12), fg="blue", bg="azure2")
+        self.ATRDurationWarningLabel.pack()
+        self.ATRDurationWarningLabel.place(relx=0.55, rely=0.4)
+
+        self.ATRFallbackTimeLabel=tk.Label(self.nextConfigDDDRWindow, text="ATR Fallback Time: ", font=("Arial", 14), bg="azure2")
+        self.ATRFallbackTimeLabel.pack()
+        self.ATRFallbackTimeLabel.place(relx=0.55, rely= 0.5)
+        self.ATRFallbackTimeTextField=tk.Entry(self.nextConfigDDDRWindow)
+        self.ATRFallbackTimeTextField.pack()
+        self.ATRFallbackTimeTextField.place(relx=0.825, rely=0.5)
+
+        self.ATRFallbackTimeWarningLabel=tk.Label(self.nextConfigDDDRWindow, text="Valid inputs are: 1-5 min incremented by 1 min", font=("Arial", 12), fg="blue", bg="azure2")
+        self.ATRFallbackTimeWarningLabel.pack()
+        self.ATRFallbackTimeWarningLabel.place(relx=0.55, rely=0.55)
+
+        self.nextConfigDDDRButton = tk.Button(self.nextConfigDDDRWindow, text = "Next", command=self.subConfigDDDR2) #Submits parameters to the device
+        self.nextConfigDDDRButton.pack()
+        self.nextConfigDDDRButton.place(relx=0.8, rely=0.8, relwidth=0.1, relheight=0.1)
+
+    def subConfigDDDR2(self):
+        self.DDDRFixedAV = self.FixedAVDelayTextField.get().strip()
+        self.DDDRDynamicAV= self.DynamicAVDelayTextField.get().strip()
+        self.DDDRSensedAV = self.SensedAVDelayTextField.get().strip()
+        self.DDDRATRDuration = self.ATRDurationTextField.get().strip()
+        self.DDDRATRFallbackMode = self.ATRModeTextField.get().strip()
+        self.DDDRATRFallbackTime = self.ATRFallbackTimeTextField.get().strip()
+        
+        #Checks to make sure the values inputted are valid
+        
+        if self.DDDRDynamicAV == "Off":
+            self.DDDRDynamicAV = 0
+        elif self.DDDRDynamicAV == "On":
+            self.DDDRDynamicAV = 1
+        else:
+            self.DDDRDynamicAV=50
+        
+        if self.DDDRATRFallbackMode == "Off":
+            self.DDDRATRFallbackMode = 0
+        elif self.DDDRATRFallbackMode == "On":
+            self.DDDRATRFallbackMode = 1
+        else:
+            self.DDDRATRFallbackMode=50
+        
+        if self.DDDRSensedAV == "Off":
+            self.DDDRSensedAV = 0
+        else:
+            self.DDDRSensedAV= float(self.DDDRSensedAV)
+
+ 
+        self.DDDRFixedAV = float(self.DDDRFixedAV)
+        self.DDDRATRDuration = float(self.DDDRATRDuration)
+        self.DDDRATRFallbackTime = float(self.DDDRATRFallbackTime)
+
+        if not ((70<= self.DDDRFixedAV <=300 and self.DDDRFixedAV % 10 == 0)):
+            MyGUI.errorWindow(self)
+        elif not ((self.DDDRDynamicAV == 0) or (self.DDDRDynamicAV == 1)):
+            MyGUI.errorWindow(self)
+        elif not ((self.DDDRSensedAV == 0) or (-100<=self.DDDRSensedAV<=-10 and self.DDDRSensedAV % 10 ==0)):
+            MyGUI.errorWindow(self)
+        elif not ((self.DDDRATRFallbackMode == 0) or (self.DDDRATRFallbackMode == 1)):
+            MyGUI.errorWindow(self)
+        elif not ((self.DDDRATRDuration == 10) or (20<=self.DDDRATRDuration<=80 and self.DDDRATRDuration % 20 ==0) or (100<=self.DDDRATRDuration<=2000 and self.DDDRATRDuration % 100 ==0)):
+            MyGUI.errorWindow(self)
+        else:
+            self.currentUser.DDDR(self.DDDRLRLimit, self.DDDRURLimit, self.DDDRVentricularAmplitude, self.DDDRVentricularPulseWidth, self.DDDRVRP, self.DDDRAtrialAmplitude, self.DDDRAtrialPulseWidth, self.DDDRARP, self.DDDRFixedAV, self.DDDRDynamicAV, self.DDDRSensedAV, self.DDDRATRFallbackMode, self.DDDRATRDuration, self.DDDRATRFallbackTime,0,0,0,0)
+            self.db.updateUser(self.currentUser)#Updates the user’s chosen parameters to the database
+            MyGUI.nextConfigDDDR2(self)
+
+    def nextConfigDDDR2(self):
+        for widget in self.startWindow.winfo_children():
+            widget.destroy()
+        
+        self.backButton = tk.Button(self.startWindow, text = "Back", command=self.useConfigure)
+        self.backButton.pack()
+        self.backButton.place(relx=0.075, rely=0.85, relwidth=0.1, relheight=0.05)
+
+        self.nextConfigDDDR2Window = self.startWindow
+
+        self.DDDRConfigLabel=tk.Label(self.nextConfigDDDR2Window, text="Configure Your DDDR Parameters", font=("Arial",18), bg="azure2") #Gathers the necessary parameters to configure VOO from the user
+        self.DDDRConfigLabel.pack()
+        self.DDDRConfigLabel.place(relx=0.3,rely=0.05)
+
+        self.MaximumSensorRateLabel=tk.Label(self.nextConfigDDDR2Window, text="Maximum Sensor Rate: ", font=("Arial",14), bg="azure2")
+        self.MaximumSensorRateLabel.pack()
+        self.MaximumSensorRateLabel.place(relx=0.045, rely=0.15)
+        self.MaximumSensorRateTextField=tk.Entry(self.nextConfigDDDR2Window)
+        self.MaximumSensorRateTextField.pack()
+        self.MaximumSensorRateTextField.place(relx=0.325, rely=0.15)
+
+        self.MaximumSensorRateWarningLabel=tk.Label(self.nextConfigDDDR2Window, text="Valid inputs are: values between\n 50-175 ppm with 5 ppm increment", font=("Arial",12), fg="blue", bg="azure2")
+        self.MaximumSensorRateWarningLabel.pack()
+        self.MaximumSensorRateWarningLabel.place(relx=0.045, rely=0.2)
+
+        self.ReactionTimeLabel=tk.Label(self.nextConfigDDDR2Window, text="Reaction Time: ", font=("Arial",14), bg="azure2")
+        self.ReactionTimeLabel.pack()
+        self.ReactionTimeLabel.place(relx=0.045, rely=0.35)
+        self.ReactionTimeTextField=tk.Entry(self.nextConfigDDDR2Window)
+        self.ReactionTimeTextField.pack()
+        self.ReactionTimeTextField.place(relx=0.325,rely=0.35)
+
+        self.ReactionTimeWarningLabel=tk.Label(self.nextConfigDDDR2Window,text="Valid input are: values between\n 10-50 sec with a 10 sec increment", font=("Arial",12), fg="blue", bg="azure2")
+        self.ReactionTimeWarningLabel.pack()
+        self.ReactionTimeWarningLabel.place(relx=0.045,rely=0.4)
+
+        self.ResponseFactorLabel=tk.Label(self.nextConfigDDDR2Window, text="Response Factor: ", font=("Arial",14), bg="azure2")
+        self.ResponseFactorLabel.pack()
+        self.ResponseFactorLabel.place(relx=0.045,rely=0.5)
+        self.ResponseFactorTextField=tk.Entry(self.nextConfigDDDR2Window)
+        self.ResponseFactorTextField.pack()
+        self.ResponseFactorTextField.place(relx=0.325, rely=0.5)
+
+        self.ResponseFactorWarningLabel=tk.Label(self.nextConfigDDDR2Window, text="Valid inputs are: values between\n 1-16 with an increment of 1", font=("Arial",12), fg="blue", bg="azure2")
+        self.ResponseFactorWarningLabel.pack()
+        self.ResponseFactorWarningLabel.place(relx=0.045,rely=0.55)
+
+        self.RecoveryTimeLabel=tk.Label(self.nextConfigDDDR2Window, text="Recovery Time: ", font=("Arial",14), bg="azure2")
+        self.RecoveryTimeLabel.pack()
+        self.RecoveryTimeLabel.place(relx=0.045, rely=0.65)
+        self.RecoveryTimeTextField=tk.Entry(self.nextConfigDDDR2Window)
+        self.RecoveryTimeTextField.pack()
+        self.RecoveryTimeTextField.place(relx=0.325,rely=0.65)
+
+        self.RecoveryTimeWarningLabel=tk.Label(self.nextConfigDDDR2Window, text="Valid inputs are: values between\n 2-16 min with a 1 min increment", font=("Arial",12), fg="blue", bg="azure2")
+        self.RecoveryTimeWarningLabel.pack()
+        self.RecoveryTimeWarningLabel.place(relx=0.045,rely=0.7)
+
+        self.nextConfigDDDRButton = tk.Button(self.nextConfigDDDRWindow, text = "Submit", command=self.submitConfigDDDR) #Submits parameters to the device
+        self.nextConfigDDDRButton.pack()
+        self.nextConfigDDDRButton.place(relx=0.8, rely=0.8, relwidth=0.1, relheight=0.1)
+
+    def submitConfigDDDR(self):
+        self.DDDRMaxSensorRate= self.MaximumSensorRateTextField.get().strip()
+        self.DDDRReactionTime= self.ReactionTimeTextField.get().strip()
+        self.DDDRRecoveryTime= self.RecoveryTimeTextField.get().strip()
+        self.DDDRResponseFactor= self.ResponseFactorTextField.get().strip()
+
+        self.DDDRMaxSensorRate= float(self.DDDRMaxSensorRate)
+        self.DDDRRecoveryTime= float(self.DDDRRecoveryTime)
+        self.DDDRResponseFactor= float(self.DDDRResponseFactor)
+        self.DDDRReactionTime= float(self.DDDRReactionTime)
+        
+        if not ((50.0<=self.DDDRMaxSensorRate<=175.0 and self.DDDRMaxSensorRate %5==0)):
+            MyGUI.errorWindow(self)
+        elif not ((10.0<=self.DDDRReactionTime<=50.0 and self.DDDRReactionTime%10==0)):
+            MyGUI.errorWindow(self)
+        elif not ((1.0<=self.DDDRResponseFactor<=16.0)):
+            MyGUI.errorWindow(self)
+        elif not ((2.0<=self.DDDRRecoveryTime<=16.0)):
+            MyGUI.errorWindow(self)
+        else:
+            self.currentUser.DDDR(self.DDDRLRLimit, self.DDDRURLimit, self.DDDRVentricularAmplitude, self.DDDRVentricularPulseWidth, self.DDDRVRP, self.DDDRAtrialAmplitude, self.DDDRAtrialPulseWidth, self.DDDRARP, self.DDDRFixedAV, self.DDDRDynamicAV, self.DDDRSensedAV, self.DDDRATRFallbackMode, self.DDDRATRDuration, self.DDDRATRFallbackTime,self.DDDRMaxSensorRate, self.DDDRReactionTime, self.DDDRRecoveryTime, self.DDDRResponseFactor)
+            self.db.updateUser(self.currentUser)#Updates the user’s chosen parameters to the database
+            MyGUI.successfulSubmitted(self,self.nextConfigDDDR2Window)
+
     def deleteUser(self):
 
         shift = 3  # Use the same shift value used for encryption in the database
