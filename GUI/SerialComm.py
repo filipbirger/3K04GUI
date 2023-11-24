@@ -41,56 +41,61 @@ class SerialComm:
     '''
 
     def receive(pMODE,pLRL,pUrl,pVA,pVPW,pVRP,pAA,pAPW,pARP,pMaximumSensorRate,pReactionTime,pResponseFactor,pRecoveryTime):
+        #Set up
         frdm_port = "COM7"
         Start = b'\x16'
         SYNC = b'\x22'
         Fn_set = b'\x55'
+
+        #Packing the data into Bytes
         MODE = struct.pack("B", pMODE)
-        LRL = struct.pack("B", pLRL)
-        URL = struct.pack("B", pUrl)
-        VA = struct.pack("d", pVA)
-        VPW = struct.pack("d", pVPW)
+        lowerRateLimit = struct.pack("B", pLRL)
+        upperRateLimit = struct.pack("B", pUrl)
+        ventricularAmplitude = struct.pack("d", pVA)
+        ventricularPulseWidth = struct.pack("d", pVPW)
         VRP = struct.pack("H", pVRP)
-        AA = struct.pack("d", pAA)
-        APW = struct.pack("d", pAPW)
+        atrialAmplitude = struct.pack("d", pAA)
+        atrialPulseWidth = struct.pack("d", pAPW)
         ARP = struct.pack("H", pARP)
         maximumSensorRate  = struct.pack("B", pMaximumSensorRate)
         reactionTime = struct.pack("H", pReactionTime)
         responseFactor = struct.pack("B", pResponseFactor)
         recoveryTime = struct.pack("H", pRecoveryTime)
         
-        Signal_set_order = Start+Fn_set+MODE+LRL+URL+VA+VPW+VRP+AA+APW+ARP+maximumSensorRate+reactionTime+responseFactor+recoveryTime
+        Signal_set_order = Start+Fn_set+MODE+lowerRateLimit+upperRateLimit+ventricularAmplitude+ventricularPulseWidth+VRP+atrialAmplitude+atrialPulseWidth+ARP+maximumSensorRate+reactionTime+responseFactor+recoveryTime
 
-        Signal_echo_order = Start+SYNC+MODE+LRL+URL+VA+VPW+VRP+AA+APW+ARP+maximumSensorRate+reactionTime+responseFactor+recoveryTime
+        Signal_echo_order = Start+SYNC+MODE+lowerRateLimit+upperRateLimit+ventricularAmplitude+ventricularPulseWidth+VRP+atrialAmplitude+atrialPulseWidth+ARP+maximumSensorRate+reactionTime+responseFactor+recoveryTime
 
         with serial.Serial(frdm_port, 115200) as pacemaker:
             pacemaker.write(Signal_set_order)
 
+        #Unpacking the data from Bytes to str/int
         with serial.Serial(frdm_port, 115200) as pacemaker:
             pacemaker.write(Signal_echo_order)
             data = pacemaker.read(61)
             MODE_echo = struct.unpack('B',data[0:1])[0]
-            LRL_echo = struct.unpack('B',data[1:2])[0]
-            URL_echo = struct.unpack('B',data[2:3])[0]
-            VA_echo = struct.unpack("d", data[3:11])[0]
-            VPW_echo = struct.unpack("d", data[11:19])[0]
+            lowerRateLimit_echo = struct.unpack('B',data[1:2])[0]
+            upperRateLimit_echo = struct.unpack('B',data[2:3])[0]
+            ventricularAmplitude_echo = struct.unpack("d", data[3:11])[0]
+            ventricularPulseWidth_echo = struct.unpack("d", data[11:19])[0]
             VRP_echo = struct.unpack("H", data[19:21])[0]
-            AA_echo = struct.unpack("d", data[21:29])[0]
-            APW_echo = struct.unpack("d", data[29:37])[0]
+            atrialAmplitude_echo = struct.unpack("d", data[21:29])[0]
+            atrialPulseWidth_echo = struct.unpack("d", data[29:37])[0]
             ARP_echo = struct.unpack("H", data[37:39])[0]
             maximumSensorRate_echo = struct.unpack("B", data[39:40])[0]
             reactionTime_echo = struct.unpack("H", data[40:42])[0]
             responseFactor_echo = struct.unpack("B", data[42:43])[0]
             recoveryTime_echo = struct.unpack("H", data[43:45])[0]
-            ATR_signal = struct.unpack("d", data[45:53])[0]
+            ATR_signal = struct.unpack("d", data[45:53])[0] #For egram(NOT SURE)
             VENT_signal = struct.unpack("d", data[53:61])[0]
 
-            if MODE_echo == pMODE and LRL_echo == pLRL and URL_echo == pUrl and VA_echo == pVA and VPW_echo == pVPW and VRP_echo == pVRP and AA_echo == pAA and APW_echo == pAPW and ARP_echo == pARP and maximumSensorRate_echo == pMaximumSensorRate and reactionTime_echo == pReactionTime and responseFactor_echo == pResponseFactor and recoveryTime_echo == pRecoveryTime:
+            if MODE_echo == pMODE and lowerRateLimit_echo == pLRL and upperRateLimit_echo == pUrl and ventricularAmplitude_echo == pVA and ventricularPulseWidth_echo == pVPW and VRP_echo == pVRP and atrialAmplitude_echo == pAA and atrialPulseWidth_echo == pAPW and ARP_echo == pARP and maximumSensorRate_echo == pMaximumSensorRate and reactionTime_echo == pReactionTime and responseFactor_echo == pResponseFactor and recoveryTime_echo == pRecoveryTime:
                 return True
             else:
                 return False
 
-    def read():
+    def read(self):
+        #Set up
         frdm_port = "COM7"
         Start = b'\x16'
         SYNC = b'\x22'
