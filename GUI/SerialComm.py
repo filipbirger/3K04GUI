@@ -69,7 +69,7 @@ class SerialComm:
         with serial.Serial(frdm_port, 115200) as pacemaker:
             pacemaker.write(Signal_set_order)
 
-        #Unpacking the data from Bytes to str/int
+        #Unpacking the data from Bytes to str/float
         with serial.Serial(frdm_port, 115200) as pacemaker:
             pacemaker.write(Signal_echo_order)
             data = pacemaker.read(61)
