@@ -386,8 +386,8 @@ class MyGUI:
         self.canvas.pack(fill=tk.BOTH, expand=True)
 
 
-        self.egramOBJ=Egram.Egram()
-        self.egramOBJ.updateEgram(self.canvas)
+        #self.egramOBJ=Egram.Egram()
+        #self.egramOBJ.updateEgram(self.canvas)
 
 
     def defaultAAI(self):
