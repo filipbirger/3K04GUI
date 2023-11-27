@@ -10,18 +10,27 @@ class MyGUI:
     def __init__(self): #constructor
         
         self.db = DataBase()
-
-        #self.startWindow = ThemedTk(theme="yaru") #Generates initial login screen
+        
+        
         self.startWindow=tk.Tk()
         self.startWindow.geometry("800x800")
         self.startWindow.title("3K04 Pacemaker")
         self.startWindow.configure(bg="azure2")
 
-        self.connceted = True#verifies device is connected
         self.deviceId = 2 #gives device an identification number
+        self.connceted = True
 
         self.startTitle = tk.Label(self.startWindow, text="Pacemaker", font=('Arial', 24), bg="azure2")
         self.startTitle.place(relx=0.4, rely=0.1)
+        
+        '''
+        try:
+            serComm = SerialComm.SerialComm()
+            serComm.connect()
+            self.connceted = serComm.isConnected
+        except:
+            pass
+        '''
         if (self.connceted == True):
             self.newUserButton = tk.Button(self.startWindow, text="New User", command=self.createNewUser, font=("Arial",12)) #Functionality to create New User
             self.newUserButton.place(relx=0.6, rely=0.2, relheight=0.1, relwidth=0.2)
@@ -40,8 +49,8 @@ class MyGUI:
             self.aboutLabel.pack()
             self.aboutLabel.place(relx=0.385,rely=0.7)
         else:
-            self.notConnectedLabel = tk.Label(self.startWindow, text="No Device In Range", font=('Arial', 24),bg="azure2") #Checks if device is not connected
-            self.notConnectedLabel.pack()
+            self.notConnectedLabel = tk.Label(self.startWindow, text="No Device In Range", font=('Arial', 48),bg="azure2") #Checks if device is not connected
+            self.notConnectedLabel.place(x=180, y= 300)
         self.startWindow.mainloop()
 
     def createNewUser(self):
@@ -380,6 +389,7 @@ class MyGUI:
         self.conn = SerialComm.SerialComm()
         self.conn.serWriteAOO(0,self.currentUser)
         MyGUI.successfulSubmitted(self,self.defAOOWindow)
+        
         
         self.EgramWindow = tk.Toplevel(self.startWindow)
         self.canvas = tk.Canvas(self.EgramWindow, width=800, height=800, bg='white')

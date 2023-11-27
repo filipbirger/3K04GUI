@@ -19,6 +19,30 @@ class SerialComm:
             print("Error",error)
             self.isConnected = False
 
+
+    def serWriteAOO(self, mode, user):
+        try:
+            temp = b''
+
+            # Iterate over the attributes of the user object
+            for attr in list(vars(user))[3:]:
+                if attr == '_atrialAmplitude' or attr == '_atrialPulseWidth' or attr == '_ventricularAmplitude' or attr == '_ventricularPulseWidth' :
+                    value = getattr(user, attr)
+                    temp += struct.pack("f", value)
+                else:
+                    value = getattr(user, attr)
+                    intValue = int(value)
+                    temp += struct.pack("h", intValue)
+            
+            pmode = struct.pack("h", mode)
+
+            write = b"\x16\x55" + pmode + temp
+            print(write)
+        
+        except serial.SerialTimeoutException as error:
+            print("Error", error)
+        
+
     '''
     array =[]
     Data = np.genfromtxt("data.txt",encoding=None)
@@ -112,21 +136,5 @@ class SerialComm:
             VENT_signal = struct.unpack("d", data[53:61])[0]
             return [ATR_signal,VENT_signal] #For egram
     
-    def serWriteAOO(self, mode, user):
-        try:
-            temp = b''
-
-            # Iterate over the attributes of the user object
-            for attr in list(vars(user))[3:]:
-                value = getattr(user, attr)
-                temp += struct.pack("f", value)
-        
-            pmode = struct.pack("f", mode)
-
-            write = b"\x16\x55" + pmode + temp
-            print(write)
-        
-        except serial.SerialTimeoutException as error:
-            print("Error", error)
-        
+    
 
