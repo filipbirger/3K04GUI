@@ -86,8 +86,8 @@ class SerialComm:
             reactionTime_echo = struct.unpack("H", data[40:42])[0]
             responseFactor_echo = struct.unpack("B", data[42:43])[0]
             recoveryTime_echo = struct.unpack("H", data[43:45])[0]
-            ATR_signal = struct.unpack("d", data[45:53])[0] #For egram(NOT SURE)
-            VENT_signal = struct.unpack("d", data[53:61])[0]
+            #ATR_signal = struct.unpack("d", data[45:53])[0] #For egram(NOT SURE)
+            #VENT_signal = struct.unpack("d", data[53:61])[0]
 
             if MODE_echo == pMODE and lowerRateLimit_echo == pLRL and upperRateLimit_echo == pUrl and ventricularAmplitude_echo == pVA and ventricularPulseWidth_echo == pVPW and VRP_echo == pVRP and atrialAmplitude_echo == pAA and atrialPulseWidth_echo == pAPW and ARP_echo == pARP and maximumSensorRate_echo == pMaximumSensorRate and reactionTime_echo == pReactionTime and responseFactor_echo == pResponseFactor and recoveryTime_echo == pRecoveryTime:
                 return True
