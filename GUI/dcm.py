@@ -1249,11 +1249,12 @@ class MyGUI:
 
         if self.AOOAtrialAmplitude == "0":
             self.AOOAtrialAmplitde =0
-        else:
-            self.AOOLRLimit= float(self.AOOLRLimit)
+    
+        self.AOOLRLimit= float(self.AOOLRLimit)
         self.AOOURLimit= float(self.AOOURLimit)
         self.AOOAtrialAmplitude= float(self.AOOAtrialAmplitude)
         self.AOOAtrialPulseWidth= float(self.AOOAtrialPulseWidth)
+
         #Checks to make sure the values inputted are valid
         if not ((30<= self.AOOLRLimit<=50 and self.AOOLRLimit % 5 == 0) or (50<= self.AOOLRLimit<=90) or  (90 <= self.AOOLRLimit <= 175 and self.AOOLRLimit % 5 == 0)):
             MyGUI.errorWindow(self)
@@ -1750,6 +1751,7 @@ class MyGUI:
             self.AOORAtrialAmplitde =0
         else:
             self.AOORLRLimit= float(self.AOORLRLimit)
+        
         self.AOORURLimit= float(self.AOORURLimit)
         self.AOORAtrialAmplitude= float(self.AOORAtrialAmplitude)
         self.AOORAtrialPulseWidth= float(self.AOORAtrialPulseWidth)
@@ -2227,11 +2229,15 @@ class MyGUI:
         else:
             self.DDDVentricularAmplitude= float(self.DDDVentricularAmplitude)
         
+        if self.DDDAtrialAmplitude == "0":
+            self.DDDAtrialAmplitude =0
+        else:
+            self.DDDAtrialAmplitude= float(self.DDDAtrialAmplitude) 
+
         self.DDDLRLimit= float(self.DDDLRLimit)
         self.DDDURLimit= float(self.DDDURLimit)
         self.DDDVentricularPulseWidth= float(self.DDDVentricularPulseWidth)
         self.DDDVRP= float(self.DDDVRP)
-        self.DDDAtrialAmplitude = float(self.DDDAtrialAmplitude)
         self.DDDAtrialPulseWidth = float(self.DDDAtrialPulseWidth)
         self.DDDARP = float(self.DDDARP)
 
@@ -2351,21 +2357,21 @@ class MyGUI:
         
         #Checks to make sure the values inputted are valid
         
-        if self.DDDDynamicAV == "Off":
+        if self.DDDDynamicAV == "Off" or self.DDDDynamicAV=="off":
             self.DDDDynamicAV = 0
-        elif self.DDDDynamicAV == "On":
+        elif self.DDDDynamicAV == "On" or self.DDDDynamicAV=="on":
             self.DDDDynamicAV = 1
         else:
             self.DDDDynamicAV=50
         
-        if self.DDDATRFallbackMode == "Off":
+        if self.DDDATRFallbackMode == "Off" or self.DDDATRFallbackMode == "off":
             self.DDDATRFallbackMode = 0
-        elif self.DDDATRFallbackMode == "On":
+        elif self.DDDATRFallbackMode == "On" or self.DDDATRFallbackMode == "on":
             self.DDDATRFallbackMode = 1
         else:
             self.DDDATRFallbackMode=50
         
-        if self.DDDSensedAV == "Off":
+        if self.DDDSensedAV == "Off" or self.DDDSensedAV == "off":
             self.DDDSensedAV = 0
         else:
             self.DDDSensedAV= float(self.DDDSensedAV)
@@ -2512,11 +2518,15 @@ class MyGUI:
         else:
             self.DDDRVentricularAmplitude= float(self.DDDRVentricularAmplitude)
         
+        if self.DDDRAtrialAmplitude == "0":
+            self.DDDRAtrialAmplitude=0
+        else:
+            self.DDDRAtrialAmplitude=float(self.DDDRAtrialAmplitude)
+        
         self.DDDRLRLimit= float(self.DDDRLRLimit)
         self.DDDRURLimit= float(self.DDDRURLimit)
         self.DDDRVentricularPulseWidth= float(self.DDDRVentricularPulseWidth)
         self.DDDRVRP= float(self.DDDRVRP)
-        self.DDDRAtrialAmplitude = float(self.DDDRAtrialAmplitude)
         self.DDDRAtrialPulseWidth = float(self.DDDRAtrialPulseWidth)
         self.DDDRARP = float(self.DDDRARP)
 
@@ -2635,21 +2645,21 @@ class MyGUI:
         
         #Checks to make sure the values inputted are valid
         
-        if self.DDDRDynamicAV == "Off":
+        if self.DDDRDynamicAV == "Off" or self.DDDRDynamicAV== "off":
             self.DDDRDynamicAV = 0
-        elif self.DDDRDynamicAV == "On":
+        elif self.DDDRDynamicAV == "On" or self.DDDRDynamicAV== "on":
             self.DDDRDynamicAV = 1
         else:
             self.DDDRDynamicAV=50
         
-        if self.DDDRATRFallbackMode == "Off":
+        if self.DDDRATRFallbackMode == "Off" or self.DDDRATRFallbackMode == "off":
             self.DDDRATRFallbackMode = 0
-        elif self.DDDRATRFallbackMode == "On":
+        elif self.DDDRATRFallbackMode == "On" or self.DDDRATRFallbackMode == "on":
             self.DDDRATRFallbackMode = 1
         else:
             self.DDDRATRFallbackMode=50
         
-        if self.DDDRSensedAV == "Off":
+        if self.DDDRSensedAV == "Off" or self.DDDRSensedAV=="off":
             self.DDDRSensedAV = 0
         else:
             self.DDDRSensedAV= float(self.DDDRSensedAV)
