@@ -16,7 +16,7 @@ class SerialComm:
     def connect(self):
         try:
             self.comm.baudrate = 115200
-            self.comm.port = "Com7"
+            self.comm.port = "Com6"
             self.isConnected = True
             self.comm.open()
         except serial.SerialException as error:

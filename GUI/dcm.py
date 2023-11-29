@@ -1252,11 +1252,12 @@ class MyGUI:
 
         if self.AOOAtrialAmplitude == "0":
             self.AOOAtrialAmplitde =0
-        else:
-            self.AOOLRLimit= float(self.AOOLRLimit)
+    
+        self.AOOLRLimit= float(self.AOOLRLimit)
         self.AOOURLimit= float(self.AOOURLimit)
         self.AOOAtrialAmplitude= float(self.AOOAtrialAmplitude)
         self.AOOAtrialPulseWidth= float(self.AOOAtrialPulseWidth)
+
         #Checks to make sure the values inputted are valid
         if not ((30<= self.AOOLRLimit<=50 and self.AOOLRLimit % 5 == 0) or (50<= self.AOOLRLimit<=90) or  (90 <= self.AOOLRLimit <= 175 and self.AOOLRLimit % 5 == 0)):
             MyGUI.errorWindow(self)
@@ -1595,7 +1596,7 @@ class MyGUI:
         self.VOORMaxSensorRate=self.MaximumSensorRateTextField.get().strip()
         self.VOORReactionTime=self.ReactionTimeTextField.get().strip()
         self.VOORResponseFactor=self.ResponseFactorTextField.get().strip()
-        self.VOORRecoveryTime=self.RecoveryTime.get().strip()
+        self.VOORRecoveryTime=self.RecoveryTimeTextField.get().strip()
 
         if  self.VOORVentricularAmplitude == "0":
             self.VOORVentricularAmplitude = 0
@@ -1750,11 +1751,12 @@ class MyGUI:
 
 
         if self.AOORAtrialAmplitude == "0":
-            self.AOORAtrialAmplitde =0
+            self.AOORAtrialAmplitude = 0
         else:
-            self.AOORLRLimit= float(self.AOORLRLimit)
+            self.AOORAtrialAmplitude= float(self.AOORAtrialAmplitude)
+        
+        self.AOORLRLimit= float(self.AOORLRLimit)
         self.AOORURLimit= float(self.AOORURLimit)
-        self.AOORAtrialAmplitude= float(self.AOORAtrialAmplitude)
         self.AOORAtrialPulseWidth= float(self.AOORAtrialPulseWidth)
         self.AOORMaxSensorRate=float(self.AOORMaxSensorRate)
         self.AOORReactionTime=float(self.AOORReactionTime)
@@ -1766,7 +1768,7 @@ class MyGUI:
             MyGUI.errorWindow(self)
         elif not ((50<= self.AOORURLimit<=175 and self.AOORURLimit % 5 == 0)):
             MyGUI.errorWindow(self)
-        elif not ((self.AOORAtrialAmplitude == 0) or (0.1 <= self.AOORAtrialAmplitude <= 5.0 and self.AOORAtrialAmplitude*10 %1==0)): 
+        elif not ((self.AOORAtrialAmplitude==0) or (0.1 <= self.AOORAtrialAmplitude <= 5.0 and self.AOORAtrialAmplitude*10 %1==0)): 
             MyGUI.errorWindow(self)
         elif not ((1.0<= self.AOORAtrialPulseWidth <= 30.0)):
             MyGUI.errorWindow(self)
@@ -1936,6 +1938,14 @@ class MyGUI:
         elif not ((1.0<= self.AAIRAtrialPulseWidth <= 30.0)):
             MyGUI.errorWindow(self)
         elif not ((150<= self.AAIRARP<=500 and self.AAIRARP % 10 == 0)):
+            MyGUI.errorWindow(self)
+        elif not ((50.0<=self.AAIRMaxSensorRate<=175.0 and self.AAIRMaxSensorRate %5==0)):
+            MyGUI.errorWindow(self)
+        elif not ((10.0<=self.AAIRReactionTime<=50.0 and self.AAIRReactionTime%10==0)):
+            MyGUI.errorWindow(self)
+        elif not ((1.0<=self.AAIRResponseFactor<=16.0)):
+            MyGUI.errorWindow(self)
+        elif not ((2.0<=self.AAIRRecoveryTime<=16.0)):
             MyGUI.errorWindow(self)
         else:
             self.currentUser.AAIR(self.AAIRLRLimit, self.AAIRURLimit, self.AAIRAtrialAmplitude, self.AAIRAtrialPulseWidth, self.AAIRARP, self.AAIRMaxSensorRate, self.AAIRReactionTime, self.AAIRResponseFactor, self.AAIRRecoveryTime)
@@ -2222,7 +2232,7 @@ class MyGUI:
         self.DDDVentricularPulseWidth= self.VentricularPulseWidthTextField.get().strip()
         self.DDDVRP= self.VRPTextField.get().strip()
         self.DDDAtrialAmplitude = self.AtrialAmplitudeTextField.get().strip()
-        self.DDDAtrialPulseWidth = self.AtrialAmplitudeTextField.get().strip()
+        self.DDDAtrialPulseWidth = self.AtrialPulseWidthTextField.get().strip()
         self.DDDARP = self.ARPTextField.get().strip()
 
         if self.DDDVentricularAmplitude == "0":
@@ -2230,11 +2240,15 @@ class MyGUI:
         else:
             self.DDDVentricularAmplitude= float(self.DDDVentricularAmplitude)
         
+        if self.DDDAtrialAmplitude == "0":
+            self.DDDAtrialAmplitude =0
+        else:
+            self.DDDAtrialAmplitude= float(self.DDDAtrialAmplitude) 
+
         self.DDDLRLimit= float(self.DDDLRLimit)
         self.DDDURLimit= float(self.DDDURLimit)
         self.DDDVentricularPulseWidth= float(self.DDDVentricularPulseWidth)
         self.DDDVRP= float(self.DDDVRP)
-        self.DDDAtrialAmplitude = float(self.DDDAtrialAmplitude)
         self.DDDAtrialPulseWidth = float(self.DDDAtrialPulseWidth)
         self.DDDARP = float(self.DDDARP)
 
@@ -2303,7 +2317,7 @@ class MyGUI:
         self.SensedAVDelayTextField.pack()
         self.SensedAVDelayTextField.place(relx=0.325, rely=0.5)
 
-        self.SensedAVDelayWarningLabel=tk.Label(self.nextConfigDDDWindow, text="Valid inputs are: off, values between\n -10 to -100 ms incremented by -10 ms",font=("Arial",12), fg="blue", bg="azure2")
+        self.SensedAVDelayWarningLabel=tk.Label(self.nextConfigDDDWindow, text="Valid inputs are: Off, values between\n -10 to -100 ms incremented by -10 ms",font=("Arial",12), fg="blue", bg="azure2")
         self.SensedAVDelayWarningLabel.pack()
         self.SensedAVDelayWarningLabel.place(relx=0.045, rely=0.55)
 
@@ -2354,21 +2368,21 @@ class MyGUI:
         
         #Checks to make sure the values inputted are valid
         
-        if self.DDDDynamicAV == "Off":
+        if self.DDDDynamicAV == "Off" or self.DDDDynamicAV=="off":
             self.DDDDynamicAV = 0
-        elif self.DDDDynamicAV == "On":
+        elif self.DDDDynamicAV == "On" or self.DDDDynamicAV=="on":
             self.DDDDynamicAV = 1
         else:
             self.DDDDynamicAV=50
         
-        if self.DDDATRFallbackMode == "Off":
+        if self.DDDATRFallbackMode == "Off" or self.DDDATRFallbackMode == "off":
             self.DDDATRFallbackMode = 0
-        elif self.DDDATRFallbackMode == "On":
+        elif self.DDDATRFallbackMode == "On" or self.DDDATRFallbackMode == "on":
             self.DDDATRFallbackMode = 1
         else:
             self.DDDATRFallbackMode=50
         
-        if self.DDDSensedAV == "Off":
+        if self.DDDSensedAV == "Off" or self.DDDSensedAV == "off":
             self.DDDSensedAV = 0
         else:
             self.DDDSensedAV= float(self.DDDSensedAV)
@@ -2507,7 +2521,7 @@ class MyGUI:
         self.DDDRVentricularPulseWidth= self.VentricularPulseWidthTextField.get().strip()
         self.DDDRVRP= self.VRPTextField.get().strip()
         self.DDDRAtrialAmplitude = self.AtrialAmplitudeTextField.get().strip()
-        self.DDDRAtrialPulseWidth = self.AtrialAmplitudeTextField.get().strip()
+        self.DDDRAtrialPulseWidth = self.AtrialPulseWidthTextField.get().strip()
         self.DDDRARP = self.ARPTextField.get().strip()
 
         if self.DDDRVentricularAmplitude == "0":
@@ -2515,11 +2529,15 @@ class MyGUI:
         else:
             self.DDDRVentricularAmplitude= float(self.DDDRVentricularAmplitude)
         
+        if self.DDDRAtrialAmplitude == "0":
+            self.DDDRAtrialAmplitude=0
+        else:
+            self.DDDRAtrialAmplitude=float(self.DDDRAtrialAmplitude)
+        
         self.DDDRLRLimit= float(self.DDDRLRLimit)
         self.DDDRURLimit= float(self.DDDRURLimit)
         self.DDDRVentricularPulseWidth= float(self.DDDRVentricularPulseWidth)
         self.DDDRVRP= float(self.DDDRVRP)
-        self.DDDRAtrialAmplitude = float(self.DDDRAtrialAmplitude)
         self.DDDRAtrialPulseWidth = float(self.DDDRAtrialPulseWidth)
         self.DDDRARP = float(self.DDDRARP)
 
@@ -2587,7 +2605,7 @@ class MyGUI:
         self.SensedAVDelayTextField.pack()
         self.SensedAVDelayTextField.place(relx=0.325, rely=0.5)
 
-        self.SensedAVDelayWarningLabel=tk.Label(self.nextConfigDDDRWindow, text="Valid inputs are: off, values between\n -10 to -100 ms incremented by -10 ms",font=("Arial",12), fg="blue", bg="azure2")
+        self.SensedAVDelayWarningLabel=tk.Label(self.nextConfigDDDRWindow, text="Valid inputs are: Off, values between\n -10 to -100 ms incremented by -10 ms",font=("Arial",12), fg="blue", bg="azure2")
         self.SensedAVDelayWarningLabel.pack()
         self.SensedAVDelayWarningLabel.place(relx=0.045, rely=0.55)
 
@@ -2638,21 +2656,21 @@ class MyGUI:
         
         #Checks to make sure the values inputted are valid
         
-        if self.DDDRDynamicAV == "Off":
+        if self.DDDRDynamicAV == "Off" or self.DDDRDynamicAV== "off":
             self.DDDRDynamicAV = 0
-        elif self.DDDRDynamicAV == "On":
+        elif self.DDDRDynamicAV == "On" or self.DDDRDynamicAV== "on":
             self.DDDRDynamicAV = 1
         else:
             self.DDDRDynamicAV=50
         
-        if self.DDDRATRFallbackMode == "Off":
+        if self.DDDRATRFallbackMode == "Off" or self.DDDRATRFallbackMode == "off":
             self.DDDRATRFallbackMode = 0
-        elif self.DDDRATRFallbackMode == "On":
+        elif self.DDDRATRFallbackMode == "On" or self.DDDRATRFallbackMode == "on":
             self.DDDRATRFallbackMode = 1
         else:
             self.DDDRATRFallbackMode=50
         
-        if self.DDDRSensedAV == "Off":
+        if self.DDDRSensedAV == "Off" or self.DDDRSensedAV=="off":
             self.DDDRSensedAV = 0
         else:
             self.DDDRSensedAV= float(self.DDDRSensedAV)
