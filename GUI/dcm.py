@@ -19,19 +19,19 @@ class MyGUI:
         self.startWindow.configure(bg="azure2")
 
         self.deviceId = 2 #gives device an identification number
-        self.connceted = True
+        #self.connceted = True
 
         self.startTitle = tk.Label(self.startWindow, text="Pacemaker", font=('Arial', 24), bg="azure2")
         self.startTitle.place(relx=0.4, rely=0.1)
         
-        '''
+        
         try:
             serComm = SerialComm.SerialComm()
             serComm.connect()
             self.connceted = serComm.isConnected
         except:
             pass
-        '''
+        
         if (self.connceted == True):
             self.newUserButton = tk.Button(self.startWindow, text="New User", command=self.createNewUser, font=("Arial",12)) #Functionality to create New User
             self.newUserButton.place(relx=0.6, rely=0.2, relheight=0.1, relwidth=0.2)
@@ -389,6 +389,7 @@ class MyGUI:
        
         self.conn = SerialComm.SerialComm()
         self.conn.serWriteAOO(0,self.currentUser)
+        self.conn.readIn()
        
         MyGUI.successfulSubmitted(self,self.defAOOWindow)
         

@@ -73,6 +73,7 @@ class SerialComm:
                 if len(self.egramList)>20:
                     self.egramList.pop(0)
                 time.sleep(0.2)
+                print(self.egramList)
             except KeyboardInterrupt:
                 print("Stopping continuous reading.")
                 break
