@@ -19,11 +19,11 @@ class MyGUI:
         self.startWindow.configure(bg="azure2")
 
         self.deviceId = 2 #gives device an identification number
-        #self.connceted = True
+        self.connceted = True
 
         self.startTitle = tk.Label(self.startWindow, text="Pacemaker", font=('Arial', 24), bg="azure2")
         self.startTitle.place(relx=0.4, rely=0.1)
-        
+        '''
         
         try:
             serComm = SerialComm.SerialComm()
@@ -31,7 +31,7 @@ class MyGUI:
             self.connceted = serComm.isConnected
         except:
             pass
-        
+        '''
         if (self.connceted == True):
             self.newUserButton = tk.Button(self.startWindow, text="New User", command=self.createNewUser, font=("Arial",12)) #Functionality to create New User
             self.newUserButton.place(relx=0.6, rely=0.2, relheight=0.1, relwidth=0.2)
@@ -394,7 +394,7 @@ class MyGUI:
         MyGUI.successfulSubmitted(self,self.defAOOWindow)
         
         
-        '''''
+        '''
         self.EgramWindow = tk.Toplevel(self.startWindow)
         self.canvas = tk.Canvas(self.EgramWindow, width=800, height=800, bg='white')
         self.canvas.pack(fill=tk.BOTH, expand=True)
@@ -402,8 +402,8 @@ class MyGUI:
         self.mock = SerialTesting()
         self.egramOBJ=Egram.Egram(self.mock)
         self.egramOBJ.updateEgram(self.canvas)
-
-        '''
+'''
+        
     def defaultAAI(self):
         for widget in self.startWindow.winfo_children():
             widget.destroy()
