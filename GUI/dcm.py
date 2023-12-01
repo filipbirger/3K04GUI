@@ -19,20 +19,20 @@ class MyGUI:
         self.startWindow.configure(bg="azure2")
 
         self.deviceId = 2 #gives device an identification number
-        #self.connceted = True
+        self.connected = True
 
         self.startTitle = tk.Label(self.startWindow, text="Pacemaker", font=('Arial', 24), bg="azure2")
         self.startTitle.place(relx=0.4, rely=0.1)
         
-        
+        """
         try:
             serComm = SerialComm.SerialComm()
             serComm.connect()
-            self.connceted = serComm.isConnected
+            self.connected = serComm.isConnected
         except:
             pass
-        
-        if (self.connceted == True):
+        """
+        if (self.connected == True):
             self.newUserButton = tk.Button(self.startWindow, text="New User", command=self.createNewUser, font=("Arial",12)) #Functionality to create New User
             self.newUserButton.place(relx=0.6, rely=0.2, relheight=0.1, relwidth=0.2)
             self.newUserLabel=tk.Label(self.startWindow, text="Click 'New User' to set up your\n profile and start\n configuring your pacemaker", font=("Arial",8),bg="azure2")
