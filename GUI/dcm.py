@@ -23,8 +23,8 @@ class MyGUI:
 
         self.startTitle = tk.Label(self.startWindow, text="Pacemaker", font=('Arial', 24), bg="azure2")
         self.startTitle.place(relx=0.4, rely=0.1)
-        
         '''
+        
         try:
             serComm = SerialComm.SerialComm()
             serComm.connect()
@@ -389,11 +389,12 @@ class MyGUI:
        
         self.conn = SerialComm.SerialComm()
         self.conn.serWriteAOO(0,self.currentUser)
+        self.conn.readIn()
        
         MyGUI.successfulSubmitted(self,self.defAOOWindow)
         
         
-        '''''
+        '''
         self.EgramWindow = tk.Toplevel(self.startWindow)
         self.canvas = tk.Canvas(self.EgramWindow, width=800, height=800, bg='white')
         self.canvas.pack(fill=tk.BOTH, expand=True)
@@ -401,8 +402,8 @@ class MyGUI:
         self.mock = SerialTesting()
         self.egramOBJ=Egram.Egram(self.mock)
         self.egramOBJ.updateEgram(self.canvas)
-
-        '''
+'''
+        
     def defaultAAI(self):
         for widget in self.startWindow.winfo_children():
             widget.destroy()

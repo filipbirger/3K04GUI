@@ -33,7 +33,7 @@ class SerialComm:
                 if attr == '_atrialAmplitude' or attr == '_atrialPulseWidth' or attr == '_ventricularAmplitude' or attr == '_ventricularPulseWidth' :
                     value = getattr(user, attr)
                     self.verifySum +=value
-                    temp += struct.pack("f", value)
+                    temp += struct.pack("d", value)
 
                 else:
                     value = getattr(user, attr)
@@ -73,12 +73,15 @@ class SerialComm:
                 if len(self.egramList)>20:
                     self.egramList.pop(0)
                 time.sleep(0.2)
+                print(self.egramList)
+                return self.egramList
             except KeyboardInterrupt:
                 print("Stopping continuous reading.")
                 break
             except Exception as e:
                 print(f"An error occurred: {e}")
                 break
+
 
        
     def testSerial(self):
