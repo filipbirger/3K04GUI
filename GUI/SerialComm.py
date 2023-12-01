@@ -70,11 +70,13 @@ class SerialComm:
 
         data = self.comm.read(100)
         print(data)
-        ATR_signal = struct.unpack("B", data[0:1])[0]*3.3
-        VENT_signal = struct.unpack("B", data[1:2])[0]*3.3
-        self.egramList.append([ATR_signal,VENT_signal])
-        if len(self.egramList)>100:
-            self.egramList.pop(0)
+
+        for i in range(0,len(data),2):
+            ATR_signal = struct.unpack("b", data[i:i+1])[0]*3.3
+            VENT_signal = struct.unpack("b", data[i+1:i+2])[0]*3.3
+            self.egramList.append([ATR_signal,VENT_signal])
+            if len(self.egramList)>100:
+                self.egramList.pop(0)
         time.sleep(0.1)
     
         print(self.egramList)
