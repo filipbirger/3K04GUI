@@ -74,12 +74,14 @@ class SerialComm:
                     self.egramList.pop(0)
                 time.sleep(0.2)
                 print(self.egramList)
+                return self.egramList
             except KeyboardInterrupt:
                 print("Stopping continuous reading.")
                 break
             except Exception as e:
                 print(f"An error occurred: {e}")
                 break
+
 
        
     def testSerial(self):

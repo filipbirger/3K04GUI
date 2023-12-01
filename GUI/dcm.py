@@ -394,7 +394,7 @@ class MyGUI:
         MyGUI.successfulSubmitted(self,self.defAOOWindow)
         
         
-        '''''
+        '''
         self.EgramWindow = tk.Toplevel(self.startWindow)
         self.canvas = tk.Canvas(self.EgramWindow, width=800, height=800, bg='white')
         self.canvas.pack(fill=tk.BOTH, expand=True)
@@ -402,8 +402,8 @@ class MyGUI:
         self.mock = SerialTesting()
         self.egramOBJ=Egram.Egram(self.mock)
         self.egramOBJ.updateEgram(self.canvas)
-
-        '''
+'''
+        
     def defaultAAI(self):
         for widget in self.startWindow.winfo_children():
             widget.destroy()
