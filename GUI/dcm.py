@@ -23,15 +23,15 @@ class MyGUI:
 
         self.startTitle = tk.Label(self.startWindow, text="Pacemaker", font=('Arial', 24), bg="azure2")
         self.startTitle.place(relx=0.4, rely=0.1)
+        '''
         
-        """
         try:
             serComm = SerialComm.SerialComm()
             serComm.connect()
             self.connected = serComm.isConnected
         except:
             pass
-        """
+        '''
         if (self.connected == True):
             self.newUserButton = tk.Button(self.startWindow, text="New User", command=self.createNewUser, font=("Arial",12)) #Functionality to create New User
             self.newUserButton.place(relx=0.6, rely=0.2, relheight=0.1, relwidth=0.2)
@@ -380,16 +380,18 @@ class MyGUI:
     def submitDefAOO(self):
         self.AOOLRLimit=60.0
         self.AOOURLimit=120.0
-        self.AOOAtrialAmplitude=5.0
-        self.AOOAtrialPulseWidth=1.0
+        self.AOOAtrialAmplitude=3.5
+        self.AOOAtrialPulseWidth=10.0
 
         self.currentUser.AOO(self.AOOLRLimit, self.AOOURLimit, self.AOOAtrialAmplitude, self.AOOAtrialPulseWidth)#Updates the user’s chosen parameters to the database
         self.db.updateUser(self.currentUser)
        
        
         self.conn = SerialComm.SerialComm()
+        self.conn.connect()
         self.conn.serWriteAOO(0,self.currentUser)
-        self.conn.readIn()
+        for  i in range(30):
+            self.conn.readIn()
        
         MyGUI.successfulSubmitted(self,self.defAOOWindow)
         
