@@ -1162,13 +1162,17 @@ class MyGUI:
         self.VOOURLimit= self.URLimitTextField.get().strip()
         self.VOOVentricularAmplitude= self.VentricularAmplitudeTextField.get().strip()
         self.VOOVentricularPulseWidth= self.VentricularPulseWidthTextField.get().strip()
-        if  self.VOOVentricularAmplitude == "0":
-            self.VOOVentricularAmplitude = 0
-        else:
-            self.VOOVentricularAmplitude = float(self.VOOVentricularAmplitude)
-        self.VOOLRLimit = float(self.VOOLRLimit)
-        self.VOOURLimit = float(self.VOOURLimit)
-        self.VOOVentricularPulseWidth = int(self.VOOVentricularPulseWidth)
+        try:
+            if  self.VOOVentricularAmplitude == "0":
+                self.VOOVentricularAmplitude = 0
+            else:
+                self.VOOVentricularAmplitude = float(self.VOOVentricularAmplitude)
+
+            self.VOOLRLimit = float(self.VOOLRLimit)
+            self.VOOURLimit = float(self.VOOURLimit)
+            self.VOOVentricularPulseWidth = int(self.VOOVentricularPulseWidth)
+        except (ValueError,TypeError) as error:
+            MyGUI.valueErrorWindow(self)
         #Checks to make sure the values inputted are valid
         if not ((30<= self.VOOLRLimit<=50 and self.VOOLRLimit % 5 == 0) or (50<= self.VOOLRLimit<=90) or  (90 <= self.VOOLRLimit <= 175 and self.VOOLRLimit % 5 == 0)):
             MyGUI.errorWindow(self)
@@ -1251,14 +1255,16 @@ class MyGUI:
         self.AOOAtrialAmplitude= self.AtrialAmplitudeTextField.get().strip()
         self.AOOAtrialPulseWidth= self.AtrialPulseWidthTextField.get().strip()
 
-        if self.AOOAtrialAmplitude == "0":
-            self.AOOAtrialAmplitde =0
-    
-        self.AOOLRLimit= float(self.AOOLRLimit)
-        self.AOOURLimit= float(self.AOOURLimit)
-        self.AOOAtrialAmplitude= float(self.AOOAtrialAmplitude)
-        self.AOOAtrialPulseWidth= float(self.AOOAtrialPulseWidth)
-
+        try:
+            if self.AOOAtrialAmplitude == "0":
+                self.AOOAtrialAmplitde =0
+        
+            self.AOOLRLimit= float(self.AOOLRLimit)
+            self.AOOURLimit= float(self.AOOURLimit)
+            self.AOOAtrialAmplitude= float(self.AOOAtrialAmplitude)
+            self.AOOAtrialPulseWidth= float(self.AOOAtrialPulseWidth)
+        except (ValueError,TypeError) as error:
+            MyGUI.valueErrorWindow(self)
         #Checks to make sure the values inputted are valid
         if not ((30<= self.AOOLRLimit<=50 and self.AOOLRLimit % 5 == 0) or (50<= self.AOOLRLimit<=90) or  (90 <= self.AOOLRLimit <= 175 and self.AOOLRLimit % 5 == 0)):
             MyGUI.errorWindow(self)
@@ -1352,16 +1358,18 @@ class MyGUI:
         self.AAIAtrialAmplitude= self.AtrialAmplitudeTextField.get().strip()
         self.AAIAtrialPulseWidth= self.AtrialPulseWidthTextField.get().strip()
         self.AAIARP= self.ARPTextField.get().strip()
-
-        if  self.AAIAtrialAmplitude== "0":
-            self.AAIAtrialAmplitude = 0
-        else:
-            self.AAIAtrialAmplitude= float(self.AAIAtrialAmplitude)
-            
-        self.AAILRLimit= float(self.AAILRLimit)
-        self.AAIURLimit= float(self.AAIURLimit)
-        self.AAIAtrialPulseWidth= float(self.AAIAtrialPulseWidth)
-        self.AAIARP= float(self.AAIARP)
+        try:
+            if  self.AAIAtrialAmplitude== "0":
+                self.AAIAtrialAmplitude = 0
+            else:
+                self.AAIAtrialAmplitude= float(self.AAIAtrialAmplitude)
+                
+            self.AAILRLimit= float(self.AAILRLimit)
+            self.AAIURLimit= float(self.AAIURLimit)
+            self.AAIAtrialPulseWidth= float(self.AAIAtrialPulseWidth)
+            self.AAIARP= float(self.AAIARP)
+        except (ValueError,TypeError) as error:
+            MyGUI.valueErrorWindow(self)
         #Checks to make sure the values inputted are valid
         if not ((30<= self.AAILRLimit<=50 and self.AAILRLimit % 5 == 0) or (50<= self.AAILRLimit<=90) or  (90 <= self.AAILRLimit <= 175 and self.AAILRLimit % 5 == 0)):
             MyGUI.errorWindow(self)
@@ -1458,16 +1466,19 @@ class MyGUI:
         self.VVIVentricularPulseWidth= self.VentricularPulseWidthTextField.get().strip()
         self.VVIVRP= self.VRPTextField.get().strip()
         #Checks to make sure the values inputted are valid
-        if self.VVIVentricularAmplitude == "0":
-            self.VVIVentricularAmplitude =0
-        else:
-            self.VVIVentricularAmplitude= float(self.VVIVentricularAmplitude)
-                
-        self.VVILRLimit= float(self.VVILRLimit)
-        self.VVIURLimit= float(self.VVIURLimit)
-        self.VVIVentricularPulseWidth= float(self.VVIVentricularPulseWidth)
-        self.VVIVRP= float(self.VVIVRP)
-
+        try:
+            if self.VVIVentricularAmplitude == "0":
+                self.VVIVentricularAmplitude =0
+            else:
+                self.VVIVentricularAmplitude= float(self.VVIVentricularAmplitude)
+                    
+            self.VVILRLimit= float(self.VVILRLimit)
+            self.VVIURLimit= float(self.VVIURLimit)
+            self.VVIVentricularPulseWidth= float(self.VVIVentricularPulseWidth)
+            self.VVIVRP= float(self.VVIVRP)
+        except (ValueError,TypeError) as error:
+            MyGUI.valueErrorWindow(self)
+        
         if not ((30<= self.VVILRLimit<=50 and self.VVILRLimit % 5 == 0) or (50<= self.VVILRLimit<=90) or  (90 <= self.VVILRLimit <= 175 and self.VVILRLimit % 5 == 0)):
             MyGUI.errorWindow(self)
         elif not ((50<= self.VVIURLimit<=175 and self.VVIURLimit % 5 == 0)):
@@ -1482,7 +1493,7 @@ class MyGUI:
             self.currentUser.VVI(self.VVILRLimit, self.VVIURLimit, self.VVIVentricularAmplitude, self.VVIVentricularPulseWidth, self.VVIVRP)
             self.db.updateUser(self.currentUser)#Updates the user’s chosen parameters to the database
             MyGUI.successfulSubmitted(self,self.VVIConfigWindow)
-   
+        
     def VOORConfig(self):
         for widget in self.startWindow.winfo_children():
             widget.destroy()
@@ -1599,19 +1610,21 @@ class MyGUI:
         self.VOORResponseFactor=self.ResponseFactorTextField.get().strip()
         self.VOORRecoveryTime=self.RecoveryTimeTextField.get().strip()
 
-        if  self.VOORVentricularAmplitude == "0":
-            self.VOORVentricularAmplitude = 0
-        else:
-            self.VOORVentricularAmplitude = float(self.VOORVentricularAmplitude)
+        try:
+            if  self.VOORVentricularAmplitude == "0":
+                self.VOORVentricularAmplitude = 0
+            else:
+                self.VOORVentricularAmplitude = float(self.VOORVentricularAmplitude)
 
-        self.VOORLRLimit = float(self.VOORLRLimit)
-        self.VOORURLimit = float(self.VOORURLimit)
-        self.VOORVentricularPulseWidth = float(self.VOORVentricularPulseWidth)
-        self.VOORMaxSensorRate= float(self.VOORMaxSensorRate)
-        self.VOORReactionTime= float(self.VOORReactionTime)
-        self.VOORResponseFactor=float(self.VOORResponseFactor)
-        self.VOORRecoveryTime= float(self.VOORRecoveryTime)
-        
+            self.VOORLRLimit = float(self.VOORLRLimit)
+            self.VOORURLimit = float(self.VOORURLimit)
+            self.VOORVentricularPulseWidth = float(self.VOORVentricularPulseWidth)
+            self.VOORMaxSensorRate= float(self.VOORMaxSensorRate)
+            self.VOORReactionTime= float(self.VOORReactionTime)
+            self.VOORResponseFactor=float(self.VOORResponseFactor)
+            self.VOORRecoveryTime= float(self.VOORRecoveryTime)
+        except (ValueError,TypeError) as error:
+            MyGUI.valueErrorWindow(self)
         #Checks to make sure the values inputted are valid
         if not ((30<= self.VOORLRLimit<=50 and self.VOORLRLimit % 5 == 0) or (50<= self.VOORLRLimit<=90) or  (90 <= self.VOORLRLimit <= 175 and self.VOORLRLimit % 5 == 0)):
             MyGUI.errorWindow(self)
@@ -1633,7 +1646,7 @@ class MyGUI:
             MyGUI.successfulSubmitted(self, self.VOORConfigWindow)
             self.currentUser.VOOR(self.VOORLRLimit, self.VOORURLimit, self.VOORVentricularAmplitude, self.VOORVentricularPulseWidth, self.VOORMaxSensorRate, self.VOORResponseFactor, self.VOORReactionTime, self.VOORRecoveryTime)
             self.db.updateUser(self.currentUser)#Updates the user’s chosen parameters to the database 
-
+        
     def AOORConfig(self):
         for widget in self.startWindow.winfo_children():
             widget.destroy()
@@ -1750,21 +1763,23 @@ class MyGUI:
         self.AOORResponseFactor=self.ResponseFactorTextField.get().strip()
         self.AOORRecoveryTime=self.RecoveryTimeTextField.get().strip()
 
-
-        if self.AOORAtrialAmplitude == "0":
-            self.AOORAtrialAmplitude = 0
-        else:
-            self.AOORAtrialAmplitude= float(self.AOORAtrialAmplitude)
-        
-        self.AOORLRLimit= float(self.AOORLRLimit)
-        self.AOORURLimit= float(self.AOORURLimit)
-        self.AOORAtrialPulseWidth= float(self.AOORAtrialPulseWidth)
-        self.AOORMaxSensorRate=float(self.AOORMaxSensorRate)
-        self.AOORReactionTime=float(self.AOORReactionTime)
-        self.AOORResponseFactor=float(self.AOORResponseFactor)
-        self.AOORRecoveryTime=float(self.AOORRecoveryTime)
-
+        try:
+            if self.AOORAtrialAmplitude == "0":
+                self.AOORAtrialAmplitude = 0
+            else:
+                self.AOORAtrialAmplitude= float(self.AOORAtrialAmplitude)
+            
+            self.AOORLRLimit= float(self.AOORLRLimit)
+            self.AOORURLimit= float(self.AOORURLimit)
+            self.AOORAtrialPulseWidth= float(self.AOORAtrialPulseWidth)
+            self.AOORMaxSensorRate=float(self.AOORMaxSensorRate)
+            self.AOORReactionTime=float(self.AOORReactionTime)
+            self.AOORResponseFactor=float(self.AOORResponseFactor)
+            self.AOORRecoveryTime=float(self.AOORRecoveryTime)
+        except (ValueError,TypeError) as error:
+            MyGUI.valueErrorWindow(self)
         #Checks to make sure the values inputted are valid
+
         if not ((30<= self.AOORLRLimit<=50 and self.AOORLRLimit % 5 == 0) or (50<= self.AOORLRLimit<=90) or  (90 <= self.AOORLRLimit <= 175 and self.AOORLRLimit % 5 == 0)):
             MyGUI.errorWindow(self)
         elif not ((50<= self.AOORURLimit<=175 and self.AOORURLimit % 5 == 0)):
@@ -1785,7 +1800,7 @@ class MyGUI:
             self.currentUser.AOOR(self.AOORLRLimit, self.AOORURLimit, self.AOORAtrialAmplitude, self.AOORAtrialPulseWidth, self.AOORMaxSensorRate, self.AOORResponseFactor, self.AOORReactionTime, self.AOORRecoveryTime)
             self.db.updateUser(self.currentUser)
             MyGUI.successfulSubmitted(self,self.AOORConfigWindow)#Updates the user’s chosen parameters to the database
-    
+        
     def AAIRConfig(self):
         for widget in self.startWindow.winfo_children():
             widget.destroy()
@@ -1914,22 +1929,24 @@ class MyGUI:
         self.AAIRReactionTime=self.ReactionTimeTextField.get().strip()
         self.AAIRResponseFactor=self.ResponseFactorTextField.get().strip()
         self.AAIRRecoveryTime= self.RecoveryTimeTextField.get().strip()
-
-        if  self.AAIRAtrialAmplitude== "0":
-            self.AAIRAtrialAmplitude = 0
-        else:
-            self.AAIRAtrialAmplitude= float(self.AAIRAtrialAmplitude)
-            
-        self.AAIRLRLimit= float(self.AAIRLRLimit)
-        self.AAIRURLimit= float(self.AAIRURLimit)
-        self.AAIRAtrialPulseWidth= float(self.AAIRAtrialPulseWidth)
-        self.AAIRARP= float(self.AAIRARP)
-        self.AAIRMaxSensorRate= float(self.AAIRMaxSensorRate)
-        self.AAIRReactionTime=float(self.AAIRReactionTime)
-        self.AAIRResponseFactor=float(self.AAIRResponseFactor)
-        self.AAIRRecoveryTime= float(self.AAIRRecoveryTime)
-
+        try:
+            if  self.AAIRAtrialAmplitude== "0":
+                self.AAIRAtrialAmplitude = 0
+            else:
+                self.AAIRAtrialAmplitude= float(self.AAIRAtrialAmplitude)
+                
+            self.AAIRLRLimit= float(self.AAIRLRLimit)
+            self.AAIRURLimit= float(self.AAIRURLimit)
+            self.AAIRAtrialPulseWidth= float(self.AAIRAtrialPulseWidth)
+            self.AAIRARP= float(self.AAIRARP)
+            self.AAIRMaxSensorRate= float(self.AAIRMaxSensorRate)
+            self.AAIRReactionTime=float(self.AAIRReactionTime)
+            self.AAIRResponseFactor=float(self.AAIRResponseFactor)
+            self.AAIRRecoveryTime= float(self.AAIRRecoveryTime)
+        except (ValueError,TypeError) as error:
+            MyGUI.valueErrorWindow(self)
         #Checks to make sure the values inputted are valid
+
         if not ((30<= self.AAIRLRLimit<=50 and self.AAIRLRLimit % 5 == 0) or (50<= self.AAIRLRLimit<=90) or  (90 <= self.AAIRLRLimit <= 175 and self.AAIRLRLimit % 5 == 0)):
             MyGUI.errorWindow(self)
         elif not ((50<= self.AAIRURLimit<=175 and self.AAIRURLimit % 5 == 0)):
@@ -1952,7 +1969,6 @@ class MyGUI:
             self.currentUser.AAIR(self.AAIRLRLimit, self.AAIRURLimit, self.AAIRAtrialAmplitude, self.AAIRAtrialPulseWidth, self.AAIRARP, self.AAIRMaxSensorRate, self.AAIRReactionTime, self.AAIRResponseFactor, self.AAIRRecoveryTime)
             self.db.updateUser(self.currentUser)#Updates the user’s chosen parameters to the database
             MyGUI.successfulSubmitted(self,self.AAIRConfigWindow)
-    
 
     def VVIRConfig(self):
         for widget in self.startWindow.winfo_children():
@@ -2083,19 +2099,22 @@ class MyGUI:
         self.VVIRResponseFactor= self.ResponseFactorTextField.get().strip()
 
         #Checks to make sure the values inputted are valid
-        if self.VVIRVentricularAmplitude == "0":
-            self.VVIRVentricularAmplitude =0
-        else:
-            self.VVIRVentricularAmplitude= float(self.VVIRVentricularAmplitude)
-                
-        self.VVIRLRLimit= float(self.VVIRLRLimit)
-        self.VVIRURLimit= float(self.VVIRURLimit)
-        self.VVIRVentricularPulseWidth= float(self.VVIRVentricularPulseWidth)
-        self.VVIRVRP= float(self.VVIRVRP)
-        self.VVIRMaxSensorRate= float(self.VVIRMaxSensorRate)
-        self.VVIRRecoveryTime= float(self.VVIRRecoveryTime)
-        self.VVIRResponseFactor= float(self.VVIRResponseFactor)
-        self.VVIRReactionTime= float(self.VVIRReactionTime)
+        try:
+            if self.VVIRVentricularAmplitude == "0":
+                self.VVIRVentricularAmplitude =0
+            else:
+                self.VVIRVentricularAmplitude= float(self.VVIRVentricularAmplitude)
+                    
+            self.VVIRLRLimit= float(self.VVIRLRLimit)
+            self.VVIRURLimit= float(self.VVIRURLimit)
+            self.VVIRVentricularPulseWidth= float(self.VVIRVentricularPulseWidth)
+            self.VVIRVRP= float(self.VVIRVRP)
+            self.VVIRMaxSensorRate= float(self.VVIRMaxSensorRate)
+            self.VVIRRecoveryTime= float(self.VVIRRecoveryTime)
+            self.VVIRResponseFactor= float(self.VVIRResponseFactor)
+            self.VVIRReactionTime= float(self.VVIRReactionTime)
+        except (ValueError,TypeError) as error:
+            MyGUI.valueErrorWindow(self)
 
         if not ((30<= self.VVIRLRLimit<=50 and self.VVIRLRLimit % 5 == 0) or (50<= self.VVIRLRLimit<=90) or  (90 <= self.VVIRLRLimit <= 175 and self.VVIRLRLimit % 5 == 0)):
             MyGUI.errorWindow(self)
@@ -2119,7 +2138,7 @@ class MyGUI:
             self.currentUser.VVIR(self.VVIRLRLimit, self.VVIRURLimit, self.VVIRVentricularAmplitude, self.VVIRVentricularPulseWidth, self.VVIRVRP, self.VVIRMaxSensorRate, self.VVIRReactionTime, self.VVIRResponseFactor, self.VVIRRecoveryTime)
             self.db.updateUser(self.currentUser)#Updates the user’s chosen parameters to the database
             MyGUI.successfulSubmitted(self,self.VVIRConfigWindow)
-    
+        
     def DDDConfig(self):
         for widget in self.startWindow.winfo_children():
             widget.destroy()
@@ -2235,23 +2254,28 @@ class MyGUI:
         self.DDDAtrialAmplitude = self.AtrialAmplitudeTextField.get().strip()
         self.DDDAtrialPulseWidth = self.AtrialPulseWidthTextField.get().strip()
         self.DDDARP = self.ARPTextField.get().strip()
+        try:
+            if self.DDDVentricularAmplitude == "0":
+                self.DDDVentricularAmplitude =  0
+            else:
+                self.DDDVentricularAmplitude= float(self.DDDVentricularAmplitude)
+        except (ValueError,TypeError) as error:
+            MyGUI.valueErrorWindow(self)
 
-        if self.DDDVentricularAmplitude == "0":
-            self.DDDVentricularAmplitude =  0
-        else:
-            self.DDDVentricularAmplitude= float(self.DDDVentricularAmplitude)
-        
-        if self.DDDAtrialAmplitude == "0":
-            self.DDDAtrialAmplitude =0
-        else:
-            self.DDDAtrialAmplitude= float(self.DDDAtrialAmplitude) 
+        try:
+            if self.DDDAtrialAmplitude == "0":
+                self.DDDAtrialAmplitude =0
+            else:
+                self.DDDAtrialAmplitude= float(self.DDDAtrialAmplitude) 
 
-        self.DDDLRLimit= float(self.DDDLRLimit)
-        self.DDDURLimit= float(self.DDDURLimit)
-        self.DDDVentricularPulseWidth= float(self.DDDVentricularPulseWidth)
-        self.DDDVRP= float(self.DDDVRP)
-        self.DDDAtrialPulseWidth = float(self.DDDAtrialPulseWidth)
-        self.DDDARP = float(self.DDDARP)
+            self.DDDLRLimit= float(self.DDDLRLimit)
+            self.DDDURLimit= float(self.DDDURLimit)
+            self.DDDVentricularPulseWidth= float(self.DDDVentricularPulseWidth)
+            self.DDDVRP= float(self.DDDVRP)
+            self.DDDAtrialPulseWidth = float(self.DDDAtrialPulseWidth)
+            self.DDDARP = float(self.DDDARP)
+        except ValueError as error:
+            MyGUI.valueErrorWindow(self)
 
         if not ((30<= self.DDDLRLimit<=50 and self.DDDLRLimit % 5 == 0) or (50<= self.DDDLRLimit<=90) or  (90 <= self.DDDLRLimit <= 175 and self.DDDLRLimit % 5 == 0)):
             MyGUI.errorWindow(self)
@@ -2273,7 +2297,6 @@ class MyGUI:
             self.currentUser.DDD(self.DDDLRLimit, self.DDDURLimit, self.DDDVentricularAmplitude, self.DDDVentricularPulseWidth, self.DDDVRP, self.DDDAtrialAmplitude, self.DDDAtrialPulseWidth, self.DDDARP, 0,0,0,0,0,0)
             self.db.updateUser(self.currentUser)#Updates the user’s chosen parameters to the database
             MyGUI.nextConfigDDD(self)
-
 
     def nextConfigDDD(self):
         for widget in self.startWindow.winfo_children():
@@ -2368,31 +2391,39 @@ class MyGUI:
         self.DDDATRFallbackTime = self.ATRFallbackTimeTextField.get().strip()
         
         #Checks to make sure the values inputted are valid
-        
-        if self.DDDDynamicAV == "Off" or self.DDDDynamicAV=="off":
-            self.DDDDynamicAV = 0
-        elif self.DDDDynamicAV == "On" or self.DDDDynamicAV=="on":
-            self.DDDDynamicAV = 1
-        else:
-            self.DDDDynamicAV=50
-        
-        if self.DDDATRFallbackMode == "Off" or self.DDDATRFallbackMode == "off":
-            self.DDDATRFallbackMode = 0
-        elif self.DDDATRFallbackMode == "On" or self.DDDATRFallbackMode == "on":
-            self.DDDATRFallbackMode = 1
-        else:
-            self.DDDATRFallbackMode=50
-        
-        if self.DDDSensedAV == "Off" or self.DDDSensedAV == "off":
-            self.DDDSensedAV = 0
-        else:
-            self.DDDSensedAV= float(self.DDDSensedAV)
+        try:
+            if self.DDDDynamicAV == "Off" or self.DDDDynamicAV=="off":
+                self.DDDDynamicAV = 0
+            elif self.DDDDynamicAV == "On" or self.DDDDynamicAV=="on":
+                self.DDDDynamicAV = 1
+            else:
+                self.DDDDynamicAV=50
+        except (ValueError,TypeError) as error:
+            MyGUI.valueErrorWindow(self)
 
- 
-        self.DDDFixedAV = float(self.DDDFixedAV)
-        self.DDDATRDuration = float(self.DDDATRDuration)
-        self.DDDATRFallbackTime = float(self.DDDATRFallbackTime)
+        try:
+            if self.DDDATRFallbackMode == "Off" or self.DDDATRFallbackMode == "off":
+                self.DDDATRFallbackMode = 0
+            elif self.DDDATRFallbackMode == "On" or self.DDDATRFallbackMode == "on":
+                self.DDDATRFallbackMode = 1
+            else:
+                self.DDDATRFallbackMode=50
+        except (ValueError,TypeError) as error:
+            MyGUI.valueErrorWindow(self)
 
+        try:
+            if self.DDDSensedAV == "Off" or self.DDDSensedAV == "off":
+                self.DDDSensedAV = 0
+            else:
+                self.DDDSensedAV= float(self.DDDSensedAV)
+
+    
+            self.DDDFixedAV = float(self.DDDFixedAV)
+            self.DDDATRDuration = float(self.DDDATRDuration)
+            self.DDDATRFallbackTime = float(self.DDDATRFallbackTime)
+        except (ValueError,TypeError) as error:
+            MyGUI.valueErrorWindow(self)
+        
         if not ((70<= self.DDDFixedAV <=300 and self.DDDFixedAV % 10 == 0)):
             MyGUI.errorWindow(self)
         elif not ((self.DDDDynamicAV == 0) or (self.DDDDynamicAV == 1)):
@@ -2407,7 +2438,6 @@ class MyGUI:
             self.currentUser.DDD(self.DDDLRLimit, self.DDDURLimit, self.DDDVentricularAmplitude, self.DDDVentricularPulseWidth, self.DDDVRP, self.DDDAtrialAmplitude, self.DDDAtrialPulseWidth, self.DDDARP, self.DDDFixedAV, self.DDDDynamicAV, self.DDDSensedAV, self.DDDATRFallbackMode, self.DDDATRDuration, self.DDDATRFallbackTime)
             self.db.updateUser(self.currentUser)#Updates the user’s chosen parameters to the database
             MyGUI.successfulSubmitted(self,self.nextConfigDDDWindow)
-
 
     def DDDRConfig(self):
         for widget in self.startWindow.winfo_children():
@@ -2525,23 +2555,29 @@ class MyGUI:
         self.DDDRAtrialPulseWidth = self.AtrialPulseWidthTextField.get().strip()
         self.DDDRARP = self.ARPTextField.get().strip()
 
-        if self.DDDRVentricularAmplitude == "0":
-            self.DDDRVentricularAmplitude =  0
-        else:
-            self.DDDRVentricularAmplitude= float(self.DDDRVentricularAmplitude)
-        
-        if self.DDDRAtrialAmplitude == "0":
-            self.DDDRAtrialAmplitude=0
-        else:
-            self.DDDRAtrialAmplitude=float(self.DDDRAtrialAmplitude)
-        
-        self.DDDRLRLimit= float(self.DDDRLRLimit)
-        self.DDDRURLimit= float(self.DDDRURLimit)
-        self.DDDRVentricularPulseWidth= float(self.DDDRVentricularPulseWidth)
-        self.DDDRVRP= float(self.DDDRVRP)
-        self.DDDRAtrialPulseWidth = float(self.DDDRAtrialPulseWidth)
-        self.DDDRARP = float(self.DDDRARP)
+        try:
+            if self.DDDRVentricularAmplitude == "0":
+                self.DDDRVentricularAmplitude =  0
+            else:
+                self.DDDRVentricularAmplitude= float(self.DDDRVentricularAmplitude)
+        except (ValueError,TypeError) as error:
+            MyGUI.valueErrorWindow(self)
 
+        try:
+            if self.DDDRAtrialAmplitude == "0":
+                self.DDDRAtrialAmplitude=0
+            else:
+                self.DDDRAtrialAmplitude=float(self.DDDRAtrialAmplitude)
+            
+            self.DDDRLRLimit= float(self.DDDRLRLimit)
+            self.DDDRURLimit= float(self.DDDRURLimit)
+            self.DDDRVentricularPulseWidth= float(self.DDDRVentricularPulseWidth)
+            self.DDDRVRP= float(self.DDDRVRP)
+            self.DDDRAtrialPulseWidth = float(self.DDDRAtrialPulseWidth)
+            self.DDDRARP = float(self.DDDRARP)
+        except (ValueError,TypeError) as error:
+            MyGUI.valueErrorWindow(self)
+        
         if not ((30<= self.DDDRLRLimit<=50 and self.DDDRLRLimit % 5 == 0) or (50<= self.DDDRLRLimit<=90) or  (90 <= self.DDDRLRLimit <= 175 and self.DDDRLRLimit % 5 == 0)):
             MyGUI.errorWindow(self)
         elif not ((50<= self.DDDRURLimit<=175 and self.DDDRURLimit % 5 == 0)):
@@ -2656,30 +2692,38 @@ class MyGUI:
         self.DDDRATRFallbackTime = self.ATRFallbackTimeTextField.get().strip()
         
         #Checks to make sure the values inputted are valid
-        
-        if self.DDDRDynamicAV == "Off" or self.DDDRDynamicAV== "off":
-            self.DDDRDynamicAV = 0
-        elif self.DDDRDynamicAV == "On" or self.DDDRDynamicAV== "on":
-            self.DDDRDynamicAV = 1
-        else:
-            self.DDDRDynamicAV=50
-        
-        if self.DDDRATRFallbackMode == "Off" or self.DDDRATRFallbackMode == "off":
-            self.DDDRATRFallbackMode = 0
-        elif self.DDDRATRFallbackMode == "On" or self.DDDRATRFallbackMode == "on":
-            self.DDDRATRFallbackMode = 1
-        else:
-            self.DDDRATRFallbackMode=50
-        
-        if self.DDDRSensedAV == "Off" or self.DDDRSensedAV=="off":
-            self.DDDRSensedAV = 0
-        else:
-            self.DDDRSensedAV= float(self.DDDRSensedAV)
+        try:
+            if self.DDDRDynamicAV == "Off" or self.DDDRDynamicAV== "off":
+                self.DDDRDynamicAV = 0
+            elif self.DDDRDynamicAV == "On" or self.DDDRDynamicAV== "on":
+                self.DDDRDynamicAV = 1
+            else:
+                self.DDDRDynamicAV=50
+        except (ValueError,TypeError) as error:
+            MyGUI.valueErrorWindow(self)
 
- 
-        self.DDDRFixedAV = float(self.DDDRFixedAV)
-        self.DDDRATRDuration = float(self.DDDRATRDuration)
-        self.DDDRATRFallbackTime = float(self.DDDRATRFallbackTime)
+        try:
+            if self.DDDRATRFallbackMode == "Off" or self.DDDRATRFallbackMode == "off":
+                self.DDDRATRFallbackMode = 0
+            elif self.DDDRATRFallbackMode == "On" or self.DDDRATRFallbackMode == "on":
+                self.DDDRATRFallbackMode = 1
+            else:
+                self.DDDRATRFallbackMode=50
+        except (ValueError,TypeError) as error:
+            MyGUI.valueErrorWindow(self)
+
+        try:
+            if self.DDDRSensedAV == "Off" or self.DDDRSensedAV=="off":
+                self.DDDRSensedAV = 0
+            else:
+                self.DDDRSensedAV= float(self.DDDRSensedAV)
+
+    
+            self.DDDRFixedAV = float(self.DDDRFixedAV)
+            self.DDDRATRDuration = float(self.DDDRATRDuration)
+            self.DDDRATRFallbackTime = float(self.DDDRATRFallbackTime)
+        except (ValueError,TypeError) as error:
+            MyGUI.valueErrorWindow(self)
 
         if not ((70<= self.DDDRFixedAV <=300 and self.DDDRFixedAV % 10 == 0)):
             MyGUI.errorWindow(self)
@@ -2764,10 +2808,13 @@ class MyGUI:
         self.DDDRRecoveryTime= self.RecoveryTimeTextField.get().strip()
         self.DDDRResponseFactor= self.ResponseFactorTextField.get().strip()
 
-        self.DDDRMaxSensorRate= float(self.DDDRMaxSensorRate)
-        self.DDDRRecoveryTime= float(self.DDDRRecoveryTime)
-        self.DDDRResponseFactor= float(self.DDDRResponseFactor)
-        self.DDDRReactionTime= float(self.DDDRReactionTime)
+        try:
+            self.DDDRMaxSensorRate= float(self.DDDRMaxSensorRate)
+            self.DDDRRecoveryTime= float(self.DDDRRecoveryTime)
+            self.DDDRResponseFactor= float(self.DDDRResponseFactor)
+            self.DDDRReactionTime= float(self.DDDRReactionTime)
+        except (ValueError,TypeError) as error:
+            MyGUI.valueErrorWindow(self)
         
         if not ((50.0<=self.DDDRMaxSensorRate<=175.0 and self.DDDRMaxSensorRate %5==0)):
             MyGUI.errorWindow(self)
@@ -2781,7 +2828,7 @@ class MyGUI:
             self.currentUser.DDDR(self.DDDRLRLimit, self.DDDRURLimit, self.DDDRVentricularAmplitude, self.DDDRVentricularPulseWidth, self.DDDRVRP, self.DDDRAtrialAmplitude, self.DDDRAtrialPulseWidth, self.DDDRARP, self.DDDRFixedAV, self.DDDRDynamicAV, self.DDDRSensedAV, self.DDDRATRFallbackMode, self.DDDRATRDuration, self.DDDRATRFallbackTime,self.DDDRMaxSensorRate, self.DDDRReactionTime, self.DDDRRecoveryTime, self.DDDRResponseFactor)
             self.db.updateUser(self.currentUser)#Updates the user’s chosen parameters to the database
             MyGUI.successfulSubmitted(self,self.nextConfigDDDR2Window)
-
+        
     def deleteUser(self):
 
         shift = 3  # Use the same shift value used for encryption in the database
@@ -2801,6 +2848,12 @@ class MyGUI:
         self.errorScreen = tk.Toplevel(self.configModeWindow)#Displays when the values inputted by the user are invalid
         self.errorScreen.geometry("200x100")
         self.errorScreenLabel = tk.Label(self.errorScreen, text = "Values Entered Are Not in Range", fg="red")
+        self.errorScreenLabel.pack()
+
+    def valueErrorWindow(self):
+        self.errorScreen = tk.Toplevel(self.configModeWindow)#Displays when the values inputted by the user are invalid
+        self.errorScreen.geometry("300x100")
+        self.errorScreenLabel = tk.Label(self.errorScreen, text = "Values Entered Are Not A Float or An Integer", fg="red")
         self.errorScreenLabel.pack()
 
     def successfulSubmitted(self,window):
