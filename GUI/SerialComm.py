@@ -33,7 +33,7 @@ class SerialComm:
                 if attr == '_atrialAmplitude' or attr == '_atrialPulseWidth' or attr == '_ventricularAmplitude' or attr == '_ventricularPulseWidth' :
                     value = getattr(user, attr)
                     self.verifySum +=value
-                    temp += struct.pack("f", value)
+                    temp += struct.pack("d", value)
 
                 else:
                     value = getattr(user, attr)
