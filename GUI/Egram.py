@@ -11,9 +11,6 @@ import SerialComm
 class Egram:
     def __init__(self,serialComm):
         self.comm = serialComm
-        
-
-       
         self.startTime = time.time()
 
 
