@@ -23,8 +23,8 @@ class MyGUI:
 
         self.startTitle = tk.Label(self.startWindow, text="Pacemaker", font=('Arial', 24), bg="azure2")
         self.startTitle.place(relx=0.4, rely=0.1)
-        '''
         
+        '''
         try:
             serComm = SerialComm.SerialComm()
             serComm.connect()
@@ -32,6 +32,7 @@ class MyGUI:
         except:
             pass
         '''
+        
         if (self.connected == True):
             self.newUserButton = tk.Button(self.startWindow, text="New User", command=self.createNewUser, font=("Arial",12)) #Functionality to create New User
             self.newUserButton.place(relx=0.6, rely=0.2, relheight=0.1, relwidth=0.2)
@@ -340,7 +341,14 @@ class MyGUI:
         
         #Serial comm to pacemaker when the function is submitted
         self.conn = SerialComm.SerialComm()
+        
+        self.conn.connect()
         self.conn.serWriteAOO(1,self.currentUser)
+
+       
+        
+        self.egramWindow = Egram.Egram(self.conn)
+        self.egramWindow.run(self.defVOOWindow)
 
     
     def defaultAOO(self):
@@ -390,20 +398,13 @@ class MyGUI:
         self.conn = SerialComm.SerialComm()
         self.conn.connect()
         self.conn.serWriteAOO(0,self.currentUser)
-        self.conn.readIn()
+
        
         MyGUI.successfulSubmitted(self,self.defAOOWindow)
         
+        self.egramWindow = Egram.Egram(self.conn)
+        self.egramWindow.run(self.defAOOWindow)
         
-        '''
-        self.EgramWindow = tk.Toplevel(self.startWindow)
-        self.canvas = tk.Canvas(self.EgramWindow, width=800, height=800, bg='white')
-        self.canvas.pack(fill=tk.BOTH, expand=True)
-
-        self.mock = SerialTesting()
-        self.egramOBJ=Egram.Egram(self.mock)
-        self.egramOBJ.updateEgram(self.canvas)
-'''
         
     def defaultAAI(self):
         for widget in self.startWindow.winfo_children():
@@ -453,9 +454,17 @@ class MyGUI:
         self.currentUser.AAI(self.AAILRLimit, self.AAIURLimit, self.AAIAtrialAmplitude, self.AAIAtrialPulseWidth,  self.AAIARP)#Updates the user’s chosen parameters to the database
         self.db.updateUser(self.currentUser)
         #Serial comm to pacemaker when the function is submitted
-        self.conn = SerialComm.SerialComm()
-        self.conn.serWriteAOO(2,self.currentUser)
+   
         MyGUI.successfulSubmitted(self, self.defAAIWindow)
+        self.conn = SerialComm.SerialComm()
+        
+        self.conn.connect()
+        self.conn.serWriteAOO(2,self.currentUser)
+
+       
+        
+        self.egramWindow = Egram.Egram(self.conn)
+        self.egramWindow.run(self.defAAIWindow)
 
 
     def defaultVVI(self):
@@ -507,8 +516,13 @@ class MyGUI:
         self.db.updateUser(self.currentUser)
         #Serial comm to pacemaker when the function is submitted
         self.conn = SerialComm.SerialComm()
+        self.conn.connect()
+
         self.conn.serWriteAOO(3,self.currentUser)
         MyGUI.successfulSubmitted(self, self.defVVIWindow)
+        
+        self.egramWindow = Egram.Egram(self.conn)
+        self.egramWindow.run(self.defVVIWindow)
     
     def defaultVOOR(self):
         for widget in self.startWindow.winfo_children():
@@ -576,7 +590,15 @@ class MyGUI:
 
         #Serial comm to pacemaker when the function is submitted
         self.conn = SerialComm.SerialComm()
+        self.conn.connect()
+
         self.conn.serWriteAOO(5,self.currentUser)
+
+       
+        self.egramWindow = Egram.Egram(self.conn)
+        self.egramWindow.run(self.defVOORWindow)
+    
+        
 
 
     def defaultAOOR(self):
@@ -645,7 +667,11 @@ class MyGUI:
 
         #Serial comm to pacemaker when the function is submitted
         self.conn = SerialComm.SerialComm()
+        self.conn.connect()
         self.conn.serWriteAOO(4,self.currentUser)
+
+        self.egramWindow = Egram.Egram(self.conn)
+        self.egramWindow.run(self.defAOORWindow)
 
 
     
@@ -718,9 +744,13 @@ class MyGUI:
         self.currentUser.AAIR(self.AAIRLRLimit, self.AAIRURLimit, self.AAIRAtrialAmplitude, self.AAIRAtrialPulseWidth, self.AAIRMaxSensorRate,self.AAIRReactionTime,self.AAIRResponseFactor, self.AAIRRecoveryTime,self.AAIRARP) #Updates the user’s chosen parameters to the database
         self.db.updateUser(self.currentUser)      
 
-        #Serial comm to pacemaker when the function is submitted
         self.conn = SerialComm.SerialComm()
+        self.conn.connect()
         self.conn.serWriteAOO(6,self.currentUser)
+
+        self.egramWindow = Egram.Egram(self.conn)
+        self.egramWindow.run(self.defAAIRWindow)
+
 
 
     def defaultVVIR(self):
@@ -791,6 +821,14 @@ class MyGUI:
 
         self.currentUser.VVIR(self.VVIRLRLimit, self.VVIRURLimit, self.VVIRVentricularAmplitude, self.VVIRVentricularPulseWidth, self.VVIRMaxSensorRate,self.VVIRReactionTime,self.VVIRResponseFactor, self.VVIRRecoveryTime,self.VVIRVRP) #Updates the user’s chosen parameters to the database
         self.db.updateUser(self.currentUser)  
+
+        
+        self.conn = SerialComm.SerialComm()
+        self.conn.connect()
+        self.conn.serWriteAOO(7,self.currentUser)
+
+        self.egramWindow = Egram.Egram(self.conn)
+        self.egramWindow.run(self.defVVIRWindow)
     
     def defaultDDD(self):
         for widget in self.startWindow.winfo_children():
@@ -1187,6 +1225,12 @@ class MyGUI:
             MyGUI.successfulSubmitted(self, self.VOOConfigWindow)
             self.currentUser.VOO(self.VOOLRLimit, self.VOOURLimit, self.VOOVentricularAmplitude, self.VOOVentricularPulseWidth)
             self.db.updateUser(self.currentUser)#Updates the user’s chosen parameters to the database
+        self.conn = SerialComm.SerialComm()
+        self.conn.connect()
+        self.conn.serWriteAOO(1,self.currentUser)
+
+        self.egramWindow = Egram.Egram(self.conn)
+        self.egramWindow.run(self.VOOConfigWindow)
         
     def AOOConfig(self):
         for widget in self.startWindow.winfo_children():
@@ -1279,6 +1323,13 @@ class MyGUI:
             self.currentUser.AOO(self.AOOLRLimit, self.AOOURLimit, self.AOOAtrialAmplitude, self.AOOAtrialPulseWidth)
             self.db.updateUser(self.currentUser)
             MyGUI.successfulSubmitted(self,self.AOOConfigWindow)#Updates the user’s chosen parameters to the database
+
+        self.conn = SerialComm.SerialComm()
+        self.conn.connect()
+        self.conn.serWriteAOO(0,self.currentUser)
+
+        self.egramWindow = Egram.Egram(self.conn)
+        self.egramWindow.run(self.AOOConfigWindow)
 
     def AAIConfig(self):
         for widget in self.startWindow.winfo_children():
@@ -1386,6 +1437,14 @@ class MyGUI:
             self.currentUser.AAI(self.AAILRLimit, self.AAIURLimit, self.AAIAtrialAmplitude, self.AAIAtrialPulseWidth, self.AAIARP)
             self.db.updateUser(self.currentUser)#Updates the user’s chosen parameters to the database
             MyGUI.successfulSubmitted(self,self.AAIConfigWindow)
+        
+        
+        self.conn = SerialComm.SerialComm()
+        self.conn.connect()
+        self.conn.serWriteAOO(2,self.currentUser)
+
+        self.egramWindow = Egram.Egram(self.conn)
+        self.egramWindow.run(self.AAIConfigWindow)
 
     def VVIConfig(self):
         for widget in self.startWindow.winfo_children():
@@ -1494,6 +1553,13 @@ class MyGUI:
             self.currentUser.VVI(self.VVILRLimit, self.VVIURLimit, self.VVIVentricularAmplitude, self.VVIVentricularPulseWidth, self.VVIVRP)
             self.db.updateUser(self.currentUser)#Updates the user’s chosen parameters to the database
             MyGUI.successfulSubmitted(self,self.VVIConfigWindow)
+        
+        self.conn = SerialComm.SerialComm()
+        self.conn.connect()
+        self.conn.serWriteAOO(3,self.currentUser)
+
+        self.egramWindow = Egram.Egram(self.conn)
+        self.egramWindow.run(self.VVIConfigWindow)
         
     def VOORConfig(self):
         for widget in self.startWindow.winfo_children():
@@ -1648,6 +1714,13 @@ class MyGUI:
             self.currentUser.VOOR(self.VOORLRLimit, self.VOORURLimit, self.VOORVentricularAmplitude, self.VOORVentricularPulseWidth, self.VOORMaxSensorRate, self.VOORResponseFactor, self.VOORReactionTime, self.VOORRecoveryTime)
             self.db.updateUser(self.currentUser)#Updates the user’s chosen parameters to the database 
         
+        self.conn = SerialComm.SerialComm()
+        self.conn.connect()
+        self.conn.serWriteAOO(5,self.currentUser)
+
+        self.egramWindow = Egram.Egram(self.conn)
+        self.egramWindow.run(self.VOORConfigWindow)
+
     def AOORConfig(self):
         for widget in self.startWindow.winfo_children():
             widget.destroy()
@@ -1801,6 +1874,13 @@ class MyGUI:
             self.currentUser.AOOR(self.AOORLRLimit, self.AOORURLimit, self.AOORAtrialAmplitude, self.AOORAtrialPulseWidth, self.AOORMaxSensorRate, self.AOORResponseFactor, self.AOORReactionTime, self.AOORRecoveryTime)
             self.db.updateUser(self.currentUser)
             MyGUI.successfulSubmitted(self,self.AOORConfigWindow)#Updates the user’s chosen parameters to the database
+        
+        self.conn = SerialComm.SerialComm()
+        self.conn.connect()
+        self.conn.serWriteAOO(4,self.currentUser)
+
+        self.egramWindow = Egram.Egram(self.conn)
+        self.egramWindow.run(self.AOORConfigWindow)
         
     def AAIRConfig(self):
         for widget in self.startWindow.winfo_children():
@@ -1970,6 +2050,13 @@ class MyGUI:
             self.currentUser.AAIR(self.AAIRLRLimit, self.AAIRURLimit, self.AAIRAtrialAmplitude, self.AAIRAtrialPulseWidth, self.AAIRARP, self.AAIRMaxSensorRate, self.AAIRReactionTime, self.AAIRResponseFactor, self.AAIRRecoveryTime)
             self.db.updateUser(self.currentUser)#Updates the user’s chosen parameters to the database
             MyGUI.successfulSubmitted(self,self.AAIRConfigWindow)
+        
+        self.conn = SerialComm.SerialComm()
+        self.conn.connect()
+        self.conn.serWriteAOO(6,self.currentUser)
+
+        self.egramWindow = Egram.Egram(self.conn)
+        self.egramWindow.run(self.AAIRConfigWindow)
 
     def VVIRConfig(self):
         for widget in self.startWindow.winfo_children():
@@ -2139,6 +2226,13 @@ class MyGUI:
             self.currentUser.VVIR(self.VVIRLRLimit, self.VVIRURLimit, self.VVIRVentricularAmplitude, self.VVIRVentricularPulseWidth, self.VVIRVRP, self.VVIRMaxSensorRate, self.VVIRReactionTime, self.VVIRResponseFactor, self.VVIRRecoveryTime)
             self.db.updateUser(self.currentUser)#Updates the user’s chosen parameters to the database
             MyGUI.successfulSubmitted(self,self.VVIRConfigWindow)
+        
+        self.conn = SerialComm.SerialComm()
+        self.conn.connect()
+        self.conn.serWriteAOO(7,self.currentUser)
+
+        self.egramWindow = Egram.Egram(self.conn)
+        self.egramWindow.run(self.VVIRConfigWindow)
         
     def DDDConfig(self):
         for widget in self.startWindow.winfo_children():
