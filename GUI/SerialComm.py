@@ -19,7 +19,7 @@ class SerialComm:
     def connect(self):
         self.ports  = serial.tools.list_ports.comports()
         #for port,desc,hwid in sorted(self.ports):
-            #print("{}: {} [{}]".format(port,desc,hwid))
+         #   print("{}: {} [{}]".format(port,desc,hwid))
 
         self.comm = ser.Serial(port="com4", baudrate=115200)
         #self.isConnected = True
@@ -64,22 +64,23 @@ class SerialComm:
 
     def readIn(self):
    
-    
+        
+        
+
         self.serialWrite = b"\x16\x19"
         self.comm.write(self.serialWrite)    
 
         data = self.comm.read(100)
-        print(data)
+
 
         for i in range(0,len(data),2):
-            ATR_signal = struct.unpack("b", data[i:i+1])[0]*3.3
-            VENT_signal = struct.unpack("b", data[i+1:i+2])[0]*3.3
+            ATR_signal = struct.unpack("b", data[2+i:i+3])[0]*15
+            VENT_signal = struct.unpack("b", data[i+3:i+4])[0]*15
             self.egramList.append([ATR_signal,VENT_signal])
             if len(self.egramList)>100:
                 self.egramList.pop(0)
-        time.sleep(0.1)
+        time.sleep(0.5)
     
-        print(self.egramList)
 
         return self.egramList
             
