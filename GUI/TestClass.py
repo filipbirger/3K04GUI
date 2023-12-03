@@ -29,7 +29,17 @@ class TestDataBase(unittest.TestCase):
                 atrialPulseWidth REAL,
                 atrialSensitivity REAL,
                 ARP REAL,
-                PVARP REAL
+                PVARP REAL,
+                ATRDuration REAL,
+                ATRFallbackMode REAL,
+                ATRFallbackTime REAL,
+                activityThreshold REAL,
+                reactionTime REAL,
+                responseFactor, REAL,
+                recoveryTime REAL,
+                fixedAVDelay REAL,
+                dynamicAVDelay, REAL,
+                sensedAVDelay REAL
             )
         """)
         cls.db.conn.commit()
@@ -120,7 +130,7 @@ class TestUserClass(unittest.TestCase):
     
     def test_AOO(self):
         user = userClass("Alice", "password123")
-        user.AAI(70, 150, 3.5, 1.0)
+        user.AOO(70, 150, 3.5, 1.0)
         self.assertEqual(user.lowerRateLimit, 70)
         self.assertEqual(user.upperRateLimit, 150)
         self.assertEqual(user.atrialAmplitude, 3.5)
@@ -137,7 +147,7 @@ class TestUserClass(unittest.TestCase):
     
     def test_VOO(self):
         user = userClass("Alice", "password123")
-        user.VVI(70, 150, 3.5, 1.0)
+        user.VOO(70, 150, 3.5, 1.0)
         self.assertEqual(user.lowerRateLimit, 70)
         self.assertEqual(user.upperRateLimit, 150)
         self.assertEqual(user.ventricularAmplitude, 3.5)
@@ -154,7 +164,7 @@ class TestUserClass(unittest.TestCase):
     
     def test_VOOR(self):
         user = userClass("Alice", "password123")
-        user.AAI(70, 150, 150, 3.5, 1.0, 2, 30, 8, 8)
+        user.VOOR(70, 150, 150, 3.5, 1.0, 2, 30, 8, 8)
         self.assertEqual(user.lowerRateLimit, 70)
         self.assertEqual(user.upperRateLimit, 150)
         self.assertEqual(user.maximumSensorRate, 150)
@@ -176,7 +186,7 @@ class TestUserClass(unittest.TestCase):
 
     def test_AOOR(self):
         user = userClass("Alice", "password123")
-        user.AAI(70, 150, 150, 3.5, 1.0, 2, 30, 8, 8)
+        user.AOOR(70, 150, 150, 3.5, 1.0, 2, 30, 8, 8)
         self.assertEqual(user.lowerRateLimit, 70)
         self.assertEqual(user.upperRateLimit, 150)
         self.assertEqual(user.maximumSensorRate, 150)
@@ -198,7 +208,7 @@ class TestUserClass(unittest.TestCase):
     
     def test_AAIR(self):
         user = userClass("Alice", "password123")
-        user.AAI(70, 150, 1, 3.5, 1.0, 0.75, 250, 300, 20, 15, 2, 30, 8, 8)
+        user.AAIR(70, 150, 1, 3.5, 1.0, 0.75, 250, 300, 20, 15, 2, 30, 8, 8)
         self.assertEqual(user.lowerRateLimit, 70)
         self.assertEqual(user.upperRateLimit, 150)
         self.assertEqual(user.maximumSensorRate, 150)
@@ -220,7 +230,7 @@ class TestUserClass(unittest.TestCase):
     
     def test_VVIR(self):
         user = userClass("Alice", "password123")
-        user.VVI(70, 150, 150, 3.5, 1.0, 0.75, 250, 20, 15, 2, 30, 8, 8)
+        user.VVIR(70, 150, 150, 3.5, 1.0, 0.75, 250, 20, 15, 2, 30, 8, 8)
         self.assertEqual(user.lowerRateLimit, 70)
         self.assertEqual(user.upperRateLimit, 150)
         self.assertEqual(user.maximumSensorRate, 150)
@@ -239,6 +249,56 @@ class TestUserClass(unittest.TestCase):
         self.assertEqual(user.atrialSensitivity, 0)
         self.assertEqual(user.ARP, 0)
         self.assertEqual(user.PVARP, 0)
+
+    def test_DDD(self):
+        user = userClass("Alice", "password123")
+        user.DDD(70, 150, 100, 1, -20, 4.5, 3.5, 15, 20, 0.75, 0.75, 250, 200, 300, 20, 15, 40, 1, 2)
+        self.assertEqual(user.lowerRateLimit, 70)
+        self.assertEqual(user.upperRateLimit, 150)
+        self.assertEqual(user.fixedAVDelay, 100)
+        self.assertEqual(user.dynamicAVDelay, 1)
+        self.assertEqual(user.sensedAVDelay, -20)
+        self.assertEqual(user.atrialAmplitude, 4.5)
+        self.assertEqual(user.ventricularAmplitude, 3.5)
+        self.assertEqual(user.atrialPulseWidth, 15)
+        self.assertEqual(user.ventricularPulseWidth, 20)
+        self.assertEqual(user.atrialSensitivity, 0.75)
+        self.assertEqual(user.ventricularSensitivity, 0.75)
+        self.assertEqual(user.VRP, 250)
+        self.assertEqual(user.ARP, 200)
+        self.assertEqual(user.PVARP, 300)
+        self.assertEqual(user.Hysteresis, 20)
+        self.assertEqual(user.rateSmoothing, 15)
+        self.assertEqual(user.ATRDuration, 40)
+        self.assertEqual(user.ATRFallbackMode, 1)
+        self.assertEqual(user.ATRFallbackTime, 2)
+        
+    def test_DDDR(self):
+        user = userClass("Alice", "password123")
+        user.DDDR(70, 150, 100, 1, -20, 4.5, 3.5, 15, 20, 0.75, 0.75, 250, 200, 300, 20, 15, 40, 1, 2, 2, 30, 8, 8)
+        self.assertEqual(user.lowerRateLimit, 70)
+        self.assertEqual(user.upperRateLimit, 150)
+        self.assertEqual(user.fixedAVDelay, 100)
+        self.assertEqual(user.dynamicAVDelay, 1)
+        self.assertEqual(user.sensedAVDelay, -20)
+        self.assertEqual(user.atrialAmplitude, 4.5)
+        self.assertEqual(user.ventricularAmplitude, 3.5)
+        self.assertEqual(user.atrialPulseWidth, 15)
+        self.assertEqual(user.ventricularPulseWidth, 20)
+        self.assertEqual(user.atrialSensitivity, 0.75)
+        self.assertEqual(user.ventricularSensitivity, 0.75)
+        self.assertEqual(user.VRP, 250)
+        self.assertEqual(user.ARP, 200)
+        self.assertEqual(user.PVARP, 300)
+        self.assertEqual(user.Hysteresis, 20)
+        self.assertEqual(user.rateSmoothing, 15)
+        self.assertEqual(user.ATRDuration, 40)
+        self.assertEqual(user.ATRFallbackMode, 1)
+        self.assertEqual(user.ATRFallbackTime, 2) 
+        self.assertEqual(user.activityThreshold, 2)
+        self.assertEqual(user.reactionTime, 30)
+        self.assertEqual(user.responseFactor, 8)
+        self.assertEqual(user.recoveryTime, 8)
     
  #testing the delete methode    
     def test_delete(self):
