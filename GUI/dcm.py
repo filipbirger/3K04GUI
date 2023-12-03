@@ -1210,28 +1210,29 @@ class MyGUI:
             self.VOOLRLimit = float(self.VOOLRLimit)
             self.VOOURLimit = float(self.VOOURLimit)
             self.VOOVentricularPulseWidth = int(self.VOOVentricularPulseWidth)
+        
+            #Checks to make sure the values inputted are valid
+            if not ((30<= self.VOOLRLimit<=50 and self.VOOLRLimit % 5 == 0) or (50<= self.VOOLRLimit<=90) or  (90 <= self.VOOLRLimit <= 175 and self.VOOLRLimit % 5 == 0)):
+                MyGUI.errorWindow(self)
+            elif not ((50<= self.VOOURLimit<=175 and self.VOOURLimit % 5 == 0)):
+                MyGUI.errorWindow(self)
+            elif not ((self.VOOVentricularAmplitude == 0) or (0.1 <= self.VOOVentricularAmplitude <= 5.0 and self.VOOVentricularAmplitude*10%1==0)): 
+                MyGUI.errorWindow(self)
+            elif not((1.0<= self.VOOVentricularPulseWidth <= 30.0)):
+                MyGUI.errorWindow(self)  
+            else:
+                MyGUI.successfulSubmitted(self, self.VOOConfigWindow)
+                self.currentUser.VOO(self.VOOLRLimit, self.VOOURLimit, self.VOOVentricularAmplitude, self.VOOVentricularPulseWidth)
+                self.db.updateUser(self.currentUser)#Updates the user’s chosen parameters to the database
+            self.conn = SerialComm.SerialComm()
+            self.conn.connect()
+            self.conn.serWriteAOO(1,self.currentUser)
+
+            self.egramWindow = Egram.Egram(self.conn)
+            self.egramWindow.run(self.VOOConfigWindow)
         except (ValueError,TypeError) as error:
             MyGUI.valueErrorWindow(self)
-        #Checks to make sure the values inputted are valid
-        if not ((30<= self.VOOLRLimit<=50 and self.VOOLRLimit % 5 == 0) or (50<= self.VOOLRLimit<=90) or  (90 <= self.VOOLRLimit <= 175 and self.VOOLRLimit % 5 == 0)):
-            MyGUI.errorWindow(self)
-        elif not ((50<= self.VOOURLimit<=175 and self.VOOURLimit % 5 == 0)):
-            MyGUI.errorWindow(self)
-        elif not ((self.VOOVentricularAmplitude == 0) or (0.1 <= self.VOOVentricularAmplitude <= 5.0 and self.VOOVentricularAmplitude*10%1==0)): 
-            MyGUI.errorWindow(self)
-        elif not((1.0<= self.VOOVentricularPulseWidth <= 30.0)):
-            MyGUI.errorWindow(self)  
-        else:
-            MyGUI.successfulSubmitted(self, self.VOOConfigWindow)
-            self.currentUser.VOO(self.VOOLRLimit, self.VOOURLimit, self.VOOVentricularAmplitude, self.VOOVentricularPulseWidth)
-            self.db.updateUser(self.currentUser)#Updates the user’s chosen parameters to the database
-        self.conn = SerialComm.SerialComm()
-        self.conn.connect()
-        self.conn.serWriteAOO(1,self.currentUser)
-
-        self.egramWindow = Egram.Egram(self.conn)
-        self.egramWindow.run(self.VOOConfigWindow)
-        
+            
     def AOOConfig(self):
         for widget in self.startWindow.winfo_children():
             widget.destroy()
@@ -1308,28 +1309,29 @@ class MyGUI:
             self.AOOURLimit= float(self.AOOURLimit)
             self.AOOAtrialAmplitude= float(self.AOOAtrialAmplitude)
             self.AOOAtrialPulseWidth= float(self.AOOAtrialPulseWidth)
+            
+            #Checks to make sure the values inputted are valid
+            if not ((30<= self.AOOLRLimit<=50 and self.AOOLRLimit % 5 == 0) or (50<= self.AOOLRLimit<=90) or  (90 <= self.AOOLRLimit <= 175 and self.AOOLRLimit % 5 == 0)):
+                MyGUI.errorWindow(self)
+            elif not ((50<= self.AOOURLimit<=175 and self.AOOURLimit % 5 == 0)):
+                MyGUI.errorWindow(self)
+            elif not ((self.AOOAtrialAmplitude == 0) or (0.1 <= self.AOOAtrialAmplitude <= 5.0 and self.AOOAtrialAmplitude*10 %1==0)): 
+                MyGUI.errorWindow(self)
+            elif not ((1.0<= self.AOOAtrialPulseWidth <= 30.0)):
+                MyGUI.errorWindow(self)    
+            else:
+                self.currentUser.AOO(self.AOOLRLimit, self.AOOURLimit, self.AOOAtrialAmplitude, self.AOOAtrialPulseWidth)
+                self.db.updateUser(self.currentUser)
+                MyGUI.successfulSubmitted(self,self.AOOConfigWindow)#Updates the user’s chosen parameters to the database
+
+            self.conn = SerialComm.SerialComm()
+            self.conn.connect()
+            self.conn.serWriteAOO(0,self.currentUser)
+
+            self.egramWindow = Egram.Egram(self.conn)
+            self.egramWindow.run(self.AOOConfigWindow)
         except (ValueError,TypeError) as error:
             MyGUI.valueErrorWindow(self)
-        #Checks to make sure the values inputted are valid
-        if not ((30<= self.AOOLRLimit<=50 and self.AOOLRLimit % 5 == 0) or (50<= self.AOOLRLimit<=90) or  (90 <= self.AOOLRLimit <= 175 and self.AOOLRLimit % 5 == 0)):
-            MyGUI.errorWindow(self)
-        elif not ((50<= self.AOOURLimit<=175 and self.AOOURLimit % 5 == 0)):
-            MyGUI.errorWindow(self)
-        elif not ((self.AOOAtrialAmplitude == 0) or (0.1 <= self.AOOAtrialAmplitude <= 5.0 and self.AOOAtrialAmplitude*10 %1==0)): 
-            MyGUI.errorWindow(self)
-        elif not ((1.0<= self.AOOAtrialPulseWidth <= 30.0)):
-            MyGUI.errorWindow(self)    
-        else:
-            self.currentUser.AOO(self.AOOLRLimit, self.AOOURLimit, self.AOOAtrialAmplitude, self.AOOAtrialPulseWidth)
-            self.db.updateUser(self.currentUser)
-            MyGUI.successfulSubmitted(self,self.AOOConfigWindow)#Updates the user’s chosen parameters to the database
-
-        self.conn = SerialComm.SerialComm()
-        self.conn.connect()
-        self.conn.serWriteAOO(0,self.currentUser)
-
-        self.egramWindow = Egram.Egram(self.conn)
-        self.egramWindow.run(self.AOOConfigWindow)
 
     def AAIConfig(self):
         for widget in self.startWindow.winfo_children():
@@ -1420,31 +1422,32 @@ class MyGUI:
             self.AAIURLimit= float(self.AAIURLimit)
             self.AAIAtrialPulseWidth= float(self.AAIAtrialPulseWidth)
             self.AAIARP= float(self.AAIARP)
+            
+            #Checks to make sure the values inputted are valid
+            if not ((30<= self.AAILRLimit<=50 and self.AAILRLimit % 5 == 0) or (50<= self.AAILRLimit<=90) or  (90 <= self.AAILRLimit <= 175 and self.AAILRLimit % 5 == 0)):
+                MyGUI.errorWindow(self)
+            elif not ((50<= self.AAIURLimit<=175 and self.AAIURLimit % 5 == 0)):
+                MyGUI.errorWindow(self)
+            elif not ((self.AAIAtrialAmplitude==0) or (0.1 <= self.AAIAtrialAmplitude <= 5.0 and self.AAIAtrialAmplitude*10 %1==0)): 
+                MyGUI.errorWindow(self)
+            elif not ((1.0<= self.AAIAtrialPulseWidth <= 30.0)):
+                MyGUI.errorWindow(self)
+            elif not ((150<= self.AAIARP<=500 and self.AAIARP % 10 == 0)):
+                MyGUI.errorWindow(self)
+            else:
+                self.currentUser.AAI(self.AAILRLimit, self.AAIURLimit, self.AAIAtrialAmplitude, self.AAIAtrialPulseWidth, self.AAIARP)
+                self.db.updateUser(self.currentUser)#Updates the user’s chosen parameters to the database
+                MyGUI.successfulSubmitted(self,self.AAIConfigWindow)
+            
+            
+            self.conn = SerialComm.SerialComm()
+            self.conn.connect()
+            self.conn.serWriteAOO(2,self.currentUser)
+
+            self.egramWindow = Egram.Egram(self.conn)
+            self.egramWindow.run(self.AAIConfigWindow)
         except (ValueError,TypeError) as error:
             MyGUI.valueErrorWindow(self)
-        #Checks to make sure the values inputted are valid
-        if not ((30<= self.AAILRLimit<=50 and self.AAILRLimit % 5 == 0) or (50<= self.AAILRLimit<=90) or  (90 <= self.AAILRLimit <= 175 and self.AAILRLimit % 5 == 0)):
-            MyGUI.errorWindow(self)
-        elif not ((50<= self.AAIURLimit<=175 and self.AAIURLimit % 5 == 0)):
-            MyGUI.errorWindow(self)
-        elif not ((self.AAIAtrialAmplitude==0) or (0.1 <= self.AAIAtrialAmplitude <= 5.0 and self.AAIAtrialAmplitude*10 %1==0)): 
-            MyGUI.errorWindow(self)
-        elif not ((1.0<= self.AAIAtrialPulseWidth <= 30.0)):
-            MyGUI.errorWindow(self)
-        elif not ((150<= self.AAIARP<=500 and self.AAIARP % 10 == 0)):
-            MyGUI.errorWindow(self)
-        else:
-            self.currentUser.AAI(self.AAILRLimit, self.AAIURLimit, self.AAIAtrialAmplitude, self.AAIAtrialPulseWidth, self.AAIARP)
-            self.db.updateUser(self.currentUser)#Updates the user’s chosen parameters to the database
-            MyGUI.successfulSubmitted(self,self.AAIConfigWindow)
-        
-        
-        self.conn = SerialComm.SerialComm()
-        self.conn.connect()
-        self.conn.serWriteAOO(2,self.currentUser)
-
-        self.egramWindow = Egram.Egram(self.conn)
-        self.egramWindow.run(self.AAIConfigWindow)
 
     def VVIConfig(self):
         for widget in self.startWindow.winfo_children():
@@ -1536,30 +1539,30 @@ class MyGUI:
             self.VVIURLimit= float(self.VVIURLimit)
             self.VVIVentricularPulseWidth= float(self.VVIVentricularPulseWidth)
             self.VVIVRP= float(self.VVIVRP)
+        
+            if not ((30<= self.VVILRLimit<=50 and self.VVILRLimit % 5 == 0) or (50<= self.VVILRLimit<=90) or  (90 <= self.VVILRLimit <= 175 and self.VVILRLimit % 5 == 0)):
+                MyGUI.errorWindow(self)
+            elif not ((50<= self.VVIURLimit<=175 and self.VVIURLimit % 5 == 0)):
+                MyGUI.errorWindow(self)
+            elif not  ((0.1 <= self.VVIVentricularAmplitude <= 5.0 and self.VVIVentricularAmplitude*10 %1==0) or (self.VVIVentricularAmplitude ==0)): 
+                MyGUI.errorWindow(self)
+            elif not ((1.0<= self.VVIVentricularPulseWidth <= 30.0)):
+                MyGUI.errorWindow(self)
+            elif not ((150<= self.VVIVRP<=500 and self.VVIVRP % 10 == 0)):
+                MyGUI.errorWindow(self)
+            else:
+                self.currentUser.VVI(self.VVILRLimit, self.VVIURLimit, self.VVIVentricularAmplitude, self.VVIVentricularPulseWidth, self.VVIVRP)
+                self.db.updateUser(self.currentUser)#Updates the user’s chosen parameters to the database
+                MyGUI.successfulSubmitted(self,self.VVIConfigWindow)
+            
+            self.conn = SerialComm.SerialComm()
+            self.conn.connect()
+            self.conn.serWriteAOO(3,self.currentUser)
+
+            self.egramWindow = Egram.Egram(self.conn)
+            self.egramWindow.run(self.VVIConfigWindow)
         except (ValueError,TypeError) as error:
             MyGUI.valueErrorWindow(self)
-        
-        if not ((30<= self.VVILRLimit<=50 and self.VVILRLimit % 5 == 0) or (50<= self.VVILRLimit<=90) or  (90 <= self.VVILRLimit <= 175 and self.VVILRLimit % 5 == 0)):
-            MyGUI.errorWindow(self)
-        elif not ((50<= self.VVIURLimit<=175 and self.VVIURLimit % 5 == 0)):
-            MyGUI.errorWindow(self)
-        elif not  ((0.1 <= self.VVIVentricularAmplitude <= 5.0 and self.VVIVentricularAmplitude*10 %1==0) or (self.VVIVentricularAmplitude ==0)): 
-            MyGUI.errorWindow(self)
-        elif not ((1.0<= self.VVIVentricularPulseWidth <= 30.0)):
-            MyGUI.errorWindow(self)
-        elif not ((150<= self.VVIVRP<=500 and self.VVIVRP % 10 == 0)):
-            MyGUI.errorWindow(self)
-        else:
-            self.currentUser.VVI(self.VVILRLimit, self.VVIURLimit, self.VVIVentricularAmplitude, self.VVIVentricularPulseWidth, self.VVIVRP)
-            self.db.updateUser(self.currentUser)#Updates the user’s chosen parameters to the database
-            MyGUI.successfulSubmitted(self,self.VVIConfigWindow)
-        
-        self.conn = SerialComm.SerialComm()
-        self.conn.connect()
-        self.conn.serWriteAOO(3,self.currentUser)
-
-        self.egramWindow = Egram.Egram(self.conn)
-        self.egramWindow.run(self.VVIConfigWindow)
         
     def VOORConfig(self):
         for widget in self.startWindow.winfo_children():
@@ -1690,36 +1693,37 @@ class MyGUI:
             self.VOORReactionTime= float(self.VOORReactionTime)
             self.VOORResponseFactor=float(self.VOORResponseFactor)
             self.VOORRecoveryTime= float(self.VOORRecoveryTime)
+        
+            #Checks to make sure the values inputted are valid
+            if not ((30<= self.VOORLRLimit<=50 and self.VOORLRLimit % 5 == 0) or (50<= self.VOORLRLimit<=90) or  (90 <= self.VOORLRLimit <= 175 and self.VOORLRLimit % 5 == 0)):
+                MyGUI.errorWindow(self)
+            elif not ((50<= self.VOORURLimit<=175 and self.VOORURLimit % 5 == 0)):
+                MyGUI.errorWindow(self)
+            elif not ((self.VOORVentricularAmplitude == 0) or (0.1 <= self.VOORVentricularAmplitude <= 5.0 and self.VOORVentricularAmplitude*10%1==0)): 
+                MyGUI.errorWindow(self)
+            elif not((1.0<= self.VOORVentricularPulseWidth <= 30.0)):
+                MyGUI.errorWindow(self)
+            elif not ((50<=self.VOORMaxSensorRate<=175 and self.VOORMaxSensorRate %5==0)):
+                MyGUI.errorWindow(self)
+            elif not ((10<=self.VOORReactionTime<=50 and self.VOORReactionTime%10==0)):
+                MyGUI.errorWindow(self)
+            elif not ((1<=self.VOORResponseFactor<=16)):
+                MyGUI.errorWindow(self)
+            elif not ((2<=self.VOORRecoveryTime<=16)):
+                MyGUI.errorWindow(self)
+            else:
+                MyGUI.successfulSubmitted(self, self.VOORConfigWindow)
+                self.currentUser.VOOR(self.VOORLRLimit, self.VOORURLimit, self.VOORVentricularAmplitude, self.VOORVentricularPulseWidth, self.VOORMaxSensorRate, self.VOORResponseFactor, self.VOORReactionTime, self.VOORRecoveryTime)
+                self.db.updateUser(self.currentUser)#Updates the user’s chosen parameters to the database 
+            
+            self.conn = SerialComm.SerialComm()
+            self.conn.connect()
+            self.conn.serWriteAOO(5,self.currentUser)
+
+            self.egramWindow = Egram.Egram(self.conn)
+            self.egramWindow.run(self.VOORConfigWindow)
         except (ValueError,TypeError) as error:
             MyGUI.valueErrorWindow(self)
-        #Checks to make sure the values inputted are valid
-        if not ((30<= self.VOORLRLimit<=50 and self.VOORLRLimit % 5 == 0) or (50<= self.VOORLRLimit<=90) or  (90 <= self.VOORLRLimit <= 175 and self.VOORLRLimit % 5 == 0)):
-            MyGUI.errorWindow(self)
-        elif not ((50<= self.VOORURLimit<=175 and self.VOORURLimit % 5 == 0)):
-            MyGUI.errorWindow(self)
-        elif not ((self.VOORVentricularAmplitude == 0) or (0.1 <= self.VOORVentricularAmplitude <= 5.0 and self.VOORVentricularAmplitude*10%1==0)): 
-            MyGUI.errorWindow(self)
-        elif not((1.0<= self.VOORVentricularPulseWidth <= 30.0)):
-            MyGUI.errorWindow(self)
-        elif not ((50<=self.VOORMaxSensorRate<=175 and self.VOORMaxSensorRate %5==0)):
-            MyGUI.errorWindow(self)
-        elif not ((10<=self.VOORReactionTime<=50 and self.VOORReactionTime%10==0)):
-            MyGUI.errorWindow(self)
-        elif not ((1<=self.VOORResponseFactor<=16)):
-            MyGUI.errorWindow(self)
-        elif not ((2<=self.VOORRecoveryTime<=16)):
-            MyGUI.errorWindow(self)
-        else:
-            MyGUI.successfulSubmitted(self, self.VOORConfigWindow)
-            self.currentUser.VOOR(self.VOORLRLimit, self.VOORURLimit, self.VOORVentricularAmplitude, self.VOORVentricularPulseWidth, self.VOORMaxSensorRate, self.VOORResponseFactor, self.VOORReactionTime, self.VOORRecoveryTime)
-            self.db.updateUser(self.currentUser)#Updates the user’s chosen parameters to the database 
-        
-        self.conn = SerialComm.SerialComm()
-        self.conn.connect()
-        self.conn.serWriteAOO(5,self.currentUser)
-
-        self.egramWindow = Egram.Egram(self.conn)
-        self.egramWindow.run(self.VOORConfigWindow)
 
     def AOORConfig(self):
         for widget in self.startWindow.winfo_children():
@@ -1850,37 +1854,37 @@ class MyGUI:
             self.AOORReactionTime=float(self.AOORReactionTime)
             self.AOORResponseFactor=float(self.AOORResponseFactor)
             self.AOORRecoveryTime=float(self.AOORRecoveryTime)
+        
+            #Checks to make sure the values inputted are valid
+            if not ((30<= self.AOORLRLimit<=50 and self.AOORLRLimit % 5 == 0) or (50<= self.AOORLRLimit<=90) or  (90 <= self.AOORLRLimit <= 175 and self.AOORLRLimit % 5 == 0)):
+                MyGUI.errorWindow(self)
+            elif not ((50<= self.AOORURLimit<=175 and self.AOORURLimit % 5 == 0)):
+                MyGUI.errorWindow(self)
+            elif not ((self.AOORAtrialAmplitude==0) or (0.1 <= self.AOORAtrialAmplitude <= 5.0 and self.AOORAtrialAmplitude*10 %1==0)): 
+                MyGUI.errorWindow(self)
+            elif not ((1.0<= self.AOORAtrialPulseWidth <= 30.0)):
+                MyGUI.errorWindow(self)
+            elif not ((50.0<=self.AOORMaxSensorRate<=175.0 and self.AOORMaxSensorRate %5==0)):
+                MyGUI.errorWindow(self)
+            elif not ((10.0<=self.AOORReactionTime<=50.0 and self.AOORReactionTime%10==0)):
+                MyGUI.errorWindow(self)
+            elif not ((1.0<=self.AOORResponseFactor<=16.0)):
+                MyGUI.errorWindow(self)
+            elif not ((2.0<=self.AOORRecoveryTime<=16.0)):
+                MyGUI.errorWindow(self)
+            else:
+                self.currentUser.AOOR(self.AOORLRLimit, self.AOORURLimit, self.AOORAtrialAmplitude, self.AOORAtrialPulseWidth, self.AOORMaxSensorRate, self.AOORResponseFactor, self.AOORReactionTime, self.AOORRecoveryTime)
+                self.db.updateUser(self.currentUser)
+                MyGUI.successfulSubmitted(self,self.AOORConfigWindow)#Updates the user’s chosen parameters to the database
+            
+            self.conn = SerialComm.SerialComm()
+            self.conn.connect()
+            self.conn.serWriteAOO(4,self.currentUser)
+
+            self.egramWindow = Egram.Egram(self.conn)
+            self.egramWindow.run(self.AOORConfigWindow)
         except (ValueError,TypeError) as error:
             MyGUI.valueErrorWindow(self)
-        #Checks to make sure the values inputted are valid
-
-        if not ((30<= self.AOORLRLimit<=50 and self.AOORLRLimit % 5 == 0) or (50<= self.AOORLRLimit<=90) or  (90 <= self.AOORLRLimit <= 175 and self.AOORLRLimit % 5 == 0)):
-            MyGUI.errorWindow(self)
-        elif not ((50<= self.AOORURLimit<=175 and self.AOORURLimit % 5 == 0)):
-            MyGUI.errorWindow(self)
-        elif not ((self.AOORAtrialAmplitude==0) or (0.1 <= self.AOORAtrialAmplitude <= 5.0 and self.AOORAtrialAmplitude*10 %1==0)): 
-            MyGUI.errorWindow(self)
-        elif not ((1.0<= self.AOORAtrialPulseWidth <= 30.0)):
-            MyGUI.errorWindow(self)
-        elif not ((50.0<=self.AOORMaxSensorRate<=175.0 and self.AOORMaxSensorRate %5==0)):
-            MyGUI.errorWindow(self)
-        elif not ((10.0<=self.AOORReactionTime<=50.0 and self.AOORReactionTime%10==0)):
-            MyGUI.errorWindow(self)
-        elif not ((1.0<=self.AOORResponseFactor<=16.0)):
-            MyGUI.errorWindow(self)
-        elif not ((2.0<=self.AOORRecoveryTime<=16.0)):
-            MyGUI.errorWindow(self)
-        else:
-            self.currentUser.AOOR(self.AOORLRLimit, self.AOORURLimit, self.AOORAtrialAmplitude, self.AOORAtrialPulseWidth, self.AOORMaxSensorRate, self.AOORResponseFactor, self.AOORReactionTime, self.AOORRecoveryTime)
-            self.db.updateUser(self.currentUser)
-            MyGUI.successfulSubmitted(self,self.AOORConfigWindow)#Updates the user’s chosen parameters to the database
-        
-        self.conn = SerialComm.SerialComm()
-        self.conn.connect()
-        self.conn.serWriteAOO(4,self.currentUser)
-
-        self.egramWindow = Egram.Egram(self.conn)
-        self.egramWindow.run(self.AOORConfigWindow)
         
     def AAIRConfig(self):
         for widget in self.startWindow.winfo_children():
@@ -2024,39 +2028,39 @@ class MyGUI:
             self.AAIRReactionTime=float(self.AAIRReactionTime)
             self.AAIRResponseFactor=float(self.AAIRResponseFactor)
             self.AAIRRecoveryTime= float(self.AAIRRecoveryTime)
+        
+            #Checks to make sure the values inputted are valid
+            if not ((30<= self.AAIRLRLimit<=50 and self.AAIRLRLimit % 5 == 0) or (50<= self.AAIRLRLimit<=90) or  (90 <= self.AAIRLRLimit <= 175 and self.AAIRLRLimit % 5 == 0)):
+                MyGUI.errorWindow(self)
+            elif not ((50<= self.AAIRURLimit<=175 and self.AAIRURLimit % 5 == 0)):
+                MyGUI.errorWindow(self)
+            elif not ((self.AAIRAtrialAmplitude==0) or (0.1 <= self.AAIRAtrialAmplitude <= 5.0 and self.AAIRAtrialAmplitude*10 %1==0)): 
+                MyGUI.errorWindow(self)
+            elif not ((1.0<= self.AAIRAtrialPulseWidth <= 30.0)):
+                MyGUI.errorWindow(self)
+            elif not ((150<= self.AAIRARP<=500 and self.AAIRARP % 10 == 0)):
+                MyGUI.errorWindow(self)
+            elif not ((50.0<=self.AAIRMaxSensorRate<=175.0 and self.AAIRMaxSensorRate %5==0)):
+                MyGUI.errorWindow(self)
+            elif not ((10.0<=self.AAIRReactionTime<=50.0 and self.AAIRReactionTime%10==0)):
+                MyGUI.errorWindow(self)
+            elif not ((1.0<=self.AAIRResponseFactor<=16.0)):
+                MyGUI.errorWindow(self)
+            elif not ((2.0<=self.AAIRRecoveryTime<=16.0)):
+                MyGUI.errorWindow(self)
+            else:
+                self.currentUser.AAIR(self.AAIRLRLimit, self.AAIRURLimit, self.AAIRAtrialAmplitude, self.AAIRAtrialPulseWidth, self.AAIRARP, self.AAIRMaxSensorRate, self.AAIRReactionTime, self.AAIRResponseFactor, self.AAIRRecoveryTime)
+                self.db.updateUser(self.currentUser)#Updates the user’s chosen parameters to the database
+                MyGUI.successfulSubmitted(self,self.AAIRConfigWindow)
+            
+            self.conn = SerialComm.SerialComm()
+            self.conn.connect()
+            self.conn.serWriteAOO(6,self.currentUser)
+
+            self.egramWindow = Egram.Egram(self.conn)
+            self.egramWindow.run(self.AAIRConfigWindow)
         except (ValueError,TypeError) as error:
             MyGUI.valueErrorWindow(self)
-        #Checks to make sure the values inputted are valid
-
-        if not ((30<= self.AAIRLRLimit<=50 and self.AAIRLRLimit % 5 == 0) or (50<= self.AAIRLRLimit<=90) or  (90 <= self.AAIRLRLimit <= 175 and self.AAIRLRLimit % 5 == 0)):
-            MyGUI.errorWindow(self)
-        elif not ((50<= self.AAIRURLimit<=175 and self.AAIRURLimit % 5 == 0)):
-            MyGUI.errorWindow(self)
-        elif not ((self.AAIRAtrialAmplitude==0) or (0.1 <= self.AAIRAtrialAmplitude <= 5.0 and self.AAIRAtrialAmplitude*10 %1==0)): 
-            MyGUI.errorWindow(self)
-        elif not ((1.0<= self.AAIRAtrialPulseWidth <= 30.0)):
-            MyGUI.errorWindow(self)
-        elif not ((150<= self.AAIRARP<=500 and self.AAIRARP % 10 == 0)):
-            MyGUI.errorWindow(self)
-        elif not ((50.0<=self.AAIRMaxSensorRate<=175.0 and self.AAIRMaxSensorRate %5==0)):
-            MyGUI.errorWindow(self)
-        elif not ((10.0<=self.AAIRReactionTime<=50.0 and self.AAIRReactionTime%10==0)):
-            MyGUI.errorWindow(self)
-        elif not ((1.0<=self.AAIRResponseFactor<=16.0)):
-            MyGUI.errorWindow(self)
-        elif not ((2.0<=self.AAIRRecoveryTime<=16.0)):
-            MyGUI.errorWindow(self)
-        else:
-            self.currentUser.AAIR(self.AAIRLRLimit, self.AAIRURLimit, self.AAIRAtrialAmplitude, self.AAIRAtrialPulseWidth, self.AAIRARP, self.AAIRMaxSensorRate, self.AAIRReactionTime, self.AAIRResponseFactor, self.AAIRRecoveryTime)
-            self.db.updateUser(self.currentUser)#Updates the user’s chosen parameters to the database
-            MyGUI.successfulSubmitted(self,self.AAIRConfigWindow)
-        
-        self.conn = SerialComm.SerialComm()
-        self.conn.connect()
-        self.conn.serWriteAOO(6,self.currentUser)
-
-        self.egramWindow = Egram.Egram(self.conn)
-        self.egramWindow.run(self.AAIRConfigWindow)
 
     def VVIRConfig(self):
         for widget in self.startWindow.winfo_children():
@@ -2201,38 +2205,38 @@ class MyGUI:
             self.VVIRRecoveryTime= float(self.VVIRRecoveryTime)
             self.VVIRResponseFactor= float(self.VVIRResponseFactor)
             self.VVIRReactionTime= float(self.VVIRReactionTime)
+
+            if not ((30<= self.VVIRLRLimit<=50 and self.VVIRLRLimit % 5 == 0) or (50<= self.VVIRLRLimit<=90) or  (90 <= self.VVIRLRLimit <= 175 and self.VVIRLRLimit % 5 == 0)):
+                MyGUI.errorWindow(self)
+            elif not ((50<= self.VVIRURLimit<=175 and self.VVIRURLimit % 5 == 0)):
+                MyGUI.errorWindow(self)
+            elif not  ((0.1 <= self.VVIRVentricularAmplitude <= 5.0 and self.VVIRVentricularAmplitude*10 %1==0) or (self.VVIRVentricularAmplitude ==0)): 
+                MyGUI.errorWindow(self)
+            elif not ((1.0<= self.VVIRVentricularPulseWidth <= 30.0)):
+                MyGUI.errorWindow(self)
+            elif not ((150<= self.VVIRVRP<=500 and self.VVIRVRP % 10 == 0)):
+                MyGUI.errorWindow(self)
+            elif not ((50.0<=self.VVIRMaxSensorRate<=175.0 and self.VVIRMaxSensorRate %5==0)):
+                MyGUI.errorWindow(self)
+            elif not ((10.0<=self.VVIRReactionTime<=50.0 and self.VVIRReactionTime%10==0)):
+                MyGUI.errorWindow(self)
+            elif not ((1.0<=self.VVIRResponseFactor<=16.0)):
+                MyGUI.errorWindow(self)
+            elif not ((2.0<=self.VVIRRecoveryTime<=16.0)):
+                MyGUI.errorWindow(self)
+            else:
+                self.currentUser.VVIR(self.VVIRLRLimit, self.VVIRURLimit, self.VVIRVentricularAmplitude, self.VVIRVentricularPulseWidth, self.VVIRVRP, self.VVIRMaxSensorRate, self.VVIRReactionTime, self.VVIRResponseFactor, self.VVIRRecoveryTime)
+                self.db.updateUser(self.currentUser)#Updates the user’s chosen parameters to the database
+                MyGUI.successfulSubmitted(self,self.VVIRConfigWindow)
+            
+            self.conn = SerialComm.SerialComm()
+            self.conn.connect()
+            self.conn.serWriteAOO(7,self.currentUser)
+
+            self.egramWindow = Egram.Egram(self.conn)
+            self.egramWindow.run(self.VVIRConfigWindow)
         except (ValueError,TypeError) as error:
             MyGUI.valueErrorWindow(self)
-
-        if not ((30<= self.VVIRLRLimit<=50 and self.VVIRLRLimit % 5 == 0) or (50<= self.VVIRLRLimit<=90) or  (90 <= self.VVIRLRLimit <= 175 and self.VVIRLRLimit % 5 == 0)):
-            MyGUI.errorWindow(self)
-        elif not ((50<= self.VVIRURLimit<=175 and self.VVIRURLimit % 5 == 0)):
-            MyGUI.errorWindow(self)
-        elif not  ((0.1 <= self.VVIRVentricularAmplitude <= 5.0 and self.VVIRVentricularAmplitude*10 %1==0) or (self.VVIRVentricularAmplitude ==0)): 
-            MyGUI.errorWindow(self)
-        elif not ((1.0<= self.VVIRVentricularPulseWidth <= 30.0)):
-            MyGUI.errorWindow(self)
-        elif not ((150<= self.VVIRVRP<=500 and self.VVIRVRP % 10 == 0)):
-            MyGUI.errorWindow(self)
-        elif not ((50.0<=self.VVIRMaxSensorRate<=175.0 and self.VVIRMaxSensorRate %5==0)):
-            MyGUI.errorWindow(self)
-        elif not ((10.0<=self.VVIRReactionTime<=50.0 and self.VVIRReactionTime%10==0)):
-            MyGUI.errorWindow(self)
-        elif not ((1.0<=self.VVIRResponseFactor<=16.0)):
-            MyGUI.errorWindow(self)
-        elif not ((2.0<=self.VVIRRecoveryTime<=16.0)):
-            MyGUI.errorWindow(self)
-        else:
-            self.currentUser.VVIR(self.VVIRLRLimit, self.VVIRURLimit, self.VVIRVentricularAmplitude, self.VVIRVentricularPulseWidth, self.VVIRVRP, self.VVIRMaxSensorRate, self.VVIRReactionTime, self.VVIRResponseFactor, self.VVIRRecoveryTime)
-            self.db.updateUser(self.currentUser)#Updates the user’s chosen parameters to the database
-            MyGUI.successfulSubmitted(self,self.VVIRConfigWindow)
-        
-        self.conn = SerialComm.SerialComm()
-        self.conn.connect()
-        self.conn.serWriteAOO(7,self.currentUser)
-
-        self.egramWindow = Egram.Egram(self.conn)
-        self.egramWindow.run(self.VVIRConfigWindow)
         
     def DDDConfig(self):
         for widget in self.startWindow.winfo_children():
@@ -2354,10 +2358,7 @@ class MyGUI:
                 self.DDDVentricularAmplitude =  0
             else:
                 self.DDDVentricularAmplitude= float(self.DDDVentricularAmplitude)
-        except (ValueError,TypeError) as error:
-            MyGUI.valueErrorWindow(self)
 
-        try:
             if self.DDDAtrialAmplitude == "0":
                 self.DDDAtrialAmplitude =0
             else:
@@ -2369,29 +2370,29 @@ class MyGUI:
             self.DDDVRP= float(self.DDDVRP)
             self.DDDAtrialPulseWidth = float(self.DDDAtrialPulseWidth)
             self.DDDARP = float(self.DDDARP)
+
+            if not ((30<= self.DDDLRLimit<=50 and self.DDDLRLimit % 5 == 0) or (50<= self.DDDLRLimit<=90) or  (90 <= self.DDDLRLimit <= 175 and self.DDDLRLimit % 5 == 0)):
+                MyGUI.errorWindow(self)
+            elif not ((50<= self.DDDURLimit<=175 and self.DDDURLimit % 5 == 0)):
+                MyGUI.errorWindow(self)
+            elif not  ((0.1 <= self.DDDVentricularAmplitude <= 5.0 and self.DDDVentricularAmplitude*10 %1==0) or (self.DDDVentricularAmplitude ==0)): 
+                MyGUI.errorWindow(self)
+            elif not ((1.0<= self.DDDVentricularPulseWidth <= 30.0)):
+                MyGUI.errorWindow(self)
+            elif not ((150<= self.DDDVRP<=500 and self.DDDVRP % 10 == 0)):
+                MyGUI.errorWindow(self)
+            elif not ((self.DDDAtrialAmplitude==0) or (0.1 <= self.DDDAtrialAmplitude <= 5.0 and self.DDDAtrialAmplitude*10 %1==0)): 
+                MyGUI.errorWindow(self)
+            elif not ((1.0<= self.DDDAtrialPulseWidth <= 30.0)):
+                MyGUI.errorWindow(self)
+            elif not ((150<= self.DDDARP<=500 and self.DDDARP % 10 == 0)):
+                MyGUI.errorWindow(self)
+            else:
+                self.currentUser.DDD(self.DDDLRLimit, self.DDDURLimit, self.DDDVentricularAmplitude, self.DDDVentricularPulseWidth, self.DDDVRP, self.DDDAtrialAmplitude, self.DDDAtrialPulseWidth, self.DDDARP, 0,0,0,0,0,0)
+                self.db.updateUser(self.currentUser)#Updates the user’s chosen parameters to the database
+                MyGUI.nextConfigDDD(self)
         except ValueError as error:
             MyGUI.valueErrorWindow(self)
-
-        if not ((30<= self.DDDLRLimit<=50 and self.DDDLRLimit % 5 == 0) or (50<= self.DDDLRLimit<=90) or  (90 <= self.DDDLRLimit <= 175 and self.DDDLRLimit % 5 == 0)):
-            MyGUI.errorWindow(self)
-        elif not ((50<= self.DDDURLimit<=175 and self.DDDURLimit % 5 == 0)):
-            MyGUI.errorWindow(self)
-        elif not  ((0.1 <= self.DDDVentricularAmplitude <= 5.0 and self.DDDVentricularAmplitude*10 %1==0) or (self.DDDVentricularAmplitude ==0)): 
-            MyGUI.errorWindow(self)
-        elif not ((1.0<= self.DDDVentricularPulseWidth <= 30.0)):
-            MyGUI.errorWindow(self)
-        elif not ((150<= self.DDDVRP<=500 and self.DDDVRP % 10 == 0)):
-            MyGUI.errorWindow(self)
-        elif not ((self.DDDAtrialAmplitude==0) or (0.1 <= self.DDDAtrialAmplitude <= 5.0 and self.DDDAtrialAmplitude*10 %1==0)): 
-            MyGUI.errorWindow(self)
-        elif not ((1.0<= self.DDDAtrialPulseWidth <= 30.0)):
-            MyGUI.errorWindow(self)
-        elif not ((150<= self.DDDARP<=500 and self.DDDARP % 10 == 0)):
-            MyGUI.errorWindow(self)
-        else:
-            self.currentUser.DDD(self.DDDLRLimit, self.DDDURLimit, self.DDDVentricularAmplitude, self.DDDVentricularPulseWidth, self.DDDVRP, self.DDDAtrialAmplitude, self.DDDAtrialPulseWidth, self.DDDARP, 0,0,0,0,0,0)
-            self.db.updateUser(self.currentUser)#Updates the user’s chosen parameters to the database
-            MyGUI.nextConfigDDD(self)
 
     def nextConfigDDD(self):
         for widget in self.startWindow.winfo_children():
@@ -2493,20 +2494,14 @@ class MyGUI:
                 self.DDDDynamicAV = 1
             else:
                 self.DDDDynamicAV=50
-        except (ValueError,TypeError) as error:
-            MyGUI.valueErrorWindow(self)
 
-        try:
             if self.DDDATRFallbackMode == "Off" or self.DDDATRFallbackMode == "off":
                 self.DDDATRFallbackMode = 0
             elif self.DDDATRFallbackMode == "On" or self.DDDATRFallbackMode == "on":
                 self.DDDATRFallbackMode = 1
             else:
                 self.DDDATRFallbackMode=50
-        except (ValueError,TypeError) as error:
-            MyGUI.valueErrorWindow(self)
 
-        try:
             if self.DDDSensedAV == "Off" or self.DDDSensedAV == "off":
                 self.DDDSensedAV = 0
             else:
@@ -2516,23 +2511,23 @@ class MyGUI:
             self.DDDFixedAV = float(self.DDDFixedAV)
             self.DDDATRDuration = float(self.DDDATRDuration)
             self.DDDATRFallbackTime = float(self.DDDATRFallbackTime)
+            
+            if not ((70<= self.DDDFixedAV <=300 and self.DDDFixedAV % 10 == 0)):
+                MyGUI.errorWindow(self)
+            elif not ((self.DDDDynamicAV == 0) or (self.DDDDynamicAV == 1)):
+                MyGUI.errorWindow(self)
+            elif not ((self.DDDSensedAV == 0) or (-100<=self.DDDSensedAV<=-10 and self.DDDSensedAV % 10 ==0)):
+                MyGUI.errorWindow(self)
+            elif not ((self.DDDATRFallbackMode == 0) or (self.DDDATRFallbackMode == 1)):
+                MyGUI.errorWindow(self)
+            elif not ((self.DDDATRDuration == 10) or (20<=self.DDDATRDuration<=80 and self.DDDATRDuration % 20 ==0) or (100<=self.DDDATRDuration<=2000 and self.DDDATRDuration % 100 ==0)):
+                MyGUI.errorWindow(self)
+            else:
+                self.currentUser.DDD(self.DDDLRLimit, self.DDDURLimit, self.DDDVentricularAmplitude, self.DDDVentricularPulseWidth, self.DDDVRP, self.DDDAtrialAmplitude, self.DDDAtrialPulseWidth, self.DDDARP, self.DDDFixedAV, self.DDDDynamicAV, self.DDDSensedAV, self.DDDATRFallbackMode, self.DDDATRDuration, self.DDDATRFallbackTime)
+                self.db.updateUser(self.currentUser)#Updates the user’s chosen parameters to the database
+                MyGUI.successfulSubmitted(self,self.nextConfigDDDWindow)
         except (ValueError,TypeError) as error:
             MyGUI.valueErrorWindow(self)
-        
-        if not ((70<= self.DDDFixedAV <=300 and self.DDDFixedAV % 10 == 0)):
-            MyGUI.errorWindow(self)
-        elif not ((self.DDDDynamicAV == 0) or (self.DDDDynamicAV == 1)):
-            MyGUI.errorWindow(self)
-        elif not ((self.DDDSensedAV == 0) or (-100<=self.DDDSensedAV<=-10 and self.DDDSensedAV % 10 ==0)):
-            MyGUI.errorWindow(self)
-        elif not ((self.DDDATRFallbackMode == 0) or (self.DDDATRFallbackMode == 1)):
-            MyGUI.errorWindow(self)
-        elif not ((self.DDDATRDuration == 10) or (20<=self.DDDATRDuration<=80 and self.DDDATRDuration % 20 ==0) or (100<=self.DDDATRDuration<=2000 and self.DDDATRDuration % 100 ==0)):
-            MyGUI.errorWindow(self)
-        else:
-            self.currentUser.DDD(self.DDDLRLimit, self.DDDURLimit, self.DDDVentricularAmplitude, self.DDDVentricularPulseWidth, self.DDDVRP, self.DDDAtrialAmplitude, self.DDDAtrialPulseWidth, self.DDDARP, self.DDDFixedAV, self.DDDDynamicAV, self.DDDSensedAV, self.DDDATRFallbackMode, self.DDDATRDuration, self.DDDATRFallbackTime)
-            self.db.updateUser(self.currentUser)#Updates the user’s chosen parameters to the database
-            MyGUI.successfulSubmitted(self,self.nextConfigDDDWindow)
 
     def DDDRConfig(self):
         for widget in self.startWindow.winfo_children():
@@ -2655,10 +2650,7 @@ class MyGUI:
                 self.DDDRVentricularAmplitude =  0
             else:
                 self.DDDRVentricularAmplitude= float(self.DDDRVentricularAmplitude)
-        except (ValueError,TypeError) as error:
-            MyGUI.valueErrorWindow(self)
 
-        try:
             if self.DDDRAtrialAmplitude == "0":
                 self.DDDRAtrialAmplitude=0
             else:
@@ -2670,29 +2662,29 @@ class MyGUI:
             self.DDDRVRP= float(self.DDDRVRP)
             self.DDDRAtrialPulseWidth = float(self.DDDRAtrialPulseWidth)
             self.DDDRARP = float(self.DDDRARP)
-        except (ValueError,TypeError) as error:
-            MyGUI.valueErrorWindow(self)
         
-        if not ((30<= self.DDDRLRLimit<=50 and self.DDDRLRLimit % 5 == 0) or (50<= self.DDDRLRLimit<=90) or  (90 <= self.DDDRLRLimit <= 175 and self.DDDRLRLimit % 5 == 0)):
-            MyGUI.errorWindow(self)
-        elif not ((50<= self.DDDRURLimit<=175 and self.DDDRURLimit % 5 == 0)):
-            MyGUI.errorWindow(self)
-        elif not  ((0.1 <= self.DDDRVentricularAmplitude <= 5.0 and self.DDDRVentricularAmplitude*10 %1==0) or (self.DDDRVentricularAmplitude ==0)): 
-            MyGUI.errorWindow(self)
-        elif not ((1.0<= self.DDDRVentricularPulseWidth <= 30.0)):
-            MyGUI.errorWindow(self)
-        elif not ((150<= self.DDDRVRP<=500 and self.DDDRVRP % 10 == 0)):
-            MyGUI.errorWindow(self)
-        elif not ((self.DDDRAtrialAmplitude==0) or (0.1 <= self.DDDRAtrialAmplitude <= 5.0 and self.DDDRAtrialAmplitude*10 %1==0)): 
-            MyGUI.errorWindow(self)
-        elif not ((1.0<= self.DDDRAtrialPulseWidth <= 30.0)):
-            MyGUI.errorWindow(self)
-        elif not ((150<= self.DDDRARP<=500 and self.DDDRARP % 10 == 0)):
-            MyGUI.errorWindow(self)
-        else:
-            self.currentUser.DDDR(self.DDDRLRLimit, self.DDDRURLimit, self.DDDRVentricularAmplitude, self.DDDRVentricularPulseWidth, self.DDDRVRP, self.DDDRAtrialAmplitude, self.DDDRAtrialPulseWidth, self.DDDRARP, 0,0,0,0,0,0,0,0,0,0)
-            self.db.updateUser(self.currentUser)#Updates the user’s chosen parameters to the database
-            MyGUI.nextConfigDDDR(self)
+            if not ((30<= self.DDDRLRLimit<=50 and self.DDDRLRLimit % 5 == 0) or (50<= self.DDDRLRLimit<=90) or  (90 <= self.DDDRLRLimit <= 175 and self.DDDRLRLimit % 5 == 0)):
+                MyGUI.errorWindow(self)
+            elif not ((50<= self.DDDRURLimit<=175 and self.DDDRURLimit % 5 == 0)):
+                MyGUI.errorWindow(self)
+            elif not  ((0.1 <= self.DDDRVentricularAmplitude <= 5.0 and self.DDDRVentricularAmplitude*10 %1==0) or (self.DDDRVentricularAmplitude ==0)): 
+                MyGUI.errorWindow(self)
+            elif not ((1.0<= self.DDDRVentricularPulseWidth <= 30.0)):
+                MyGUI.errorWindow(self)
+            elif not ((150<= self.DDDRVRP<=500 and self.DDDRVRP % 10 == 0)):
+                MyGUI.errorWindow(self)
+            elif not ((self.DDDRAtrialAmplitude==0) or (0.1 <= self.DDDRAtrialAmplitude <= 5.0 and self.DDDRAtrialAmplitude*10 %1==0)): 
+                MyGUI.errorWindow(self)
+            elif not ((1.0<= self.DDDRAtrialPulseWidth <= 30.0)):
+                MyGUI.errorWindow(self)
+            elif not ((150<= self.DDDRARP<=500 and self.DDDRARP % 10 == 0)):
+                MyGUI.errorWindow(self)
+            else:
+                self.currentUser.DDDR(self.DDDRLRLimit, self.DDDRURLimit, self.DDDRVentricularAmplitude, self.DDDRVentricularPulseWidth, self.DDDRVRP, self.DDDRAtrialAmplitude, self.DDDRAtrialPulseWidth, self.DDDRARP, 0,0,0,0,0,0,0,0,0,0)
+                self.db.updateUser(self.currentUser)#Updates the user’s chosen parameters to the database
+                MyGUI.nextConfigDDDR(self)
+        except (ValueError,TypeError) as error:
+                MyGUI.valueErrorWindow(self)
     
     def nextConfigDDDR(self):
         for widget in self.startWindow.winfo_children():
@@ -2794,46 +2786,39 @@ class MyGUI:
                 self.DDDRDynamicAV = 1
             else:
                 self.DDDRDynamicAV=50
-        except (ValueError,TypeError) as error:
-            MyGUI.valueErrorWindow(self)
 
-        try:
             if self.DDDRATRFallbackMode == "Off" or self.DDDRATRFallbackMode == "off":
                 self.DDDRATRFallbackMode = 0
             elif self.DDDRATRFallbackMode == "On" or self.DDDRATRFallbackMode == "on":
                 self.DDDRATRFallbackMode = 1
             else:
                 self.DDDRATRFallbackMode=50
-        except (ValueError,TypeError) as error:
-            MyGUI.valueErrorWindow(self)
 
-        try:
             if self.DDDRSensedAV == "Off" or self.DDDRSensedAV=="off":
                 self.DDDRSensedAV = 0
             else:
                 self.DDDRSensedAV= float(self.DDDRSensedAV)
-
     
             self.DDDRFixedAV = float(self.DDDRFixedAV)
             self.DDDRATRDuration = float(self.DDDRATRDuration)
             self.DDDRATRFallbackTime = float(self.DDDRATRFallbackTime)
+
+            if not ((70<= self.DDDRFixedAV <=300 and self.DDDRFixedAV % 10 == 0)):
+                MyGUI.errorWindow(self)
+            elif not ((self.DDDRDynamicAV == 0) or (self.DDDRDynamicAV == 1)):
+                MyGUI.errorWindow(self)
+            elif not ((self.DDDRSensedAV == 0) or (-100<=self.DDDRSensedAV<=-10 and self.DDDRSensedAV % 10 ==0)):
+                MyGUI.errorWindow(self)
+            elif not ((self.DDDRATRFallbackMode == 0) or (self.DDDRATRFallbackMode == 1)):
+                MyGUI.errorWindow(self)
+            elif not ((self.DDDRATRDuration == 10) or (20<=self.DDDRATRDuration<=80 and self.DDDRATRDuration % 20 ==0) or (100<=self.DDDRATRDuration<=2000 and self.DDDRATRDuration % 100 ==0)):
+                MyGUI.errorWindow(self)
+            else:
+                self.currentUser.DDDR(self.DDDRLRLimit, self.DDDRURLimit, self.DDDRVentricularAmplitude, self.DDDRVentricularPulseWidth, self.DDDRVRP, self.DDDRAtrialAmplitude, self.DDDRAtrialPulseWidth, self.DDDRARP, self.DDDRFixedAV, self.DDDRDynamicAV, self.DDDRSensedAV, self.DDDRATRFallbackMode, self.DDDRATRDuration, self.DDDRATRFallbackTime,0,0,0,0)
+                self.db.updateUser(self.currentUser)#Updates the user’s chosen parameters to the database
+                MyGUI.nextConfigDDDR2(self)
         except (ValueError,TypeError) as error:
             MyGUI.valueErrorWindow(self)
-
-        if not ((70<= self.DDDRFixedAV <=300 and self.DDDRFixedAV % 10 == 0)):
-            MyGUI.errorWindow(self)
-        elif not ((self.DDDRDynamicAV == 0) or (self.DDDRDynamicAV == 1)):
-            MyGUI.errorWindow(self)
-        elif not ((self.DDDRSensedAV == 0) or (-100<=self.DDDRSensedAV<=-10 and self.DDDRSensedAV % 10 ==0)):
-            MyGUI.errorWindow(self)
-        elif not ((self.DDDRATRFallbackMode == 0) or (self.DDDRATRFallbackMode == 1)):
-            MyGUI.errorWindow(self)
-        elif not ((self.DDDRATRDuration == 10) or (20<=self.DDDRATRDuration<=80 and self.DDDRATRDuration % 20 ==0) or (100<=self.DDDRATRDuration<=2000 and self.DDDRATRDuration % 100 ==0)):
-            MyGUI.errorWindow(self)
-        else:
-            self.currentUser.DDDR(self.DDDRLRLimit, self.DDDRURLimit, self.DDDRVentricularAmplitude, self.DDDRVentricularPulseWidth, self.DDDRVRP, self.DDDRAtrialAmplitude, self.DDDRAtrialPulseWidth, self.DDDRARP, self.DDDRFixedAV, self.DDDRDynamicAV, self.DDDRSensedAV, self.DDDRATRFallbackMode, self.DDDRATRDuration, self.DDDRATRFallbackTime,0,0,0,0)
-            self.db.updateUser(self.currentUser)#Updates the user’s chosen parameters to the database
-            MyGUI.nextConfigDDDR2(self)
 
     def nextConfigDDDR2(self):
         for widget in self.startWindow.winfo_children():
@@ -2908,21 +2893,21 @@ class MyGUI:
             self.DDDRRecoveryTime= float(self.DDDRRecoveryTime)
             self.DDDRResponseFactor= float(self.DDDRResponseFactor)
             self.DDDRReactionTime= float(self.DDDRReactionTime)
+        
+            if not ((50.0<=self.DDDRMaxSensorRate<=175.0 and self.DDDRMaxSensorRate %5==0)):
+                MyGUI.errorWindow(self)
+            elif not ((10.0<=self.DDDRReactionTime<=50.0 and self.DDDRReactionTime%10==0)):
+                MyGUI.errorWindow(self)
+            elif not ((1.0<=self.DDDRResponseFactor<=16.0)):
+                MyGUI.errorWindow(self)
+            elif not ((2.0<=self.DDDRRecoveryTime<=16.0)):
+                MyGUI.errorWindow(self)
+            else:
+                self.currentUser.DDDR(self.DDDRLRLimit, self.DDDRURLimit, self.DDDRVentricularAmplitude, self.DDDRVentricularPulseWidth, self.DDDRVRP, self.DDDRAtrialAmplitude, self.DDDRAtrialPulseWidth, self.DDDRARP, self.DDDRFixedAV, self.DDDRDynamicAV, self.DDDRSensedAV, self.DDDRATRFallbackMode, self.DDDRATRDuration, self.DDDRATRFallbackTime,self.DDDRMaxSensorRate, self.DDDRReactionTime, self.DDDRRecoveryTime, self.DDDRResponseFactor)
+                self.db.updateUser(self.currentUser)#Updates the user’s chosen parameters to the database
+                MyGUI.successfulSubmitted(self,self.nextConfigDDDR2Window)
         except (ValueError,TypeError) as error:
             MyGUI.valueErrorWindow(self)
-        
-        if not ((50.0<=self.DDDRMaxSensorRate<=175.0 and self.DDDRMaxSensorRate %5==0)):
-            MyGUI.errorWindow(self)
-        elif not ((10.0<=self.DDDRReactionTime<=50.0 and self.DDDRReactionTime%10==0)):
-            MyGUI.errorWindow(self)
-        elif not ((1.0<=self.DDDRResponseFactor<=16.0)):
-            MyGUI.errorWindow(self)
-        elif not ((2.0<=self.DDDRRecoveryTime<=16.0)):
-            MyGUI.errorWindow(self)
-        else:
-            self.currentUser.DDDR(self.DDDRLRLimit, self.DDDRURLimit, self.DDDRVentricularAmplitude, self.DDDRVentricularPulseWidth, self.DDDRVRP, self.DDDRAtrialAmplitude, self.DDDRAtrialPulseWidth, self.DDDRARP, self.DDDRFixedAV, self.DDDRDynamicAV, self.DDDRSensedAV, self.DDDRATRFallbackMode, self.DDDRATRDuration, self.DDDRATRFallbackTime,self.DDDRMaxSensorRate, self.DDDRReactionTime, self.DDDRRecoveryTime, self.DDDRResponseFactor)
-            self.db.updateUser(self.currentUser)#Updates the user’s chosen parameters to the database
-            MyGUI.successfulSubmitted(self,self.nextConfigDDDR2Window)
         
     def deleteUser(self):
 
