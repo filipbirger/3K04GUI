@@ -16,8 +16,6 @@ class Egram:
        
         self.startTime = time.time()
 
-
-
    
     def update_plot(self, frame):
         current_time = (time.time() - self.startTime) * 1500
